@@ -123,3 +123,5 @@ export interface ResumeSection {
     socialLinks?: SocialLink[];
   };
 }
+
+

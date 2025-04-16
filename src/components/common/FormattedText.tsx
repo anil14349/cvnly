@@ -1,5 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import type { FontOptions } from '../../types/common';
+import { getFontSizeClass } from '../../utils/fontUtils';
 
 interface FormattedTextProps {
     text: string;
@@ -105,7 +106,7 @@ const FormattedText: React.FC<FormattedTextProps> = ({
         }
 
         // Replace markdown-style formatting with HTML
-        let formatted = text
+        const formatted = text
             .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
             .replace(/\*((?!\*)[^*]+)\*/g, '<em>$1</em>');
 
@@ -113,7 +114,6 @@ const FormattedText: React.FC<FormattedTextProps> = ({
     };
 
     const textStyle = {
-        fontSize: fontOptions.bodySize,
         fontWeight: fontOptions.bodyWeight,
         color: fontOptions.bodyColor,
         fontFamily: fontOptions.bodyFont,
@@ -126,7 +126,7 @@ const FormattedText: React.FC<FormattedTextProps> = ({
     return (
         <div
             ref={contentRef}
-            className={`outline-none ${className}`}
+            className={`outline-none ${getFontSizeClass(fontOptions.bodySize)} ${className}`}
             contentEditable={isEditing}
             suppressContentEditableWarning={isEditing}
             onKeyDown={handleKeyDown}

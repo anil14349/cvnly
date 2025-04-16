@@ -1,12 +1,15 @@
 import React from 'react';
-import { Plus } from 'lucide-react';
-import SkillCategory from './SkillCategory';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import SectionControls from '../../common/SectionControls';
+import AddSkillCategoryButton from './AddSkillCategoryButton';
 import type { SkillsSectionProps, Skill } from '../../../types/skill';
+import { DEFAULT_SKILLS_TITLE, SKILL_CATEGORY_CLASS } from './constants';
 import { v4 as uuidv4 } from 'uuid';
+import SkillCategory from './SkillCategory';
 
-const SkillsSection: React.FC<SkillsSectionProps> = ({
+
+
+export const SkillsSection: React.FC<SkillsSectionProps> = ({
   index,
   moveSection,
   deleteSection,
@@ -14,7 +17,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
   fontOptions,
   skills,
   setSkills,
-  title = "Skills & Certifications",
+  title = DEFAULT_SKILLS_TITLE,
   onTitleChange
 }) => {
   const handleUpdateSkill = (id: string, updates: Partial<Skill>) => {
@@ -36,16 +39,13 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
     const newCategory: Skill = {
       id: uuidv4(),
       category: 'New Category',
-      items: []
+      items: ["New Skill 1", "New Skill 2", "New Skill 3"]
     };
     setSkills([...skills, newCategory]);
   };
 
   return (
-    <section
-      className="relative group"
-      aria-labelledby={`skills-section-${index}`}
-    >
+    <section className="relative group" aria-labelledby={`skills-section-${index}`}>
       <SectionHeaderLine
         title={title}
         fontOptions={fontOptions}
@@ -60,7 +60,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
         }
       />
 
-      <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className={SKILL_CATEGORY_CLASS}>
         {skills.map((skillCategory) => (
           <SkillCategory
             key={skillCategory.id}
@@ -71,18 +71,7 @@ const SkillsSection: React.FC<SkillsSectionProps> = ({
           />
         ))}
 
-        <button
-          onClick={addSkillCategory}
-          className="flex items-center justify-center h-full min-h-[200px] border-2 border-dashed border-gray-300/50 dark:border-gray-500/25 rounded-lg hover:border-blue-500/50 dark:hover:border-blue-400/50 transition-colors group/add bg-white dark:bg-[#1e293b] print:hidden"
-          aria-label="Add skill category"
-        >
-          <div className="text-center">
-            <Plus className="w-6 h-6 mx-auto text-gray-400 group-hover/add:text-blue-500 dark:group-hover/add:text-blue-400 transition-colors" aria-hidden="true" />
-            <span className="mt-2 block text-sm font-medium text-gray-400 group-hover/add:text-blue-500 dark:group-hover/add:text-blue-400 transition-colors">
-              Add Category
-            </span>
-          </div>
-        </button>
+        <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
       </div>
     </section>
   );

@@ -1,18 +1,12 @@
 import React, { useState } from 'react';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
-import { FontOptions } from '../../../types/common';
-import { Plus } from 'lucide-react';
-
-interface SummarySectionProps {
-  index: number;
-  moveSection: (index: number, direction: 'up' | 'down') => void;
-  deleteSection: (index: number) => void;
-  sectionsLength: number;
-  fontOptions: FontOptions;
-  title?: string;
-  onTitleChange?: (newTitle: string) => void;
-}
+import { getFontClassNames, getFontInlineStyles } from '../../../utils/fontUtils';
+import { SummarySectionProps } from './types';
+import { DEFAULT_SUMMARY_TITLE, PLACEHOLDER_TEXT } from './constants';
+import AddSummaryButton from './AddSummaryButton';
+import SummaryEditor from './SummaryEditor';
+import SummaryDisplay from './SummaryDisplay';
 
 const SummarySection: React.FC<SummarySectionProps> = ({
   index,
@@ -20,31 +14,27 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   deleteSection,
   sectionsLength,
   fontOptions,
-  title = "Professional Summary",
-  onTitleChange
+  title = DEFAULT_SUMMARY_TITLE,
+  onTitleChange,
 }) => {
-  const [summary, setSummary] = useState<string>('');
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+  const [summary, setSummary] = useState('');
+  const [isEditing, setIsEditing] = useState(false);
 
-  const handleAddSummary = () => {
-    setIsEditing(true);
-  };
+  const baseTextClasses = getFontClassNames(fontOptions);
+  const lineStyle = getFontInlineStyles(fontOptions);
 
-  const handleSummaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setSummary(e.target.value);
-  };
-
-  const handleSummaryBlur = () => {
-    setIsEditing(false);
-  };
+  const handleEditToggle = () => setIsEditing(true);
+  const handleSummaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setSummary(e.target.value);
+  const handleBlur = () => setIsEditing(false);
 
   return (
-    <div
+    <section
       className="relative group"
       style={{
-        background: fontOptions.theme === 'dark'
-          ? fontOptions.widgetBgDark || '#181f2a'
-          : fontOptions.widgetBgLight || '#fff',
+        background:
+          fontOptions.theme === 'dark'
+            ? fontOptions.widgetBgDark || '#181f2a'
+            : fontOptions.widgetBgLight || '#fff',
       }}
     >
       <SectionHeaderLine
@@ -62,45 +52,29 @@ const SummarySection: React.FC<SummarySectionProps> = ({
       />
 
       {!summary && !isEditing ? (
-        <button
-          onClick={handleAddSummary}
-          className={`mt-4 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-          aria-label="Add summary"
-        >
-          <Plus className="w-3 h-3" aria-hidden="true" />
-          <span>Add Summary</span>
-        </button>
+        <AddSummaryButton onClick={handleEditToggle} fontOptions={fontOptions} />
       ) : (
         <div className="mt-4">
           {isEditing ? (
-            <textarea
+            <SummaryEditor
               value={summary}
               onChange={handleSummaryChange}
-              onBlur={handleSummaryBlur}
-              className={`w-full p-3 rounded-lg border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-              style={{
-                lineHeight: fontOptions.bodyLineHeight,
-                letterSpacing: fontOptions.bodyLetterSpacing,
-                minHeight: '120px'
-              }}
-              placeholder="Enter your professional summary here..."
-              autoFocus
+              onBlur={handleBlur}
+              fontOptions={fontOptions}
+              style={lineStyle}
             />
           ) : (
-            <div
-              className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-              style={{
-                lineHeight: fontOptions.bodyLineHeight,
-                letterSpacing: fontOptions.bodyLetterSpacing
-              }}
-              onClick={() => setIsEditing(true)}
-            >
-              {summary}
-            </div>
+            <SummaryDisplay
+              summary={summary}
+              fontClass={baseTextClasses}
+              style={lineStyle}
+              onClick={handleEditToggle}
+              placeholder={PLACEHOLDER_TEXT}
+            />
           )}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

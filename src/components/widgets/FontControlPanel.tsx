@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FontOptions, IconType } from '../../types/common';
+import { FontOptions } from '../../types/common';
 import { ChevronDown, ChevronUp, Type, AlignLeft, Heading, Italic, Underline, Palette, Copy, Check } from 'lucide-react';
 import {
   FONT_SIZES,

@@ -158,3 +158,103 @@ export const getFontWeightValue = (fontWeight: string): number => {
   
   return weightMap[fontWeight] || 400; // default to normal (400) if not found
 }; 
+
+
+export const getFontClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.bodySize,
+    fontOptions.bodyWeight,
+    fontOptions.bodyColor,
+    `font-body-${fontOptions.bodyFont.toLowerCase()}`,
+    fontOptions.bodyItalic ? 'italic' : '',
+    fontOptions.bodyUnderline ? 'underline' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
+
+export const getHeadingClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.headerSize,
+    fontOptions.headerWeight,
+    fontOptions.headerColor,
+    `font-header-${fontOptions.headerFont.toLowerCase()}`,
+    fontOptions.headerItalic ? 'italic' : '',
+    fontOptions.headerUnderline ? 'underline' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
+
+export const getSubheadingClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.subheaderSize,
+    fontOptions.subheaderWeight,
+    fontOptions.subheaderColor,
+    
+    `font-subheader-${fontOptions.subheaderFont.toLowerCase()}`,
+    fontOptions.subheaderItalic ? 'italic' : '',
+    fontOptions.subheaderUnderline ? 'underline' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
+
+export const getSectionHeaderClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.sectionHeaderSize,
+    fontOptions.sectionHeaderWeight,
+    fontOptions.sectionHeaderColor,
+    `font-sectionheader-${fontOptions.sectionHeaderFont.toLowerCase()}`,
+    fontOptions.sectionHeaderItalic ? 'italic' : '',
+    fontOptions.sectionHeaderUnderline ? 'underline' : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+};  
+
+export const getCategoryClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.categorySize,
+    fontOptions.categoryWeight,
+    fontOptions.categoryColor
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
+
+export const getLineClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.lineColor
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
+
+export const getThemeClassNames = (fontOptions: FontOptions): string => {
+  return [
+    fontOptions.theme
+  ]
+    .filter(Boolean)
+    .join(' ');
+};
+
+export const getHeaderFontLineStyles = (fontOptions: FontOptions): React.CSSProperties => ({
+  lineHeight: fontOptions.headerLineHeight,
+  letterSpacing: fontOptions.headerLetterSpacing,
+});
+
+export const getSubheaderFontLineStyles = (fontOptions: FontOptions): React.CSSProperties => ({
+  lineHeight: fontOptions.subheaderLineHeight,
+  letterSpacing: fontOptions.subheaderLetterSpacing,
+});
+
+export const getSectionHeaderFontLineStyles = (fontOptions: FontOptions): React.CSSProperties => ({
+  lineHeight: fontOptions.sectionHeaderLineHeight,
+  letterSpacing: fontOptions.sectionHeaderLetterSpacing,
+});
+
+export const getFontInlineStyles = (fontOptions: FontOptions) => ({
+  lineHeight: fontOptions.bodyLineHeight,
+  letterSpacing: fontOptions.bodyLetterSpacing,
+});

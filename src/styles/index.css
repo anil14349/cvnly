@@ -1,0 +1,215 @@
+/* Import Base Styles */
+@import './base.css';
+
+/* Import Theme Variables */
+@import './themes/theme.css';
+
+/* Import Fonts */
+@import './fonts.css';
+
+/* Import Layout */
+@import './layout.css';
+
+/* Import Template Styles */
+@import './templates.css';
+
+/* Import Print Styles */
+@import './print.css';
+
+/* Import Component Styles */
+@import './components/header.css';
+@import './components/skills.css';
+@import './components/experience.css';
+@import './components/education.css';
+@import './components/projects.css';
+
+/* Root Variables */
+:root {
+  /* Font Families */
+  --font-inter: 'Inter', sans-serif;
+  --font-roboto: 'Roboto', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+  --font-lato: 'Lato', sans-serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-opensans: 'Open Sans', sans-serif;
+  --font-sourcesanspro: 'Source Sans Pro', sans-serif;
+  --font-raleway: 'Raleway', sans-serif;
+  --font-nunito: 'Nunito', sans-serif;
+  --font-merriweather: 'Merriweather', serif;
+  --font-playfair: 'Playfair Display', serif;
+
+  /* Font Sizes */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  /* Line Heights */
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Letter Spacing */
+  --tracking-tighter: -0.05em;
+  --tracking-tight: -0.025em;
+  --tracking-normal: 0;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+}
+
+/* Template Styles */
+.template-minimal {
+  --section-spacing: 1.5rem;
+  --header-font: 'Inter', sans-serif;
+  --body-font: 'Inter', sans-serif;
+}
+
+.template-minimal .resume-header {
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.template-minimal .resume-header h1 {
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.5rem;
+}
+
+.template-minimal .resume-header h2 {
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.template-minimal .social-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.template-minimal .section-header {
+  border-bottom: 2px solid var(--line-color);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.template-classic {
+  --section-spacing: 2rem;
+  --header-font: 'Georgia', serif;
+  --body-font: 'Georgia', serif;
+}
+
+.template-classic .resume-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  border-bottom: 2px solid var(--line-color);
+  padding-bottom: 1.5rem;
+}
+
+.template-classic .section-header {
+  border-bottom: 1px solid var(--line-color);
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  font-family: var(--header-font);
+}
+
+.template-modern {
+  --section-spacing: 2.5rem;
+  --header-font: 'Poppins', sans-serif;
+  --body-font: 'Montserrat', sans-serif;
+}
+
+.template-modern .resume-header {
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+}
+
+.template-modern .resume-header:after {
+  content: '';
+  position: absolute;
+  bottom: -1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 3px;
+  background-color: var(--line-color);
+}
+
+.template-modern .section-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  font-family: var(--header-font);
+}
+
+.template-modern .section-header:before,
+.template-modern .section-header:after {
+  content: '';
+  height: 2px;
+  background-color: var(--line-color);
+}
+
+.template-modern .section-header:before {
+  width: 24px;
+  margin-right: 1rem;
+}
+
+.template-modern .section-header:after {
+  flex-grow: 1;
+  margin-left: 1rem;
+}
+
+/* Common template styles */
+[class^="template-"] {
+  margin-bottom: var(--section-spacing);
+}
+
+[class^="template-"] .resume-header h1 {
+  font-family: var(--header-font);
+}
+
+[class^="template-"] .resume-header h2 {
+  font-family: var(--header-font);
+}
+
+[class^="template-"] .section-content {
+  font-family: var(--body-font);
+}
+
+/* Template-specific section spacing */
+[class^="template-"] section {
+  margin-bottom: var(--section-spacing);
+}
+
+/* Dark mode adjustments */
+.dark [class^="template-"] {
+  --line-color: var(--accent-color);
+}
+
+/* Print styles */
+@media print {
+  [class^="template-"] {
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+}
+
+/* Remove old section-header-line styles */
+.section-header-line {
+  display: none;
+} 

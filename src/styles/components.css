@@ -1,0 +1,22 @@
+.section-header {
+  position: relative;
+  width: 100%;
+  margin-bottom: 0.75rem;
+}
+
+.section-header-line {
+  position: relative;
+  width: var(--line-width, 100%);
+  margin-top: 0.1rem;
+}
+
+.section-header-line::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--line-color, currentColor);
+  transition: all 0.3s ease;
+} 

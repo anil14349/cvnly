@@ -15,12 +15,13 @@ const port = process.env.PORT || 3000;
 
 // Enable CORS for all routes with specific origin
 app.use(cors({
-  origin: ['http://localhost:5173', 'http://localhost:5174'],
-  methods: ['GET', 'POST'],
+  origin: '*', // Allow all origins for development
+  methods: ['GET', 'POST', 'OPTIONS'],
   credentials: true
 }));
 
-app.use(express.json({ limit: '50mb' }));
+app.use(express.json({ limit: '100mb' }));
+app.use(express.urlencoded({ extended: true, limit: '100mb' }));
 app.use(express.static(join(__dirname, '../dist')));
 
 // PDF generation endpoint
@@ -50,7 +51,7 @@ app.post('/api/generate-pdf', async (req, res) => {
           body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Inter', sans-serif;
           }
           
           /* Ensure social links display correctly in a single line */
@@ -148,13 +149,14 @@ app.post('/api/generate-pdf', async (req, res) => {
       timeout: 60000
     });
     
-    console.log('PDF generated successfully');
+    console.log(`PDF generated successfully (${pdfBuffer.length} bytes)`);
     
     // Set response headers and send PDF
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', 'attachment; filename=resume.pdf');
     res.setHeader('Content-Length', pdfBuffer.length);
     res.send(pdfBuffer);
+    console.log('PDF sent to client');
     
   } catch (error) {
     console.error('Error generating PDF:', error);

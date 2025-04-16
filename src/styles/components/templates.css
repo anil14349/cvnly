@@ -1,0 +1,118 @@
+/* Template Styles */
+
+/* Minimal Template */
+.template-minimal {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.template-minimal h1,
+.template-minimal h2,
+.template-minimal h3 {
+  font-weight: 600;
+}
+
+.template-minimal .section-divider {
+  height: 2px;
+  width: var(--line-width, 60px);
+}
+
+.template-minimal input,
+.template-minimal textarea {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.template-minimal .education-item {
+  border-radius: 4px;
+}
+
+/* Classic Template */
+.template-classic {
+  font-family: Georgia, serif;
+}
+
+.template-classic h1,
+.template-classic h2,
+.template-classic h3 {
+  font-weight: 700;
+  font-family: Georgia, serif;
+}
+
+.template-classic .section-divider {
+  height: 1px;
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  width: var(--line-width, 60px);
+}
+
+.template-classic input,
+.template-classic textarea {
+  font-family: Georgia, serif;
+}
+
+.template-classic .education-item {
+  padding-left: 1.5rem;
+  border-radius: 0;
+  border-left: 2px solid transparent;
+  transition: border-left-color 0.2s ease;
+}
+
+/* Modern Template */
+.template-modern {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.template-modern h1 {
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.template-modern h2 {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-size: 0.9em;
+}
+
+.template-modern h3 {
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.template-modern .section-divider {
+  height: 4px;
+  width: var(--line-width, 40px);
+  border-radius: 2px;
+}
+
+.template-modern input,
+.template-modern textarea {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.template-modern .education-item {
+  border-radius: 6px;
+}
+
+/* Shared template styles for dark mode */
+.dark .template-minimal .section-divider,
+.dark .template-classic .section-divider,
+.dark .template-modern .section-divider {
+  background-color: var(--line-color, #4299e1);
+}
+
+/* Print optimizations for templates */
+@media print {
+  .template-minimal,
+  .template-classic,
+  .template-modern {
+    font-size: 11pt;
+  }
+  
+  .template-minimal .section-divider,
+  .template-classic .section-divider,
+  .template-modern .section-divider {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+} 

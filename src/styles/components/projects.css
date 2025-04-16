@@ -1,0 +1,124 @@
+/* Projects Section Styles */
+.section-header-projects {
+  color: var(--text-primary, #2d3748);
+  position: relative;
+}
+
+.section-header-projects.section-header-line::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: var(--line-width, 100%);
+  background-color: var(--line-color, #000000);
+}
+
+/* Template-specific styles */
+.template-minimal .section-header-projects.section-header-line::after {
+  height: 2px;
+}
+
+.template-classic .section-header-projects.section-header-line::after {
+  height: 1px;
+}
+
+.template-modern .section-header-projects.section-header-line::after {
+  height: 3px;
+  border-radius: 1.5px;
+}
+
+/* Project Item Styles */
+.project-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+  margin-bottom: 1.5rem;
+}
+
+.project-item:last-child {
+  border-bottom: none;
+}
+
+/* Technology Tags Styles */
+.tech-item {
+  background-color: #f3f4f6 !important;
+  color: #374151 !important;
+  border: 1px solid #e5e7eb !important;
+  transition: all 0.2s ease;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-family: inherit !important;
+}
+
+.tech-item:hover {
+  background-color: #e5e7eb !important;
+  transform: translateY(-1px);
+}
+
+/* Dark Theme Specific */
+.dark .tech-item {
+  background-color: #374151 !important;
+  color: #f3f4f6 !important;
+  border: 1px solid #4b5563 !important;
+}
+
+.dark .tech-item:hover {
+  background-color: #4b5563 !important;
+}
+
+/* Blue Theme Specific */
+.blue .tech-item {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #bfdbfe !important;
+}
+
+.blue .tech-item:hover {
+  background-color: #bfdbfe !important;
+}
+
+/* Add buttons */
+.add-responsibility-button,
+.add-technology-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.add-responsibility-button:hover,
+.add-technology-button:hover {
+  opacity: 0.8;
+}
+
+.add-technology-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  border: 1px dashed #e5e7eb;
+  background-color: transparent;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  font-family: inherit !important;
+}
+
+.dark .add-technology-button {
+  border-color: #4b5563;
+  color: #9ca3af;
+}
+
+.add-technology-button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.dark .add-technology-button:hover {
+  background-color: #374151;
+  border-color: #6b7280;
+} 

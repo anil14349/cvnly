@@ -1,2 +1,0 @@
-# cvnly
-Standard CV template 

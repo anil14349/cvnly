@@ -1,0 +1,143 @@
+/* Education Section Styles */
+.education-section {
+  color: var(--text-primary, #2d3748);
+}
+
+.section-header-education {
+  color: var(--text-primary, #2d3748);
+  position: relative;
+}
+
+/* Section divider styling */
+.education-section .section-divider {
+  background-color: var(--line-color, #4299e1);
+  transition: all 0.3s ease;
+}
+
+/* Education Item Styles */
+.education-item {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.education-item:hover {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+.dark .education-item:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* Template-specific styles */
+.template-classic .education-item {
+  border-left: 2px solid transparent;
+}
+
+.template-classic .education-item:hover {
+  border-left-color: var(--line-color, #4299e1);
+}
+
+.template-modern .education-item input {
+  letter-spacing: 0.02em;
+}
+
+.template-modern .education-section .section-divider {
+  height: 3px;
+}
+
+.template-minimal .education-item input,
+.template-minimal .education-item textarea {
+  letter-spacing: 0;
+}
+
+/* Education Details Styles */
+.education-details {
+  margin-top: 0.75rem;
+}
+
+.education-detail-item {
+  position: relative;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
+
+.education-detail-item textarea {
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Bullet point styles for different templates */
+.template-classic .education-detail-item div:first-child {
+  background-color: var(--text-primary);
+}
+
+.template-modern .education-detail-item div:first-child {
+  background-color: var(--line-color);
+  width: 4px;
+  height: 4px;
+  top: 8px;
+}
+
+.template-minimal .education-detail-item div:first-child {
+  width: 3px;
+  height: 3px;
+  border-radius: 0;
+  top: 8px;
+}
+
+/* Dark theme adjustments */
+.dark .education-detail-item div:first-child {
+  background-color: var(--text-secondary);
+}
+
+/* Blue theme adjustments */
+.blue .education-item:hover {
+  background-color: rgba(66, 153, 225, 0.03);
+}
+
+/* Print styles */
+@media print {
+  .education-section {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .education-item {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+  
+  .education-details {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+}
+
+/* Education Header Styles */
+.education-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .education-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Add button */
+.add-detail-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.add-detail-button:hover {
+  opacity: 0.8;
+} 

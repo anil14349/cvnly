@@ -1,0 +1,132 @@
+/* Skills Section Styles */
+.section-header-skills {
+  color: var(--text-primary);
+  position: relative;
+}
+
+.section-header-skills.section-header-line::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: var(--line-width, 100%);
+  background-color: var(--line-color, #000000);
+}
+
+/* Template-specific styles */
+.template-minimal .section-header-skills.section-header-line::after {
+  height: 2px;
+}
+
+.template-classic .section-header-skills.section-header-line::after {
+  height: 1px;
+}
+
+.template-modern .section-header-skills.section-header-line::after {
+  height: 3px;
+  border-radius: 1.5px;
+}
+
+/* Skill Category Styles */
+.skill-category {
+  margin-bottom: 1rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+/* Skill Item Styles */
+.skill-item {
+  color: #1a202c !important;
+  transition: all 0.2s ease;
+  line-height: 1.25rem;
+  font-family: inherit !important;
+}
+
+.skill-category-title {
+  font-family: var(--header-font, inherit);
+  margin-bottom: 0.75rem;
+  color: var(--text-primary, #1a202c);
+}
+
+.skill-item:hover {
+  background-color: #e5e7eb !important;
+  transform: translateY(-1px);
+}
+
+/* Dark Theme Specific */
+.dark .skill-item {
+  color: #f3f4f6 !important;
+}
+
+.dark .skill-item:hover {
+  background-color: #4b5563 !important;
+}
+
+/* Blue Theme Specific */
+.blue .skill-item {
+  background-color: #dbeafe !important;
+  color: #1e40af !important;
+  border: 1px solid #bfdbfe !important;
+}
+
+.blue .skill-item:hover {
+  background-color: #bfdbfe !important;
+}
+
+/* Add skill button */
+.add-skill-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.375rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px dashed #e5e7eb;
+  background-color: transparent;
+  color: #6b7280;
+  transition: all 0.2s ease;
+  font-family: inherit !important;
+}
+
+.dark .add-skill-button {
+  border-color: #4b5563;
+  color: #9ca3af;
+}
+
+.add-skill-button:hover {
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
+}
+
+.dark .add-skill-button:hover {
+  background-color: #374151;
+  border-color: #6b7280;
+}
+
+/* Card Theme */
+.skills-theme-card .skill-category {
+  background-color: white;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  transition: all 0.2s ease;
+}
+
+.dark .skills-theme-card .skill-category {
+  background-color: #1f2937;
+}
+
+.skills-theme-card .skill-category:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Animation for all themes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+} 

@@ -5,13 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "server": "node src/server.js",
-    "start": "concurrently \"npm run dev\" \"npm run server\"",
-    "build": "vite build",
+    "pdf-server": "node src/server.js",
+    "start": "concurrently \"npm run dev\" \"npm run pdf-server\"",
+    "build": "tsc && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hello-pangea/dnd": "^18.0.1",
+    "@types/uuid": "^10.0.0",
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "html2canvas": "^1.4.1",
@@ -22,7 +24,8 @@
     "puppeteer-core": "^24.6.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-to-pdf": "^2.0.0"
+    "react-to-pdf": "^2.0.0",
+    "uuid": "^11.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.1",

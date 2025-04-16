@@ -1,0 +1,53 @@
+/* Experience Section Styles */
+.section-header-experience {
+  color: var(--text-primary, #2d3748);
+}
+
+/* Experience Item Styles */
+.experience-item {
+  position: relative;
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.experience-item:not(:last-child) {
+  border-bottom: 1px solid var(--border-color, #e2e8f0);
+}
+
+/* Experience Header Styles */
+.experience-header {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.75rem;
+}
+
+@media (min-width: 640px) {
+  .experience-header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Achievement List Styles */
+.achievement-list {
+  list-style-type: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+}
+
+.achievement-item {
+  margin-bottom: 0.25rem;
+}
+
+/* Add button */
+.add-achievement-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  transition: all 0.2s ease;
+}
+
+.add-achievement-button:hover {
+  opacity: 0.8;
+} 

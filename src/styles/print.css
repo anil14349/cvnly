@@ -1,0 +1,363 @@
+/* Print Styles */
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+
+  body {
+    margin: 0;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide UI elements */
+  button,
+  .controls,
+  .edit-controls,
+  .add-button {
+    display: none !important;
+  }
+
+  /* Resume container */
+  .resume-container {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: white;
+  }
+
+  /* Resume page */
+  .resume-page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 0.5in;
+    margin: 0;
+    page-break-after: always;
+    background: white;
+    position: relative;
+    box-shadow: none;
+  }
+
+  /* Last page should not force a break */
+  .resume-page:last-child {
+    page-break-after: auto;
+  }
+
+  /* Section breaks */
+  .section {
+    break-inside: avoid;
+  }
+
+  /* Headers */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+  }
+
+  /* Lists */
+  ul, ol {
+    break-inside: avoid;
+  }
+
+  li {
+    break-inside: avoid;
+  }
+
+  /* Tables */
+  table, tr, td {
+    break-inside: avoid;
+  }
+
+  /* Font variables */
+  :root {
+    --font-family: var(--font-family);
+    --font-size: var(--font-size);
+    --font-weight: var(--font-weight);
+    --line-height: var(--line-height);
+    --letter-spacing: var(--letter-spacing);
+    --color: var(--color);
+  }
+
+  /* Hide preview elements */
+  .page-break-indicator {
+    display: none;
+  }
+
+  /* Ensure proper color printing */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Hide scrollbars */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Force background colors and images to print */
+  * {
+    color-adjust: exact !important;
+    forced-color-adjust: none !important;
+  }
+
+  /* Page settings */
+  @page {
+    margin: 0.5in;
+    size: letter portrait;
+  }
+
+  /* Basic print resets */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+    color-adjust: exact !important;
+  }
+
+  /* Remove all animations and transitions */
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+    transform: none !important;
+  }
+
+  /* Hide all UI controls */
+  .add-button,
+  .section-controls,
+  .control-button,
+  .delete-button,
+  .edit-button,
+  [class*="add-"],
+  [class*="-controls"],
+  [class*="control-container"] {
+    display: none !important;
+  }
+
+  /* Content layout */
+  .resume-container {
+    width: 100%;
+    height: 100%;
+  }
+
+  .resume-page {
+    min-height: 100vh;
+    padding: 0.5in;
+    border: none;
+  }
+
+  .page-break-indicator {
+    display: none;
+  }
+
+  /* Prevent unwanted breaks */
+  h1, h2, h3, h4, h5, h6 {
+    break-after: avoid;
+  }
+
+  /* Keep related content together */
+  .section {
+    break-inside: avoid;
+  }
+
+  /* Hide UI elements */
+  button,
+  .controls,
+  .edit-buttons {
+    display: none !important;
+  }
+
+  /* Apply font styles */
+  .resume-header {
+    font: var(--header-style) !important;
+  }
+
+  .resume-subheader {
+    font: var(--subheader-style) !important;
+  }
+
+  .section-header {
+    font: var(--section-header-style) !important;
+  }
+
+  /* Section spacing */
+  .section-container {
+    margin-bottom: 1.5rem !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+  }
+
+  /* Section headers */
+  .section-header-line {
+    margin-bottom: 1rem !important;
+    padding-bottom: 0.5rem !important;
+    border-bottom: 2px solid var(--line-color) !important;
+  }
+
+  /* Skills section */
+  .skill-category {
+    break-inside: avoid !important;
+    page-break-inside: avoid !important;
+    margin-bottom: 1rem !important;
+    padding: 1rem !important;
+    background-color: var(--bg-secondary) !important;
+    border-radius: 0.5rem !important;
+  }
+
+  .skill-item {
+    display: inline-flex !important;
+    align-items: center !important;
+    padding: 0.375rem 0.75rem !important;
+    margin: 0.25rem !important;
+    border-radius: 9999px !important;
+    background-color: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+  }
+
+  /* Typography for print */
+  .text-xs { font-size: var(--text-xs) !important; }
+  .text-sm { font-size: var(--text-sm) !important; }
+  .text-base { font-size: var(--text-base) !important; }
+  .text-lg { font-size: var(--text-lg) !important; }
+  .text-xl { font-size: var(--text-xl) !important; }
+  .text-2xl { font-size: var(--text-2xl) !important; }
+  .text-3xl { font-size: var(--text-3xl) !important; }
+  .text-4xl { font-size: var(--text-4xl) !important; }
+
+  /* Line heights */
+  .leading-none { line-height: var(--leading-none) !important; }
+  .leading-tight { line-height: var(--leading-tight) !important; }
+  .leading-snug { line-height: var(--leading-snug) !important; }
+  .leading-normal { line-height: var(--leading-normal) !important; }
+  .leading-relaxed { line-height: var(--leading-relaxed) !important; }
+  .leading-loose { line-height: var(--leading-loose) !important; }
+
+  /* Letter spacing */
+  .tracking-tighter { letter-spacing: var(--tracking-tighter) !important; }
+  .tracking-tight { letter-spacing: var(--tracking-tight) !important; }
+  .tracking-normal { letter-spacing: var(--tracking-normal) !important; }
+  .tracking-wide { letter-spacing: var(--tracking-wide) !important; }
+  .tracking-wider { letter-spacing: var(--tracking-wider) !important; }
+  .tracking-widest { letter-spacing: var(--tracking-widest) !important; }
+
+  /* Hide elements */
+  .print-hidden,
+  .line-break {
+    display: none !important;
+  }
+}
+
+/* Print-specific styles */
+@media screen {
+  .resume-container {
+    /* A4 dimensions in pixels (assuming 96 DPI) */
+    --a4-width: 794px;  /* 210mm */
+    --a4-height: 1123px; /* 297mm */
+    
+    /* Page margins */
+    --page-margin: 48px;
+    
+    /* Content area dimensions */
+    --content-width: calc(var(--a4-width) - (var(--page-margin) * 2));
+    --content-height: calc(var(--a4-height) - (var(--page-margin) * 2));
+    
+    /* Page visualization */
+    max-width: var(--a4-width);
+    margin: 0 auto;
+    background: white;
+  }
+
+  .resume-page {
+    min-height: var(--a4-height);
+    max-height: var(--a4-height);
+    padding: var(--page-margin);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background: white;
+  }
+
+  .resume-page:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.25rem 1rem;
+    background: #f3f4f6;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    color: #6b7280;
+    white-space: nowrap;
+  }
+
+  /* Page break indicator */
+  .page-break-indicator {
+    width: 100%;
+    border-bottom: 2px dashed #e5e7eb;
+    margin: 1rem 0;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .page-break-indicator::after {
+    content: 'Page Break';
+    background: #f3f4f6;
+    padding: 0.25rem 1rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    color: #6b7280;
+    position: relative;
+    top: -0.75rem;
+  }
+}
+
+/* Ensure content is properly styled in print */
+@page {
+  size: A4;
+  margin: 0;
+}
+
+/* Font styles for print */
+@media print {
+  body {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  * {
+    color-adjust: exact !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+}
+
+/* Preview mode styles */
+.resume-container {
+  background: white;
+  position: relative;
+}
+
+.resume-page {
+  width: 210mm;
+  min-height: 297mm;
+  padding: 0.5in;
+  margin: 0 auto;
+  background: white;
+  position: relative;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.page-break-indicator {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 0.25in 0;
+} 

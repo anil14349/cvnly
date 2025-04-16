@@ -1,0 +1,160 @@
+import { FontOptions } from '../types/common';
+
+// Font Families
+export const FONT_FAMILIES = [
+  'Inter',
+  'Roboto',
+  'Open Sans',
+  'Lato',
+  'Montserrat',
+  'Poppins',
+  'Source Sans Pro',
+  'Raleway',
+  'Ubuntu',
+  'Playfair Display'
+] as const;
+
+// Font Sizes
+export const FONT_SIZES = ['text-xs', 'text-sm', 'text-base', 'text-lg', 'text-xl', 'text-2xl', 'text-3xl', 'text-4xl'] as const;
+
+// Font Weights
+export const FONT_WEIGHTS = ['font-normal', 'font-medium', 'font-semibold', 'font-bold'] as const;
+
+// Line Heights
+export const LINE_HEIGHTS = ['leading-tight', 'leading-normal', 'leading-relaxed'] as const;
+
+// Letter Spacing
+export const LETTER_SPACING = ['tracking-tight', 'tracking-normal', 'tracking-wide'] as const;
+
+// Colors
+export const COLORS = [
+  'text-gray-900', 'text-gray-800', 'text-gray-700', 'text-gray-600', 'text-gray-500',
+  'text-blue-600', 'text-blue-500', 'text-indigo-600', 'text-indigo-500',
+  'text-purple-600', 'text-purple-500'
+] as const;
+
+// Font Classes
+export const HEADER_FONTS = {
+  inter: 'font-header-inter',
+  montserrat: 'font-header-montserrat',
+  playfairdisplay: 'font-header-playfairdisplay',
+  lato: 'font-header-lato',
+  opensans: 'font-header-opensans',
+  poppins: 'font-header-poppins',
+  roboto: 'font-header-roboto',
+  raleway: 'font-header-raleway',
+  ubuntu: 'font-header-ubuntu',
+  sourcesanspro: 'font-header-sourcesanspro'
+} as const;
+
+export const BODY_FONTS = {
+  inter: 'font-body-inter',
+  sourcesanspro: 'font-body-sourcesanspro',
+  opensans: 'font-body-opensans',
+  lato: 'font-body-lato',
+  montserrat: 'font-body-montserrat',
+  roboto: 'font-body-roboto',
+  raleway: 'font-body-raleway',
+  ubuntu: 'font-body-ubuntu'
+} as const;
+
+// Utility Functions
+export const getFontClasses = (type: 'header' | 'subheader' | 'sectionHeader' | 'body', options: FontOptions) => {
+  if (!options) return '';
+
+  const normalizeFontName = (font: string) => font.toLowerCase().replace(/\s+/g, '');
+
+  const classMap = {
+    header: {
+      font: `font-header-${normalizeFontName(options.headerFont)}`,
+      size: options.headerSize,
+      weight: options.headerWeight,
+      lineHeight: options.headerLineHeight,
+      letterSpacing: options.headerLetterSpacing,
+      color: options.headerColor
+    },
+    subheader: {
+      font: `font-header-${normalizeFontName(options.subheaderFont)}`,
+      size: options.subheaderSize,
+      weight: options.subheaderWeight,
+      lineHeight: options.subheaderLineHeight,
+      letterSpacing: options.subheaderLetterSpacing,
+      color: options.subheaderColor
+    },
+    sectionHeader: {
+      font: `font-header-${normalizeFontName(options.sectionHeaderFont)}`,
+      size: options.sectionHeaderSize,
+      weight: options.sectionHeaderWeight,
+      lineHeight: options.sectionHeaderLineHeight,
+      letterSpacing: options.sectionHeaderLetterSpacing,
+      color: options.sectionHeaderColor
+    },
+    body: {
+      font: `font-body-${normalizeFontName(options.bodyFont)}`,
+      size: options.bodySize,
+      weight: options.bodyWeight,
+      lineHeight: options.bodyLineHeight,
+      letterSpacing: options.bodyLetterSpacing,
+      color: options.bodyColor
+    }
+  };
+
+  const classes = classMap[type];
+  return Object.values(classes).filter(Boolean).join(' ');
+};
+
+export const applyFontClasses = (fontOptions: FontOptions): string => {
+  const classes = [
+    HEADER_FONTS[fontOptions.headerFont.toLowerCase().replace(/\s+/g, '') as keyof typeof HEADER_FONTS] || HEADER_FONTS.inter,
+    BODY_FONTS[fontOptions.bodyFont.toLowerCase().replace(/\s+/g, '') as keyof typeof BODY_FONTS] || BODY_FONTS.inter,
+    fontOptions.headerSize,
+    fontOptions.subheaderSize,
+    fontOptions.sectionHeaderSize,
+    fontOptions.bodySize,
+  ].filter(Boolean);
+
+  return classes.join(' ');
+};
+
+// Helper Functions
+export const getFontSizeClass = (size: string): string => {
+  const index = FONT_SIZES.indexOf(size as typeof FONT_SIZES[number]);
+  return index !== -1 ? FONT_SIZES[index] : FONT_SIZES[2];
+};
+
+export const getFontWeightClass = (weight: string): string => {
+  const index = FONT_WEIGHTS.indexOf(weight as typeof FONT_WEIGHTS[number]);
+  return index !== -1 ? FONT_WEIGHTS[index] : FONT_WEIGHTS[0];
+};
+
+export const getLineHeightClass = (height: string): string => {
+  const index = LINE_HEIGHTS.indexOf(height as typeof LINE_HEIGHTS[number]);
+  return index !== -1 ? LINE_HEIGHTS[index] : LINE_HEIGHTS[1];
+};
+
+export const getLetterSpacingClass = (spacing: string): string => {
+  const index = LETTER_SPACING.indexOf(spacing as typeof LETTER_SPACING[number]);
+  return index !== -1 ? LETTER_SPACING[index] : LETTER_SPACING[1];
+};
+
+export const getHeaderFontClass = (font: string): string => 
+  HEADER_FONTS[font.toLowerCase().replace(/\s+/g, '') as keyof typeof HEADER_FONTS] || HEADER_FONTS.inter;
+
+export const getBodyFontClass = (font: string): string => 
+  BODY_FONTS[font.toLowerCase().replace(/\s+/g, '') as keyof typeof BODY_FONTS] || BODY_FONTS.inter;
+
+export const getFontWeightValue = (fontWeight: string): number => {
+  const weightMap: Record<string, number> = {
+    'font-thin': 100,
+    'font-extralight': 200,
+    'font-light': 300,
+    'font-normal': 400,
+    'font-medium': 500,
+    'font-semibold': 600,
+    'font-bold': 700,
+    'font-extrabold': 800,
+    'font-black': 900
+  };
+  
+  return weightMap[fontWeight] || 400; // default to normal (400) if not found
+}; 

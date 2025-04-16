@@ -42,8 +42,8 @@ export const ADD_SKILL_LABEL_CLASS = 'mt-1 block text-sm opacity-60 group-hover/
 export const ADD_SKILL_BUTTON_CLASS = 'flex items-center justify-center h-full min-h-[100px] border border-dashed border-current/30 rounded hover:border-current/50 transition-colors group/add bg-transparent print:hidden';
 
 // Main Container Classes
-export const SKILL_CATEGORY_CLASS = 'mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6';
-export const SKILL_CATEGORY_HEADER_CLASS = 'skill-category relative group/category rounded bg-transparent';
+export const SKILL_CATEGORY_CLASS = 'mt-4 grid grid-cols-1 auto-rows-min gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-[repeat(auto-fit,minmax(300px,1fr))]';
+export const SKILL_CATEGORY_HEADER_CLASS = 'skill-category relative group/category rounded bg-transparent flex flex-col min-h-[120px]';
 
 export const ADD_SUMMARY_ICON_SIZE = 'w-3 h-3';
 export const FORMATTED_TEXT_CLASS = 'inline-block w-full';

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Plus } from 'lucide-react';
+import AddSectionButton from '../../common/AddSectionButton';
 import {
     ADD_SUMMARY_TEXT,
     ADD_SUMMARY_BUTTON_CLASS,
@@ -12,14 +12,13 @@ interface Props {
 }
 
 const AddSummaryButton: React.FC<Props> = ({ onClick }) => (
-    <button
+    <AddSectionButton
         onClick={onClick}
-        className={ADD_SUMMARY_BUTTON_CLASS}
-        aria-label={ADD_SUMMARY_TEXT}
-    >
-        <Plus className={ADD_SUMMARY_ICON_SIZE} aria-hidden="true" />
-        <span className={SUMMARY_TEXT_CLASS}>{ADD_SUMMARY_TEXT}</span>
-    </button>
+        text={ADD_SUMMARY_TEXT}
+        buttonClassName={ADD_SUMMARY_BUTTON_CLASS}
+        iconClassName={ADD_SUMMARY_ICON_SIZE}
+        textClassName={SUMMARY_TEXT_CLASS}
+    />
 );
 
 export default AddSummaryButton;

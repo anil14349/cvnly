@@ -2,8 +2,9 @@ import React from "react";
 import { EducationSectionProps } from "../../../types/education";
 import SectionControls from "../../common/SectionControls";
 import SectionHeaderLine from "../../common/SectionHeaderLine";
-import { Plus, X } from "lucide-react";
+import { X } from "lucide-react";
 import FormattedText from "../../common/FormattedText";
+import AddSectionButton from "../../common/AddSectionButton"; 
 import {
   EDUCATION_CONTAINER_CLASS,
   EDUCATION_LIST_CLASS,
@@ -29,6 +30,7 @@ import {
   DELETE_EDUCATION_ARIA_LABEL,
   DELETE_DETAIL_ARIA_LABEL,
   DETAIL_SUFFIX,
+  EDUCATION_TEXT_CLASS, 
 } from "./constants";
 
 const EducationSection: React.FC<EducationSectionProps> = ({
@@ -245,20 +247,13 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           </div>
         ))}
       </div>
-      <button
+      <AddSectionButton
         onClick={addEducation}
-        className={`${ADD_EDUCATION_BUTTON_CLASS} ${fontOptions.bodySize} ${
-          fontOptions.bodyWeight
-        } ${
-          fontOptions.bodyColor
-        } font-body-${fontOptions.bodyFont.toLowerCase()} ${
-          fontOptions.bodyItalic ? "italic" : ""
-        } ${fontOptions.bodyUnderline ? "underline" : ""}`}
-        aria-label={ADD_EDUCATION_TEXT}
-      >
-        <Plus className={ADD_ICON_SIZE} aria-hidden="true" />
-        <span>{ADD_EDUCATION_TEXT}</span>
-      </button>
+        text={ADD_EDUCATION_TEXT}
+        buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
+        iconClassName={ADD_ICON_SIZE}
+        textClassName={EDUCATION_TEXT_CLASS}
+      />
     </div>
   );
 };

@@ -1,10 +1,11 @@
 import React from 'react';
 import { Plus, X } from 'lucide-react';
+import AddSectionButton from '../../common/AddSectionButton';
 import { ExperienceSectionProps } from '../../../types/experience';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import FormattedText from '../../common/FormattedText';
-import { ADD_EXPERIENCE_BUTTON_CLASS, SECTION_BUTTON_TEXT_STYLE } from './constants';
+import { ADD_EXPERIENCE_BUTTON_CLASS, SECTION_BUTTON_TEXT_STYLE, ADD_EXPERIENCE_TEXT, ADD_EXPERIENCE_ICON_SIZE } from './constants';
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   experiences,
@@ -154,16 +155,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         ))}
       </div>
 
-      <button
+      <AddSectionButton
         onClick={addExperience}
-        className={ADD_EXPERIENCE_BUTTON_CLASS}
-        aria-label="Add experience"
-      >
-        <span className="text-lg leading-none mr-1">+</span>
-        <span className={SECTION_BUTTON_TEXT_STYLE}>Add Experience</span>
-      </button>
+        text={ADD_EXPERIENCE_TEXT}
+        buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
+        iconClassName={ADD_EXPERIENCE_ICON_SIZE}
+        textClassName={SECTION_BUTTON_TEXT_STYLE}
+      />
     </div>
   );
 };
 
-export default ExperienceSection; 
+export default ExperienceSection;

@@ -1,4 +1,8 @@
-import { SECTION_ADD_BUTTON_MAIN } from '../../common/constants';
+import { 
+  SECTION_BUTTON_TEXT_STYLE, 
+  SECTION_BUTTON_STYLES, 
+  SECTION_ADD_ICON_SIZE 
+} from '../../common/constants';
 
 export const CERTIFICATION_CONTAINER_CLASS = 'relative group';
 export const CERTIFICATION_ITEM_CLASS = 'relative group/certification';
@@ -6,8 +10,9 @@ export const DELETE_BUTTON_CLASS = 'absolute -right-2 -top-2 text-gray-400 hover
 export const CERTIFICATION_CONTENT_CLASS = 'flex flex-col sm:flex-row sm:items-center justify-between mb-2';
 export const CERTIFICATION_DATE_CLASS = 'text-gray-500 dark:text-gray-700 text-sm mt-1 sm:mt-0';
 export const CERTIFICATION_LINK_CLASS = 'text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 inline-flex items-center gap-1';
-export const ADD_CERTIFICATION_BUTTON_CLASS = SECTION_ADD_BUTTON_MAIN + ' mt-1';
-
+export const ADD_CERTIFICATION_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
+export const ADD_ICON_SIZE = SECTION_ADD_ICON_SIZE;
+export const CERTIFICATION_TEXT_CLASS = SECTION_BUTTON_TEXT_STYLE;
 // Text content
 export const DEFAULT_TITLE = 'Certifications';
 export const VIEW_CERTIFICATE_TEXT = 'View Certificate';
@@ -15,7 +20,6 @@ export const ADD_CERTIFICATION_TEXT = 'Add Certification';
 
 // Icon sizes
 export const DELETE_ICON_SIZE = 'w-4 h-4';
-export const ADD_ICON_SIZE = 'w-3 h-3';
 export const EXTERNAL_LINK_ICON_SIZE = 'w-4 h-4';
 
 // Layout classes

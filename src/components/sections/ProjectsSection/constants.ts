@@ -1,4 +1,4 @@
-import { SECTION_ADD_BUTTON_MAIN, SECTION_BUTTON_STYLES } from '../../common/constants';
+import { SECTION_BUTTON_STYLES } from '../../common/constants';
 
 // Layout classes
 export const PROJECTS_CONTAINER_CLASS = 'relative group';

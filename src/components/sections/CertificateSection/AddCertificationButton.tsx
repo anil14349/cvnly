@@ -1,21 +1,19 @@
 import React from 'react';
-import { FontOptions } from '../../../types/common';
-import { ADD_CERTIFICATION_BUTTON_STYLES, ADD_CERTIFICATION_TEXT } from './constants';
+import AddSectionButton from '../../common/AddSectionButton';
+import { ADD_CERTIFICATION_TEXT, ADD_CERTIFICATION_BUTTON_CLASS, ADD_ICON_SIZE, CERTIFICATION_TEXT_CLASS } from './constants';
 
 interface Props {
     onClick: () => void;
-    fontOptions: FontOptions;
 }
 
 const AddCertificationButton: React.FC<Props> = ({ onClick }) => (
-    <button
+    <AddSectionButton
         onClick={onClick}
-        className={ADD_CERTIFICATION_BUTTON_STYLES.button + ' mt-1'}
-        aria-label={ADD_CERTIFICATION_TEXT}
-    >
-        <span className="text-lg leading-none mr-1">+</span>
-        <span className={ADD_CERTIFICATION_BUTTON_STYLES.text}>{ADD_CERTIFICATION_TEXT}</span>
-    </button>
+        text={ADD_CERTIFICATION_TEXT}
+        buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
+        iconClassName={ADD_ICON_SIZE}
+        textClassName={CERTIFICATION_TEXT_CLASS}
+    />
 );
 
-export default AddCertificationButton; 
+export default AddCertificationButton;

@@ -12,7 +12,7 @@ interface Props {
 }
 
 const AddSummaryButton: React.FC<Props> = ({ onClick }) => (
-    <div className="mt-4">
+    <div className="mt-4 print:hidden">
         <AddSectionButton
             onClick={onClick}
             text={ADD_SUMMARY_TEXT}

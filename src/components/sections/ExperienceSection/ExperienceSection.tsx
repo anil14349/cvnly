@@ -154,7 +154,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           </div>
         ))}
       </div>
-      <div className="mt-4">
+      <div className="mt-4 print:hidden">
         <AddSectionButton
           onClick={addExperience}
           text={ADD_EXPERIENCE_TEXT}

@@ -265,7 +265,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           </div>
         ))}
       </div>
-      <div className="mt-4">
+      <div className="mt-4 print:hidden">
       <AddSectionButton
         onClick={addProject}
         text={ADD_PROJECT_TEXT}

@@ -1,3 +1,5 @@
+import { SECTION_ADD_BUTTON_MAIN, SECTION_BUTTON_STYLES } from '../../common/constants';
+
 // Layout classes
 export const PROJECTS_CONTAINER_CLASS = 'relative group';
 export const PROJECTS_LIST_CLASS = 'space-y-6';
@@ -19,7 +21,7 @@ export const DELETE_RESPONSIBILITY_BUTTON_CLASS = 'absolute -right-6 top-1/2 -tr
 export const DELETE_TECH_BUTTON_CLASS = 'absolute -right-1 -top-1 text-gray-400 hover:text-red-500 opacity-0 group-hover/tech:opacity-100 transition-opacity print:hidden';
 export const ADD_RESPONSIBILITY_BUTTON_CLASS = 'flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
 export const ADD_TECHNOLOGY_BUTTON_CLASS = 'flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
-export const ADD_PROJECT_BUTTON_CLASS = 'add-section-btn flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
+export const ADD_PROJECT_BUTTON_CLASS = SECTION_BUTTON_STYLES.button + ' mt-1';
 
 // Icon sizes
 export const DELETE_ICON_SIZE = 'w-3 h-3';

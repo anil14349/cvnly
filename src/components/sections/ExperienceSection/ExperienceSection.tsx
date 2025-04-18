@@ -4,7 +4,7 @@ import { ExperienceSectionProps } from '../../../types/experience';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import FormattedText from '../../common/FormattedText';
-import { ADD_EXPERIENCE_BUTTON_CLASS } from './constants';
+import { ADD_EXPERIENCE_BUTTON_CLASS, SECTION_BUTTON_TEXT_STYLE } from './constants';
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   experiences,
@@ -156,11 +156,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
       <button
         onClick={addExperience}
-        className={`mt-0 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
+        className={ADD_EXPERIENCE_BUTTON_CLASS}
         aria-label="Add experience"
       >
-        <Plus className="w-3 h-3" aria-hidden="true" />
-        <span>Add Experience</span>
+        <span className="text-lg leading-none mr-1">+</span>
+        <span className={SECTION_BUTTON_TEXT_STYLE}>Add Experience</span>
       </button>
     </div>
   );

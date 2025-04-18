@@ -1,5 +1,4 @@
 import React from 'react';
-import { Plus } from 'lucide-react';
 import { FontOptions } from '../../../types/common';
 import { ADD_CERTIFICATION_BUTTON_STYLES, ADD_CERTIFICATION_TEXT } from './constants';
 
@@ -11,10 +10,10 @@ interface Props {
 const AddCertificationButton: React.FC<Props> = ({ onClick }) => (
     <button
         onClick={onClick}
-        className={ADD_CERTIFICATION_BUTTON_STYLES.button}
+        className={ADD_CERTIFICATION_BUTTON_STYLES.button + ' mt-1'}
         aria-label={ADD_CERTIFICATION_TEXT}
     >
-        <Plus className={ADD_CERTIFICATION_BUTTON_STYLES.icon} aria-hidden="true" />
+        <span className="text-lg leading-none mr-1">+</span>
         <span className={ADD_CERTIFICATION_BUTTON_STYLES.text}>{ADD_CERTIFICATION_TEXT}</span>
     </button>
 );

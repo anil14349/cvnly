@@ -1,5 +1,6 @@
 import React from "react";
-import { X, Plus, ExternalLink } from "lucide-react";
+import { X, ExternalLink } from "lucide-react";
+import AddSectionButton from "../../common/AddSectionButton";
 import {
   CertificationSectionProps,
   Certification,
@@ -25,6 +26,7 @@ import {
   CERTIFICATION_ISSUER_CLASS,
   DEFAULT_BG_DARK,
   DEFAULT_BG_LIGHT,
+  CERTIFICATION_TEXT_CLASS,
 } from "./constants";
 
 const CertificationsSection: React.FC<CertificationSectionProps> = ({
@@ -149,17 +151,15 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
         ))}
       </div>
 
-      <button
-        onClick={addCertification}
-        className={`${ADD_CERTIFICATION_BUTTON_CLASS} ${fontOptions.bodySize} ${fontOptions.bodyWeight
-          } ${fontOptions.bodyColor
-          } font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
-          } ${fontOptions.bodyUnderline ? "underline" : ""}`}
-        aria-label={ADD_CERTIFICATION_TEXT}
-      >
-        <Plus className={ADD_ICON_SIZE} aria-hidden="true" />
-        <span>{ADD_CERTIFICATION_TEXT}</span>
-      </button>
+      <div className="mt-4">
+        <AddSectionButton
+          onClick={addCertification}
+          text={ADD_CERTIFICATION_TEXT}
+          buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
+          iconClassName={ADD_ICON_SIZE}
+          textClassName={CERTIFICATION_TEXT_CLASS}
+        />
+      </div>
     </div>
   );
 };

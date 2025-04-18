@@ -247,13 +247,15 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           </div>
         ))}
       </div>
-      <AddSectionButton
-        onClick={addEducation}
-        text={ADD_EDUCATION_TEXT}
-        buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
-        iconClassName={ADD_ICON_SIZE}
-        textClassName={EDUCATION_TEXT_CLASS}
-      />
+      <div className="mt-4">
+        <AddSectionButton
+          onClick={addEducation}
+          text={ADD_EDUCATION_TEXT}
+          buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
+          iconClassName={ADD_ICON_SIZE}
+          textClassName={EDUCATION_TEXT_CLASS}
+        />
+      </div>
     </div>
   );
 };

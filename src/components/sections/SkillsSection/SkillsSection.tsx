@@ -70,8 +70,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
             deleteSkill={handleDeleteSkill}
           />
         ))}
-
-        <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
+        <div className="mt-4">
+          <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
+        </div>
       </div>
     </section>
   );

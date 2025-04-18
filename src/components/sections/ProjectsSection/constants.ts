@@ -1,4 +1,4 @@
-import { SECTION_BUTTON_STYLES } from '../../common/constants';
+import { SECTION_BUTTON_STYLES, SECTION_BUTTON_TEXT_STYLE } from '../../common/constants';
 
 // Layout classes
 export const PROJECTS_CONTAINER_CLASS = 'relative group';
@@ -54,4 +54,5 @@ export const ADD_PROJECT_BUTTON_STYLES = {
 export const DATE_SEPARATOR = ' - ';
 export const ADD_PROJECT_LABEL = 'Add Project';
 export const ADD_PROJECT_ICON_SIZE = 'w-3.5 h-3.5 mr-1.5 text-gray-400';
-export const ADD_PROJECT_SPAN = 'Add Project';
+export const ADD_PROJECT_SPAN = SECTION_BUTTON_TEXT_STYLE;
+export { SECTION_BUTTON_TEXT_STYLE };

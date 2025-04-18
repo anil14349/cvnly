@@ -39,7 +39,10 @@ import {
   DETAIL_SUFFIX,
   DEFAULT_BG_DARK,
   DEFAULT_BG_LIGHT,
+  ADD_PROJECT_ICON_SIZE,
+  SECTION_BUTTON_TEXT_STYLE,
 } from './constants';
+import AddSectionButton from '../../common/AddSectionButton';
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   index,
@@ -262,15 +265,15 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           </div>
         ))}
       </div>
-
-      <button
+      <div className="mt-4">
+      <AddSectionButton
         onClick={addProject}
-        className={`${ADD_PROJECT_BUTTON_CLASS} ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-        aria-label={ADD_PROJECT_TEXT}
-      >
-        <Plus className={ADD_ICON_SIZE} aria-hidden="true" />
-        <span>{ADD_PROJECT_TEXT}</span>
-      </button>
+        text={ADD_PROJECT_TEXT}
+        buttonClassName={ADD_PROJECT_BUTTON_CLASS}
+        iconClassName={ADD_PROJECT_ICON_SIZE}
+        textClassName={SECTION_BUTTON_TEXT_STYLE}
+      />
+      </div>
     </div>
   );
 };

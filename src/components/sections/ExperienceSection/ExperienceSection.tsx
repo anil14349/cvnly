@@ -154,14 +154,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           </div>
         ))}
       </div>
-
-      <AddSectionButton
-        onClick={addExperience}
-        text={ADD_EXPERIENCE_TEXT}
-        buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
-        iconClassName={ADD_EXPERIENCE_ICON_SIZE}
-        textClassName={SECTION_BUTTON_TEXT_STYLE}
-      />
+      <div className="mt-4">
+        <AddSectionButton
+          onClick={addExperience}
+          text={ADD_EXPERIENCE_TEXT}
+          buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
+          iconClassName={ADD_EXPERIENCE_ICON_SIZE}
+          textClassName={SECTION_BUTTON_TEXT_STYLE}
+        />
+      </div>
     </div>
   );
 };

@@ -1,8 +1,31 @@
-import React from 'react';
-import { X, Plus, ExternalLink } from 'lucide-react';
-import { CertificationSectionProps } from '../../../types/certification';
-import SectionHeaderLine from '../../common/SectionHeaderLine';
-import SectionControls from '../../common/SectionControls';
+import React from "react";
+import { X, Plus, ExternalLink } from "lucide-react";
+import {
+  CertificationSectionProps,
+  Certification,
+} from "../../../types/certification";
+import SectionHeaderLine from "../../common/SectionHeaderLine";
+import SectionControls from "../../common/SectionControls";
+import {
+  CERTIFICATION_CONTAINER_CLASS,
+  CERTIFICATION_ITEM_CLASS,
+  DELETE_BUTTON_CLASS,
+  CERTIFICATION_CONTENT_CLASS,
+  CERTIFICATION_DATE_CLASS,
+  CERTIFICATION_LINK_CLASS,
+  ADD_CERTIFICATION_BUTTON_CLASS,
+  DEFAULT_TITLE,
+  VIEW_CERTIFICATE_TEXT,
+  ADD_CERTIFICATION_TEXT,
+  DELETE_ICON_SIZE,
+  ADD_ICON_SIZE,
+  EXTERNAL_LINK_ICON_SIZE,
+  CERTIFICATIONS_LIST_CLASS,
+  CERTIFICATION_HEADER_CLASS,
+  CERTIFICATION_ISSUER_CLASS,
+  DEFAULT_BG_DARK,
+  DEFAULT_BG_LIGHT,
+} from "./constants";
 
 const CertificationsSection: React.FC<CertificationSectionProps> = ({
   certifications,
@@ -14,21 +37,22 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
   addCertification = () => { },
   deleteCertification = () => { },
   updateCertification = () => { },
-  title = "Certifications",
-  onTitleChange
+  title = DEFAULT_TITLE,
+  onTitleChange,
 }) => {
-  const handleBlur = (cert: any, field: string, value: string) => {
+  const handleBlur = (cert: Certification, field: string, value: string) => {
     updateCertification(cert.id, field, value);
   };
 
   return (
     <div
       style={{
-        background: fontOptions.theme === 'dark'
-          ? fontOptions.widgetBgDark || '#181f2a'
-          : fontOptions.widgetBgLight || '#fff',
+        background:
+          fontOptions.theme === "dark"
+            ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
+            : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className="relative group"
+      className={CERTIFICATION_CONTAINER_CLASS}
     >
       <SectionHeaderLine
         title={title}
@@ -44,40 +68,59 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
         }
       />
 
-      <div className="mt-4 space-y-4">
+      <div className={CERTIFICATIONS_LIST_CLASS}>
         {certifications.map((cert) => (
-          <div key={cert.id} className="relative group/certification">
+          <div key={cert.id} className={CERTIFICATION_ITEM_CLASS}>
             <button
               onClick={() => deleteCertification(cert.id)}
-              className="absolute -right-2 -top-2 text-gray-400 hover:text-red-500 opacity-0 group-hover/certification:opacity-100 transition-opacity print:hidden"
+              className={DELETE_BUTTON_CLASS}
             >
-              <X className="w-4 h-4" />
+              <X className={DELETE_ICON_SIZE} />
             </button>
 
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
+            <div className={CERTIFICATION_CONTENT_CLASS}>
               <div>
                 <h4
-                  className={`${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing} text-gray-800 dark:text-gray-800 font-header-${fontOptions.headerFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
+                  className={`${fontOptions.subheaderSize} ${fontOptions.subheaderWeight
+                    } ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing
+                    } ${CERTIFICATION_HEADER_CLASS} font-header-${fontOptions.headerFont.toLowerCase()} ${fontOptions.subheaderItalic ? "italic" : ""
+                    } ${fontOptions.subheaderUnderline ? "underline" : ""}`}
                   contentEditable
                   suppressContentEditableWarning
-                  onBlur={(e) => handleBlur(cert, 'name', e.currentTarget.textContent || '')}
+                  onBlur={(e) =>
+                    handleBlur(cert, "name", e.currentTarget.textContent || "")
+                  }
                 >
                   {cert.name}
                 </h4>
                 <div
-                  className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} text-gray-600 dark:text-gray-700 font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
+                  className={`${fontOptions.bodySize} ${fontOptions.bodyWeight
+                    } ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing
+                    } ${CERTIFICATION_ISSUER_CLASS} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
+                    } ${fontOptions.bodyUnderline ? "underline" : ""}`}
                   contentEditable
                   suppressContentEditableWarning
-                  onBlur={(e) => handleBlur(cert, 'issuer', e.currentTarget.textContent || '')}
+                  onBlur={(e) =>
+                    handleBlur(
+                      cert,
+                      "issuer",
+                      e.currentTarget.textContent || ""
+                    )
+                  }
                 >
                   {cert.issuer}
                 </div>
               </div>
               <div
-                className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} text-gray-500 dark:text-gray-700 text-sm mt-1 sm:mt-0 font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
+                className={`${CERTIFICATION_DATE_CLASS} ${fontOptions.bodySize
+                  } ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing
+                  } font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
+                  } ${fontOptions.bodyUnderline ? "underline" : ""}`}
                 contentEditable
                 suppressContentEditableWarning
-                onBlur={(e) => handleBlur(cert, 'date', e.currentTarget.textContent || '')}
+                onBlur={(e) =>
+                  handleBlur(cert, "date", e.currentTarget.textContent || "")
+                }
               >
                 {cert.date}
               </div>
@@ -88,13 +131,18 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                 href={cert.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 inline-flex items-center gap-1 font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
+                className={`${CERTIFICATION_LINK_CLASS} ${fontOptions.bodySize
+                  } ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing
+                  } font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
+                  } ${fontOptions.bodyUnderline ? "underline" : ""}`}
                 contentEditable
                 suppressContentEditableWarning
-                onBlur={(e) => handleBlur(cert, 'url', e.currentTarget.textContent || '')}
+                onBlur={(e) =>
+                  handleBlur(cert, "url", e.currentTarget.textContent || "")
+                }
               >
-                <span>View Certificate</span>
-                <ExternalLink className="w-4 h-4" />
+                <span>{VIEW_CERTIFICATE_TEXT}</span>
+                <ExternalLink className={EXTERNAL_LINK_ICON_SIZE} />
               </a>
             )}
           </div>
@@ -103,11 +151,14 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
 
       <button
         onClick={addCertification}
-        className={`mt-6 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-        aria-label="Add certification"
+        className={`${ADD_CERTIFICATION_BUTTON_CLASS} ${fontOptions.bodySize} ${fontOptions.bodyWeight
+          } ${fontOptions.bodyColor
+          } font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
+          } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+        aria-label={ADD_CERTIFICATION_TEXT}
       >
-        <Plus className="w-3 h-3" aria-hidden="true" />
-        <span>Add Certification</span>
+        <Plus className={ADD_ICON_SIZE} aria-hidden="true" />
+        <span>{ADD_CERTIFICATION_TEXT}</span>
       </button>
     </div>
   );

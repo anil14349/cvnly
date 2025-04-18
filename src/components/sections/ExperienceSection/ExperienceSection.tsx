@@ -4,6 +4,7 @@ import { ExperienceSectionProps } from '../../../types/experience';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import FormattedText from '../../common/FormattedText';
+import { ADD_EXPERIENCE_BUTTON_CLASS } from './constants';
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   experiences,
@@ -86,7 +87,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           <div key={experience.id} className="relative group/experience space-y-2">
             <button
               onClick={() => deleteExperience?.(experience.id)}
-              className="absolute -right-2 -top-2 text-gray-400 hover:text-red-500 opacity-0 group-hover/experience:opacity-100 transition-opacity print:hidden"
+              className={ADD_EXPERIENCE_BUTTON_CLASS}
               aria-label={`Delete experience: ${experience.title}`}
             >
               <X className="w-3 h-3" aria-hidden="true" />

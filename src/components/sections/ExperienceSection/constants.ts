@@ -1,0 +1,2 @@
+export const ADD_EXPERIENCE_BUTTON_CLASS = 'mt-3 flex items-center px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden'; 
+export const DELETE_EXPERIENCE_BUTTON_CLASS = 'absolute -right-2 -top-2 text-gray-400 hover:text-red-500 opacity-0 group-hover/experience:opacity-100 transition-opacity print:hidden';

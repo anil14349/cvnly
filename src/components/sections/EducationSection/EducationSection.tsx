@@ -1,9 +1,35 @@
-import React from 'react';
-import { EducationSectionProps } from '../../../types/education';
-import SectionControls from '../../common/SectionControls';
-import SectionHeaderLine from '../../common/SectionHeaderLine';
-import { Plus, X } from 'lucide-react';
-import FormattedText from '../../common/FormattedText';
+import React from "react";
+import { EducationSectionProps } from "../../../types/education";
+import SectionControls from "../../common/SectionControls";
+import SectionHeaderLine from "../../common/SectionHeaderLine";
+import { Plus, X } from "lucide-react";
+import FormattedText from "../../common/FormattedText";
+import {
+  EDUCATION_CONTAINER_CLASS,
+  EDUCATION_LIST_CLASS,
+  EDUCATION_ITEM_CLASS,
+  EDUCATION_CONTENT_CLASS,
+  EDUCATION_DETAILS_CLASS,
+  EDUCATION_DETAILS_LIST_CLASS,
+  EDUCATION_DETAIL_ITEM_CLASS,
+  DELETE_EDUCATION_BUTTON_CLASS,
+  DELETE_DETAIL_BUTTON_CLASS,
+  ADD_EDUCATION_BUTTON_CLASS,
+  DELETE_ICON_SIZE,
+  ADD_ICON_SIZE,
+  DEFAULT_TITLE,
+  ADD_EDUCATION_TEXT,
+  PRESENT_TEXT,
+  GPA_PREFIX,
+  FIELD_SEPARATOR,
+  DEFAULT_BG_DARK,
+  DEFAULT_BG_LIGHT,
+  INLINE_BLOCK_CLASS,
+  DATE_SEPARATOR,
+  DELETE_EDUCATION_ARIA_LABEL,
+  DELETE_DETAIL_ARIA_LABEL,
+  DETAIL_SUFFIX,
+} from "./constants";
 
 const EducationSection: React.FC<EducationSectionProps> = ({
   educations,
@@ -15,27 +41,32 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   addEducation,
   deleteEducation,
   updateEducation,
-  title = "Education",
-  onTitleChange
+  title = DEFAULT_TITLE,
+  onTitleChange,
 }) => {
-  const updateDetail = (educationId: string, detailIndex: number, newText: string) => {
-    const education = educations.find(edu => edu.id === educationId);
+  const updateDetail = (
+    educationId: string,
+    detailIndex: number,
+    newText: string
+  ) => {
+    const education = educations.find((edu) => edu.id === educationId);
     if (!education) return;
 
     const updatedDetails = [...education.details];
     updatedDetails[detailIndex] = newText;
 
-    updateEducation?.(educationId, 'details', JSON.stringify(updatedDetails));
+    updateEducation?.(educationId, "details", JSON.stringify(updatedDetails));
   };
 
   return (
     <div
       style={{
-        background: fontOptions.theme === 'dark'
-          ? fontOptions.widgetBgDark || '#181f2a'
-          : fontOptions.widgetBgLight || '#fff',
+        background:
+          fontOptions.theme === "dark"
+            ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
+            : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className="relative group"
+      className={EDUCATION_CONTAINER_CLASS}
     >
       <SectionHeaderLine
         title={title}
@@ -51,102 +82,161 @@ const EducationSection: React.FC<EducationSectionProps> = ({
         }
       />
 
-      <div className="mt-2 space-y-4">
+      <div className={EDUCATION_LIST_CLASS}>
         {educations.map((edu) => (
-          <div key={edu.id} className="relative group/education space-y-2">
+          <div key={edu.id} className={EDUCATION_ITEM_CLASS}>
             <button
               onClick={() => deleteEducation?.(edu.id)}
-              className="absolute -right-2 -top-2 text-gray-400 hover:text-red-500 opacity-0 group-hover/education:opacity-100 transition-opacity print:hidden"
-              aria-label={`Delete education: ${edu.school}`}
+              className={DELETE_EDUCATION_BUTTON_CLASS}
+              aria-label={`${DELETE_EDUCATION_ARIA_LABEL}${edu.school}`}
             >
-              <X className="w-3 h-3" aria-hidden="true" />
+              <X className={DELETE_ICON_SIZE} aria-hidden="true" />
             </button>
 
-            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between">
-              <div className="space-y-0.5">
-                <h3 className={`${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} font-header-${fontOptions.headerFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}>
+            <div className={EDUCATION_CONTENT_CLASS}>
+              <div className={EDUCATION_DETAILS_CLASS}>
+                <h3
+                  className={`${fontOptions.subheaderSize} ${
+                    fontOptions.subheaderWeight
+                  } ${
+                    fontOptions.subheaderColor
+                  } font-header-${fontOptions.headerFont.toLowerCase()} ${
+                    fontOptions.subheaderItalic ? "italic" : ""
+                  } ${fontOptions.subheaderUnderline ? "underline" : ""}`}
+                >
                   <FormattedText
                     text={edu.school}
                     fontOptions={fontOptions}
-                    onTextChange={(newText) => updateEducation?.(edu.id, 'school', newText)}
+                    onTextChange={(newText) =>
+                      updateEducation?.(edu.id, "school", newText)
+                    }
                     isEditing={true}
-                    className="inline-block"
+                    className={INLINE_BLOCK_CLASS}
                   />
                 </h3>
-                <div className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
+                <div
+                  className={`${fontOptions.bodySize} ${
+                    fontOptions.bodyWeight
+                  } ${
+                    fontOptions.bodyColor
+                  } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                    fontOptions.bodyItalic ? "italic" : ""
+                  } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                >
                   <FormattedText
                     text={edu.degree}
                     fontOptions={fontOptions}
-                    onTextChange={(newText) => updateEducation?.(edu.id, 'degree', newText)}
+                    onTextChange={(newText) =>
+                      updateEducation?.(edu.id, "degree", newText)
+                    }
                     isEditing={true}
-                    className="inline-block"
+                    className={INLINE_BLOCK_CLASS}
                   />
                   {edu.field && (
                     <>
-                      {' in '}
+                      {FIELD_SEPARATOR}
                       <FormattedText
                         text={edu.field}
                         fontOptions={fontOptions}
-                        onTextChange={(newText) => updateEducation?.(edu.id, 'field', newText)}
+                        onTextChange={(newText) =>
+                          updateEducation?.(edu.id, "field", newText)
+                        }
                         isEditing={true}
-                        className="inline-block"
+                        className={INLINE_BLOCK_CLASS}
                       />
                     </>
                   )}
                 </div>
               </div>
-              <div className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
+              <div
+                className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${
+                  fontOptions.bodyColor
+                } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                  fontOptions.bodyItalic ? "italic" : ""
+                } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+              >
                 <FormattedText
                   text={edu.startDate}
                   fontOptions={fontOptions}
-                  onTextChange={(newText) => updateEducation?.(edu.id, 'startDate', newText)}
+                  onTextChange={(newText) =>
+                    updateEducation?.(edu.id, "startDate", newText)
+                  }
                   isEditing={true}
-                  className="inline-block"
+                  className={INLINE_BLOCK_CLASS}
                 />
-                {' - '}
+                {DATE_SEPARATOR}
                 <FormattedText
-                  text={edu.endDate || 'Present'}
+                  text={edu.endDate || PRESENT_TEXT}
                   fontOptions={fontOptions}
-                  onTextChange={(newText) => updateEducation?.(edu.id, 'endDate', newText)}
+                  onTextChange={(newText) =>
+                    updateEducation?.(edu.id, "endDate", newText)
+                  }
                   isEditing={true}
-                  className="inline-block"
+                  className={INLINE_BLOCK_CLASS}
                 />
               </div>
             </div>
 
             {edu.gpa && (
-              <div className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
-                GPA:{' '}
+              <div
+                className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${
+                  fontOptions.bodyColor
+                } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                  fontOptions.bodyItalic ? "italic" : ""
+                } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+              >
+                {GPA_PREFIX}
                 <FormattedText
                   text={edu.gpa}
                   fontOptions={fontOptions}
-                  onTextChange={(newText) => updateEducation?.(edu.id, 'gpa', newText)}
+                  onTextChange={(newText) =>
+                    updateEducation?.(edu.id, "gpa", newText)
+                  }
                   isEditing={true}
-                  className="inline-block"
+                  className={INLINE_BLOCK_CLASS}
                 />
               </div>
             )}
 
             {edu.details && edu.details.length > 0 && (
-              <ul className={`list-disc ml-4 space-y-0.5 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
+              <ul
+                className={`${EDUCATION_DETAILS_LIST_CLASS} ${
+                  fontOptions.bodySize
+                } ${fontOptions.bodyWeight} ${
+                  fontOptions.bodyColor
+                } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                  fontOptions.bodyItalic ? "italic" : ""
+                } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+              >
                 {edu.details.map((detail, idx) => (
-                  <li key={idx} className="group/detail relative">
+                  <li key={idx} className={EDUCATION_DETAIL_ITEM_CLASS}>
                     <FormattedText
                       text={detail}
                       fontOptions={fontOptions}
-                      onTextChange={(newText) => updateDetail(edu.id, idx, newText)}
+                      onTextChange={(newText) =>
+                        updateDetail(edu.id, idx, newText)
+                      }
                       isEditing={true}
-                      className="inline-block"
+                      className={INLINE_BLOCK_CLASS}
                     />
                     <button
                       onClick={() => {
-                        const updatedDetails = edu.details.filter((_, i) => i !== idx);
-                        updateEducation?.(edu.id, 'details', JSON.stringify(updatedDetails));
+                        const updatedDetails = edu.details.filter(
+                          (_, i) => i !== idx
+                        );
+                        updateEducation?.(
+                          edu.id,
+                          "details",
+                          JSON.stringify(updatedDetails)
+                        );
                       }}
-                      className="absolute -right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 opacity-0 group-hover/detail:opacity-100 transition-opacity print:hidden"
-                      aria-label={`Delete detail: ${detail.substring(0, 20)}...`}
+                      className={DELETE_DETAIL_BUTTON_CLASS}
+                      aria-label={`${DELETE_DETAIL_ARIA_LABEL}${detail.substring(
+                        0,
+                        20
+                      )}${DETAIL_SUFFIX}`}
                     >
-                      <X className="w-3 h-3" aria-hidden="true" />
+                      <X className={DELETE_ICON_SIZE} aria-hidden="true" />
                     </button>
                   </li>
                 ))}
@@ -157,11 +247,17 @@ const EducationSection: React.FC<EducationSectionProps> = ({
       </div>
       <button
         onClick={addEducation}
-        className={`mt-4 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-        aria-label="Add education"
+        className={`${ADD_EDUCATION_BUTTON_CLASS} ${fontOptions.bodySize} ${
+          fontOptions.bodyWeight
+        } ${
+          fontOptions.bodyColor
+        } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+          fontOptions.bodyItalic ? "italic" : ""
+        } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+        aria-label={ADD_EDUCATION_TEXT}
       >
-        <Plus className="w-3 h-3" aria-hidden="true" />
-        <span>Add Education</span>
+        <Plus className={ADD_ICON_SIZE} aria-hidden="true" />
+        <span>{ADD_EDUCATION_TEXT}</span>
       </button>
     </div>
   );

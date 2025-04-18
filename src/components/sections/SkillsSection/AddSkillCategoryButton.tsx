@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
 import { FontOptions } from '../../../types/common';
+
 import {
     ADD_CATEGORY_LABEL,
     ADD_SKILL_BUTTON_CLASS,

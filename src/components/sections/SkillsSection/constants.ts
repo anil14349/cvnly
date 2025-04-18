@@ -39,7 +39,7 @@ export const NEW_SKILL_ADD_ICON_CLASS = 'w-2.5 h-2.5';
 // Add Category Button Classes
 export const ADD_SKILL_CATEGORY_ICON_CLASS = 'w-3.5 h-3.5 mr-1.5 text-gray-400';
 export const ADD_SKILL_LABEL_CLASS = 'text-sm text-gray-500 dark:text-gray-400';
-export const ADD_SKILL_BUTTON_CLASS = 'mt-2 flex items-center pr-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden';
+export const ADD_SKILL_BUTTON_CLASS = 'mt-3 flex items-center px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden';
 
 // Main Container Classes
 export const SKILL_CATEGORY_CLASS = 'mt-4 grid grid-cols-1 auto-rows-min gap-3 sm:grid-cols-2 md:grid-cols-3';

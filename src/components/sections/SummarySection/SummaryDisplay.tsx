@@ -1,26 +1,21 @@
 import React from 'react';
+import { SUMMARY_DISPLAY_CLASS } from './constants';
 
 interface Props {
     summary: string;
     fontClass: string;
-    style: React.CSSProperties;
+    style?: React.CSSProperties;
     onClick: () => void;
     placeholder: string;
 }
 
 const SummaryDisplay: React.FC<Props> = ({ summary, fontClass, style, onClick, placeholder }) => (
     <div
-        className={`cursor-text whitespace-pre-wrap ${fontClass}`}
-        style={style}
         onClick={onClick}
-        role="textbox"
-        aria-label="Professional Summary"
+        className={`${SUMMARY_DISPLAY_CLASS} ${fontClass}`}
+        style={style}
     >
-        {summary || (
-            <span className="text-gray-100 italic print:text-black">
-                {placeholder}
-            </span>
-        )}
+        {summary || placeholder}
     </div>
 );
 

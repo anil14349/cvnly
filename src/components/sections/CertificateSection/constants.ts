@@ -4,7 +4,7 @@ export const DELETE_BUTTON_CLASS = 'absolute -right-2 -top-2 text-gray-400 hover
 export const CERTIFICATION_CONTENT_CLASS = 'flex flex-col sm:flex-row sm:items-center justify-between mb-2';
 export const CERTIFICATION_DATE_CLASS = 'text-gray-500 dark:text-gray-700 text-sm mt-1 sm:mt-0';
 export const CERTIFICATION_LINK_CLASS = 'text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 inline-flex items-center gap-1';
-export const ADD_CERTIFICATION_BUTTON_CLASS = 'mt-6 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
+export const ADD_CERTIFICATION_BUTTON_CLASS = 'add-section-btn mt-6 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
 
 // Text content
 export const DEFAULT_TITLE = 'Certifications';
@@ -27,7 +27,7 @@ export const DEFAULT_BG_LIGHT = '#fff';
 
 // Add Certification Button styles
 export const ADD_CERTIFICATION_BUTTON_STYLES = {
-  button: 'mt-3 flex items-center px-3 py-1.0 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden',
+  button: 'add-section-btn mt-3 flex items-center px-3 py-1.0 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden',
   icon: 'w-3.5 h-3.5 mr-1.5 text-gray-400',
   text: 'text-sm text-gray-500 dark:text-gray-400'
 };

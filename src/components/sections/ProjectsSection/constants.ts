@@ -19,7 +19,7 @@ export const DELETE_RESPONSIBILITY_BUTTON_CLASS = 'absolute -right-6 top-1/2 -tr
 export const DELETE_TECH_BUTTON_CLASS = 'absolute -right-1 -top-1 text-gray-400 hover:text-red-500 opacity-0 group-hover/tech:opacity-100 transition-opacity print:hidden';
 export const ADD_RESPONSIBILITY_BUTTON_CLASS = 'flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
 export const ADD_TECHNOLOGY_BUTTON_CLASS = 'flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
-export const ADD_PROJECT_BUTTON_CLASS = 'mt-4 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
+export const ADD_PROJECT_BUTTON_CLASS = 'add-section-btn flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
 
 // Icon sizes
 export const DELETE_ICON_SIZE = 'w-3 h-3';
@@ -44,7 +44,7 @@ export const DEFAULT_BG_LIGHT = '#fff';
 
 // Add Project Button styles
 export const ADD_PROJECT_BUTTON_STYLES = {
-    button: 'mt-4 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity',
+    button: 'add-section-btn mt-4 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity',
     icon: 'w-3.5 h-3.5 mr-1.5 text-gray-400',
     text: 'text-sm text-gray-500 dark:text-gray-400'
 };

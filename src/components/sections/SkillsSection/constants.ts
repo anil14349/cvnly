@@ -17,14 +17,14 @@ export const ARIA_LABELS = {
 export const BULLET_POINT = '•';
 
 // Category Header Classes
-export const CATEGORY_HEADER_CONTAINER_CLASS = 'flex items-center justify-between mb-1.5';
+export const CATEGORY_HEADER_CONTAINER_CLASS = 'skill-category-title flex items-center justify-between mb-1.5';
 export const CATEGORY_HEADER_INPUT_CLASS = 'bg-transparent border-none focus:outline-none focus:ring-1 focus:ring-blue-500/20 rounded px-0 py-0.5 w-full';
 export const CATEGORY_DELETE_BUTTON_CLASS = 'opacity-0 group-hover/category:opacity-100 transition-all print:hidden ml-2 p-1 rounded hover:bg-red-500/10';
 export const CATEGORY_DELETE_ICON_CLASS = 'w-3 h-3';
 
 // Skill List Classes
 export const SKILL_LIST_CLASS = 'space-y-1 list-none pl-1';
-export const SKILL_LIST_ITEM_CLASS = 'group/skill relative flex items-center';
+export const SKILL_LIST_ITEM_CLASS = 'group/skill skill-chip relative flex items-center';
 export const SKILL_BULLET_CLASS = 'mr-2 select-none';
 export const SKILL_TEXT_CONTAINER_CLASS = 'flex-1 min-w-0';
 export const SKILL_DELETE_BUTTON_CLASS = 'opacity-0 group-hover/skill:opacity-100 transition-all print:hidden ml-2 p-1 rounded hover:bg-red-500/10';
@@ -39,10 +39,10 @@ export const NEW_SKILL_ADD_ICON_CLASS = 'w-2.5 h-2.5';
 // Add Category Button Classes
 export const ADD_SKILL_CATEGORY_ICON_CLASS = 'w-3.5 h-3.5 mr-1.5 text-gray-400';
 export const ADD_SKILL_LABEL_CLASS = 'text-sm text-gray-500 dark:text-gray-400';
-export const ADD_SKILL_BUTTON_CLASS = 'mt-3 flex items-center px-3 py-1.5 rounded transition-colors bg-transparent print:hidden';
+export const ADD_SKILL_BUTTON_CLASS = 'add-section-btn mt-3 flex items-center px-3 py-1.5 rounded transition-colors bg-transparent print:hidden';
 
 // Main Container Classes
-export const SKILL_CATEGORY_CLASS = 'mt-0 grid grid-cols-1 auto-rows-min gap-3 sm:grid-cols-2 md:grid-cols-3';
+export const SKILL_CATEGORY_CLASS = 'skill-category-card mt-0 grid grid-cols-1 auto-rows-min gap-3 sm:grid-cols-2 md:grid-cols-3';
 export const SKILL_CATEGORY_HEADER_CLASS = 'skill-category relative group/category rounded bg-transparent flex flex-col min-h-[100px]';
 
 export const ADD_SUMMARY_ICON_SIZE = 'w-3 h-3';

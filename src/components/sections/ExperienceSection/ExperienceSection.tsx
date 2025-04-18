@@ -84,15 +84,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
       <div className="space-y-4">
         {experiences.map((experience) => (
-          <div key={experience.id} className="relative group/experience space-y-2">
+          <div key={experience.id} className="relative group/experience group space-y-2">
             <button
               onClick={() => deleteExperience?.(experience.id)}
-              className={ADD_EXPERIENCE_BUTTON_CLASS}
+              className="absolute -top-2 -right-2 z-10 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
               aria-label={`Delete experience: ${experience.title}`}
+              style={{ padding: '0.25rem' }}
             >
-              <X className="w-3 h-3" aria-hidden="true" />
+              <X className="w-4 h-4" aria-hidden="true" />
             </button>
-
             <div className="flex flex-col sm:flex-row sm:items-center justify-between">
               <div>
                 <h3
@@ -119,30 +119,32 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
               </div>
             </div>
 
-            <ul className={`${fontOptions.bodySize} text-gray-700 dark:text-gray-500 space-y-1.5 list-disc ml-5 font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
+            <ul className={`${fontOptions.bodySize} text-gray-700 dark:text-gray-500 list-disc ml-5 mb-1 font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
               {experience.achievements.map((achievement, idx) => (
-                <li key={idx} className="whitespace-pre-wrap group/achievement relative">
-                  <FormattedText
-                    text={achievement}
-                    fontOptions={fontOptions}
-                    onTextChange={(newText) => updateAchievement(experience.id, idx, newText)}
-                    isEditing={true}
-                    className="inline-block"
-                  />
-                  <button
-                    onClick={() => removeAchievement(experience.id, idx)}
-                    className="absolute -right-2 top-1/2 -translate-y-1/2 text-gray-400 hover:text-red-500 opacity-0 group-hover/achievement:opacity-100 transition-opacity print:hidden"
-                    aria-label={`Delete achievement: ${achievement.substring(0, 20)}...`}
-                  >
-                    <X className="w-3 h-3" aria-hidden="true" />
-                  </button>
+                <li key={idx} className="whitespace-pre-wrap group/achievement group relative">
+                  <span className="inline-flex items-center">
+                    <FormattedText
+                      text={achievement}
+                      fontOptions={fontOptions}
+                      onTextChange={(newText) => updateAchievement(experience.id, idx, newText)}
+                      isEditing={true}
+                      className="inline-block"
+                    />
+                    <button
+                      onClick={() => removeAchievement(experience.id, idx)}
+                      className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+                      aria-label={`Delete achievement: ${achievement.substring(0, 20)}...`}
+                    >
+                      <X className="w-3 h-3" aria-hidden="true" />
+                    </button>
+                  </span>
                 </li>
               ))}
             </ul>
 
             <button
               onClick={() => addAchievement(experience.id)}
-              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
+              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} mb-1`}
               aria-label="Add achievement"
             >
               <Plus className="w-3 h-3" aria-hidden="true" />
@@ -154,7 +156,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
       <button
         onClick={addExperience}
-        className={`mt-6 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
+        className={`mt-0 flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
         aria-label="Add experience"
       >
         <Plus className="w-3 h-3" aria-hidden="true" />

@@ -25,16 +25,10 @@ export const SkillList = ({
     onDelete: (index: number) => void;
     fontOptions: FontOptions;
 }) => (
-    <ul className={SKILL_LIST_CLASS}>
+    <div className="flex flex-wrap gap-2">
         {items.map((item, index) => (
-            <li key={index} className={SKILL_LIST_ITEM_CLASS}>
-                <span
-                    className={`${SKILL_BULLET_CLASS} ${getFontClassNames(fontOptions)}`}
-                    style={getFontInlineStyles(fontOptions)}
-                >
-                    {BULLET_POINT}
-                </span>
-                <div className={SKILL_TEXT_CONTAINER_CLASS}>
+            <span key={index} className="skill-chip">
+                <span className={SKILL_TEXT_CONTAINER_CLASS}>
                     <FormattedText
                         text={item}
                         fontOptions={fontOptions}
@@ -42,15 +36,16 @@ export const SkillList = ({
                         isEditing
                         className={FORMATTED_TEXT_CLASS}
                     />
-                </div>
+                </span>
                 <button
                     onClick={() => onDelete(index)}
                     className={SKILL_DELETE_BUTTON_CLASS}
                     aria-label={ARIA_LABELS.deleteSkill}
+                    style={{ marginLeft: '0.25em' }}
                 >
                     <X className={SKILL_DELETE_ICON_CLASS} />
                 </button>
-            </li>
+            </span>
         ))}
-    </ul>
+    </div>
 );

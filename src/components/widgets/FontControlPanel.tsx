@@ -31,14 +31,14 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
 }) => {
   // State for collapsible sections
   const [expandedSections, setExpandedSections] = useState({
-    lineColor: true,
-    fonts: true,
+    lineColor: false,
+    fonts: false,
     header: false,
     subheader: false,
     sectionHeader: false,
     body: false,
-    theme: true,
-    skillLayout: true
+    theme: false,
+    skillLayout: false
   });
 
   // Toggle section expansion

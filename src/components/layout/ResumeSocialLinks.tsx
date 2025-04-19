@@ -107,8 +107,11 @@ const ResumeSocialLinks: React.FC<Props> = ({
                                 fontOptions.bodyUnderline ? "underline" : "",
                                 SOCIAL_LINK_INPUT_CLASS
                             ].filter(Boolean).join(" ")}
-                            size={link.value.length || getDefaultText(link.type).length}
-                            style={{ width: "auto", minWidth: "5ch", ...inputFontStyle }}
+                            style={{
+                                width: `calc(${(link.value.length || getDefaultText(link.type).length) + 1}ch)`,
+                                minWidth: "10ch",
+                                ...inputFontStyle
+                            }}
                         />
                     </div>
                     <button

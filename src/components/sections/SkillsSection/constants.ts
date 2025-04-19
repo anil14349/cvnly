@@ -1,3 +1,5 @@
+import { SECTION_BUTTON_STYLES } from "../../common/constants";
+
 export const DEFAULT_SKILLS_TITLE = 'Skills & Certifications';
 export const ADD_SKILL_CATEGORY_LABEL = 'Add Category';
 export const ADD_CATEGORY_LABEL = 'Add Category';
@@ -37,9 +39,9 @@ export const NEW_SKILL_ADD_BUTTON_CLASS = 'opacity-0 group-hover/add:opacity-100
 export const NEW_SKILL_ADD_ICON_CLASS = 'w-2.5 h-2.5';
 
 // Add Category Button Classes
-export const ADD_SKILL_CATEGORY_ICON_CLASS = 'w-3.5 h-3.5 mr-1.5 text-gray-400';
-export const ADD_SKILL_LABEL_CLASS = 'text-sm text-gray-500 dark:text-gray-400';
-export const ADD_SKILL_BUTTON_CLASS = 'add-section-btn mt-1 flex items-center px-3 py-1.5 rounded transition-colors bg-transparent print:hidden';
+export const ADD_SKILL_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
+export const ADD_SKILL_CATEGORY_ICON_CLASS = SECTION_BUTTON_STYLES.icon;
+export const ADD_SKILL_LABEL_CLASS = SECTION_BUTTON_STYLES.text;
 
 // Main Container Classes
 export const SKILL_CATEGORY_CLASS = 'skill-category-card mt-0 grid grid-cols-1 auto-rows-min gap-3 sm:grid-cols-2 md:grid-cols-3';

@@ -38,11 +38,13 @@
   print-color-adjust: exact;
 }
 .add-section-btn:hover {
-  background-color: #f1f5f9;
-  opacity: 0.85;
+  background-color: #f3f4f6; /* lighter gray (tailwind gray-100) */
+  color: #374151; /* tailwind gray-700 */
+  opacity: 1;
 }
 .dark .add-section-btn:hover {
-  background-color: rgba(30,41,59,0.5);
+  background-color: rgba(100,116,139,0.15); /* tailwind slate-400, very light */
+  color: #cbd5e1; /* tailwind slate-300 */
 }
 @media print {
   .add-section-btn {

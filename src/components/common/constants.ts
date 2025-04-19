@@ -3,9 +3,12 @@ export const SECTION_ADD_BUTTON_BASE = 'add-section-btn mt-4 flex items-center p
 
 // Button styles object pattern (for consistency)
 export const SECTION_BUTTON_STYLES = {
-    button: 'add-section-btn mt-2 flex items-center gap-1.5 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden',
-    icon: 'w-3.5 h-3.5 mr-1.5 text-gray-400 transition-colors group-hover:text-gray-500',
-    text: 'text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'
+    //button: 'add-section-btn mt-2 flex items-center gap-1.5 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors bg-transparent print:hidden',
+    button: 'inline-flex items-center gap-2 px-3 py-2 rounded-full border border-dashed border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all print:hidden',
+    //icon: 'w-3.5 h-3.5 mr-1.5 text-gray-400 transition-colors group-hover:text-gray-500',
+    icon: 'w-3.5 h-3.5 text-gray-400',
+    //text: 'text-sm text-gray-500 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300'
+    text: 'text-sm text-gray-500'
 };
 
 // Button variants

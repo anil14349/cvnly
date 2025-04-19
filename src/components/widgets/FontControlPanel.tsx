@@ -9,33 +9,20 @@ import {
   FONT_FAMILIES,
   COLORS
 } from '../../utils/fontUtils';
-import type { SkillLayoutType } from '../../types/common';
+
 import {
   PANEL_STYLES,
-  THEME_SELECTOR_STYLES,
   FONT_FAMILY_STYLES,
   SECTION_STYLES,
-  SKILL_LAYOUT_STYLES,
   PREVIEW_STYLES,
   PANEL_CONTAINER_STYLES,
   STYLE_CHECKBOX_STYLES
 } from './constants';
 
-const SKILL_LAYOUT_OPTIONS: { value: SkillLayoutType; label: string }[] = [
-  { value: 'bulleted', label: 'Bulleted List' },
-  { value: 'pill', label: 'Pill/Chip' },
-  { value: 'classic', label: 'Classic Inline' },
-];
-
 interface FontControlPanelProps {
   fontOptions: FontOptions;
   updateFontOption: (option: keyof FontOptions, value: string | boolean) => void;
 }
-
-// Helper function to convert border color class to background color class
-const getBackgroundColorFromBorderColor = (borderColorClass: string) => {
-  return borderColorClass.replace('border-', 'bg-');
-};
 
 const FontControlPanel: React.FC<FontControlPanelProps> = ({
   fontOptions,
@@ -102,95 +89,134 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
     </div>
   );
 
+  const SectionDivider = () => (
+    <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-gray-500/20 to-transparent" />
+  );
+
   return (
     <div
       className={PANEL_STYLES.container}
       style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
     >
-      {/* Section Line Color Picker (Redesigned) */}
-      <div className={PANEL_STYLES.colorPicker.container}>
-        <div className={PANEL_STYLES.colorPicker.header}>
-          <span className={PANEL_STYLES.colorPicker.title}>Section Line Color</span>
-          <Palette className={PANEL_STYLES.colorPicker.icon} />
+      {/* Section Line Color Picker (Polished Grid) */}
+      <div className="mb-4">
+        <div className="flex items-center gap-2 mb-2">
+          <Palette className="w-5 h-5 text-blue-400" />
+          <span className="font-semibold text-sm text-gray-100 dark:text-gray-200">Section Line Color</span>
         </div>
-        <div className="flex flex-wrap gap-1 mb-2">
+        <div className="grid grid-cols-5 gap-2 mb-4">
           {COLORS.map((color) => (
-            <button
-              key={color.value}
-              className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 shadow-sm
-                ${fontOptions.lineColor === color.hex ? 'border-blue-500 ring-2 ring-blue-400' : 'border-gray-300 dark:border-gray-700'}`}
-              style={{ background: color.hex }}
-              title={color.name}
-              aria-label={`Set section line color to ${color.name}`}
-              onClick={() => updateFontOption('lineColor', color.hex)}
-              type="button"
-            >
-              {fontOptions.lineColor === color.hex && (
-                <span className="block w-3 h-3 rounded-full bg-white bg-opacity-80 border border-blue-500" />
-              )}
-            </button>
+            <div key={color.value} className="flex flex-col items-center">
+              <button
+                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 shadow-sm relative
+                  ${fontOptions.lineColor === color.hex ? 'border-blue-500 ring-2 ring-blue-400' : 'border-gray-300 dark:border-gray-700'}
+                  ${color.name === 'White' ? 'border border-gray-400' : ''}`}
+                style={{ background: color.hex }}
+                title={color.name}
+                aria-label={`Set section line color to ${color.name}`}
+                onClick={() => updateFontOption('lineColor', color.hex)}
+                type="button"
+              >
+                {fontOptions.lineColor === color.hex && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  </span>
+                )}
+              </button>
+              <span className="text-[10px] text-gray-900 dark:text-gray-200 font-medium mt-1 whitespace-nowrap pointer-events-none select-none" style={{textShadow:'0 1px 2px rgba(0,0,0,0.15)'}}>{color.name}</span>
+            </div>
           ))}
         </div>
-        <div className="flex items-center gap-1 mt-1">
-          <span className="text-xs text-gray-500 dark:text-gray-400">Custom</span>
+        <div className="flex items-center gap-2 mt-1">
+          <span className="text-xs text-gray-400">Custom</span>
+          <span className="w-6 h-6 rounded-full border border-gray-400 flex items-center justify-center" style={{background: fontOptions.lineColor}} />
+          <input
+            type="color"
+            value={/^#[0-9A-Fa-f]{6}$/.test(fontOptions.lineColor) ? fontOptions.lineColor : '#000000'}
+            onChange={e => updateFontOption('lineColor', e.target.value)}
+            className="w-6 h-6 border border-gray-300 rounded cursor-pointer"
+            aria-label="Pick custom section line color"
+          />
           <input
             type="text"
-            className={PANEL_STYLES.colorPicker.custom.input}
+            className="ml-2 px-2 py-1 rounded border border-gray-300 bg-gray-800 text-gray-100 text-xs w-28 focus:outline-none focus:ring-2 focus:ring-blue-400"
             value={fontOptions.lineColor}
-            onChange={(e) => updateFontOption('lineColor', e.target.value)}
+            onChange={e => updateFontOption('lineColor', e.target.value)}
             aria-label="Set custom section line color value"
             placeholder="#hex or color name"
           />
         </div>
       </div>
 
-      {/* Theme Selector */}
-      <div className={THEME_SELECTOR_STYLES.container}>
-        <label className={PANEL_STYLES.label.section}>Theme</label>
-        <div className={THEME_SELECTOR_STYLES.radioGroup}>
-          <label className={THEME_SELECTOR_STYLES.radioLabel}>
-            <input
-              type="radio"
-              name="theme"
-              value="light"
-              checked={fontOptions.theme === "light"}
-              onChange={() => updateFontOption("theme", "light")}
-              className={THEME_SELECTOR_STYLES.radioInput}
-            />
-            <span className={THEME_SELECTOR_STYLES.radioText}>Light</span>
-          </label>
-          <label className={THEME_SELECTOR_STYLES.radioLabel}>
-            <input
-              type="radio"
-              name="theme"
-              value="dark"
-              checked={fontOptions.theme === "dark"}
-              onChange={() => updateFontOption("theme", "dark")}
-              className={THEME_SELECTOR_STYLES.radioInput}
-            />
-            <span className={THEME_SELECTOR_STYLES.radioText}>Dark</span>
-          </label>
+      <SectionDivider />
+
+      {/* Theme Selection (Polished) */}
+      <div className="mb-4">
+        <span className="font-semibold text-sm text-gray-100 dark:text-gray-200 mb-1 block">Theme</span>
+        <div className="flex gap-2">
+          <button
+            className={`flex items-center gap-1 px-4 py-1.5 rounded-full border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
+            ${fontOptions.theme === 'light' ? 'bg-blue-50 text-blue-700 border-blue-500' : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-blue-400'}`}
+            aria-label="Set theme to Light"
+            onClick={() => updateFontOption('theme', 'light')}
+            type="button"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 6.95l-1.41-1.41M6.46 6.46L5.05 5.05m12.02 0l-1.41 1.41M6.46 17.54l-1.41 1.41"/></svg>
+            Light
+          </button>
+          <button
+            className={`flex items-center gap-1 px-4 py-1.5 rounded-full border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
+            ${fontOptions.theme === 'dark' ? 'bg-blue-900/20 text-blue-300 border-blue-500' : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-blue-400'}`}
+            aria-label="Set theme to Dark"
+            onClick={() => updateFontOption('theme', 'dark')}
+            type="button"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+            Dark
+          </button>
         </div>
       </div>
 
-      {/* Skill Layout */}
-      <div className={SKILL_LAYOUT_STYLES.container}>
-        <label className={SKILL_LAYOUT_STYLES.label}>Skill Layout</label>
-        <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
-          {SKILL_LAYOUT_OPTIONS.map(opt => (
-            <button
-              key={opt.value}
-              onClick={() => updateFontOption('skillLayout', opt.value)}
-              className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.skillLayout === opt.value
-                ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                }`}
-            >
-              {opt.label}
-            </button>
-          ))}
+      <SectionDivider />
+
+      {/* Skill Layout (Polished) */}
+      <div className="mb-4">
+        <span className="font-semibold text-sm text-gray-100 dark:text-gray-200 mb-1 block">Skill Layout</span>
+        <div className="flex gap-2">
+          <button
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
+            ${fontOptions.skillLayout === 'bulleted' ? 'bg-blue-50 text-blue-700 border-blue-500' : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-blue-400'}`}
+            aria-label="Bulleted List Skill Layout"
+            onClick={() => updateFontOption('skillLayout', 'bulleted')}
+            type="button"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="18" r="1.5"/><rect x="10" y="5" width="8" height="2" rx="1"/><rect x="10" y="11" width="8" height="2" rx="1"/><rect x="10" y="17" width="8" height="2" rx="1"/></svg>
+            Bulleted
+          </button>
+          <button
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
+            ${fontOptions.skillLayout === 'pill' ? 'bg-blue-50 text-blue-700 border-blue-500' : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-blue-400'}`}
+            aria-label="Pill/Chip Skill Layout"
+            onClick={() => updateFontOption('skillLayout', 'pill')}
+            type="button"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="4" rx="2"/></svg>
+            Pill/Chip
+          </button>
+          <button
+            className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
+            ${fontOptions.skillLayout === 'classic' ? 'bg-blue-50 text-blue-700 border-blue-500' : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-blue-400'}`}
+            aria-label="Classic Inline Skill Layout"
+            onClick={() => updateFontOption('skillLayout', 'classic')}
+            type="button"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="2" rx="1"/><rect x="4" y="15" width="10" height="2" rx="1"/></svg>
+            Classic
+          </button>
         </div>
       </div>
+
+      <SectionDivider />
 
       {/* Font Family Section */}
       <div>

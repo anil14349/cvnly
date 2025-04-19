@@ -23,10 +23,11 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
     controls
 }) => {
     React.useEffect(() => {
-        if (fontOptions?.lineColor) {
-            document.documentElement.style.setProperty('--line-color', fontOptions.lineColor);
-        }
-    }, [fontOptions?.lineColor]);
+        const lineColor = fontOptions?.theme === 'dark'
+            ? fontOptions.lineColorDark || '#2d3748'
+            : fontOptions.lineColorLight || '#e2e8f0';
+        document.documentElement.style.setProperty('--line-color', lineColor);
+    }, [fontOptions?.theme, fontOptions?.lineColorDark, fontOptions?.lineColorLight]);
 
     const headerStyle = {
         fontFamily: fontOptions?.sectionHeaderFont || 'inherit',

@@ -5,6 +5,7 @@ import { ExperienceSectionProps } from '../../../types/experience';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import FormattedText from '../../common/FormattedText';
+import { getFontClassNames } from '../../../utils/fontUtils';
 import { ADD_EXPERIENCE_BUTTON_CLASS, SECTION_BUTTON_TEXT_STYLE, ADD_EXPERIENCE_TEXT, ADD_EXPERIENCE_ICON_SIZE } from './constants';
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
@@ -60,6 +61,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     updateExperience?.(experienceId, updatedExperience);
   };
 
+  const baseTextClasses = getFontClassNames(fontOptions);
+
   return (
     <div
       style={{
@@ -96,31 +99,19 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
             </button>
             <div className="flex flex-col sm:flex-row sm:items-center justify-between">
               <div>
-                <h3
-                  className={`${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} font-header-${fontOptions.headerFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
-                  contentEditable
-                  suppressContentEditableWarning
-                >
+                <h3 className={baseTextClasses} contentEditable suppressContentEditableWarning>
                   {experience.title}
                 </h3>
-                <div
-                  className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-                  contentEditable
-                  suppressContentEditableWarning
-                >
+                <div className={baseTextClasses} contentEditable suppressContentEditableWarning>
                   {experience.company}
                 </div>
               </div>
-              <div
-                className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} text-right ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}
-                contentEditable
-                suppressContentEditableWarning
-              >
+              <div className={`${baseTextClasses} text-right`} contentEditable suppressContentEditableWarning>
                 {experience.period}
               </div>
             </div>
 
-            <ul className={`${fontOptions.bodySize} text-gray-700 dark:text-gray-500 list-disc ml-5 mb-1 font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`}>
+            <ul className={`${baseTextClasses} list-disc ml-5 mb-1`}>
               {experience.achievements.map((achievement, idx) => (
                 <li key={idx} className="whitespace-pre-wrap group/achievement group relative">
                   <span className="inline-flex items-center">
@@ -145,7 +136,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
             <button
               onClick={() => addAchievement(experience.id)}
-              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} mb-1`}
+              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
               aria-label="Add achievement"
             >
               <Plus className="w-3 h-3" aria-hidden="true" />

@@ -8,6 +8,7 @@ interface AddSectionButtonProps {
     onClick: () => void;
     text: string;
     variant?: ButtonVariant;
+    className?: string; // Alias for buttonClassName for compatibility
     buttonClassName?: string;
     iconClassName?: string;
     textClassName?: string;
@@ -17,6 +18,7 @@ const AddSectionButton: React.FC<AddSectionButtonProps> = ({
     onClick,
     text,
     variant = 'button',
+    className,
     buttonClassName,
     iconClassName,
     textClassName
@@ -28,7 +30,7 @@ const AddSectionButton: React.FC<AddSectionButtonProps> = ({
     return (
         <button
             onClick={onClick}
-            className={buttonClassName || defaultButtonClass}
+            className={className || buttonClassName || defaultButtonClass}
             aria-label={text}
         >
             <Plus

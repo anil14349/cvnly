@@ -7,6 +7,7 @@ import {
 } from "../../../types/certification";
 import SectionHeaderLine from "../../common/SectionHeaderLine";
 import SectionControls from "../../common/SectionControls";
+import { getFontClassNames, getFontInlineStyles } from "../../../utils/fontUtils";
 import {
   CERTIFICATION_CONTAINER_CLASS,
   CERTIFICATION_ITEM_CLASS,
@@ -46,6 +47,9 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
     updateCertification(cert.id, field, value);
   };
 
+  const baseTextClasses = getFontClassNames(fontOptions);
+  const lineStyle = getFontInlineStyles(fontOptions);
+
   return (
     <div
       style={{
@@ -83,10 +87,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
             <div className={CERTIFICATION_CONTENT_CLASS}>
               <div>
                 <h4
-                  className={`${fontOptions.subheaderSize} ${fontOptions.subheaderWeight
-                    } ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing
-                    } ${CERTIFICATION_HEADER_CLASS} font-header-${fontOptions.headerFont.toLowerCase()} ${fontOptions.subheaderItalic ? "italic" : ""
-                    } ${fontOptions.subheaderUnderline ? "underline" : ""}`}
+                  className={`${baseTextClasses} ${CERTIFICATION_HEADER_CLASS}`}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={(e) =>
@@ -96,10 +97,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                   {cert.name}
                 </h4>
                 <div
-                  className={`${fontOptions.bodySize} ${fontOptions.bodyWeight
-                    } ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing
-                    } ${CERTIFICATION_ISSUER_CLASS} font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
-                    } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                  className={`${baseTextClasses} ${CERTIFICATION_ISSUER_CLASS}`}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={(e) =>
@@ -114,10 +112,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                 </div>
               </div>
               <div
-                className={`${CERTIFICATION_DATE_CLASS} ${fontOptions.bodySize
-                  } ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing
-                  } font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
-                  } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses}`}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={(e) =>
@@ -133,10 +128,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                 href={cert.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className={`${CERTIFICATION_LINK_CLASS} ${fontOptions.bodySize
-                  } ${fontOptions.bodyWeight} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing
-                  } font-body-${fontOptions.bodyFont.toLowerCase()} ${fontOptions.bodyItalic ? "italic" : ""
-                  } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                className={`${CERTIFICATION_LINK_CLASS} ${baseTextClasses}`}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={(e) =>

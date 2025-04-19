@@ -3,16 +3,18 @@ import { SECTION_BUTTON_STYLES, SECTION_BUTTON_TEXT_STYLE } from '../../common/c
 // Layout classes
 export const PROJECTS_CONTAINER_CLASS = 'relative group';
 export const PROJECTS_LIST_CLASS = 'space-y-6';
-export const PROJECT_ITEM_CLASS = 'relative group/project space-y-2';
-export const PROJECT_CONTENT_CLASS = 'flex flex-col sm:flex-row sm:items-baseline justify-between';
-export const PROJECT_DETAILS_CLASS = 'space-y-0.5';
-export const PROJECT_DESCRIPTION_CLASS = 'space-y-1';
+export const PROJECT_ITEM_CLASS = 'relative group/project group space-y-2';
+export const PROJECT_CONTENT_CLASS = 'flex flex-col sm:flex-row sm:items-center justify-between';
+export const PROJECT_DETAILS_CLASS = 'flex-1';
+export const PROJECT_DESCRIPTION_CLASS = 'mt-2';
 export const PROJECT_TECHNOLOGIES_CLASS = 'space-y-1.5';
 export const PROJECT_TECH_LIST_CLASS = 'flex flex-wrap gap-1.5';
 export const PROJECT_TECH_ITEM_CLASS = 'group/tech relative';
 export const PROJECT_TECH_BADGE_CLASS = 'rounded-md transition-colors inline-flex items-center';
-export const PROJECT_RESPONSIBILITIES_LIST_CLASS = 'list-disc ml-4 space-y-0.5';
-export const PROJECT_RESPONSIBILITY_ITEM_CLASS = 'group/responsibility relative';
+export const PROJECT_RESPONSIBILITIES_LIST_CLASS = 'list-disc ml-5 mb-1';
+export const PROJECT_RESPONSIBILITY_ITEM_CLASS = 'whitespace-pre-wrap group/responsibility group relative';
+export const PROJECT_TECHNOLOGIES_LIST_CLASS = 'flex flex-wrap gap-2 mt-2';
+export const PROJECT_TECHNOLOGY_ITEM_CLASS = 'whitespace-pre-wrap group/technology group relative';
 export const INLINE_BLOCK_CLASS = 'inline-block';
 
 // Button classes
@@ -21,7 +23,7 @@ export const DELETE_RESPONSIBILITY_BUTTON_CLASS = 'absolute -right-6 top-1/2 -tr
 export const DELETE_TECH_BUTTON_CLASS = 'absolute -right-1 -top-1 text-gray-400 hover:text-red-500 opacity-0 group-hover/tech:opacity-100 transition-opacity print:hidden';
 export const ADD_RESPONSIBILITY_BUTTON_CLASS = 'flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
 export const ADD_TECHNOLOGY_BUTTON_CLASS = 'flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity';
-export const ADD_PROJECT_BUTTON_CLASS = SECTION_BUTTON_STYLES.button + ' mt-1';
+export const ADD_PROJECT_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
 
 // Icon sizes
 export const DELETE_ICON_SIZE = 'w-3 h-3';
@@ -31,8 +33,8 @@ export const ADD_ICON_SIZE = 'w-3 h-3';
 // Text content
 export const DEFAULT_TITLE = 'Projects';
 export const ADD_PROJECT_TEXT = 'Add Project';
-export const ADD_RESPONSIBILITY_TEXT = 'Add Responsibility';
-export const ADD_TECHNOLOGY_TEXT = 'Add Technology';
+export const ADD_RESPONSIBILITY_TEXT = 'New responsibility';
+export const ADD_TECHNOLOGY_TEXT = 'New technology';
 export const NEW_RESPONSIBILITY_TEXT = 'New responsibility';
 export const NEW_TECH_TEXT = 'New Tech';
 export const DELETE_PROJECT_ARIA_LABEL = 'Delete project: ';
@@ -53,6 +55,7 @@ export const ADD_PROJECT_BUTTON_STYLES = {
 
 export const DATE_SEPARATOR = ' - ';
 export const ADD_PROJECT_LABEL = 'Add Project';
-export const ADD_PROJECT_ICON_SIZE = 'w-3.5 h-3.5 mr-1.5 text-gray-400';
+export const ADD_PROJECT_ICON_SIZE = SECTION_BUTTON_STYLES.icon;
+export const PROJECT_TEXT_CLASS = SECTION_BUTTON_STYLES.text;
 export const ADD_PROJECT_SPAN = SECTION_BUTTON_TEXT_STYLE;
 export { SECTION_BUTTON_TEXT_STYLE };

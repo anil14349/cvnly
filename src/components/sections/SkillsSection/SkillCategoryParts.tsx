@@ -65,15 +65,17 @@ export const SkillList = ({
   onEdit,
   onDelete,
   fontOptions,
+  baseTextClasses
 }: {
   items: string[];
   onEdit: (index: number, value: string) => void;
   onDelete: (index: number) => void;
   fontOptions: FontOptions;
+  baseTextClasses: string;
 }) => (
   <ul className={SKILL_LIST_CLASS}>
     {items.map((item, index) => (
-      <li key={index} className={SKILL_LIST_ITEM_CLASS}>
+      <li key={index} className={SKILL_LIST_ITEM_CLASS + ' ' + baseTextClasses}>
         <span
           className={SKILL_BULLET_CLASS}
           style={{
@@ -126,14 +128,16 @@ export const NewSkillInput = ({
   onAdd,
   onKeyPress,
   fontOptions,
+  baseTextClasses
 }: {
   value: string;
   onChange: (val: string) => void;
   onAdd: () => void;
   onKeyPress: React.KeyboardEventHandler;
   fontOptions: FontOptions;
+  baseTextClasses: string;
 }) => (
-  <div className={NEW_SKILL_CONTAINER_CLASS}>
+  <div className={NEW_SKILL_CONTAINER_CLASS + ' ' + baseTextClasses}>
     <span
       className={SKILL_BULLET_CLASS}
       style={{

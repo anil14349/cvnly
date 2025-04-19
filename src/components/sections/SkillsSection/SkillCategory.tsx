@@ -3,6 +3,7 @@ import { Skill } from '../../../types/skill';
 import { FontOptions } from '../../../types/common';
 import { CategoryHeader, SkillList, NewSkillInput } from './SkillCategoryParts';
 import { SKILL_CATEGORY_HEADER_CLASS } from './constants';
+import { getFontClassNames } from '../../../utils/fontUtils';
 
 interface Props {
     category: Skill;
@@ -41,6 +42,8 @@ const SkillCategory: React.FC<Props> = ({
         updateSkill(category.id, { category: e.target.value });
     };
 
+    const baseTextClasses = getFontClassNames(fontOptions);
+
     return (
         <div className={SKILL_CATEGORY_HEADER_CLASS}>
             <CategoryHeader
@@ -55,6 +58,7 @@ const SkillCategory: React.FC<Props> = ({
                 onEdit={handleEditSkill}
                 onDelete={handleDeleteSkill}
                 fontOptions={fontOptions}
+                baseTextClasses={baseTextClasses}
             />
 
             <NewSkillInput
@@ -63,6 +67,7 @@ const SkillCategory: React.FC<Props> = ({
                 onAdd={handleAddSkill}
                 onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
                 fontOptions={fontOptions}
+                baseTextClasses={baseTextClasses}
             />
         </div>
     );

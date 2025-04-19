@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontOptions } from '../../types/common';
-import { Italic, Underline, Palette } from 'lucide-react';
+import { Italic, Underline } from 'lucide-react';
 import {
   FONT_SIZES,
   FONT_WEIGHTS,
@@ -118,54 +118,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       className={PANEL_STYLES.container}
       style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
     >
-      {/* Section Line Color Picker (Minimizable) */}
-      <MinimizableSection title="Section Line Color" defaultOpen={expandedSections.lineColor}>
-        <div className="grid grid-cols-5 gap-2 mb-4">
-          {COLORS.map((color) => (
-            <div key={color.value} className="flex flex-col items-center">
-              <button
-                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 shadow-sm relative
-                  ${fontOptions.lineColor === color.hex ? 'border-blue-500 ring-2 ring-blue-400' : 'border-gray-300 dark:border-gray-700'}
-                  ${color.name === 'White' ? 'border border-gray-400' : ''}`}
-                style={{ background: color.hex }}
-                title={color.name}
-                aria-label={`Set section line color to ${color.name}`}
-                onClick={() => updateFontOption('lineColor', color.hex)}
-                type="button"
-              >
-                {fontOptions.lineColor === color.hex && (
-                  <span className="absolute top-1 right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
-                  </span>
-                )}
-              </button>
-              <span className="text-[10px] text-gray-900 dark:text-gray-200 font-medium mt-1 whitespace-nowrap pointer-events-none select-none" style={{textShadow:'0 1px 2px rgba(0,0,0,0.15)'}}>{color.name}</span>
-            </div>
-          ))}
-        </div>
-        <div className="flex items-center gap-2 mt-1">
-          <span className="text-xs text-gray-400">Custom</span>
-          <span className="w-6 h-6 rounded-full border border-gray-400 flex items-center justify-center" style={{background: fontOptions.lineColor}} />
-          <input
-            type="color"
-            value={/^#[0-9A-Fa-f]{6}$/.test(fontOptions.lineColor) ? fontOptions.lineColor : '#000000'}
-            onChange={e => updateFontOption('lineColor', e.target.value)}
-            className="w-6 h-6 border border-gray-300 rounded cursor-pointer"
-            aria-label="Pick custom section line color"
-          />
-          <input
-            type="text"
-            className="ml-2 px-2 py-1 rounded border border-gray-300 bg-gray-800 text-gray-100 text-xs w-28 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            value={fontOptions.lineColor}
-            onChange={e => updateFontOption('lineColor', e.target.value)}
-            aria-label="Set custom section line color value"
-            placeholder="#hex or color name"
-          />
-        </div>
-      </MinimizableSection>
-
-      <SectionDivider />
-
       {/* Theme Selection (Minimizable) */}
       <MinimizableSection title="Theme" defaultOpen={expandedSections.theme}>
         <div className="flex gap-2">
@@ -402,6 +354,54 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               </label>
             </div>
           </div>
+        </div>
+      </MinimizableSection>
+
+      <SectionDivider />
+
+      {/* Section Line Color Picker (Minimizable) */}
+      <MinimizableSection title="Section Line Color" defaultOpen={expandedSections.lineColor}>
+        <div className="grid grid-cols-5 gap-2 mb-4">
+          {COLORS.map((color) => (
+            <div key={color.value} className="flex flex-col items-center">
+              <button
+                className={`w-8 h-8 rounded-full border-2 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 shadow-sm relative
+                  ${fontOptions.lineColor === color.hex ? 'border-blue-500 ring-2 ring-blue-400' : 'border-gray-300 dark:border-gray-700'}
+                  ${color.name === 'White' ? 'border border-gray-400' : ''}`}
+                style={{ background: color.hex }}
+                title={color.name}
+                aria-label={`Set section line color to ${color.name}`}
+                onClick={() => updateFontOption('lineColor', color.hex)}
+                type="button"
+              >
+                {fontOptions.lineColor === color.hex && (
+                  <span className="absolute top-1 right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
+                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  </span>
+                )}
+              </button>
+              <span className="text-[10px] text-gray-900 dark:text-gray-200 font-medium mt-1 whitespace-nowrap pointer-events-none select-none" style={{textShadow:'0 1px 2px rgba(0,0,0,0.15)'}}>{color.name}</span>
+            </div>
+          ))}
+        </div>
+        <div className="flex items-center gap-2 mt-1">
+          <span className="text-xs text-gray-400">Custom</span>
+          <span className="w-6 h-6 rounded-full border border-gray-400 flex items-center justify-center" style={{background: fontOptions.lineColor}} />
+          <input
+            type="color"
+            value={/^#[0-9A-Fa-f]{6}$/.test(fontOptions.lineColor) ? fontOptions.lineColor : '#000000'}
+            onChange={e => updateFontOption('lineColor', e.target.value)}
+            className="w-6 h-6 border border-gray-300 rounded cursor-pointer"
+            aria-label="Pick custom section line color"
+          />
+          <input
+            type="text"
+            className="ml-2 px-2 py-1 rounded border border-gray-300 bg-gray-800 text-gray-100 text-xs w-28 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            value={fontOptions.lineColor}
+            onChange={e => updateFontOption('lineColor', e.target.value)}
+            aria-label="Set custom section line color value"
+            placeholder="#hex or color name"
+          />
         </div>
       </MinimizableSection>
 

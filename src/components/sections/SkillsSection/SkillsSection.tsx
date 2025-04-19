@@ -9,12 +9,6 @@ import SkillCategory from './SkillCategory';
 import { AddSkillCategoryButton } from './AddSkillCategoryButton';
 import type { SkillLayoutType } from '../../../types/common';
 
-const SKILL_LAYOUT_OPTIONS: { value: SkillLayoutType; label: string }[] = [
-  { value: 'bulleted', label: 'Bulleted List' },
-  { value: 'pill', label: 'Pill/Chip' },
-  { value: 'classic', label: 'Classic Inline' },
-];
-
 export const SkillsSection: React.FC<SkillsSectionProps> = ({
   index,
   moveSection,

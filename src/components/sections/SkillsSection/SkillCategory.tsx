@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Skill } from '../../../types/skill';
 import { FontOptions } from '../../../types/common';
 import { CategoryHeader, SkillList, NewSkillInput } from './SkillCategoryParts';
-import { SKILL_CATEGORY_HEADER_CLASS } from './constants';
 import { getFontClassNames } from '../../../utils/fontUtils';
 
 interface Props {

@@ -1,17 +1,15 @@
-import React from 'react';
-import AddSectionButton from '../../../components/common/AddSectionButton';
+import { AddSectionButton } from '../../common/AddSectionButton';
 import { ADD_SKILL_BUTTON_CLASS } from './constants';
 
 interface AddSkillCategoryButtonProps {
     onClick: () => void;
 }
 
-export const AddSkillCategoryButton: React.FC<AddSkillCategoryButtonProps> = ({ onClick }) => {
+export const AddSkillCategoryButton = ({ onClick }: AddSkillCategoryButtonProps) => {
     return (
         <AddSectionButton
             onClick={onClick}
-            text="Add Category"
-            variant="secondary"
+            text="Add Skill Category"
             buttonClassName={ADD_SKILL_BUTTON_CLASS}
         />
     );

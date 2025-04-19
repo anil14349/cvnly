@@ -61,16 +61,19 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         }
       />
 
-      <div className={SKILL_CATEGORY_CLASS}>
-        {skills.map((skillCategory) => (
-          <SkillCategory
-            key={skillCategory.id}
-            category={skillCategory}
-            fontOptions={fontOptions}
-            updateSkill={handleUpdateSkill}
-            deleteSkill={handleDeleteSkill}
-          />
-        ))}
+      {/* Add margin between section header and grid */}
+      <div className="mt-2">
+        <div className={SKILL_CATEGORY_CLASS}>
+          {skills.map((skillCategory) => (
+            <SkillCategory
+              key={skillCategory.id}
+              category={skillCategory}
+              fontOptions={fontOptions}
+              updateSkill={handleUpdateSkill}
+              deleteSkill={handleDeleteSkill}
+            />
+          ))}
+        </div>
       </div>
       <div className="mt-4 print:hidden">
         <AddSkillCategoryButton onClick={addSkillCategory} />

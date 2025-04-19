@@ -1,43 +1,35 @@
 import React from 'react';
 import { Plus } from 'lucide-react';
-import { SECTION_BUTTON_STYLES, SECTION_BUTTON_VARIANTS } from './constants';
-
-type ButtonVariant = keyof typeof SECTION_BUTTON_VARIANTS.primary;
+import { SECTION_BUTTON_STYLES, SECTION_BUTTON_TEXT_STYLE } from './constants';
 
 interface AddSectionButtonProps {
     onClick: () => void;
     text: string;
-    variant?: ButtonVariant;
-    className?: string; // Alias for buttonClassName for compatibility
+    variant?: 'primary' | 'secondary' | 'inline';
     buttonClassName?: string;
     iconClassName?: string;
     textClassName?: string;
 }
 
-const AddSectionButton: React.FC<AddSectionButtonProps> = ({
+export const AddSectionButton = ({
     onClick,
     text,
-    variant = 'button',
-    className,
+    variant = 'primary',
     buttonClassName,
     iconClassName,
     textClassName
-}) => {
-    const defaultButtonClass = variant ? SECTION_BUTTON_VARIANTS.primary[variant] : SECTION_BUTTON_STYLES.button;
+}: AddSectionButtonProps) => {
+    const defaultButtonClass = SECTION_BUTTON_STYLES.button;
     const defaultIconClass = SECTION_BUTTON_STYLES.icon;
-    const defaultTextClass = SECTION_BUTTON_STYLES.text;
+    const defaultTextClass = SECTION_BUTTON_TEXT_STYLE;
 
     return (
         <button
             onClick={onClick}
-            className={className || buttonClassName || defaultButtonClass}
-            aria-label={text}
+            className={`${defaultButtonClass} ${buttonClassName || ''}`}
         >
-            <Plus
-                className={iconClassName || defaultIconClass}
-                aria-hidden="true"
-            />
-            <span className={textClassName || defaultTextClass}>
+            <Plus className={`${defaultIconClass} ${iconClassName || ''}`} />
+            <span className={`${defaultTextClass} ${textClassName || ''}`}>
                 {text}
             </span>
         </button>

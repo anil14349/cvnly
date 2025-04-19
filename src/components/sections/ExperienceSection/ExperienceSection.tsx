@@ -6,7 +6,28 @@ import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import FormattedText from '../../common/FormattedText';
 import { getFontClassNames } from '../../../utils/fontUtils';
-import { ADD_EXPERIENCE_BUTTON_CLASS, SECTION_BUTTON_TEXT_STYLE, ADD_EXPERIENCE_TEXT, ADD_EXPERIENCE_ICON_SIZE } from './constants';
+import {
+  ADD_EXPERIENCE_BUTTON_CLASS,
+  SECTION_BUTTON_TEXT_STYLE,
+  ADD_EXPERIENCE_TEXT,
+  ADD_EXPERIENCE_ICON_SIZE,
+  DELETE_EXPERIENCE_BUTTON_CLASS,
+  DELETE_EXPERIENCE_ICON_SIZE,
+  DELETE_EXPERIENCE_BUTTON_PADDING,
+  DELETE_ACHIEVEMENT_BUTTON_CLASS,
+  DELETE_ACHIEVEMENT_ICON_SIZE,
+  ADD_ACHIEVEMENT_BUTTON_CLASS,
+  ADD_ACHIEVEMENT_ICON_SIZE,
+  EXPERIENCE_CONTAINER_CLASS,
+  EXPERIENCE_ITEM_CLASS,
+  EXPERIENCE_HEADER_CLASS,
+  EXPERIENCE_PERIOD_CLASS,
+  ACHIEVEMENT_LIST_CLASS,
+  ACHIEVEMENT_ITEM_CLASS,
+  ACHIEVEMENT_TEXT_CONTAINER_CLASS,
+  DEFAULT_BG_DARK,
+  DEFAULT_BG_LIGHT
+} from './constants';
 
 const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   experiences,
@@ -67,10 +88,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     <div
       style={{
         background: fontOptions.theme === 'dark'
-          ? fontOptions.widgetBgDark || '#181f2a'
-          : fontOptions.widgetBgLight || '#fff',
+          ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
+          : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className="relative group"
+      className={EXPERIENCE_CONTAINER_CLASS}
     >
       <SectionHeaderLine
         title={title}
@@ -88,16 +109,16 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
       <div className="space-y-4">
         {experiences.map((experience) => (
-          <div key={experience.id} className="relative group/experience group space-y-2">
+          <div key={experience.id} className={EXPERIENCE_ITEM_CLASS}>
             <button
               onClick={() => deleteExperience?.(experience.id)}
-              className="absolute -top-2 -right-2 z-10 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+              className={DELETE_EXPERIENCE_BUTTON_CLASS}
               aria-label={`Delete experience: ${experience.title}`}
-              style={{ padding: '0.25rem' }}
+              style={{ padding: DELETE_EXPERIENCE_BUTTON_PADDING }}
             >
-              <X className="w-4 h-4" aria-hidden="true" />
+              <X className={DELETE_EXPERIENCE_ICON_SIZE} aria-hidden="true" />
             </button>
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between">
+            <div className={EXPERIENCE_HEADER_CLASS}>
               <div>
                 <h3 className={baseTextClasses} contentEditable suppressContentEditableWarning>
                   {experience.title}
@@ -106,15 +127,15 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   {experience.company}
                 </div>
               </div>
-              <div className={`${baseTextClasses} text-right`} contentEditable suppressContentEditableWarning>
+              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS}`} contentEditable suppressContentEditableWarning>
                 {experience.period}
               </div>
             </div>
 
-            <ul className={`${baseTextClasses} list-disc ml-5 mb-1`}>
+            <ul className={`${baseTextClasses} ${ACHIEVEMENT_LIST_CLASS}`}>
               {experience.achievements.map((achievement, idx) => (
-                <li key={idx} className="whitespace-pre-wrap group/achievement group relative">
-                  <span className="inline-flex items-center">
+                <li key={idx} className={ACHIEVEMENT_ITEM_CLASS}>
+                  <span className={ACHIEVEMENT_TEXT_CONTAINER_CLASS}>
                     <FormattedText
                       text={achievement}
                       fontOptions={fontOptions}
@@ -124,10 +145,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                     />
                     <button
                       onClick={() => removeAchievement(experience.id, idx)}
-                      className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+                      className={DELETE_ACHIEVEMENT_BUTTON_CLASS}
                       aria-label={`Delete achievement: ${achievement.substring(0, 20)}...`}
                     >
-                      <X className="w-3 h-3" aria-hidden="true" />
+                      <X className={DELETE_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />
                     </button>
                   </span>
                 </li>
@@ -136,10 +157,10 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
             <button
               onClick={() => addAchievement(experience.id)}
-              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
+              className={`${ADD_ACHIEVEMENT_BUTTON_CLASS} ${baseTextClasses}`}
               aria-label="Add achievement"
             >
-              <Plus className="w-3 h-3" aria-hidden="true" />
+              <Plus className={ADD_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />
               <span>Add Achievement</span>
             </button>
           </div>

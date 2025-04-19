@@ -109,14 +109,14 @@ export const SkillList = ({
             isEditing
             className={FORMATTED_TEXT_CLASS}
           />
+          <button
+            onClick={() => onDelete(index)}
+            className={SKILL_DELETE_BUTTON_CLASS}
+            aria-label={ARIA_LABELS.deleteSkill}
+          >
+            <X className={SKILL_DELETE_ICON_CLASS} />
+          </button>
         </div>
-        <button
-          onClick={() => onDelete(index)}
-          className={SKILL_DELETE_BUTTON_CLASS}
-          aria-label={ARIA_LABELS.deleteSkill}
-        >
-          <X className={SKILL_DELETE_ICON_CLASS} />
-        </button>
       </li>
     ))}
   </ul>

@@ -51,3 +51,9 @@ export const ADD_SUMMARY_ICON_SIZE = 'w-3 h-3';
 export const FORMATTED_TEXT_CLASS = 'inline-block w-full';
 
 export const SKILLS_GRID_CLASS = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-0.5 mb-0.5';
+
+// Classic Layout Classes
+export const CLASSIC_CATEGORY_CONTAINER_CLASS = 'list-none mb-1 flex items-baseline';
+export const CLASSIC_CATEGORY_INPUT_CLASS = 'bg-transparent border-none focus:outline-none font-bold';
+export const CLASSIC_CATEGORY_SEPARATOR_CLASS = 'font-bold ml-0 mr-1';
+export const CLASSIC_ITEMS_INPUT_CLASS = 'bg-transparent border-none focus:outline-none flex-1';

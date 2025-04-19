@@ -1,16 +1,11 @@
 import { FontOptions } from "../../../types/common";
 import FormattedText from "../../common/FormattedText";
 import { X } from "lucide-react";
-import { getFontClassNames, getFontInlineStyles } from "../../../utils/fontUtils";
 import {
-    SKILL_LIST_CLASS,
-    SKILL_LIST_ITEM_CLASS,
-    SKILL_BULLET_CLASS,
     SKILL_TEXT_CONTAINER_CLASS,
     SKILL_DELETE_BUTTON_CLASS,
     SKILL_DELETE_ICON_CLASS,
     FORMATTED_TEXT_CLASS,
-    BULLET_POINT,
     ARIA_LABELS
 } from "./constants";
 

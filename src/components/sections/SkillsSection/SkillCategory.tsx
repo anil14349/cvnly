@@ -3,6 +3,12 @@ import { Skill } from '../../../types/skill';
 import { FontOptions } from '../../../types/common';
 import { CategoryHeader, SkillList, NewSkillInput } from './SkillCategoryParts';
 import { getFontClassNames } from '../../../utils/fontUtils';
+import {
+    CLASSIC_CATEGORY_CONTAINER_CLASS,
+    CLASSIC_CATEGORY_INPUT_CLASS,
+    CLASSIC_CATEGORY_SEPARATOR_CLASS,
+    CLASSIC_ITEMS_INPUT_CLASS
+} from './constants';
 
 interface Props {
     category: Skill;
@@ -50,17 +56,17 @@ const SkillCategory: React.FC<Props> = ({
         const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} font-header-${fontOptions.subheaderFont?.toLowerCase?.()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
         const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
         return (
-            <li className={'list-none mb-1 flex items-baseline'}>
+            <li className={CLASSIC_CATEGORY_CONTAINER_CLASS}>
                 <input
                     type="text"
                     value={category.category}
                     onChange={e => {
                         updateSkill(category.id, { category: e.target.value });
                     }}
-                    className={`bg-transparent border-none focus:outline-none font-bold ${subheaderClasses}`}
+                    className={`${CLASSIC_CATEGORY_INPUT_CLASS} ${subheaderClasses}`}
                     style={{ minWidth: 40, width: `${category.category.length}ch`, maxWidth: '100%' }}
                 />
-                <span className="font-bold ml-0 mr-1">:</span>
+                <span className={CLASSIC_CATEGORY_SEPARATOR_CLASS}>:</span>
                 <input
                     type="text"
                     value={category.items.join(', ')}
@@ -73,7 +79,7 @@ const SkillCategory: React.FC<Props> = ({
                             // Add a new blank category below (to be handled in parent)
                         }
                     }}
-                    className={`bg-transparent border-none focus:outline-none flex-1 ${bodyClasses}`}
+                    className={`${CLASSIC_ITEMS_INPUT_CLASS} ${bodyClasses}`}
                     style={{ minWidth: 120 }}
                 />
             </li>

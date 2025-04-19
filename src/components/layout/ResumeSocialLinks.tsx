@@ -2,6 +2,14 @@ import React from "react";
 import { Phone, Mail, Linkedin, Github, MapPin, X } from "lucide-react";
 import { FontOptions, IconType, SocialLink } from "../../types/common";
 import { getIcon, SocialType } from "../../utils/iconUtils";
+import {
+    SOCIAL_LINK_CONTAINER_CLASS,
+    SOCIAL_LINK_ITEM_CLASS,
+    SOCIAL_LINK_ICON_CLASS,
+    SOCIAL_LINK_INPUT_WRAPPER_CLASS,
+    SOCIAL_LINK_INPUT_CLASS,
+    SOCIAL_LINK_DELETE_BTN_CLASS
+} from "./constants";
 
 interface Props {
     socialLinks: SocialLink[];
@@ -19,8 +27,7 @@ const ResumeSocialLinks: React.FC<Props> = ({
     iconFormat = "symbol",
 }) => {
     const renderIcon = (type: SocialType) => {
-        const iconClasses = "w-4 h-4 text-gray-500 flex-shrink-0";
-
+        const iconClasses = SOCIAL_LINK_ICON_CLASS;
         const icons: { [key in SocialType]: JSX.Element } = {
             phone: <Phone className={iconClasses} />,
             email: <Mail className={iconClasses} />,
@@ -55,31 +62,31 @@ const ResumeSocialLinks: React.FC<Props> = ({
         }
     };
 
-    const containerClasses = `social-links mt-2 flex flex-wrap gap-x-1 gap-y-0.5 ${
+    const containerClasses = `${SOCIAL_LINK_CONTAINER_CLASS}${
         fontOptions.headerAlignment === 'left' ? 'justify-start' :
         fontOptions.headerAlignment === 'right' ? 'justify-end' :
-        'justify-center'
-    }`;
+            'justify-center'
+        }`;
 
     return (
         <div className={containerClasses}>
             {socialLinks.map((link) => (
-                <div key={link.id} className="flex items-center space-x-1 group">
+                <div key={link.id} className={SOCIAL_LINK_ITEM_CLASS}>
                     {renderIcon(link.type)}
-                    <div className="inline-block min-w-0">
+                    <div className={SOCIAL_LINK_INPUT_WRAPPER_CLASS}>
                         <input
                             type="text"
                             value={link.value}
                             onChange={(e) => updateSocialLink(link.id, e.target.value)}
                             placeholder={getDefaultText(link.type)}
-                            className="text-sm text-gray-900 dark:text-gray-300 bg-transparent border-none focus:outline-none focus:ring-0 px-0"
+                            className={SOCIAL_LINK_INPUT_CLASS}
                             size={link.value.length || getDefaultText(link.type).length}
                             style={{ width: "auto", minWidth: "5ch" }}
                         />
                     </div>
                     <button
                         onClick={() => deleteSocialLink(link.id)}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden group-hover:inline-block transition-opacity duration-200"
+                        className={SOCIAL_LINK_DELETE_BTN_CLASS}
                     >
                         <X className="w-4 h-4" />
                     </button>

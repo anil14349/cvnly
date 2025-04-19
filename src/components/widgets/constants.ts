@@ -36,7 +36,7 @@ export const PANEL_STYLES = {
     label: 'block text-xs font-medium text-gray-700 dark:text-gray-300 mb-0.5',
     wrapper: 'flex items-center gap-0.5',
     input: 'flex-1 px-1 py-0.5 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white',
-    preview: 'px-1 py-0.5 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600'
+    preview: 'px-1 py-0.5 border border-gray-300 rounded-md shadow-sm dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200'
   },
   colorPicker: {
     container: 'mb-2',
@@ -81,14 +81,14 @@ export const SKILL_LAYOUT_STYLES = {
   label: 'block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1',
   buttonGroup: 'flex gap-1',
   button: {
-    base: 'px-2 py-1 text-xs rounded border transition-all',
+    base: 'px-2 py-1 text-xs rounded border transition-all font-medium',
     active: {
       light: 'border-blue-500 bg-blue-50 text-blue-700',
       dark: 'border-blue-500 bg-blue-900/20 text-blue-300'
     },
     inactive: {
-      light: 'border-gray-300 text-gray-800 hover:border-gray-400',
-      dark: 'border-gray-600 text-gray-200 hover:border-gray-500'
+      light: 'border-gray-300 bg-transparent text-gray-400 hover:border-gray-400',
+      dark: 'border-gray-600 bg-transparent text-gray-200 hover:border-gray-500'
     }
   }
 };

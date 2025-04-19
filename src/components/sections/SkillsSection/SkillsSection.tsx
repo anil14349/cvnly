@@ -1,11 +1,12 @@
 import React from 'react';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import SectionControls from '../../common/SectionControls';
-import AddSkillCategoryButton from './AddSkillCategoryButton';
+
 import type { SkillsSectionProps, Skill } from '../../../types/skill';
 import { DEFAULT_SKILLS_TITLE, SKILL_CATEGORY_CLASS } from './constants';
 import { v4 as uuidv4 } from 'uuid';
 import SkillCategory from './SkillCategory';
+import { AddSkillCategoryButton } from './AddSkillCategoryButton';
 
 
 
@@ -70,9 +71,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
             deleteSkill={handleDeleteSkill}
           />
         ))}
-        <div className="mt-4 print:hidden">
-          <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
-        </div>
+      </div>
+      <div className="mt-4 print:hidden">
+        <AddSkillCategoryButton onClick={addSkillCategory} />
       </div>
     </section>
   );

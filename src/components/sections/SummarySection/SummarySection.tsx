@@ -7,7 +7,7 @@ import { DEFAULT_SUMMARY_TITLE, PLACEHOLDER_TEXT } from './constants';
 import AddSummaryButton from './AddSummaryButton';
 import SummaryEditor from './SummaryEditor';
 import SummaryDisplay from './SummaryDisplay';
-import { FontOptions } from '../../../types/common';
+
 
 const SummarySection: React.FC<SummarySectionProps> = ({
   index,

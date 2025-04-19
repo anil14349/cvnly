@@ -47,7 +47,9 @@ export const COLORS = [
   { name: 'Violet', value: 'border-violet-500', hex: '#8b5cf6' },
   { name: 'Purple', value: 'border-purple-500', hex: '#a21caf' },
   { name: 'Fuchsia', value: 'border-fuchsia-500', hex: '#d946ef' },
-  { name: 'Pink', value: 'border-pink-500', hex: '#ec4899' }
+  { name: 'Pink', value: 'border-pink-500', hex: '#ec4899' },
+  { name: 'Black', value: 'border-black', hex: '#000000' },
+  { name: 'White', value: 'border-white', hex: '#ffffff' },
 ];
 
 // Font Classes

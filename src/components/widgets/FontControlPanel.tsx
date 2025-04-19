@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontOptions } from '../../types/common';
-import { Italic, Underline } from 'lucide-react';
+import { Italic, Underline, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
 import {
   FONT_SIZES,
   FONT_WEIGHTS,
@@ -16,7 +16,8 @@ import {
   SECTION_STYLES,
   PREVIEW_STYLES,
   PANEL_CONTAINER_STYLES,
-  STYLE_CHECKBOX_STYLES
+  STYLE_CHECKBOX_STYLES,
+  SKILL_LAYOUT_STYLES
 } from './constants';
 
 interface FontControlPanelProps {
@@ -95,19 +96,29 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
     <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-gray-500/20 to-transparent" />
   );
 
-  // Minimizable section component
-  const MinimizableSection: React.FC<{ title: string; children: React.ReactNode; defaultOpen?: boolean }> = ({ title, children, defaultOpen = true }) => {
-    const [open, setOpen] = React.useState(defaultOpen);
+  // Minimizable section component (controlled)
+  const MinimizableSection: React.FC<{
+    title: string;
+    children: React.ReactNode;
+    open: boolean;
+    onToggle: () => void;
+  }> = ({ title, children, open, onToggle }) => {
     return (
       <div className="mb-4">
-        <button
-          className="flex items-center gap-2 w-full text-left font-semibold text-sm text-gray-100 dark:text-gray-200 mb-2 focus:outline-none"
-          onClick={() => setOpen(o => !o)}
-          aria-expanded={open}
-        >
-          <span>{title}</span>
-          <svg className={`w-4 h-4 ml-auto transition-transform ${open ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
-        </button>
+        <div className="flex items-center gap-2 w-full text-left font-semibold text-sm text-gray-100 dark:text-gray-200 mb-2 select-none">
+          <span className="flex-1">{title}</span>
+          <button
+            type="button"
+            onClick={onToggle}
+            aria-expanded={open}
+            className="ml-2 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
+            tabIndex={0}
+          >
+            <svg className={`w-4 h-4 transition-transform ${open ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+            </svg>
+          </button>
+        </div>
         {open && <div>{children}</div>}
       </div>
     );
@@ -119,7 +130,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
     >
       {/* Theme Selection (Minimizable) */}
-      <MinimizableSection title="Theme" defaultOpen={expandedSections.theme}>
+      <MinimizableSection
+        title="Theme"
+        open={expandedSections.theme}
+        onToggle={() => toggleSection('theme')}
+      >
         <div className="flex gap-2">
           <button
             className={`flex items-center gap-1 px-4 py-1.5 rounded-full border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
@@ -128,7 +143,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             onClick={() => updateFontOption('theme', 'light')}
             type="button"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 6.95l-1.41-1.41M6.46 6.46L5.05 5.05m12.02 0l-1.41 1.41M6.46 17.54l-1.41 1.41"/></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" /><path d="M12 1v2m0 18v2m11-11h-2M3 12H1m16.95 6.95l-1.41-1.41M6.46 6.46L5.05 5.05m12.02 0l-1.41 1.41M6.46 17.54l-1.41 1.41" /></svg>
             Light
           </button>
           <button
@@ -138,7 +153,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             onClick={() => updateFontOption('theme', 'dark')}
             type="button"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z"/></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" /></svg>
             Dark
           </button>
         </div>
@@ -147,7 +162,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       <SectionDivider />
 
       {/* Skill Layout (Minimizable) */}
-      <MinimizableSection title="Skill Layout" defaultOpen={expandedSections.skillLayout}>
+      <MinimizableSection
+        title="Skill Layout"
+        open={expandedSections.skillLayout}
+        onToggle={() => toggleSection('skillLayout')}
+      >
         <div className="flex gap-2">
           <button
             className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
@@ -156,7 +175,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             onClick={() => updateFontOption('skillLayout', 'bulleted')}
             type="button"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.5"/><circle cx="6" cy="12" r="1.5"/><circle cx="6" cy="18" r="1.5"/><rect x="10" y="5" width="8" height="2" rx="1"/><rect x="10" y="11" width="8" height="2" rx="1"/><rect x="10" y="17" width="8" height="2" rx="1"/></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><circle cx="6" cy="6" r="1.5" /><circle cx="6" cy="12" r="1.5" /><circle cx="6" cy="18" r="1.5" /><rect x="10" y="5" width="8" height="2" rx="1" /><rect x="10" y="11" width="8" height="2" rx="1" /><rect x="10" y="17" width="8" height="2" rx="1" /></svg>
             Bulleted
           </button>
           <button
@@ -166,7 +185,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             onClick={() => updateFontOption('skillLayout', 'pill')}
             type="button"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="4" rx="2"/></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="4" rx="2" /></svg>
             Pill/Chip
           </button>
           <button
@@ -176,7 +195,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             onClick={() => updateFontOption('skillLayout', 'classic')}
             type="button"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="2" rx="1"/><rect x="4" y="15" width="10" height="2" rx="1"/></svg>
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="2" rx="1" /><rect x="4" y="15" width="10" height="2" rx="1" /></svg>
             Classic
           </button>
         </div>
@@ -185,36 +204,73 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       <SectionDivider />
 
       {/* Font Families Section (Minimizable) */}
-      <MinimizableSection title="Font Families" defaultOpen={expandedSections.fonts}>
-        <button
-          className={PANEL_STYLES.select.label}
-          onClick={() => toggleSection('fonts')}
-          aria-expanded={expandedSections.fonts}
-        >
-          <span>Font Families</span>
-        </button>
-        {expandedSections.fonts && (
-          <div>
-            <div className={FONT_FAMILY_STYLES.grid}>
-              {renderSelect('headerFont', Array.from(FONT_FAMILIES) as string[], 'Header Font', 'Header')}
-              {renderSelect('subheaderFont', Array.from(FONT_FAMILIES) as string[], 'Subheader Font', 'Subheader')}
-              {renderSelect('sectionHeaderFont', Array.from(FONT_FAMILIES) as string[], 'Section Header Font', 'Section Header')}
-              {renderSelect('bodyFont', Array.from(FONT_FAMILIES) as string[], 'Body Font', 'Body')}
-            </div>
+      <MinimizableSection
+        title="Font Families"
+        open={expandedSections.fonts}
+        onToggle={() => toggleSection('fonts')}
+      >
+        <div>
+          <div className={FONT_FAMILY_STYLES.grid}>
+            {renderSelect('headerFont', Array.from(FONT_FAMILIES) as string[], 'Header Font', 'Header')}
+            {renderSelect('subheaderFont', Array.from(FONT_FAMILIES) as string[], 'Subheader Font', 'Subheader')}
+            {renderSelect('sectionHeaderFont', Array.from(FONT_FAMILIES) as string[], 'Section Header Font', 'Section Header')}
+            {renderSelect('bodyFont', Array.from(FONT_FAMILIES) as string[], 'Body Font', 'Body')}
           </div>
-        )}
+        </div>
       </MinimizableSection>
 
       <SectionDivider />
 
       {/* Header Text Section (Minimizable) */}
-      <MinimizableSection title="Header Text" defaultOpen={expandedSections.header}>
+      <MinimizableSection
+        title="Header Text"
+        open={expandedSections.header}
+        onToggle={() => toggleSection('header')}
+      >
         <div className={PANEL_STYLES.section.content}>
           {renderSelect('headerSize', Array.from(FONT_SIZES) as string[], 'Header Size', 'Header')}
           {renderSelect('headerWeight', Array.from(FONT_WEIGHTS) as string[], 'Header Weight', 'Header')}
           {renderSelect('headerLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Header Line Height', 'Header')}
           {renderSelect('headerLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Header Letter Spacing', 'Header')}
           {renderSelect('headerColor', COLORS, 'Header Color', 'Header')}
+          <div className={SECTION_STYLES.content}>
+            <label className={PANEL_STYLES.label.style}>Alignment</label>
+            <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
+              <button
+                onClick={() => updateFontOption('headerAlignment', 'left')}
+                className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerAlignment === 'left'
+                  ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                  : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                  }`}
+                type="button"
+                aria-label="Align left"
+              >
+                <AlignLeft className={PANEL_STYLES.icon.small} />
+              </button>
+              <button
+                onClick={() => updateFontOption('headerAlignment', 'center')}
+                className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerAlignment === 'center'
+                  ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                  : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                  }`}
+                type="button"
+                aria-label="Align center"
+              >
+                <AlignCenter className={PANEL_STYLES.icon.small} />
+              </button>
+              <button
+                onClick={() => updateFontOption('headerAlignment', 'right')}
+                className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerAlignment === 'right'
+                  ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                  : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                  }`}
+                type="button"
+                aria-label="Align right"
+              >
+                <AlignRight className={PANEL_STYLES.icon.small} />
+              </button>
+            </div>
+          </div>
           <div className={SECTION_STYLES.content}>
             <label className={PANEL_STYLES.label.style}>Style</label>
             <div className={STYLE_CHECKBOX_STYLES.container}>
@@ -246,7 +302,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       <SectionDivider />
 
       {/* Subheader Text Section (Minimizable) */}
-      <MinimizableSection title="Subheader Text" defaultOpen={expandedSections.subheader}>
+      <MinimizableSection
+        title="Subheader Text"
+        open={expandedSections.subheader}
+        onToggle={() => toggleSection('subheader')}
+      >
         <div className={PANEL_STYLES.section.content}>
           {renderSelect('subheaderSize', Array.from(FONT_SIZES) as string[], 'Subheader Size', 'Subheader')}
           {renderSelect('subheaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Subheader Weight', 'Subheader')}
@@ -284,7 +344,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       <SectionDivider />
 
       {/* Section Header Text (Minimizable) */}
-      <MinimizableSection title="Section Header Text" defaultOpen={expandedSections.sectionHeader}>
+      <MinimizableSection
+        title="Section Header Text"
+        open={expandedSections.sectionHeader}
+        onToggle={() => toggleSection('sectionHeader')}
+      >
         <div className={PANEL_STYLES.section.content}>
           {renderSelect('sectionHeaderSize', Array.from(FONT_SIZES) as string[], 'Section Header Size', 'Section')}
           {renderSelect('sectionHeaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Section Header Weight', 'Section')}
@@ -322,7 +386,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       <SectionDivider />
 
       {/* Body Text (Minimizable) */}
-      <MinimizableSection title="Body Text" defaultOpen={expandedSections.body}>
+      <MinimizableSection
+        title="Body Text"
+        open={expandedSections.body}
+        onToggle={() => toggleSection('body')}
+      >
         <div className={PANEL_STYLES.section.content}>
           {renderSelect('bodySize', Array.from(FONT_SIZES) as string[], 'Body Size', 'Body')}
           {renderSelect('bodyWeight', Array.from(FONT_WEIGHTS) as string[], 'Body Weight', 'Body')}
@@ -360,7 +428,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       <SectionDivider />
 
       {/* Section Line Color Picker (Minimizable) */}
-      <MinimizableSection title="Section Line Color" defaultOpen={expandedSections.lineColor}>
+      <MinimizableSection
+        title="Section Line Color"
+        open={expandedSections.lineColor}
+        onToggle={() => toggleSection('lineColor')}
+      >
         <div className="grid grid-cols-5 gap-2 mb-4">
           {COLORS.map((color) => (
             <div key={color.value} className="flex flex-col items-center">
@@ -376,36 +448,15 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               >
                 {fontOptions.lineColor === color.hex && (
                   <span className="absolute top-1 right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
-                    <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+                    {/* Add a checkmark or indicator here if needed */}
                   </span>
                 )}
               </button>
-              <span className="text-[10px] text-gray-900 dark:text-gray-200 font-medium mt-1 whitespace-nowrap pointer-events-none select-none" style={{textShadow:'0 1px 2px rgba(0,0,0,0.15)'}}>{color.name}</span>
+              <span className="text-xs mt-1 text-gray-700 dark:text-gray-300">{color.name}</span>
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-2 mt-1">
-          <span className="text-xs text-gray-400">Custom</span>
-          <span className="w-6 h-6 rounded-full border border-gray-400 flex items-center justify-center" style={{background: fontOptions.lineColor}} />
-          <input
-            type="color"
-            value={/^#[0-9A-Fa-f]{6}$/.test(fontOptions.lineColor) ? fontOptions.lineColor : '#000000'}
-            onChange={e => updateFontOption('lineColor', e.target.value)}
-            className="w-6 h-6 border border-gray-300 rounded cursor-pointer"
-            aria-label="Pick custom section line color"
-          />
-          <input
-            type="text"
-            className="ml-2 px-2 py-1 rounded border border-gray-300 bg-gray-800 text-gray-100 text-xs w-28 focus:outline-none focus:ring-2 focus:ring-blue-400"
-            value={fontOptions.lineColor}
-            onChange={e => updateFontOption('lineColor', e.target.value)}
-            aria-label="Set custom section line color value"
-            placeholder="#hex or color name"
-          />
-        </div>
       </MinimizableSection>
-
-      <SectionDivider />
     </div>
   );
 };

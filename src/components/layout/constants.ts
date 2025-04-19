@@ -1,0 +1,1 @@
+export const SOCIAL_LINK_CONTAINER_CLASS = 'flex flex-wrap justify-center items-center gap-2 mt-2'; 

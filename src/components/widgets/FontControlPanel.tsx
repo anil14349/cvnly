@@ -258,7 +258,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               >
                 <AlignCenter className={PANEL_STYLES.icon.small} />
               </button>
-              <button
+              {/* <button
                 onClick={() => updateFontOption('headerAlignment', 'right')}
                 className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerAlignment === 'right'
                   ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
@@ -268,7 +268,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
                 aria-label="Align right"
               >
                 <AlignRight className={PANEL_STYLES.icon.small} />
-              </button>
+              </button> */}
             </div>
           </div>
           <div className={SECTION_STYLES.content}>

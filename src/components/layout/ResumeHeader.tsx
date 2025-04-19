@@ -3,6 +3,7 @@ import { IconType, FontOptions, SocialLink } from "../../types/common";
 import ResumeHeaderName from "./ResumeHeaderName";
 import ResumeHeaderTitle from "./ResumeHeaderTitle";
 import ResumeSocialLinks from "./ResumeSocialLinks";
+import ResumeHeaderLine from "./ResumeHeaderLine";
 
 interface ResumeHeaderProps {
   resumeData: {
@@ -26,7 +27,7 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
   iconFormat = "symbol",
 }) => {
   return (
-    <header className="resume-header">
+    <header className="resume-header mb-8">
       <ResumeHeaderName
         name={resumeData.name}
         fontOptions={fontOptions}
@@ -41,6 +42,9 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
         updateSocialLink={updateSocialLink}
         fontOptions={fontOptions}
         iconFormat={iconFormat}
+      />
+      <ResumeHeaderLine
+        fontOptions={fontOptions}
       />
     </header>
   );

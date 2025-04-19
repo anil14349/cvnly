@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontOptions } from '../../types/common';
-import { ChevronDown, ChevronUp, Type, AlignLeft, Heading, Italic, Underline, Palette } from 'lucide-react';
+import { Italic, Underline, Palette } from 'lucide-react';
 import {
   FONT_SIZES,
   FONT_WEIGHTS,
@@ -35,7 +35,9 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
     header: false,
     subheader: false,
     sectionHeader: false,
-    body: false
+    body: false,
+    theme: true,
+    skillLayout: true
   });
 
   // Toggle section expansion
@@ -93,17 +95,31 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
     <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-gray-500/20 to-transparent" />
   );
 
+  // Minimizable section component
+  const MinimizableSection: React.FC<{ title: string; children: React.ReactNode; defaultOpen?: boolean }> = ({ title, children, defaultOpen = true }) => {
+    const [open, setOpen] = React.useState(defaultOpen);
+    return (
+      <div className="mb-4">
+        <button
+          className="flex items-center gap-2 w-full text-left font-semibold text-sm text-gray-100 dark:text-gray-200 mb-2 focus:outline-none"
+          onClick={() => setOpen(o => !o)}
+          aria-expanded={open}
+        >
+          <span>{title}</span>
+          <svg className={`w-4 h-4 ml-auto transition-transform ${open ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+        </button>
+        {open && <div>{children}</div>}
+      </div>
+    );
+  };
+
   return (
     <div
       className={PANEL_STYLES.container}
       style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
     >
-      {/* Section Line Color Picker (Polished Grid) */}
-      <div className="mb-4">
-        <div className="flex items-center gap-2 mb-2">
-          <Palette className="w-5 h-5 text-blue-400" />
-          <span className="font-semibold text-sm text-gray-100 dark:text-gray-200">Section Line Color</span>
-        </div>
+      {/* Section Line Color Picker (Minimizable) */}
+      <MinimizableSection title="Section Line Color" defaultOpen={expandedSections.lineColor}>
         <div className="grid grid-cols-5 gap-2 mb-4">
           {COLORS.map((color) => (
             <div key={color.value} className="flex flex-col items-center">
@@ -146,13 +162,12 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             placeholder="#hex or color name"
           />
         </div>
-      </div>
+      </MinimizableSection>
 
       <SectionDivider />
 
-      {/* Theme Selection (Polished) */}
-      <div className="mb-4">
-        <span className="font-semibold text-sm text-gray-100 dark:text-gray-200 mb-1 block">Theme</span>
+      {/* Theme Selection (Minimizable) */}
+      <MinimizableSection title="Theme" defaultOpen={expandedSections.theme}>
         <div className="flex gap-2">
           <button
             className={`flex items-center gap-1 px-4 py-1.5 rounded-full border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
@@ -175,13 +190,12 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             Dark
           </button>
         </div>
-      </div>
+      </MinimizableSection>
 
       <SectionDivider />
 
-      {/* Skill Layout (Polished) */}
-      <div className="mb-4">
-        <span className="font-semibold text-sm text-gray-100 dark:text-gray-200 mb-1 block">Skill Layout</span>
+      {/* Skill Layout (Minimizable) */}
+      <MinimizableSection title="Skill Layout" defaultOpen={expandedSections.skillLayout}>
         <div className="flex gap-2">
           <button
             className={`flex flex-col items-center gap-1 px-3 py-2 rounded-lg border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
@@ -214,228 +228,184 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             Classic
           </button>
         </div>
-      </div>
+      </MinimizableSection>
 
       <SectionDivider />
 
-      {/* Font Family Section */}
-      <div>
+      {/* Font Families Section (Minimizable) */}
+      <MinimizableSection title="Font Families" defaultOpen={expandedSections.fonts}>
         <button
+          className={PANEL_STYLES.select.label}
           onClick={() => toggleSection('fonts')}
-          className={PANEL_STYLES.button.toggle}
+          aria-expanded={expandedSections.fonts}
         >
-          <div className={SECTION_STYLES.header}>
-            <Type className={PANEL_STYLES.icon.small} />
-            <span className={PANEL_STYLES.label.section}>Font Families</span>
-          </div>
-          {expandedSections.fonts ? <ChevronUp className={PANEL_STYLES.icon.small} /> : <ChevronDown className={PANEL_STYLES.icon.small} />}
+          <span>Font Families</span>
         </button>
         {expandedSections.fonts && (
-          <div className={PANEL_STYLES.section.content}>
+          <div>
             <div className={FONT_FAMILY_STYLES.grid}>
               {renderSelect('headerFont', Array.from(FONT_FAMILIES) as string[], 'Header Font', 'Header')}
               {renderSelect('subheaderFont', Array.from(FONT_FAMILIES) as string[], 'Subheader Font', 'Subheader')}
-              {renderSelect('sectionHeaderFont', Array.from(FONT_FAMILIES) as string[], 'Section Header Font', 'Section')}
+              {renderSelect('sectionHeaderFont', Array.from(FONT_FAMILIES) as string[], 'Section Header Font', 'Section Header')}
               {renderSelect('bodyFont', Array.from(FONT_FAMILIES) as string[], 'Body Font', 'Body')}
             </div>
           </div>
         )}
-      </div>
+      </MinimizableSection>
 
-      {/* Collapsible Font Style Sections */}
-      <div className={PANEL_STYLES.section.divider}>
-        {/* Header Text */}
-        <div>
-          <button
-            onClick={() => toggleSection('header')}
-            className={PANEL_STYLES.button.toggle}
-          >
-            <div className={SECTION_STYLES.header}>
-              <Heading className={PANEL_STYLES.icon.small} />
-              <span className={PANEL_STYLES.label.section}>Header Text</span>
-            </div>
-            {expandedSections.header ? <ChevronUp className={PANEL_STYLES.icon.small} /> : <ChevronDown className={PANEL_STYLES.icon.small} />}
-          </button>
-          {expandedSections.header && (
-            <div className={PANEL_STYLES.section.content}>
-              {renderSelect('headerSize', Array.from(FONT_SIZES) as string[], 'Header Size', 'Header')}
-              {renderSelect('headerWeight', Array.from(FONT_WEIGHTS) as string[], 'Header Weight', 'Header')}
-              {renderSelect('headerLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Header Line Height', 'Header')}
-              {renderSelect('headerLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Header Letter Spacing', 'Header')}
-              {renderSelect('headerColor', COLORS, 'Header Color', 'Header')}
-              <div className={SECTION_STYLES.content}>
-                <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={STYLE_CHECKBOX_STYLES.container}>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.headerItalic}
-                      onChange={() => updateFontOption('headerItalic', !fontOptions.headerItalic)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
-                  </label>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.headerUnderline}
-                      onChange={() => updateFontOption('headerUnderline', !fontOptions.headerUnderline)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+      <SectionDivider />
 
-        {/* Subheader Text */}
-        <div>
-          <button
-            onClick={() => toggleSection('subheader')}
-            className={PANEL_STYLES.button.toggle}
-          >
-            <div className={SECTION_STYLES.header}>
-              <Heading className={PANEL_STYLES.icon.small} />
-              <span className={PANEL_STYLES.label.section}>Subheader Text</span>
+      {/* Header Text Section (Minimizable) */}
+      <MinimizableSection title="Header Text" defaultOpen={expandedSections.header}>
+        <div className={PANEL_STYLES.section.content}>
+          {renderSelect('headerSize', Array.from(FONT_SIZES) as string[], 'Header Size', 'Header')}
+          {renderSelect('headerWeight', Array.from(FONT_WEIGHTS) as string[], 'Header Weight', 'Header')}
+          {renderSelect('headerLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Header Line Height', 'Header')}
+          {renderSelect('headerLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Header Letter Spacing', 'Header')}
+          {renderSelect('headerColor', COLORS, 'Header Color', 'Header')}
+          <div className={SECTION_STYLES.content}>
+            <label className={PANEL_STYLES.label.style}>Style</label>
+            <div className={STYLE_CHECKBOX_STYLES.container}>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.headerItalic}
+                  onChange={() => updateFontOption('headerItalic', !fontOptions.headerItalic)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+              </label>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.headerUnderline}
+                  onChange={() => updateFontOption('headerUnderline', !fontOptions.headerUnderline)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+              </label>
             </div>
-            {expandedSections.subheader ? <ChevronUp className={PANEL_STYLES.icon.small} /> : <ChevronDown className={PANEL_STYLES.icon.small} />}
-          </button>
-          {expandedSections.subheader && (
-            <div className={PANEL_STYLES.section.content}>
-              {renderSelect('subheaderSize', Array.from(FONT_SIZES) as string[], 'Subheader Size', 'Subheader')}
-              {renderSelect('subheaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Subheader Weight', 'Subheader')}
-              {renderSelect('subheaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Subheader Line Height', 'Subheader')}
-              {renderSelect('subheaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Subheader Letter Spacing', 'Subheader')}
-              {renderSelect('subheaderColor', COLORS, 'Subheader Color', 'Subheader')}
-              <div className={SECTION_STYLES.content}>
-                <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={STYLE_CHECKBOX_STYLES.container}>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.subheaderItalic}
-                      onChange={() => updateFontOption('subheaderItalic', !fontOptions.subheaderItalic)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
-                  </label>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.subheaderUnderline}
-                      onChange={() => updateFontOption('subheaderUnderline', !fontOptions.subheaderUnderline)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
+      </MinimizableSection>
 
-        {/* Section Header Text */}
-        <div>
-          <button
-            onClick={() => toggleSection('sectionHeader')}
-            className={PANEL_STYLES.button.toggle}
-          >
-            <div className={SECTION_STYLES.header}>
-              <Heading className={PANEL_STYLES.icon.small} />
-              <span className={PANEL_STYLES.label.section}>Section Header Text</span>
-            </div>
-            {expandedSections.sectionHeader ? <ChevronUp className={PANEL_STYLES.icon.small} /> : <ChevronDown className={PANEL_STYLES.icon.small} />}
-          </button>
-          {expandedSections.sectionHeader && (
-            <div className={PANEL_STYLES.section.content}>
-              {renderSelect('sectionHeaderSize', Array.from(FONT_SIZES) as string[], 'Section Header Size', 'Section')}
-              {renderSelect('sectionHeaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Section Header Weight', 'Section')}
-              {renderSelect('sectionHeaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Section Header Line Height', 'Section')}
-              {renderSelect('sectionHeaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Section Header Letter Spacing', 'Section')}
-              {renderSelect('sectionHeaderColor', COLORS, 'Section Header Color', 'Section')}
-              <div className={SECTION_STYLES.content}>
-                <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={STYLE_CHECKBOX_STYLES.container}>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.sectionHeaderItalic}
-                      onChange={() => updateFontOption('sectionHeaderItalic', !fontOptions.sectionHeaderItalic)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
-                  </label>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.sectionHeaderUnderline}
-                      onChange={() => updateFontOption('sectionHeaderUnderline', !fontOptions.sectionHeaderUnderline)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
+      <SectionDivider />
 
-        {/* Body Text */}
-        <div>
-          <button
-            onClick={() => toggleSection('body')}
-            className={PANEL_STYLES.button.toggle}
-          >
-            <div className={SECTION_STYLES.header}>
-              <AlignLeft className={PANEL_STYLES.icon.small} />
-              <span className={PANEL_STYLES.label.section}>Body Text</span>
+      {/* Subheader Text Section (Minimizable) */}
+      <MinimizableSection title="Subheader Text" defaultOpen={expandedSections.subheader}>
+        <div className={PANEL_STYLES.section.content}>
+          {renderSelect('subheaderSize', Array.from(FONT_SIZES) as string[], 'Subheader Size', 'Subheader')}
+          {renderSelect('subheaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Subheader Weight', 'Subheader')}
+          {renderSelect('subheaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Subheader Line Height', 'Subheader')}
+          {renderSelect('subheaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Subheader Letter Spacing', 'Subheader')}
+          {renderSelect('subheaderColor', COLORS, 'Subheader Color', 'Subheader')}
+          <div className={SECTION_STYLES.content}>
+            <label className={PANEL_STYLES.label.style}>Style</label>
+            <div className={STYLE_CHECKBOX_STYLES.container}>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.subheaderItalic}
+                  onChange={() => updateFontOption('subheaderItalic', !fontOptions.subheaderItalic)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+              </label>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.subheaderUnderline}
+                  onChange={() => updateFontOption('subheaderUnderline', !fontOptions.subheaderUnderline)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+              </label>
             </div>
-            {expandedSections.body ? <ChevronUp className={PANEL_STYLES.icon.small} /> : <ChevronDown className={PANEL_STYLES.icon.small} />}
-          </button>
-          {expandedSections.body && (
-            <div className={PANEL_STYLES.section.content}>
-              {renderSelect('bodySize', Array.from(FONT_SIZES) as string[], 'Body Size', 'Body')}
-              {renderSelect('bodyWeight', Array.from(FONT_WEIGHTS) as string[], 'Body Weight', 'Body')}
-              {renderSelect('bodyLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Body Line Height', 'Body')}
-              {renderSelect('bodyLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Body Letter Spacing', 'Body')}
-              {renderSelect('bodyColor', COLORS, 'Body Color', 'Body')}
-              <div className={SECTION_STYLES.content}>
-                <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={STYLE_CHECKBOX_STYLES.container}>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.bodyItalic}
-                      onChange={() => updateFontOption('bodyItalic', !fontOptions.bodyItalic)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
-                  </label>
-                  <label className={STYLE_CHECKBOX_STYLES.label}>
-                    <input
-                      type="checkbox"
-                      checked={fontOptions.bodyUnderline}
-                      onChange={() => updateFontOption('bodyUnderline', !fontOptions.bodyUnderline)}
-                      className={STYLE_CHECKBOX_STYLES.checkbox}
-                    />
-                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
-                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-          )}
+          </div>
         </div>
-      </div>
+      </MinimizableSection>
+
+      <SectionDivider />
+
+      {/* Section Header Text (Minimizable) */}
+      <MinimizableSection title="Section Header Text" defaultOpen={expandedSections.sectionHeader}>
+        <div className={PANEL_STYLES.section.content}>
+          {renderSelect('sectionHeaderSize', Array.from(FONT_SIZES) as string[], 'Section Header Size', 'Section')}
+          {renderSelect('sectionHeaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Section Header Weight', 'Section')}
+          {renderSelect('sectionHeaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Section Header Line Height', 'Section')}
+          {renderSelect('sectionHeaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Section Header Letter Spacing', 'Section')}
+          {renderSelect('sectionHeaderColor', COLORS, 'Section Header Color', 'Section')}
+          <div className={SECTION_STYLES.content}>
+            <label className={PANEL_STYLES.label.style}>Style</label>
+            <div className={STYLE_CHECKBOX_STYLES.container}>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.sectionHeaderItalic}
+                  onChange={() => updateFontOption('sectionHeaderItalic', !fontOptions.sectionHeaderItalic)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+              </label>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.sectionHeaderUnderline}
+                  onChange={() => updateFontOption('sectionHeaderUnderline', !fontOptions.sectionHeaderUnderline)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </MinimizableSection>
+
+      <SectionDivider />
+
+      {/* Body Text (Minimizable) */}
+      <MinimizableSection title="Body Text" defaultOpen={expandedSections.body}>
+        <div className={PANEL_STYLES.section.content}>
+          {renderSelect('bodySize', Array.from(FONT_SIZES) as string[], 'Body Size', 'Body')}
+          {renderSelect('bodyWeight', Array.from(FONT_WEIGHTS) as string[], 'Body Weight', 'Body')}
+          {renderSelect('bodyLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Body Line Height', 'Body')}
+          {renderSelect('bodyLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Body Letter Spacing', 'Body')}
+          {renderSelect('bodyColor', COLORS, 'Body Color', 'Body')}
+          <div className={SECTION_STYLES.content}>
+            <label className={PANEL_STYLES.label.style}>Style</label>
+            <div className={STYLE_CHECKBOX_STYLES.container}>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.bodyItalic}
+                  onChange={() => updateFontOption('bodyItalic', !fontOptions.bodyItalic)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+              </label>
+              <label className={STYLE_CHECKBOX_STYLES.label}>
+                <input
+                  type="checkbox"
+                  checked={fontOptions.bodyUnderline}
+                  onChange={() => updateFontOption('bodyUnderline', !fontOptions.bodyUnderline)}
+                  className={STYLE_CHECKBOX_STYLES.checkbox}
+                />
+                <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+              </label>
+            </div>
+          </div>
+        </div>
+      </MinimizableSection>
+
+      <SectionDivider />
     </div>
   );
 };

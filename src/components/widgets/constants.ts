@@ -5,8 +5,8 @@ export const BUTTON_STYLES = {
     dark: 'border-blue-500 bg-blue-900/20 text-blue-300'
   },
   inactive: {
-    light: 'border-gray-300 text-gray-800 hover:border-gray-400',
-    dark: 'border-gray-600 text-gray-200 hover:border-gray-500'
+    light: 'border-gray-300 bg-transparent text-gray-700 hover:border-gray-400',
+    dark: 'border-gray-600 bg-transparent text-gray-200 hover:border-gray-500'
   }
 };
 
@@ -20,7 +20,7 @@ export const PANEL_STYLES = {
   },
   button: {
     toggle: 'w-full flex items-center justify-between px-1 py-0.5 bg-gray-50 dark:bg-gray-800/50 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors',
-    style: 'px-1 py-0.5 text-xs rounded border transition-all',
+    style: 'px-2 py-1 text-xs rounded border transition-all font-medium flex items-center justify-center gap-1 min-w-[100px]',
     copy: 'flex items-center gap-0.5 px-2 py-1 rounded border-2 transition-all font-semibold shadow-sm text-xs'
   },
   label: {

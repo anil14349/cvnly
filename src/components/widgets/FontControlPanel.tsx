@@ -11,7 +11,6 @@ import {
 } from '../../utils/fontUtils';
 import type { SkillLayoutType } from '../../types/common';
 import {
-  BUTTON_STYLES,
   PANEL_STYLES,
   THEME_SELECTOR_STYLES,
   FONT_FAMILY_STYLES,
@@ -93,21 +92,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
         )}
       </div>
     </div>
-  );
-
-  const renderStyleButtons = (
-    isActive: boolean,
-    onClick: () => void,
-    Icon: React.ElementType,
-    label: string
-  ) => (
-    <button
-      onClick={onClick}
-      className={`${PANEL_STYLES.button.style} ${isActive ? BUTTON_STYLES.active[fontOptions.theme || 'light'] : BUTTON_STYLES.inactive[fontOptions.theme || 'light']
-        }`}
-    >
-      <Icon className={PANEL_STYLES.icon.small} /> {label}
-    </button>
   );
 
   return (
@@ -247,19 +231,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('headerColor', Array.from(COLORS) as string[], 'Header Color', 'Header')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SECTION_STYLES.buttonGrid}>
-                  {renderStyleButtons(
-                    fontOptions.headerItalic,
-                    () => updateFontOption('headerItalic', !fontOptions.headerItalic),
-                    Italic,
-                    'Italic'
-                  )}
-                  {renderStyleButtons(
-                    fontOptions.headerUnderline,
-                    () => updateFontOption('headerUnderline', !fontOptions.headerUnderline),
-                    Underline,
-                    'Underline'
-                  )}
+                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
+                  <button
+                    onClick={() => updateFontOption('headerItalic', !fontOptions.headerItalic)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerItalic
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Italic className={PANEL_STYLES.icon.small} /> Italic
+                  </button>
+                  <button
+                    onClick={() => updateFontOption('headerUnderline', !fontOptions.headerUnderline)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerUnderline
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Underline className={PANEL_STYLES.icon.small} /> Underline
+                  </button>
                 </div>
               </div>
             </div>
@@ -287,19 +279,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('subheaderColor', Array.from(COLORS) as string[], 'Subheader Color', 'Subheader')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SECTION_STYLES.buttonGrid}>
-                  {renderStyleButtons(
-                    fontOptions.subheaderItalic,
-                    () => updateFontOption('subheaderItalic', !fontOptions.subheaderItalic),
-                    Italic,
-                    'Italic'
-                  )}
-                  {renderStyleButtons(
-                    fontOptions.subheaderUnderline,
-                    () => updateFontOption('subheaderUnderline', !fontOptions.subheaderUnderline),
-                    Underline,
-                    'Underline'
-                  )}
+                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
+                  <button
+                    onClick={() => updateFontOption('subheaderItalic', !fontOptions.subheaderItalic)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.subheaderItalic
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Italic className={PANEL_STYLES.icon.small} /> Italic
+                  </button>
+                  <button
+                    onClick={() => updateFontOption('subheaderUnderline', !fontOptions.subheaderUnderline)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.subheaderUnderline
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Underline className={PANEL_STYLES.icon.small} /> Underline
+                  </button>
                 </div>
               </div>
             </div>
@@ -327,19 +327,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('sectionHeaderColor', Array.from(COLORS) as string[], 'Section Header Color', 'Section')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SECTION_STYLES.buttonGrid}>
-                  {renderStyleButtons(
-                    fontOptions.sectionHeaderItalic,
-                    () => updateFontOption('sectionHeaderItalic', !fontOptions.sectionHeaderItalic),
-                    Italic,
-                    'Italic'
-                  )}
-                  {renderStyleButtons(
-                    fontOptions.sectionHeaderUnderline,
-                    () => updateFontOption('sectionHeaderUnderline', !fontOptions.sectionHeaderUnderline),
-                    Underline,
-                    'Underline'
-                  )}
+                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
+                  <button
+                    onClick={() => updateFontOption('sectionHeaderItalic', !fontOptions.sectionHeaderItalic)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.sectionHeaderItalic
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Italic className={PANEL_STYLES.icon.small} /> Italic
+                  </button>
+                  <button
+                    onClick={() => updateFontOption('sectionHeaderUnderline', !fontOptions.sectionHeaderUnderline)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.sectionHeaderUnderline
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Underline className={PANEL_STYLES.icon.small} /> Underline
+                  </button>
                 </div>
               </div>
             </div>
@@ -367,19 +375,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('bodyColor', Array.from(COLORS) as string[], 'Body Color', 'Body')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SECTION_STYLES.buttonGrid}>
-                  {renderStyleButtons(
-                    fontOptions.bodyItalic,
-                    () => updateFontOption('bodyItalic', !fontOptions.bodyItalic),
-                    Italic,
-                    'Italic'
-                  )}
-                  {renderStyleButtons(
-                    fontOptions.bodyUnderline,
-                    () => updateFontOption('bodyUnderline', !fontOptions.bodyUnderline),
-                    Underline,
-                    'Underline'
-                  )}
+                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
+                  <button
+                    onClick={() => updateFontOption('bodyItalic', !fontOptions.bodyItalic)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.bodyItalic
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Italic className={PANEL_STYLES.icon.small} /> Italic
+                  </button>
+                  <button
+                    onClick={() => updateFontOption('bodyUnderline', !fontOptions.bodyUnderline)}
+                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.bodyUnderline
+                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
+                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
+                      }`}
+                    type="button"
+                  >
+                    <Underline className={PANEL_STYLES.icon.small} /> Underline
+                  </button>
                 </div>
               </div>
             </div>

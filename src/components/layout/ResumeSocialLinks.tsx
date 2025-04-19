@@ -52,14 +52,31 @@ const ResumeSocialLinks: React.FC<Props> = ({
             case "email":
                 return "your.email@example.com";
             case "linkedin":
-                return "linkedin.com/in/yourprofile";
+                return "/in/your-profile";
             case "github":
-                return "github.com/yourusername";
+                return "your-username";
             case "location":
                 return "Your City, Country";
             default:
                 return "N/A";
         }
+    };
+
+    // Compose style for font family, size, weight, color from fontOptions
+    const fontFamily = fontOptions.bodyFont || 'inherit';
+    const fontSize = fontOptions.bodySize || 'inherit';
+    const fontWeight = fontOptions.bodyWeight || 'inherit';
+    const color = fontOptions.bodyColor || 'inherit';
+    const fontStyle = fontOptions.bodyItalic ? 'italic' : 'normal';
+    const textDecoration = fontOptions.bodyUnderline ? 'underline' : 'none';
+
+    const inputFontStyle = {
+        fontFamily,
+        fontSize,
+        fontWeight,
+        color,
+        fontStyle,
+        textDecoration,
     };
 
     const containerClasses = `${SOCIAL_LINK_CONTAINER_CLASS}${
@@ -79,9 +96,19 @@ const ResumeSocialLinks: React.FC<Props> = ({
                             value={link.value}
                             onChange={(e) => updateSocialLink(link.id, e.target.value)}
                             placeholder={getDefaultText(link.type)}
-                            className={SOCIAL_LINK_INPUT_CLASS}
+                            className={[
+                                fontOptions.bodyFont,
+                                fontOptions.bodySize,
+                                fontOptions.bodyWeight,
+                                fontOptions.bodyLineHeight,
+                                fontOptions.bodyLetterSpacing,
+                                fontOptions.bodyColor,
+                                fontOptions.bodyItalic ? "italic" : "",
+                                fontOptions.bodyUnderline ? "underline" : "",
+                                SOCIAL_LINK_INPUT_CLASS
+                            ].filter(Boolean).join(" ")}
                             size={link.value.length || getDefaultText(link.type).length}
-                            style={{ width: "auto", minWidth: "5ch" }}
+                            style={{ width: "auto", minWidth: "5ch", ...inputFontStyle }}
                         />
                     </div>
                     <button

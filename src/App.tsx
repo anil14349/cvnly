@@ -187,7 +187,10 @@ function App() {
 
       // Handle line color
       if (option === 'lineColor') {
-        root.style.setProperty('--line-color', value as string);
+        // Only set --line-color if value looks like a valid CSS color (hex or rgb or color name)
+        if (typeof value === 'string' && (value.startsWith('#') || value.startsWith('rgb') || value.startsWith('hsl') || /^[a-zA-Z]+$/.test(value))) {
+          root.style.setProperty('--line-color', value as string);
+        }
       }
 
       // Get the resume container

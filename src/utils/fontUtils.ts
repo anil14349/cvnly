@@ -28,19 +28,27 @@ export const LETTER_SPACING = ['tracking-tight', 'tracking-normal', 'tracking-wi
 
 // Colors (for section line color picker)
 export const COLORS = [
-  '#1e293b', // slate-800 (dark blue-gray)
-  '#64748b', // slate-500 (mid blue-gray)
-  '#e11d48', // rose-600
-  '#f59e42', // orange-400
-  '#fbbf24', // yellow-400
-  '#22c55e', // green-500
-  '#0ea5e9', // sky-500
-  '#6366f1', // indigo-500
-  '#a21caf', // purple-700
-  '#f43f5e', // pink-500
-  '#f1f5f9', // slate-100 (light gray)
-  '#18181b', // zinc-900 (almost black)
-] as const;
+  { name: 'Slate', value: 'border-slate-500', hex: '#64748b' },
+  { name: 'Gray', value: 'border-gray-500', hex: '#6b7280' },
+  { name: 'Zinc', value: 'border-zinc-500', hex: '#71717a' },
+  { name: 'Red', value: 'border-red-500', hex: '#ef4444' },
+  { name: 'Rose', value: 'border-rose-500', hex: '#f43f5e' },
+  { name: 'Orange', value: 'border-orange-500', hex: '#f97316' },
+  { name: 'Amber', value: 'border-amber-500', hex: '#f59e42' },
+  { name: 'Yellow', value: 'border-yellow-500', hex: '#fbbf24' },
+  { name: 'Lime', value: 'border-lime-500', hex: '#84cc16' },
+  { name: 'Green', value: 'border-green-500', hex: '#22c55e' },
+  { name: 'Emerald', value: 'border-emerald-500', hex: '#10b981' },
+  { name: 'Teal', value: 'border-teal-500', hex: '#14b8a6' },
+  { name: 'Cyan', value: 'border-cyan-500', hex: '#06b6d4' },
+  { name: 'Sky', value: 'border-sky-500', hex: '#0ea5e9' },
+  { name: 'Blue', value: 'border-blue-500', hex: '#3b82f6' },
+  { name: 'Indigo', value: 'border-indigo-500', hex: '#6366f1' },
+  { name: 'Violet', value: 'border-violet-500', hex: '#8b5cf6' },
+  { name: 'Purple', value: 'border-purple-500', hex: '#a21caf' },
+  { name: 'Fuchsia', value: 'border-fuchsia-500', hex: '#d946ef' },
+  { name: 'Pink', value: 'border-pink-500', hex: '#ec4899' }
+];
 
 // Font Classes
 export const HEADER_FONTS = {

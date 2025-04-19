@@ -43,8 +43,8 @@ export const PANEL_STYLES = {
     header: 'flex items-center justify-between mb-0.5',
     title: 'text-xs font-semibold text-gray-700 dark:text-gray-200',
     icon: 'w-3 h-3 text-gray-400',
-    swatches: 'flex flex-wrap gap-0.5 mb-0.5',
-    swatch: 'w-4 h-4 rounded-full border transition-all focus:outline-none focus:ring-1 focus:ring-blue-400',
+    swatches: 'grid grid-cols-5 gap-1',
+    swatch: 'w-6 h-6 rounded-full border-2 transition-all focus:outline-none focus:ring-2 focus:ring-blue-400',
     custom: {
       container: 'flex items-center gap-0.5 mt-0.5',
       label: 'text-xs text-gray-500 dark:text-gray-400',

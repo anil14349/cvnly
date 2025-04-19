@@ -33,6 +33,11 @@ interface FontControlPanelProps {
   updateFontOption: (option: keyof FontOptions, value: string | boolean) => void;
 }
 
+// Helper function to convert border color class to background color class
+const getBackgroundColorFromBorderColor = (borderColorClass: string) => {
+  return borderColorClass.replace('border-', 'bg-');
+};
+
 const FontControlPanel: React.FC<FontControlPanelProps> = ({
   fontOptions,
   updateFontOption,
@@ -57,7 +62,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
 
   const renderSelect = (
     key: keyof FontOptions,
-    options: string[],
+    options: string[] | { name: string; value: string }[],
     label: string,
     previewText?: string
   ) => (
@@ -77,8 +82,11 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
           aria-label={label}
         >
           {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
+            <option
+              key={typeof option === 'string' ? option : option.value}
+              value={typeof option === 'string' ? option : option.value}
+            >
+              {typeof option === 'string' ? option : option.name}
             </option>
           ))}
         </select>
@@ -100,39 +108,39 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       className={PANEL_STYLES.container}
       style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
     >
-      {/* Line Color Picker */}
+      {/* Section Line Color Picker (Redesigned) */}
       <div className={PANEL_STYLES.colorPicker.container}>
         <div className={PANEL_STYLES.colorPicker.header}>
           <span className={PANEL_STYLES.colorPicker.title}>Section Line Color</span>
           <Palette className={PANEL_STYLES.colorPicker.icon} />
         </div>
-        <div className={PANEL_STYLES.colorPicker.swatches}>
+        <div className="flex flex-wrap gap-1 mb-2">
           {COLORS.map((color) => (
             <button
-              key={color}
-              className={`${PANEL_STYLES.colorPicker.swatch} ${fontOptions.lineColor === color ? COLOR_SWATCH_STYLES.active : COLOR_SWATCH_STYLES.inactive}`}
-              style={{ background: color }}
-              onClick={() => updateFontOption('lineColor', color)}
-              aria-label={`Set section line color to ${color}`}
+              key={color.value}
+              className={`w-6 h-6 rounded-full border-2 flex items-center justify-center transition-all focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-blue-500 shadow-sm
+                ${fontOptions.lineColor === color.hex ? 'border-blue-500 ring-2 ring-blue-400' : 'border-gray-300 dark:border-gray-700'}`}
+              style={{ background: color.hex }}
+              title={color.name}
+              aria-label={`Set section line color to ${color.name}`}
+              onClick={() => updateFontOption('lineColor', color.hex)}
               type="button"
-            />
+            >
+              {fontOptions.lineColor === color.hex && (
+                <span className="block w-3 h-3 rounded-full bg-white bg-opacity-80 border border-blue-500" />
+              )}
+            </button>
           ))}
-          <input
-            type="color"
-            className={`${PANEL_STYLES.colorPicker.swatch} border-gray-300 dark:border-gray-700 cursor-pointer`}
-            value={fontOptions.lineColor}
-            onChange={(e) => updateFontOption('lineColor', e.target.value)}
-            aria-label="Custom section line color picker"
-          />
         </div>
-        <div className={PANEL_STYLES.colorPicker.custom.container}>
-          <span className={PANEL_STYLES.colorPicker.custom.label}>Custom</span>
+        <div className="flex items-center gap-1 mt-1">
+          <span className="text-xs text-gray-500 dark:text-gray-400">Custom</span>
           <input
             type="text"
             className={PANEL_STYLES.colorPicker.custom.input}
             value={fontOptions.lineColor}
             onChange={(e) => updateFontOption('lineColor', e.target.value)}
             aria-label="Set custom section line color value"
+            placeholder="#hex or color name"
           />
         </div>
       </div>
@@ -229,7 +237,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('headerWeight', Array.from(FONT_WEIGHTS) as string[], 'Header Weight', 'Header')}
               {renderSelect('headerLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Header Line Height', 'Header')}
               {renderSelect('headerLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Header Letter Spacing', 'Header')}
-              {renderSelect('headerColor', Array.from(COLORS) as string[], 'Header Color', 'Header')}
+              {renderSelect('headerColor', COLORS, 'Header Color', 'Header')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
                 <div className={STYLE_CHECKBOX_STYLES.container}>
@@ -277,7 +285,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('subheaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Subheader Weight', 'Subheader')}
               {renderSelect('subheaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Subheader Line Height', 'Subheader')}
               {renderSelect('subheaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Subheader Letter Spacing', 'Subheader')}
-              {renderSelect('subheaderColor', Array.from(COLORS) as string[], 'Subheader Color', 'Subheader')}
+              {renderSelect('subheaderColor', COLORS, 'Subheader Color', 'Subheader')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
                 <div className={STYLE_CHECKBOX_STYLES.container}>
@@ -325,7 +333,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('sectionHeaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Section Header Weight', 'Section')}
               {renderSelect('sectionHeaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Section Header Line Height', 'Section')}
               {renderSelect('sectionHeaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Section Header Letter Spacing', 'Section')}
-              {renderSelect('sectionHeaderColor', Array.from(COLORS) as string[], 'Section Header Color', 'Section')}
+              {renderSelect('sectionHeaderColor', COLORS, 'Section Header Color', 'Section')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
                 <div className={STYLE_CHECKBOX_STYLES.container}>
@@ -373,7 +381,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('bodyWeight', Array.from(FONT_WEIGHTS) as string[], 'Body Weight', 'Body')}
               {renderSelect('bodyLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Body Line Height', 'Body')}
               {renderSelect('bodyLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Body Letter Spacing', 'Body')}
-              {renderSelect('bodyColor', Array.from(COLORS) as string[], 'Body Color', 'Body')}
+              {renderSelect('bodyColor', COLORS, 'Body Color', 'Body')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
                 <div className={STYLE_CHECKBOX_STYLES.container}>

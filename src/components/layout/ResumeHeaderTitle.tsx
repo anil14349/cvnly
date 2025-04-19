@@ -9,6 +9,16 @@ interface ResumeHeaderTitleProps {
 }
 
 const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, title, onUpdate }) => {
+    const getTextAlignment = () => {
+        switch (fontOptions.headerAlignment) {
+            case 'left':
+                return 'text-left';
+            case 'right':
+                return 'text-right';
+            default:
+                return 'text-center';
+        }
+    };
 
     return (
         <h2
@@ -17,6 +27,7 @@ const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, titl
                 ${fontOptions.subheaderColor} 
                 ${fontOptions.subheaderLineHeight} 
                 ${fontOptions.subheaderLetterSpacing} 
+                ${getTextAlignment()}
                 font-header-${fontOptions.subheaderFont.toLowerCase()} 
                 ${fontOptions.subheaderItalic ? 'italic' : ''} 
                 ${fontOptions.subheaderUnderline ? 'underline' : ''}

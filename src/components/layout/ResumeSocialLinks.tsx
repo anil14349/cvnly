@@ -15,6 +15,7 @@ const ResumeSocialLinks: React.FC<Props> = ({
     socialLinks,
     deleteSocialLink,
     updateSocialLink,
+    fontOptions,
     iconFormat = "symbol",
 }) => {
     const renderIcon = (type: SocialType) => {
@@ -54,21 +55,31 @@ const ResumeSocialLinks: React.FC<Props> = ({
         }
     };
 
+    const containerClasses = `social-links mt-2 flex flex-wrap gap-x-1 gap-y-0.5 ${
+        fontOptions.headerAlignment === 'left' ? 'justify-start' :
+        fontOptions.headerAlignment === 'right' ? 'justify-end' :
+        'justify-center'
+    }`;
+
     return (
-        <div className="social-links mt-2">
+        <div className={containerClasses}>
             {socialLinks.map((link) => (
-                <div key={link.id} className="flex items-center gap-2 min-w-0">
+                <div key={link.id} className="flex items-center space-x-1 group">
                     {renderIcon(link.type)}
-                    <input
-                        type="text"
-                        value={link.value}
-                        onChange={(e) => updateSocialLink(link.id, e.target.value)}
-                        className="text-sm text-gray-600 dark:text-gray-300 bg-transparent border-none focus:outline-none focus:ring-0 min-w-0 flex-1 truncate px-0"
-                        placeholder={getDefaultText(link.type)}
-                    />
+                    <div className="inline-block min-w-0">
+                        <input
+                            type="text"
+                            value={link.value}
+                            onChange={(e) => updateSocialLink(link.id, e.target.value)}
+                            placeholder={getDefaultText(link.type)}
+                            className="text-sm text-gray-900 dark:text-gray-300 bg-transparent border-none focus:outline-none focus:ring-0 px-0"
+                            size={link.value.length || getDefaultText(link.type).length}
+                            style={{ width: "auto", minWidth: "5ch" }}
+                        />
+                    </div>
                     <button
                         onClick={() => deleteSocialLink(link.id)}
-                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 flex-shrink-0"
+                        className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 hidden group-hover:inline-block transition-opacity duration-200"
                     >
                         <X className="w-4 h-4" />
                     </button>

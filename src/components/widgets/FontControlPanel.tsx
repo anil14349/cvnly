@@ -18,7 +18,8 @@ import {
   SKILL_LAYOUT_STYLES,
   PREVIEW_STYLES,
   PANEL_CONTAINER_STYLES,
-  COLOR_SWATCH_STYLES
+  COLOR_SWATCH_STYLES,
+  STYLE_CHECKBOX_STYLES
 } from './constants';
 
 const SKILL_LAYOUT_OPTIONS: { value: SkillLayoutType; label: string }[] = [
@@ -231,27 +232,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('headerColor', Array.from(COLORS) as string[], 'Header Color', 'Header')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
-                  <button
-                    onClick={() => updateFontOption('headerItalic', !fontOptions.headerItalic)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerItalic
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Italic className={PANEL_STYLES.icon.small} /> Italic
-                  </button>
-                  <button
-                    onClick={() => updateFontOption('headerUnderline', !fontOptions.headerUnderline)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerUnderline
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Underline className={PANEL_STYLES.icon.small} /> Underline
-                  </button>
+                <div className={STYLE_CHECKBOX_STYLES.container}>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.headerItalic}
+                      onChange={() => updateFontOption('headerItalic', !fontOptions.headerItalic)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+                  </label>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.headerUnderline}
+                      onChange={() => updateFontOption('headerUnderline', !fontOptions.headerUnderline)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+                  </label>
                 </div>
               </div>
             </div>
@@ -279,27 +280,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('subheaderColor', Array.from(COLORS) as string[], 'Subheader Color', 'Subheader')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
-                  <button
-                    onClick={() => updateFontOption('subheaderItalic', !fontOptions.subheaderItalic)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.subheaderItalic
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Italic className={PANEL_STYLES.icon.small} /> Italic
-                  </button>
-                  <button
-                    onClick={() => updateFontOption('subheaderUnderline', !fontOptions.subheaderUnderline)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.subheaderUnderline
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Underline className={PANEL_STYLES.icon.small} /> Underline
-                  </button>
+                <div className={STYLE_CHECKBOX_STYLES.container}>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.subheaderItalic}
+                      onChange={() => updateFontOption('subheaderItalic', !fontOptions.subheaderItalic)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+                  </label>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.subheaderUnderline}
+                      onChange={() => updateFontOption('subheaderUnderline', !fontOptions.subheaderUnderline)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+                  </label>
                 </div>
               </div>
             </div>
@@ -327,27 +328,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('sectionHeaderColor', Array.from(COLORS) as string[], 'Section Header Color', 'Section')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
-                  <button
-                    onClick={() => updateFontOption('sectionHeaderItalic', !fontOptions.sectionHeaderItalic)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.sectionHeaderItalic
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Italic className={PANEL_STYLES.icon.small} /> Italic
-                  </button>
-                  <button
-                    onClick={() => updateFontOption('sectionHeaderUnderline', !fontOptions.sectionHeaderUnderline)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.sectionHeaderUnderline
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Underline className={PANEL_STYLES.icon.small} /> Underline
-                  </button>
+                <div className={STYLE_CHECKBOX_STYLES.container}>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.sectionHeaderItalic}
+                      onChange={() => updateFontOption('sectionHeaderItalic', !fontOptions.sectionHeaderItalic)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+                  </label>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.sectionHeaderUnderline}
+                      onChange={() => updateFontOption('sectionHeaderUnderline', !fontOptions.sectionHeaderUnderline)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+                  </label>
                 </div>
               </div>
             </div>
@@ -375,27 +376,27 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               {renderSelect('bodyColor', Array.from(COLORS) as string[], 'Body Color', 'Body')}
               <div className={SECTION_STYLES.content}>
                 <label className={PANEL_STYLES.label.style}>Style</label>
-                <div className={SKILL_LAYOUT_STYLES.buttonGroup}>
-                  <button
-                    onClick={() => updateFontOption('bodyItalic', !fontOptions.bodyItalic)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.bodyItalic
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Italic className={PANEL_STYLES.icon.small} /> Italic
-                  </button>
-                  <button
-                    onClick={() => updateFontOption('bodyUnderline', !fontOptions.bodyUnderline)}
-                    className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.bodyUnderline
-                      ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                      : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                      }`}
-                    type="button"
-                  >
-                    <Underline className={PANEL_STYLES.icon.small} /> Underline
-                  </button>
+                <div className={STYLE_CHECKBOX_STYLES.container}>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.bodyItalic}
+                      onChange={() => updateFontOption('bodyItalic', !fontOptions.bodyItalic)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Italic className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Italic</span>
+                  </label>
+                  <label className={STYLE_CHECKBOX_STYLES.label}>
+                    <input
+                      type="checkbox"
+                      checked={fontOptions.bodyUnderline}
+                      onChange={() => updateFontOption('bodyUnderline', !fontOptions.bodyUnderline)}
+                      className={STYLE_CHECKBOX_STYLES.checkbox}
+                    />
+                    <Underline className={STYLE_CHECKBOX_STYLES.icon} />
+                    <span className={STYLE_CHECKBOX_STYLES.text}>Underline</span>
+                  </label>
                 </div>
               </div>
             </div>

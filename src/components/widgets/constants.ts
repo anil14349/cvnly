@@ -119,4 +119,13 @@ export const PANEL_CONTAINER_STYLES = {
 export const COLOR_SWATCH_STYLES = {
   active: 'border-blue-500 ring-1 ring-blue-400',
   inactive: 'border-gray-200 dark:border-gray-700'
+};
+
+// Style checkbox styles
+export const STYLE_CHECKBOX_STYLES = {
+  container: 'flex gap-4',
+  label: 'flex items-center gap-1.5 text-xs cursor-pointer',
+  checkbox: 'form-checkbox h-3.5 w-3.5 rounded border-gray-300 text-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800',
+  text: 'text-gray-700 dark:text-gray-200',
+  icon: 'text-gray-500 dark:text-gray-400'
 }; 

@@ -2,6 +2,10 @@ import React from 'react';
 import { ResumeSection, SocialLink } from '../../types/common';
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
 import { Eye, EyeOff, GripVertical, Plus } from 'lucide-react';
+import {
+  PANEL_STYLES,
+  PANEL_CONTAINER_STYLES
+} from './constants';
 
 interface ResumeSectionsWidgetProps {
     sections: ResumeSection[];
@@ -58,7 +62,7 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
     const showSocialLinks = socialSection?.visible ?? false;
 
     return (
-        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-4 mb-4">
+        <div className={PANEL_STYLES.container} style={sections && sections.length && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}>
             <DragDropContext onDragEnd={handleDragEnd}>
                 <Droppable droppableId="sections">
                     {(provided) => (
@@ -77,19 +81,19 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
                                         <div
                                             ref={provided.innerRef}
                                             {...provided.draggableProps}
-                                            className="flex items-center justify-between bg-gray-50 dark:bg-gray-700 p-2 rounded"
+                                            className="flex items-center justify-between bg-white dark:bg-gray-900 p-2 rounded border border-gray-200 dark:border-gray-700 shadow-sm"
                                         >
                                             <div className="flex items-center gap-2">
                                                 <div {...provided.dragHandleProps}>
                                                     <GripVertical className="w-4 h-4 text-gray-400" />
                                                 </div>
-                                                <span className="text-sm text-gray-700 dark:text-gray-200">
+                                                <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
                                                     {getSectionTitle(section.type)}
                                                 </span>
                                             </div>
                                             <button
                                                 onClick={() => toggleSectionVisibility(section.type)}
-                                                className="p-1 hover:bg-gray-200 dark:hover:bg-gray-600 rounded"
+                                                className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded border border-transparent focus:outline-none focus:ring-2 focus:ring-blue-200 dark:focus:ring-blue-800"
                                             >
                                                 {section.visible ? (
                                                     <Eye className="w-4 h-4 text-gray-500 dark:text-gray-400" />
@@ -110,13 +114,13 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
             {/* Social Links Management */}
             {showSocialLinks && (
                 <div className="mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
-                    <h3 className="text-sm font-medium text-gray-700 dark:text-gray-200 mb-2">Add Social Links</h3>
+                    <h3 className="text-xs font-medium text-gray-700 dark:text-gray-200 mb-2">Add Social Links</h3>
                     <div className="space-y-2">
                         {getAvailableSocialLinks().map((type) => (
                             <button
                                 key={type}
                                 onClick={() => addSocialLink(type)}
-                                className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+                                className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
                             >
                                 <Plus className="w-4 h-4" />
                                 Add {type.charAt(0).toUpperCase() + type.slice(1)}

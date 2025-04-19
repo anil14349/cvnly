@@ -115,10 +115,10 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
       className={PANEL_STYLES.container}
       style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
     >
-      {/* Color Picker */}
+      {/* Line Color Picker */}
       <div className={PANEL_STYLES.colorPicker.container}>
         <div className={PANEL_STYLES.colorPicker.header}>
-          <span className={PANEL_STYLES.colorPicker.title}>Theme Colors</span>
+          <span className={PANEL_STYLES.colorPicker.title}>Section Line Color</span>
           <Palette className={PANEL_STYLES.colorPicker.icon} />
         </div>
         <div className={PANEL_STYLES.colorPicker.swatches}>
@@ -128,7 +128,8 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               className={`${PANEL_STYLES.colorPicker.swatch} ${fontOptions.lineColor === color ? COLOR_SWATCH_STYLES.active : COLOR_SWATCH_STYLES.inactive}`}
               style={{ background: color }}
               onClick={() => updateFontOption('lineColor', color)}
-              aria-label={`Set accent color to ${color}`}
+              aria-label={`Set section line color to ${color}`}
+              type="button"
             />
           ))}
           <input
@@ -136,7 +137,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             className={`${PANEL_STYLES.colorPicker.swatch} border-gray-300 dark:border-gray-700 cursor-pointer`}
             value={fontOptions.lineColor}
             onChange={(e) => updateFontOption('lineColor', e.target.value)}
-            aria-label="Custom color picker"
+            aria-label="Custom section line color picker"
           />
         </div>
         <div className={PANEL_STYLES.colorPicker.custom.container}>
@@ -146,7 +147,7 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
             className={PANEL_STYLES.colorPicker.custom.input}
             value={fontOptions.lineColor}
             onChange={(e) => updateFontOption('lineColor', e.target.value)}
-            aria-label="Set custom color value"
+            aria-label="Set custom section line color value"
           />
         </div>
       </div>

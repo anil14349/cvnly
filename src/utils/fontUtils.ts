@@ -26,11 +26,20 @@ export const LINE_HEIGHTS = ['leading-tight', 'leading-normal', 'leading-relaxed
 // Letter Spacing
 export const LETTER_SPACING = ['tracking-tight', 'tracking-normal', 'tracking-wide'] as const;
 
-// Colors
+// Colors (for section line color picker)
 export const COLORS = [
-  'text-gray-900', 'text-gray-800', 'text-gray-700', 'text-gray-600', 'text-gray-500',
-  'text-blue-600', 'text-blue-500', 'text-indigo-600', 'text-indigo-500',
-  'text-purple-600', 'text-purple-500'
+  '#1e293b', // slate-800 (dark blue-gray)
+  '#64748b', // slate-500 (mid blue-gray)
+  '#e11d48', // rose-600
+  '#f59e42', // orange-400
+  '#fbbf24', // yellow-400
+  '#22c55e', // green-500
+  '#0ea5e9', // sky-500
+  '#6366f1', // indigo-500
+  '#a21caf', // purple-700
+  '#f43f5e', // pink-500
+  '#f1f5f9', // slate-100 (light gray)
+  '#18181b', // zinc-900 (almost black)
 ] as const;
 
 // Font Classes

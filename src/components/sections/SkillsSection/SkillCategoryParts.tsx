@@ -182,3 +182,7 @@ export const NewSkillInput = ({
     </button>
   </div>
 );
+
+// Only render SkillList if layout is not classic or pill
+// All layout logic now handled in SkillCategory
+// Remove any layout-specific logic from here if present

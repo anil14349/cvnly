@@ -66,6 +66,9 @@ export interface FontOptions {
   showCertifications?: boolean;
   sectionUnderline?: boolean;
 
+  // Skill layout
+  skillLayout?: SkillLayoutType;
+
   // Add theme types
 }
 
@@ -99,6 +102,8 @@ export type SocialIconSpacingSizeType = 'small' | 'medium' | 'large';
 
 export type SkillTheme = 'classic' | 'card' | 'compact' | 'bubble';
 
+export type SkillLayoutType = 'bulleted' | 'pill' | 'classic';
+
 export interface LineOptions {
   color: string;
   length: string;
@@ -123,5 +128,3 @@ export interface ResumeSection {
     socialLinks?: SocialLink[];
   };
 }
-
-

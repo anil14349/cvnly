@@ -9,6 +9,13 @@ import {
   FONT_FAMILIES,
   COLORS
 } from '../../utils/fontUtils';
+import type { SkillLayoutType } from '../../types/common';
+
+const SKILL_LAYOUT_OPTIONS: { value: SkillLayoutType; label: string }[] = [
+  { value: 'bulleted', label: 'Bulleted List' },
+  { value: 'pill', label: 'Pill/Chip' },
+  { value: 'classic', label: 'Classic Inline' },
+];
 
 interface FontControlPanelProps {
   fontOptions: FontOptions;
@@ -336,6 +343,21 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
                     <Underline className="w-3 h-3" /> Underline
                   </button>
                 </div>
+              </div>
+              {/* Skill Layout Selector */}
+              <div className="mt-2">
+                <label htmlFor="skill-layout-select" className="block text-xs font-medium text-gray-700 dark:text-gray-300 mb-1">Skill Layout</label>
+                <select
+                  id="skill-layout-select"
+                  value={fontOptions.skillLayout || 'bulleted'}
+                  onChange={e => updateFontOption('skillLayout', e.target.value as SkillLayoutType)}
+                  className="w-full px-2 py-1 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                  aria-label="Skill Layout"
+                >
+                  {SKILL_LAYOUT_OPTIONS.map(opt => (
+                    <option key={opt.value} value={opt.value}>{opt.label}</option>
+                  ))}
+                </select>
               </div>
             </div>
           )}

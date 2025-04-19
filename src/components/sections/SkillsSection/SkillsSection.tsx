@@ -7,8 +7,13 @@ import { DEFAULT_SKILLS_TITLE, SKILL_CATEGORY_CLASS } from './constants';
 import { v4 as uuidv4 } from 'uuid';
 import SkillCategory from './SkillCategory';
 import { AddSkillCategoryButton } from './AddSkillCategoryButton';
+import type { SkillLayoutType } from '../../../types/common';
 
-
+const SKILL_LAYOUT_OPTIONS: { value: SkillLayoutType; label: string }[] = [
+  { value: 'bulleted', label: 'Bulleted List' },
+  { value: 'pill', label: 'Pill/Chip' },
+  { value: 'classic', label: 'Classic Inline' },
+];
 
 export const SkillsSection: React.FC<SkillsSectionProps> = ({
   index,
@@ -45,8 +50,18 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
     setSkills([...skills, newCategory]);
   };
 
+  // Skill Layout Selector Handler
+  const handleSkillLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (typeof fontOptions === 'object' && 'skillLayout' in fontOptions) {
+      fontOptions.skillLayout = e.target.value as SkillLayoutType;
+    }
+    // If fontOptions is managed by parent, trigger parent update here
+    // (You may need to lift state if fontOptions is immutable)
+  };
+  const skillLayout = fontOptions.skillLayout || 'bulleted';
+
   return (
-    <section className="relative group" aria-labelledby={`skills-section-${index}`}>
+    <section className="relative group" aria-labelledby={`skills-section-${index}`}> 
       <SectionHeaderLine
         title={title}
         fontOptions={fontOptions}
@@ -63,17 +78,33 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
 
       {/* Add margin between section header and grid */}
       <div className="mt-2">
-        <div className={SKILL_CATEGORY_CLASS}>
-          {skills.map((skillCategory) => (
-            <SkillCategory
-              key={skillCategory.id}
-              category={skillCategory}
-              fontOptions={fontOptions}
-              updateSkill={handleUpdateSkill}
-              deleteSkill={handleDeleteSkill}
-            />
-          ))}
-        </div>
+        {skillLayout === 'classic' ? (
+          <div>
+            {skills.map((skillCategory) => (
+              <SkillCategory
+                key={skillCategory.id}
+                category={skillCategory}
+                fontOptions={fontOptions}
+                updateSkill={handleUpdateSkill}
+                deleteSkill={handleDeleteSkill}
+                skillLayout={skillLayout}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className={SKILL_CATEGORY_CLASS}>
+            {skills.map((skillCategory) => (
+              <SkillCategory
+                key={skillCategory.id}
+                category={skillCategory}
+                fontOptions={fontOptions}
+                updateSkill={handleUpdateSkill}
+                deleteSkill={handleDeleteSkill}
+                skillLayout={skillLayout}
+              />
+            ))}
+          </div>
+        )}
       </div>
       <div className="mt-4 print:hidden">
         <AddSkillCategoryButton onClick={addSkillCategory} />

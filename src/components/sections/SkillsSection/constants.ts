@@ -21,7 +21,7 @@ export const BULLET_POINT = '•';
 // Category Header Classes
 export const CATEGORY_HEADER_CONTAINER_CLASS = 'skill-category-title flex items-center justify-between mb-0.5';
 export const CATEGORY_HEADER_INPUT_CLASS = 'bg-transparent border-none focus:outline-none focus:ring-1 focus:ring-blue-500/20 rounded px-0 py-0.5 w-full';
-export const CATEGORY_DELETE_BUTTON_CLASS = 'opacity-0 group-hover/category:opacity-100 transition-all print:hidden ml-2 p-1 rounded hover:bg-red-500/10';
+export const CATEGORY_DELETE_BUTTON_CLASS = 'opacity-0 group-hover/category:opacity-100 transition-all print:hidden ml-2 p-1 rounded hover:bg-red-500/20 hover:backdrop-blur-sm hover:shadow-sm';
 export const CATEGORY_DELETE_ICON_CLASS = 'w-3 h-3';
 
 // Skill List Classes

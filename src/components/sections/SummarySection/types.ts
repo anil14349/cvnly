@@ -8,4 +8,5 @@ export interface SummarySectionProps {
   fontOptions: FontOptions;
   title?: string;
   onTitleChange?: (newTitle: string) => void;
+  isPreview?: boolean;
 }

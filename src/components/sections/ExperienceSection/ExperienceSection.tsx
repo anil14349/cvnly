@@ -29,7 +29,7 @@ import {
   DEFAULT_BG_LIGHT
 } from './constants';
 
-const ExperienceSection: React.FC<ExperienceSectionProps> = ({
+const ExperienceSection: React.FC<ExperienceSectionProps & { isPreview?: boolean }> = ({
   experiences,
   fontOptions,
   moveSection,
@@ -40,7 +40,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   deleteExperience,
   updateExperience,
   title = "Work Experience",
-  onTitleChange
+  onTitleChange,
+  isPreview = false
 }) => {
   const addAchievement = (experienceId: string) => {
     const experience = experiences.find(exp => exp.id === experienceId);
@@ -54,11 +55,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     updateExperience?.(experienceId, updatedExperience);
   };
 
-  const removeAchievement = (experienceId: string, achievementIndex: number) => {
+  const updateAchievement = (experienceId: string, achievementIndex: number, newText: string) => {
     const experience = experiences.find(exp => exp.id === experienceId);
     if (!experience) return;
 
-    const updatedAchievements = experience.achievements.filter((_, i) => i !== achievementIndex);
+    const updatedAchievements = [...experience.achievements];
+    updatedAchievements[achievementIndex] = newText;
+
     const updatedExperience = {
       ...experience,
       achievements: updatedAchievements
@@ -67,13 +70,11 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
     updateExperience?.(experienceId, updatedExperience);
   };
 
-  const updateAchievement = (experienceId: string, achievementIndex: number, newText: string) => {
+  const removeAchievement = (experienceId: string, achievementIndex: number) => {
     const experience = experiences.find(exp => exp.id === experienceId);
     if (!experience) return;
 
-    const updatedAchievements = [...experience.achievements];
-    updatedAchievements[achievementIndex] = newText;
-
+    const updatedAchievements = experience.achievements.filter((_, i) => i !== achievementIndex);
     const updatedExperience = {
       ...experience,
       achievements: updatedAchievements
@@ -98,26 +99,30 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         fontOptions={fontOptions}
         onTitleChange={onTitleChange}
         controls={
-          <SectionControls
-            index={index}
-            moveSection={moveSection}
-            deleteSection={deleteSection}
-            sectionsLength={sectionsLength}
-          />
+          !isPreview && (
+            <SectionControls
+              index={index}
+              moveSection={moveSection}
+              deleteSection={deleteSection}
+              sectionsLength={sectionsLength}
+            />
+          )
         }
       />
 
       <div className="space-y-4">
         {experiences.map((experience) => (
           <div key={experience.id} className={EXPERIENCE_ITEM_CLASS}>
-            <button
-              onClick={() => deleteExperience?.(experience.id)}
-              className={DELETE_EXPERIENCE_BUTTON_CLASS}
-              aria-label={`Delete experience: ${experience.title}`}
-              style={{ padding: DELETE_EXPERIENCE_BUTTON_PADDING }}
-            >
-              <X className={DELETE_EXPERIENCE_ICON_SIZE} aria-hidden="true" />
-            </button>
+            {!isPreview && (
+              <button
+                onClick={() => deleteExperience?.(experience.id)}
+                className={DELETE_EXPERIENCE_BUTTON_CLASS}
+                aria-label={`Delete experience: ${experience.title}`}
+                style={{ padding: DELETE_EXPERIENCE_BUTTON_PADDING }}
+              >
+                <X className={DELETE_EXPERIENCE_ICON_SIZE} aria-hidden="true" />
+              </button>
+            )}
             <div className={EXPERIENCE_HEADER_CLASS}>
               <div>
                 <h3 className={baseTextClasses} contentEditable suppressContentEditableWarning>
@@ -143,38 +148,44 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                       isEditing={true}
                       className="inline-block"
                     />
-                    <button
-                      onClick={() => removeAchievement(experience.id, idx)}
-                      className={DELETE_ACHIEVEMENT_BUTTON_CLASS}
-                      aria-label={`Delete achievement: ${achievement.substring(0, 20)}...`}
-                    >
-                      <X className={DELETE_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />
-                    </button>
+                    {!isPreview && (
+                      <button
+                        onClick={() => removeAchievement(experience.id, idx)}
+                        className={DELETE_ACHIEVEMENT_BUTTON_CLASS}
+                        aria-label={`Delete achievement: ${achievement.substring(0, 20)}...`}
+                      >
+                        <X className={DELETE_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />
+                      </button>
+                    )}
                   </span>
                 </li>
               ))}
             </ul>
 
-            <button
-              onClick={() => addAchievement(experience.id)}
-              className={`${ADD_ACHIEVEMENT_BUTTON_CLASS} ${baseTextClasses}`}
-              aria-label="Add achievement"
-            >
-              <Plus className={ADD_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />
-              <span>Add Achievement</span>
-            </button>
+            {!isPreview && (
+              <button
+                onClick={() => addAchievement(experience.id)}
+                className={`${ADD_ACHIEVEMENT_BUTTON_CLASS} ${baseTextClasses}`}
+                aria-label="Add achievement"
+              >
+                <Plus className={ADD_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />
+                <span>Add Achievement</span>
+              </button>
+            )}
           </div>
         ))}
       </div>
-      <div className="mt-4 print:hidden">
-        <AddSectionButton
-          onClick={addExperience}
-          text={ADD_EXPERIENCE_TEXT}
-          buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
-          iconClassName={ADD_EXPERIENCE_ICON_SIZE}
-          textClassName={SECTION_BUTTON_TEXT_STYLE}
-        />
-      </div>
+      {!isPreview && (
+        <div className="mt-4 print:hidden">
+          <AddSectionButton
+            onClick={addExperience}
+            text={ADD_EXPERIENCE_TEXT}
+            buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
+            iconClassName={ADD_EXPERIENCE_ICON_SIZE}
+            textClassName={SECTION_BUTTON_TEXT_STYLE}
+          />
+        </div>
+      )}
     </div>
   );
 };

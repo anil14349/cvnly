@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
-import { Download } from 'lucide-react';
+import { Download, Eye } from 'lucide-react';
 import './index.css';
 import './styles/index.css';
+import PrintPreview from './components/widgets/PrintPreview';
 
 // Import types
 import { FontOptions, ResumeSection, SocialLink } from './types/common';
@@ -145,6 +146,9 @@ function App() {
     name: "Anil Kumar",
     title: "Integration Architect/AI & ML Engineer"
   });
+
+  // Add preview state
+  const [showPrintPreview, setShowPrintPreview] = useState(false);
 
   // Initialize CSS variables on mount
   useEffect(() => {
@@ -628,6 +632,33 @@ function App() {
     }
   }, [skills]);
 
+  // Add updateEducation implementation
+  const updateEducation = (id: string, field: string, value: string) => {
+    // Update educations state
+    const updatedEducations = educations.map(edu => {
+      if (edu.id !== id) return edu;
+      if (field === 'details') {
+        // 'value' is a JSON stringified array of details
+        return { ...edu, details: JSON.parse(value) };
+      }
+      return { ...edu, [field]: value };
+    });
+    setEducations(updatedEducations);
+
+    // Update section content
+    const sectionIndex = sections.findIndex(section => section.type === 'education');
+    if (sectionIndex !== -1) {
+      const updatedSection = {
+        ...sections[sectionIndex],
+        content: {
+          ...sections[sectionIndex].content,
+          educations: updatedEducations
+        }
+      };
+      handleSectionUpdate(sectionIndex, updatedSection);
+    }
+  };
+
   return (
     <div className={`min-h-screen ${activeTheme === 'dark' ? 'dark' : ''}`}>
       {/* App Header */}
@@ -638,6 +669,13 @@ function App() {
               <h1 className="text-xl font-semibold text-gray-800 dark:text-white">CVnly</h1>
             </div>
             <div className="flex items-center gap-4">
+              <button
+                onClick={() => setShowPrintPreview(true)}
+                className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors disabled:opacity-50"
+              >
+                <Eye className="w-4 h-4" />
+                Preview
+              </button>
               <button
                 onClick={() => generatePdf(resumeRef.current)}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
@@ -694,6 +732,9 @@ function App() {
                         onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
                         skills={section.content.skills || []}
                         setSkills={setSkills}
+                        addSkill={addSkill}
+                        deleteSkill={deleteSkill}
+                        updateSkill={updateSkill}
                       />
                     );
                   case 'experience':
@@ -727,6 +768,7 @@ function App() {
                         educations={section.content.educations || []}
                         addEducation={addEducation}
                         deleteEducation={deleteEducation}
+                        updateEducation={updateEducation}
                       />
                     );
                   case 'projects':
@@ -776,8 +818,6 @@ function App() {
               fontOptions={fontOptions}
               setFontOptions={setFontOptions}
               updateFontOption={updateFontOption}
-              iconFormat="symbol"
-              updateIconFormat={() => { }}
             />
             <LineBreakTool
               fontOptions={fontOptions}
@@ -792,6 +832,37 @@ function App() {
           </div>
         </div>
       </div>
+
+      {/* Print Preview Modal */}
+      {showPrintPreview && (
+        <PrintPreview
+          isOpen={showPrintPreview}
+          onClose={() => setShowPrintPreview(false)}
+          resumeData={resumeData}
+          sectionTitles={sectionTitles}
+          sections={sections}
+          fontOptions={fontOptions}
+          socialLinks={socialLinks}
+          addSkill={addSkill}
+          deleteSkill={deleteSkill}
+          updateSkill={updateSkill}
+          addExperience={addExperience}
+          deleteExperience={deleteExperience}
+          updateExperience={updateExperience}
+          addEducation={addEducation}
+          deleteEducation={deleteEducation}
+          updateEducation={updateEducation}
+          addProject={addProject}
+          deleteProject={deleteProject}
+          updateProject={updateProject}
+          addCertification={addCertification}
+          deleteCertification={deleteCertification}
+          updateCertification={updateCertification}
+          addSocialLink={addSocialLink}
+          deleteSocialLink={deleteSocialLink}
+          updateSocialLink={updateSocialLink}
+        />
+      )}
 
       {/* Update theme colors */}
       <style>

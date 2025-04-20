@@ -1,7 +1,7 @@
 import React from 'react';
 import { ResumeSection, SocialLink } from '../../types/common';
-import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
-import { Eye, EyeOff, GripVertical, Plus } from 'lucide-react';
+import { DragDropContext, Droppable, Draggable, DropResult } from "@hello-pangea/dnd";
+import { EyeOff, GripVertical, Plus } from 'lucide-react';
 import {
   PANEL_STYLES,
   PANEL_CONTAINER_STYLES
@@ -20,7 +20,7 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
     socialLinks,
     addSocialLink,
 }) => {
-    const handleDragEnd = (result: any) => {
+    const handleDragEnd = (result: DropResult) => {
         if (!result.destination) return;
 
         const items = Array.from(sections);
@@ -28,16 +28,6 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
         items.splice(result.destination.index, 0, reorderedItem);
 
         onSectionsChange(items);
-    };
-
-    const toggleSectionVisibility = (sectionType: string) => {
-        const updatedSections = sections.map((section) => {
-            if (section.type === sectionType) {
-                return { ...section, visible: !section.visible };
-            }
-            return section;
-        });
-        onSectionsChange(updatedSections);
     };
 
     const getSectionTitle = (type: string): string => {

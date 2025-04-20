@@ -1,11 +1,10 @@
-import React from 'react';
+
 import { Plus } from 'lucide-react';
 import { SECTION_BUTTON_STYLES, SECTION_BUTTON_TEXT_STYLE } from './constants';
 
 interface AddSectionButtonProps {
     onClick: () => void;
     text: string;
-    variant?: 'primary' | 'secondary' | 'inline';
     buttonClassName?: string;
     iconClassName?: string;
     textClassName?: string;
@@ -14,7 +13,6 @@ interface AddSectionButtonProps {
 export const AddSectionButton = ({
     onClick,
     text,
-    variant = 'primary',
     buttonClassName,
     iconClassName,
     textClassName

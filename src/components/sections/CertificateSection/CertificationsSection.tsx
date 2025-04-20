@@ -7,7 +7,7 @@ import {
 } from "../../../types/certification";
 import SectionHeaderLine from "../../common/SectionHeaderLine";
 import SectionControls from "../../common/SectionControls";
-import { getFontClassNames, getFontInlineStyles } from "../../../utils/fontUtils";
+import { getFontClassNames } from "../../../utils/fontUtils";
 import {
   CERTIFICATION_CONTAINER_CLASS,
   CERTIFICATION_ITEM_CLASS,
@@ -30,7 +30,7 @@ import {
   CERTIFICATION_TEXT_CLASS,
 } from "./constants";
 
-const CertificationsSection: React.FC<CertificationSectionProps> = ({
+const CertificationsSection: React.FC<CertificationSectionProps & { isPreview?: boolean }> = ({
   certifications,
   fontOptions,
   moveSection,
@@ -42,13 +42,13 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
   updateCertification = () => { },
   title = DEFAULT_TITLE,
   onTitleChange,
+  isPreview = false
 }) => {
   const handleBlur = (cert: Certification, field: string, value: string) => {
     updateCertification(cert.id, field, value);
   };
 
   const baseTextClasses = getFontClassNames(fontOptions);
-  const lineStyle = getFontInlineStyles(fontOptions);
 
   return (
     <div
@@ -65,59 +65,52 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
         fontOptions={fontOptions}
         onTitleChange={onTitleChange}
         controls={
-          <SectionControls
-            index={index}
-            moveSection={moveSection}
-            deleteSection={deleteSection}
-            sectionsLength={sectionsLength}
-          />
+          !isPreview && (
+            <SectionControls
+              index={index}
+              moveSection={moveSection}
+              deleteSection={deleteSection}
+              sectionsLength={sectionsLength}
+            />
+          )
         }
       />
 
       <div className={CERTIFICATIONS_LIST_CLASS}>
         {certifications.map((cert) => (
           <div key={cert.id} className={CERTIFICATION_ITEM_CLASS}>
-            <button
-              onClick={() => deleteCertification(cert.id)}
-              className={DELETE_BUTTON_CLASS}
-            >
-              <X className={DELETE_ICON_SIZE} />
-            </button>
-
+            {!isPreview && (
+              <button
+                onClick={() => deleteCertification(cert.id)}
+                className={DELETE_BUTTON_CLASS}
+              >
+                <X className={DELETE_ICON_SIZE} />
+              </button>
+            )}
             <div className={CERTIFICATION_CONTENT_CLASS}>
               <div>
                 <h4
                   className={`${baseTextClasses} ${CERTIFICATION_HEADER_CLASS}`}
-                  contentEditable
+                  contentEditable={!isPreview}
                   suppressContentEditableWarning
-                  onBlur={(e) =>
-                    handleBlur(cert, "name", e.currentTarget.textContent || "")
-                  }
+                  onBlur={!isPreview ? (e) => handleBlur(cert, "name", e.currentTarget.textContent || "") : undefined}
                 >
                   {cert.name}
                 </h4>
                 <div
                   className={`${baseTextClasses} ${CERTIFICATION_ISSUER_CLASS}`}
-                  contentEditable
+                  contentEditable={!isPreview}
                   suppressContentEditableWarning
-                  onBlur={(e) =>
-                    handleBlur(
-                      cert,
-                      "issuer",
-                      e.currentTarget.textContent || ""
-                    )
-                  }
+                  onBlur={!isPreview ? (e) => handleBlur(cert, "issuer", e.currentTarget.textContent || "") : undefined}
                 >
                   {cert.issuer}
                 </div>
               </div>
               <div
                 className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses}`}
-                contentEditable
+                contentEditable={!isPreview}
                 suppressContentEditableWarning
-                onBlur={(e) =>
-                  handleBlur(cert, "date", e.currentTarget.textContent || "")
-                }
+                onBlur={!isPreview ? (e) => handleBlur(cert, "date", e.currentTarget.textContent || "") : undefined}
               >
                 {cert.date}
               </div>
@@ -129,11 +122,9 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${CERTIFICATION_LINK_CLASS} ${baseTextClasses}`}
-                contentEditable
+                contentEditable={!isPreview}
                 suppressContentEditableWarning
-                onBlur={(e) =>
-                  handleBlur(cert, "url", e.currentTarget.textContent || "")
-                }
+                onBlur={!isPreview ? (e) => handleBlur(cert, "url", e.currentTarget.textContent || "") : undefined}
               >
                 <span>{VIEW_CERTIFICATE_TEXT}</span>
                 <ExternalLink className={EXTERNAL_LINK_ICON_SIZE} />
@@ -143,15 +134,17 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
         ))}
       </div>
 
-      <div className="mt-4 print:hidden">
-        <AddSectionButton
-          onClick={addCertification}
-          text={ADD_CERTIFICATION_TEXT}
-          buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
-          iconClassName={ADD_ICON_SIZE}
-          textClassName={CERTIFICATION_TEXT_CLASS}
-        />
-      </div>
+      {!isPreview && (
+        <div className="mt-4 print:hidden">
+          <AddSectionButton
+            onClick={addCertification}
+            text={ADD_CERTIFICATION_TEXT}
+            buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
+            iconClassName={ADD_ICON_SIZE}
+            textClassName={CERTIFICATION_TEXT_CLASS}
+          />
+        </div>
+      )}
     </div>
   );
 };

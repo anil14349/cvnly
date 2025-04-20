@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FontOptions } from '../../types/common';
-import { Italic, Underline, AlignLeft, AlignCenter, AlignRight } from 'lucide-react';
+import { Italic, Underline, AlignLeft, AlignCenter } from 'lucide-react';
 import {
   FONT_SIZES,
   FONT_WEIGHTS,
@@ -258,17 +258,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
               >
                 <AlignCenter className={PANEL_STYLES.icon.small} />
               </button>
-              {/* <button
-                onClick={() => updateFontOption('headerAlignment', 'right')}
-                className={`${SKILL_LAYOUT_STYLES.button.base} ${fontOptions.headerAlignment === 'right'
-                  ? SKILL_LAYOUT_STYLES.button.active[fontOptions.theme || 'light']
-                  : SKILL_LAYOUT_STYLES.button.inactive[fontOptions.theme || 'light']
-                  }`}
-                type="button"
-                aria-label="Align right"
-              >
-                <AlignRight className={PANEL_STYLES.icon.small} />
-              </button> */}
             </div>
           </div>
           <div className={SECTION_STYLES.content}>

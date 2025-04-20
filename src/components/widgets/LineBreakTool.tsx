@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
-import { FontOptions } from '../../types/common';
 
-interface LineBreakToolProps {
-  fontOptions: FontOptions;
-  onFontOptionChange: (option: keyof FontOptions, value: string | boolean) => void;
-}
+type LineBreakToolProps = {};
 
-const LineBreakTool: React.FC<LineBreakToolProps> = ({ fontOptions, onFontOptionChange }) => {
+const LineBreakTool: React.FC<LineBreakToolProps> = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [selectedBreak, setSelectedBreak] = useState<HTMLDivElement | null>(null);

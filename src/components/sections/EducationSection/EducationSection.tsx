@@ -33,7 +33,7 @@ import {
   EDUCATION_TEXT_CLASS, 
 } from "./constants";
 
-const EducationSection: React.FC<EducationSectionProps> = ({
+const EducationSection: React.FC<EducationSectionProps & { isPreview?: boolean }> = ({
   educations,
   fontOptions,
   moveSection,
@@ -45,6 +45,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   updateEducation,
   title = DEFAULT_TITLE,
   onTitleChange,
+  isPreview = false
 }) => {
   const updateDetail = (
     educationId: string,
@@ -75,25 +76,29 @@ const EducationSection: React.FC<EducationSectionProps> = ({
         fontOptions={fontOptions}
         onTitleChange={onTitleChange}
         controls={
-          <SectionControls
-            index={index}
-            moveSection={moveSection}
-            deleteSection={deleteSection}
-            sectionsLength={sectionsLength}
-          />
+          !isPreview && (
+            <SectionControls
+              index={index}
+              moveSection={moveSection}
+              deleteSection={deleteSection}
+              sectionsLength={sectionsLength}
+            />
+          )
         }
       />
 
       <div className={EDUCATION_LIST_CLASS}>
         {educations.map((edu) => (
           <div key={edu.id} className={EDUCATION_ITEM_CLASS}>
-            <button
-              onClick={() => deleteEducation?.(edu.id)}
-              className={DELETE_EDUCATION_BUTTON_CLASS}
-              aria-label={`${DELETE_EDUCATION_ARIA_LABEL}${edu.school}`}
-            >
-              <X className={DELETE_ICON_SIZE} aria-hidden="true" />
-            </button>
+            {!isPreview && (
+              <button
+                onClick={() => deleteEducation?.(edu.id)}
+                className={DELETE_EDUCATION_BUTTON_CLASS}
+                aria-label={`${DELETE_EDUCATION_ARIA_LABEL}${edu.school}`}
+              >
+                <X className={DELETE_ICON_SIZE} aria-hidden="true" />
+              </button>
+            )}
 
             <div className={EDUCATION_CONTENT_CLASS}>
               <div className={EDUCATION_DETAILS_CLASS}>
@@ -112,7 +117,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                     onTextChange={(newText) =>
                       updateEducation?.(edu.id, "school", newText)
                     }
-                    isEditing={true}
+                    isEditing={!isPreview}
                     className={INLINE_BLOCK_CLASS}
                   />
                 </h3>
@@ -131,7 +136,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                     onTextChange={(newText) =>
                       updateEducation?.(edu.id, "degree", newText)
                     }
-                    isEditing={true}
+                    isEditing={!isPreview}
                     className={INLINE_BLOCK_CLASS}
                   />
                   {edu.field && (
@@ -143,7 +148,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                         onTextChange={(newText) =>
                           updateEducation?.(edu.id, "field", newText)
                         }
-                        isEditing={true}
+                        isEditing={!isPreview}
                         className={INLINE_BLOCK_CLASS}
                       />
                     </>
@@ -163,7 +168,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                   onTextChange={(newText) =>
                     updateEducation?.(edu.id, "startDate", newText)
                   }
-                  isEditing={true}
+                  isEditing={!isPreview}
                   className={INLINE_BLOCK_CLASS}
                 />
                 {DATE_SEPARATOR}
@@ -173,7 +178,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                   onTextChange={(newText) =>
                     updateEducation?.(edu.id, "endDate", newText)
                   }
-                  isEditing={true}
+                  isEditing={!isPreview}
                   className={INLINE_BLOCK_CLASS}
                 />
               </div>
@@ -194,7 +199,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                   onTextChange={(newText) =>
                     updateEducation?.(edu.id, "gpa", newText)
                   }
-                  isEditing={true}
+                  isEditing={!isPreview}
                   className={INLINE_BLOCK_CLASS}
                 />
               </div>
@@ -218,28 +223,30 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                       onTextChange={(newText) =>
                         updateDetail(edu.id, idx, newText)
                       }
-                      isEditing={true}
+                      isEditing={!isPreview}
                       className={INLINE_BLOCK_CLASS}
                     />
-                    <button
-                      onClick={() => {
-                        const updatedDetails = edu.details.filter(
-                          (_, i) => i !== idx
-                        );
-                        updateEducation?.(
-                          edu.id,
-                          "details",
-                          JSON.stringify(updatedDetails)
-                        );
-                      }}
-                      className={DELETE_DETAIL_BUTTON_CLASS}
-                      aria-label={`${DELETE_DETAIL_ARIA_LABEL}${detail.substring(
-                        0,
-                        20
-                      )}${DETAIL_SUFFIX}`}
-                    >
-                      <X className={DELETE_ICON_SIZE} aria-hidden="true" />
-                    </button>
+                    {!isPreview && (
+                      <button
+                        onClick={() => {
+                          const updatedDetails = edu.details.filter(
+                            (_, i) => i !== idx
+                          );
+                          updateEducation?.(
+                            edu.id,
+                            "details",
+                            JSON.stringify(updatedDetails)
+                          );
+                        }}
+                        className={DELETE_DETAIL_BUTTON_CLASS}
+                        aria-label={`${DELETE_DETAIL_ARIA_LABEL}${detail.substring(
+                          0,
+                          20
+                        )}${DETAIL_SUFFIX}`}
+                      >
+                        <X className={DELETE_ICON_SIZE} aria-hidden="true" />
+                      </button>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -247,15 +254,17 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           </div>
         ))}
       </div>
-      <div className="mt-4 print:hidden">
-        <AddSectionButton
-          onClick={addEducation}
-          text={ADD_EDUCATION_TEXT}
-          buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
-          iconClassName={ADD_ICON_SIZE}
-          textClassName={EDUCATION_TEXT_CLASS}
-        />
-      </div>
+      {!isPreview && (
+        <div className="mt-4 print:hidden">
+          <AddSectionButton
+            onClick={addEducation}
+            text={ADD_EDUCATION_TEXT}
+            buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
+            iconClassName={ADD_ICON_SIZE}
+            textClassName={EDUCATION_TEXT_CLASS}
+          />
+        </div>
+      )}
     </div>
   );
 };

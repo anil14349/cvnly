@@ -16,6 +16,7 @@ interface Props {
     updateSkill: (id: string, updates: Partial<Skill>) => void;
     deleteSkill: (id: string) => void;
     skillLayout?: import('../../../types/common').SkillLayoutType;
+    isPreview?: boolean;
 }
 
 const SkillCategory: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const SkillCategory: React.FC<Props> = ({
     updateSkill,
     deleteSkill,
     skillLayout = 'bulleted',
+    isPreview = false
 }) => {
     const [newSkill, setNewSkill] = useState('');
 

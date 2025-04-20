@@ -32,7 +32,7 @@ import {
 } from './constants';
 import AddSectionButton from '../../common/AddSectionButton';
 
-const ProjectsSection: React.FC<ProjectsSectionProps> = ({
+const ProjectsSection: React.FC<ProjectsSectionProps & { isPreview?: boolean }> = ({
   index,
   moveSection,
   deleteSection,
@@ -44,7 +44,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   updateProject = (_id: string, _project: Project) => { },
   title = DEFAULT_TITLE,
-  onTitleChange
+  onTitleChange,
+  isPreview = false
 }) => {
   const baseTextClasses = getFontClassNames(fontOptions);
 
@@ -62,84 +63,43 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         fontOptions={fontOptions}
         onTitleChange={onTitleChange}
         controls={
-          <SectionControls
-            index={index}
-            moveSection={moveSection}
-            deleteSection={deleteSection}
-            sectionsLength={sectionsLength}
-          />
+          !isPreview && (
+            <SectionControls
+              index={index}
+              moveSection={moveSection}
+              deleteSection={deleteSection}
+              sectionsLength={sectionsLength}
+            />
+          )
         }
       />
 
       <div className={PROJECTS_LIST_CLASS}>
         {projects.map(project => (
           <div key={project.id} className={PROJECT_ITEM_CLASS}>
-            <button
-              onClick={() => deleteProject?.(project.id)}
-              className={DELETE_PROJECT_BUTTON_CLASS}
-              aria-label={`${DELETE_PROJECT_ARIA_LABEL}${project.name}`}
-            >
-              <X className={DELETE_ICON_SIZE} aria-hidden="true" />
-            </button>
-
+            {!isPreview && (
+              <button
+                onClick={() => deleteProject?.(project.id)}
+                className={DELETE_PROJECT_BUTTON_CLASS}
+                aria-label={`${DELETE_PROJECT_ARIA_LABEL}${project.name}`}
+              >
+                <X className={DELETE_ICON_SIZE} aria-hidden="true" />
+              </button>
+            )}
             <div className={PROJECT_CONTENT_CLASS}>
               <div className={PROJECT_DETAILS_CLASS}>
-                <h4 className={baseTextClasses}>
-                  <FormattedText
-                    text={project.name}
-                    fontOptions={fontOptions}
-                    onTextChange={(newText) => updateProject(project.id, { ...project, name: newText })}
-                    isEditing={true}
-                    className={INLINE_BLOCK_CLASS}
-                  />
-                </h4>
-                <div className={baseTextClasses}>
-                  <FormattedText
-                    text={project.company}
-                    fontOptions={fontOptions}
-                    onTextChange={(newText) => updateProject(project.id, { ...project, company: newText })}
-                    isEditing={true}
-                    className={INLINE_BLOCK_CLASS}
-                  />
-                </div>
+                <h4 className={baseTextClasses}>{project.name}</h4>
+                <div className={baseTextClasses}>{project.company}</div>
               </div>
-              <div className={baseTextClasses}>
-                <FormattedText
-                  text={project.period}
-                  fontOptions={fontOptions}
-                  onTextChange={(newText) => updateProject(project.id, { ...project, period: newText })}
-                  isEditing={true}
-                  className={INLINE_BLOCK_CLASS}
-                />
-              </div>
+              <div className={baseTextClasses}>{project.period}</div>
             </div>
-
-            <div className={baseTextClasses}>
-              <FormattedText
-                text={project.description}
-                fontOptions={fontOptions}
-                onTextChange={(newText) => updateProject(project.id, { ...project, description: newText })}
-                isEditing={true}
-                className={INLINE_BLOCK_CLASS}
-              />
-            </div>
-
-            <div className={PROJECT_DESCRIPTION_CLASS}>
-              <ul className={`${PROJECT_RESPONSIBILITIES_LIST_CLASS} ${baseTextClasses}`}>
-                {project.responsibilities?.map((responsibility, idx) => (
-                  <li key={idx} className={PROJECT_RESPONSIBILITY_ITEM_CLASS}>
-                    <span className="inline-flex items-center">
-                      <FormattedText
-                        text={responsibility}
-                        fontOptions={fontOptions}
-                        onTextChange={(newText) => {
-                          const updatedResponsibilities = [...project.responsibilities];
-                          updatedResponsibilities[idx] = newText;
-                          updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
-                        }}
-                        isEditing={true}
-                        className={INLINE_BLOCK_CLASS}
-                      />
+            <div className={baseTextClasses}>{project.description}</div>
+            <ul className={`${PROJECT_RESPONSIBILITIES_LIST_CLASS} ${baseTextClasses}`}>
+              {project.responsibilities?.map((responsibility, idx) => (
+                <li key={idx} className={PROJECT_RESPONSIBILITY_ITEM_CLASS}>
+                  <span className="inline-flex items-center">
+                    {responsibility}
+                    {!isPreview && (
                       <button
                         onClick={() => {
                           const updatedResponsibilities = project.responsibilities.filter((_, i) => i !== idx);
@@ -150,11 +110,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       >
                         <X className="w-3 h-3" aria-hidden="true" />
                       </button>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {!isPreview && (
               <button
                 onClick={() => {
                   const updatedResponsibilities = [...(project.responsibilities || []), ADD_RESPONSIBILITY_TEXT];
@@ -166,22 +127,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 <Plus className="w-3 h-3" aria-hidden="true" />
                 <span>Add Responsibility</span>
               </button>
-
-              <ul className={`${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses}`}>
-                {project.technologies?.map((tech, idx) => (
-                  <li key={idx} className={PROJECT_TECH_ITEM_CLASS}>
-                    <span className="inline-flex items-center">
-                      <FormattedText
-                        text={tech}
-                        fontOptions={fontOptions}
-                        onTextChange={(newText) => {
-                          const updatedTechnologies = [...project.technologies];
-                          updatedTechnologies[idx] = newText;
-                          updateProject(project.id, { ...project, technologies: updatedTechnologies });
-                        }}
-                        isEditing={true}
-                        className={INLINE_BLOCK_CLASS}
-                      />
+            )}
+            <ul className={`${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses}`}>
+              {project.technologies?.map((tech, idx) => (
+                <li key={idx} className={PROJECT_TECH_ITEM_CLASS}>
+                  <span className="inline-flex items-center">
+                    {tech}
+                    {!isPreview && (
                       <button
                         onClick={() => {
                           const updatedTechnologies = project.technologies.filter((_, i) => i !== idx);
@@ -192,11 +144,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       >
                         <X className="w-3 h-3" aria-hidden="true" />
                       </button>
-                    </span>
-                  </li>
-                ))}
-              </ul>
-
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {!isPreview && (
               <button
                 onClick={() => {
                   const updatedTechnologies = [...(project.technologies || []), ADD_TECHNOLOGY_TEXT];
@@ -208,21 +161,23 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 <Plus className="w-3 h-3" aria-hidden="true" />
                 <span>Add Technology</span>
               </button>
-            </div>
+            )}
           </div>
         ))}
       </div>
-      <div className="mt-4 print:hidden">
-        <AddSectionButton
-          onClick={addProject}
-          text={ADD_PROJECT_TEXT}
-          buttonClassName={ADD_PROJECT_BUTTON_CLASS}
-          iconClassName={ADD_PROJECT_ICON_SIZE}
-          textClassName={PROJECT_TEXT_CLASS}
-        />
-      </div>
+      {!isPreview && (
+        <div className="mt-4 print:hidden">
+          <AddSectionButton
+            onClick={addProject}
+            text={ADD_PROJECT_TEXT}
+            buttonClassName={ADD_PROJECT_BUTTON_CLASS}
+            iconClassName={ADD_PROJECT_ICON_SIZE}
+            textClassName={PROJECT_TEXT_CLASS}
+          />
+        </div>
+      )}
     </div>
   );
 };
 
-export default ProjectsSection; 
+export default ProjectsSection;

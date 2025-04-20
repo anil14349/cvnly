@@ -17,6 +17,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   fontOptions,
   title = DEFAULT_SUMMARY_TITLE,
   onTitleChange,
+  isPreview = false
 }) => {
   const [summary, setSummary] = useState('');
   const [isEditing, setIsEditing] = useState(false);

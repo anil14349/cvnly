@@ -1,237 +1,250 @@
-import React, { useEffect, useRef } from 'react';
-import type { ResumeSection, FontOptions, SocialLink } from '../../types/common';
-import { getFontWeightValue } from '../../utils/fontUtils';
-import ResumeHeaderName from '../layout/ResumeHeaderName';
-import ResumeHeaderTitle from '../layout/ResumeHeaderTitle';
-import ResumeSocialLinks from '../layout/ResumeSocialLinks';
+import React, { useEffect } from 'react';
+import { X } from 'lucide-react';
+import ResumeHeader from '../layout/ResumeHeader';
+import SummarySection from '../sections/SummarySection/SummarySection';
+import SkillsSection from '../sections/SkillsSection/SkillsSection';
+import ExperienceSection from '../sections/ExperienceSection/ExperienceSection';
+import EducationSection from '../sections/EducationSection/EducationSection';
+import ProjectsSection from '../sections/ProjectsSection/ProjectsSection';
+import CertificationsSection from '../sections/CertificateSection/CertificationsSection';
 
 interface PrintPreviewProps {
-    sections: ResumeSection[];
-    sectionTitles: Record<string, string>;
-    socialLinks: SocialLink[];
-    fontOptions: FontOptions;
-    onClose: () => void;
     isOpen: boolean;
-    resumeData: {
-        name: string;
-        title: string;
-    };
+    onClose: () => void;
+    resumeData: { name: string; title: string };
+    sectionTitles: { [key: string]: string };
+    sections: any[];
+    fontOptions: any;
+    socialLinks: any[];
+    addSkill: any;
+    deleteSkill: any;
+    updateSkill: any;
+    addExperience: any;
+    deleteExperience: any;
+    updateExperience: any;
+    addEducation: any;
+    deleteEducation: any;
+    updateEducation: any;
+    addProject: any;
+    deleteProject: any;
+    updateProject: any;
+    addCertification: any;
+    deleteCertification: any;
+    updateCertification: any;
+    addSocialLink: any;
+    deleteSocialLink: any;
+    updateSocialLink: any;
 }
-
-// Add print-specific styles at the top
-const printStyles = `
-@media print {
-  @page {
-    margin: 0;
-    size: A4;
-  }
-  .print-preview {
-    background: none;
-  }
-  .print-content {
-    box-shadow: none !important;
-    margin: 0 !important;
-    max-width: none !important;
-  }
-  .skill-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    page-break-inside: avoid;
-  }
-  .skill-card {
-    background-color: transparent !important;
-    padding: 0 !important;
-    border: none !important;
-  }
-  .skill-list {
-    margin-left: 1.5rem;
-  }
-}
-`;
 
 const PrintPreview: React.FC<PrintPreviewProps> = ({
-    sections,
-    sectionTitles,
-    socialLinks,
-    fontOptions,
-    onClose,
     isOpen,
+    onClose,
     resumeData,
+    sectionTitles,
+    sections,
+    fontOptions,
+    socialLinks,
+    addSkill,
+    deleteSkill,
+    updateSkill,
+    addExperience,
+    deleteExperience,
+    updateExperience,
+    addEducation,
+    deleteEducation,
+    updateEducation,
+    addProject,
+    deleteProject,
+    updateProject,
+    addCertification,
+    deleteCertification,
+    updateCertification,
+    addSocialLink,
+    deleteSocialLink,
+    updateSocialLink,
 }) => {
-    const contentRef = useRef<HTMLDivElement>(null);
-
-    const getFontStyle = (options: FontOptions) => {
-        return {
-            '--font-family': options.headerFont,
-            '--font-size': options.headerSize,
-            '--font-weight': getFontWeightValue(options.headerWeight),
-            '--line-height': options.headerLineHeight,
-            '--letter-spacing': options.headerLetterSpacing,
-            '--color': options.headerColor,
-        } as React.CSSProperties;
-    };
-
-    useEffect(() => {
-        if (contentRef.current) {
-            const content = contentRef.current;
-            const pageHeight = 1123; // A4 height at 96 DPI
-            content.style.minHeight = `${pageHeight}px`;
-        }
-    }, [sections]);
-
-    const renderSection = (section: ResumeSection) => {
-        const sectionClass = "mb-6 last:mb-0";
-        const titleClass = "text-xl font-semibold mb-4 pb-2 border-b border-gray-200";
-        const contentClass = "space-y-4";
-
-        switch (section.type) {
-            case 'summary':
-                return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
-                            {/* Summary content will be added when available */}
-                        </div>
-                    </div>
-                );
-            case 'skills':
-                return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className="grid grid-cols-2 gap-4 skill-grid">
-                            {section.content.skills?.map((skill) => (
-                                <div key={skill.id} className="bg-gray-50 p-4 rounded skill-card">
-                                    <h3 className="font-medium mb-2">{skill.category}</h3>
-                                    <ul className="list-disc list-inside space-y-1 skill-list">
-                                        {skill.items.map((item, index) => (
-                                            <li key={index} className="text-gray-700">{item}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case 'experience':
-                return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
-                            {section.content.experiences?.map((exp) => (
-                                <div key={exp.id} className="mb-4 last:mb-0">
-                                    <h3 className="font-medium">{exp.title}</h3>
-                                    <p className="text-gray-600">{exp.company}</p>
-                                    <p className="text-gray-500 text-sm">{exp.period}</p>
-                                    <ul className="list-disc list-inside mt-2 space-y-1">
-                                        {exp.achievements.map((achievement, index) => (
-                                            <li key={index} className="text-gray-700">{achievement}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case 'education':
-                return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
-                            {section.content.educations?.map((edu) => (
-                                <div key={edu.id} className="mb-4 last:mb-0">
-                                    <h3 className="font-medium">{edu.degree}</h3>
-                                    <p className="text-gray-600">{edu.school}</p>
-                                    <p className="text-gray-500 text-sm">{edu.startDate} - {edu.endDate || 'Present'}</p>
-                                    <p className="text-gray-600">{edu.location}</p>
-                                    {edu.gpa && <p className="text-gray-600">GPA: {edu.gpa}</p>}
-                                    <ul className="list-disc list-inside mt-2 space-y-1">
-                                        {edu.details.map((detail, index) => (
-                                            <li key={index} className="text-gray-700">{detail}</li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case 'projects':
-                return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
-                            {section.content.projects?.map((project) => (
-                                <div key={project.id} className="mb-4 last:mb-0">
-                                    <h3 className="font-medium">{project.name}</h3>
-                                    <p className="text-gray-700">{project.description}</p>
-                                    <p className="text-gray-600 text-sm mt-1">{project.technologies.join(', ')}</p>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            case 'certifications':
-                return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
-                            {section.content.certifications?.map((cert) => (
-                                <div key={cert.id} className="mb-4 last:mb-0">
-                                    <h3 className="font-medium">{cert.name}</h3>
-                                    <p className="text-gray-600">{cert.issuer}</p>
-                                    <p className="text-gray-500 text-sm">{cert.date}</p>
-                                    {cert.expiryDate && <p className="text-gray-500 text-sm">Expires: {cert.expiryDate}</p>}
-                                    {cert.credentialId && <p className="text-gray-600">Credential ID: {cert.credentialId}</p>}
-                                    {cert.url && <p className="text-gray-600">URL: {cert.url}</p>}
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                );
-            default:
-                return null;
-        }
-    };
-
     if (!isOpen) return null;
 
+    // Close modal on ESC key
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === "Escape") {
+                onClose();
+            }
+        };
+        window.addEventListener("keydown", handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [onClose]);
+
     return (
-        <>
-            <style>{printStyles}</style>
-            <div className="print-preview fixed inset-0 bg-gray-100 overflow-auto z-50">
-                <div className="print-content max-w-[210mm] mx-auto bg-white shadow-lg my-8" ref={contentRef}>
-                    <div style={getFontStyle(fontOptions)} className="p-8 print:p-0">
-                        <ResumeHeaderName
-                            name={resumeData.name}
-                            fontOptions={fontOptions}
-                            onUpdate={() => { }}
-                        />
-                        <ResumeHeaderTitle
-                            title={resumeData.title}
-                            fontOptions={fontOptions}
-                            onUpdate={() => { }}
-                        />
-                        <ResumeSocialLinks
-                            socialLinks={socialLinks}
-                            fontOptions={fontOptions}
-                            deleteSocialLink={() => { }}
-                            iconFormat="symbol"
-                            updateSocialLink={() => {
-                                throw new Error('Function not implemented.');
-                            }}
-                        />
-                        {sections.map((section) => renderSection(section))}
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="relative bg-white dark:bg-gray-800 rounded-lg p-0 w-[21cm] h-[29.7cm] overflow-y-auto mt-24 shadow-2xl border border-gray-200">
+                {/* Print Preview Modal Header */}
+                <div className="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 flex items-center justify-between px-6 py-3">
+                    <div className="flex items-center gap-3">
+                        {/* Remove thumbnail from header */}
+                        <span className="font-semibold text-lg text-gray-700 dark:text-gray-100">CVnly Print Preview (A4 size)</span>
+                    </div>
+                    <button
+                        onClick={onClose}
+                        className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700"
+                    >
+                        <X className="w-5 h-5" />
+                    </button>
+                </div>
+                {/* Multiple watermarks across the resume */}
+                <div className="pointer-events-none select-none z-0 absolute inset-0">
+                    {/* Repeat watermark in a grid pattern */}
+                    {Array.from({ length: 4 }).map((_, row) => (
+                        Array.from({ length: 2 }).map((_, col) => (
+                            <div
+                                key={`watermark-${row}-${col}`}
+                                className="absolute opacity-10"
+                                style={{
+                                    top: `${15 + row * 30}%`,
+                                    left: `${col === 0 ? 20 : 60}%`,
+                                    fontSize: '2.5rem',
+                                    fontWeight: 'bold',
+                                    color: '#6366f1',
+                                    letterSpacing: '0.1em',
+                                    transform: 'rotate(-20deg)',
+                                    whiteSpace: 'nowrap',
+                                }}
+                            >
+                                CVnly.com
+                            </div>
+                        ))
+                    ))}
+                </div>
+                <div className="h-full overflow-auto">
+                    <div className="bg-white rounded-lg p-8">
+                        <div className="flex flex-col items-center">
+                            <ResumeHeader
+                                resumeData={resumeData}
+                                socialLinks={socialLinks}
+                                deleteSocialLink={deleteSocialLink}
+                                addSocialLink={addSocialLink}
+                                updateSocialLink={updateSocialLink}
+                                fontOptions={fontOptions}
+                            />
+                        </div>
+                        {sections.map((section, index) => {
+                            if (!section.visible) return null;
+                            switch (section.type) {
+                                case 'summary':
+                                    return (
+                                        <SummarySection
+                                            key="summary"
+                                            index={index}
+                                            moveSection={() => {}}
+                                            deleteSection={() => {}}
+                                            sectionsLength={sections.length}
+                                            fontOptions={fontOptions}
+                                            title={sectionTitles.summary}
+                                            onTitleChange={() => {}}
+                                            isPreview={true}
+                                        />
+                                    );
+                                case 'skills':
+                                    return (
+                                        <SkillsSection
+                                            key="skills"
+                                            index={index}
+                                            moveSection={() => {}}
+                                            deleteSection={() => {}}
+                                            sectionsLength={sections.length}
+                                            fontOptions={fontOptions}
+                                            title={sectionTitles.skills}
+                                            onTitleChange={() => {}}
+                                            skills={section.content.skills || []}
+                                            setSkills={() => {}}
+                                            addSkill={addSkill}
+                                            deleteSkill={deleteSkill}
+                                            updateSkill={updateSkill}
+                                            isPreview={true}
+                                        />
+                                    );
+                                case 'experience':
+                                    return (
+                                        <ExperienceSection
+                                            key="experience"
+                                            index={index}
+                                            moveSection={() => {}}
+                                            deleteSection={() => {}}
+                                            sectionsLength={sections.length}
+                                            fontOptions={fontOptions}
+                                            title={sectionTitles.experience}
+                                            onTitleChange={() => {}}
+                                            experiences={section.content.experiences || []}
+                                            addExperience={addExperience}
+                                            deleteExperience={deleteExperience}
+                                            updateExperience={updateExperience}
+                                            isPreview={true}
+                                        />
+                                    );
+                                case 'education':
+                                    return (
+                                        <EducationSection
+                                            key="education"
+                                            index={index}
+                                            moveSection={() => {}}
+                                            deleteSection={() => {}}
+                                            sectionsLength={sections.length}
+                                            fontOptions={fontOptions}
+                                            title={sectionTitles.education}
+                                            onTitleChange={() => {}}
+                                            educations={section.content.educations || []}
+                                            addEducation={addEducation}
+                                            deleteEducation={deleteEducation}
+                                            updateEducation={updateEducation}
+                                            isPreview={true}
+                                        />
+                                    );
+                                case 'projects':
+                                    return (
+                                        <ProjectsSection
+                                            key="projects"
+                                            index={index}
+                                            moveSection={() => {}}
+                                            deleteSection={() => {}}
+                                            sectionsLength={sections.length}
+                                            fontOptions={fontOptions}
+                                            title={sectionTitles.projects}
+                                            onTitleChange={() => {}}
+                                            projects={section.content.projects || []}
+                                            addProject={addProject}
+                                            deleteProject={deleteProject}
+                                            updateProject={updateProject}
+                                            isPreview={true}
+                                        />
+                                    );
+                                case 'certifications':
+                                    return (
+                                        <CertificationsSection
+                                            key="certifications"
+                                            index={index}
+                                            moveSection={() => {}}
+                                            deleteSection={() => {}}
+                                            sectionsLength={sections.length}
+                                            fontOptions={fontOptions}
+                                            title={sectionTitles.certifications}
+                                            onTitleChange={() => {}}
+                                            certifications={section.content.certifications || []}
+                                            addCertification={addCertification}
+                                            deleteCertification={deleteCertification}
+                                            updateCertification={updateCertification}
+                                            isPreview={true}
+                                        />
+                                    );
+                                default:
+                                    return null;
+                            }
+                        })}
                     </div>
                 </div>
-                <button
-                    onClick={onClose}
-                    className="fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 print:hidden"
-                >
-                    Close
-                </button>
             </div>
-        </>
+        </div>
     );
 };
 
-export default PrintPreview; 
+export default PrintPreview;

@@ -7,7 +7,6 @@ import { DEFAULT_SKILLS_TITLE, SKILL_CATEGORY_CLASS } from './constants';
 import { v4 as uuidv4 } from 'uuid';
 import SkillCategory from './SkillCategory';
 import { AddSkillCategoryButton } from './AddSkillCategoryButton';
-import type { SkillLayoutType } from '../../../types/common';
 
 export const SkillsSection: React.FC<SkillsSectionProps> = ({
   index,
@@ -44,18 +43,11 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
     setSkills([...skills, newCategory]);
   };
 
-  // Skill Layout Selector Handler
-  const handleSkillLayoutChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    if (typeof fontOptions === 'object' && 'skillLayout' in fontOptions) {
-      fontOptions.skillLayout = e.target.value as SkillLayoutType;
-    }
-    // If fontOptions is managed by parent, trigger parent update here
-    // (You may need to lift state if fontOptions is immutable)
-  };
+  // Use the skill layout from fontOptions
   const skillLayout = fontOptions.skillLayout || 'bulleted';
 
   return (
-    <section className="mt-2 relative group" aria-labelledby={`skills-section-${index}`}> 
+    <section className="mt-2 relative group skills-section" aria-labelledby={`skills-section-${index}`}> 
       <SectionHeaderLine
         title={title}
         fontOptions={fontOptions}
@@ -101,7 +93,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         )}
       </div>
       <div className="mt-2 print:hidden">
-        <AddSkillCategoryButton onClick={addSkillCategory} />
+        <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
       </div>
     </section>
   );

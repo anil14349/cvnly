@@ -127,7 +127,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
                   {experience.company}
                 </div>
               </div>
-              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS}`} contentEditable suppressContentEditableWarning>
+              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS} experience-period`} contentEditable suppressContentEditableWarning>
                 {experience.period}
               </div>
             </div>
@@ -173,6 +173,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
           iconClassName={ADD_EXPERIENCE_ICON_SIZE}
           textClassName={SECTION_BUTTON_TEXT_STYLE}
+          fontOptions={fontOptions}
         />
       </div>
     </div>

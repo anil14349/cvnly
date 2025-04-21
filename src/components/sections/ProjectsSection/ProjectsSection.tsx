@@ -103,7 +103,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                   />
                 </div>
               </div>
-              <div className={baseTextClasses}>
+              <div className={`${baseTextClasses} experience-period`}>
                 <FormattedText
                   text={project.period}
                   fontOptions={fontOptions}
@@ -229,6 +229,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           buttonClassName={ADD_PROJECT_BUTTON_CLASS}
           iconClassName={ADD_PROJECT_ICON_SIZE}
           textClassName={PROJECT_TEXT_CLASS}
+          fontOptions={fontOptions}
         />
       </div>
     </div>

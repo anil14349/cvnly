@@ -32,6 +32,7 @@ import {
   DETAIL_SUFFIX,
   EDUCATION_TEXT_CLASS, 
 } from "./constants";
+import { color } from "html2canvas/dist/types/css/types/color";
 
 const EducationSection: React.FC<EducationSectionProps> = ({
   educations,
@@ -158,15 +159,15 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                 } ${fontOptions.bodyUnderline ? "underline" : ""}`}
               >
                 <FormattedText
-                  text={edu.startDate}
+                  text={edu.startDate + DATE_SEPARATOR}
                   fontOptions={fontOptions}
                   onTextChange={(newText) =>
                     updateEducation?.(edu.id, "startDate", newText)
                   }
                   isEditing={true}
                   className={INLINE_BLOCK_CLASS}
+                  style={{ color: fontOptions.lineColor }}
                 />
-                {DATE_SEPARATOR}
                 <FormattedText
                   text={edu.endDate || PRESENT_TEXT}
                   fontOptions={fontOptions}
@@ -175,6 +176,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
                   }
                   isEditing={true}
                   className={INLINE_BLOCK_CLASS}
+                  style={{color: fontOptions.lineColor}}
                 />
               </div>
             </div>

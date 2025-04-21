@@ -7,7 +7,7 @@ import {
 } from "../../../types/certification";
 import SectionHeaderLine from "../../common/SectionHeaderLine";
 import SectionControls from "../../common/SectionControls";
-import { getFontClassNames, getFontInlineStyles } from "../../../utils/fontUtils";
+import { getFontClassNames } from "../../../utils/fontUtils";
 import {
   CERTIFICATION_CONTAINER_CLASS,
   CERTIFICATION_ITEM_CLASS,
@@ -48,7 +48,6 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
   };
 
   const baseTextClasses = getFontClassNames(fontOptions);
-  const lineStyle = getFontInlineStyles(fontOptions);
 
   return (
     <div
@@ -113,7 +112,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                 </div>
               </div>
               <div
-                className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses}`}
+                className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses} education-date`}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={(e) =>
@@ -151,6 +150,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
           buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
           iconClassName={ADD_ICON_SIZE}
           textClassName={CERTIFICATION_TEXT_CLASS}
+          fontOptions={fontOptions}
         />
       </div>
     </div>

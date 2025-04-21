@@ -9,6 +9,7 @@ export const EDUCATION_CONTAINER_CLASS = 'relative group';
 export const EDUCATION_LIST_CLASS = 'mt-2 space-y-4';
 export const EDUCATION_ITEM_CLASS = 'relative group/education space-y-2';
 export const EDUCATION_CONTENT_CLASS = 'flex flex-col sm:flex-row sm:items-baseline justify-between';
+export const EDUCATION_DATE_CLASS = 'education-date';
 export const EDUCATION_DETAILS_CLASS = 'space-y-0.5';
 export const EDUCATION_DETAILS_LIST_CLASS = 'list-disc ml-4 space-y-0.5';
 export const EDUCATION_DETAIL_ITEM_CLASS = 'group/detail relative';

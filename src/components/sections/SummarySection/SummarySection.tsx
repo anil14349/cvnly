@@ -54,7 +54,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
 
       {!summary && !isEditing ? (
         <div className="mt-2">
-          <AddSummaryButton onClick={handleEditToggle} />
+          <AddSummaryButton onClick={handleEditToggle} fontOptions={fontOptions} />
         </div>
       ) : (
         <div className="mt-4">

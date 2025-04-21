@@ -248,7 +248,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           </div>
         ))}
       </div>
-      <div className="mt-4 print:hidden">
+      <div className="mt-2 print:hidden">
         <AddSectionButton
           onClick={addEducation}
           text={ADD_EDUCATION_TEXT}

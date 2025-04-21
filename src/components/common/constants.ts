@@ -3,7 +3,7 @@ export const SECTION_ADD_BUTTON_BASE = 'add-section-btn mt-4 flex items-center p
 
 // Button styles object pattern (for consistency)
 export const SECTION_BUTTON_STYLES = {
-    button: 'inline-flex items-center gap-2 px-4 py-2 rounded-full border-1.5 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all print:hidden shadow-sm',
+    button: 'inline-flex items-center gap-2 px-4 py-2 rounded-full border-1.5 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all print:hidden shadow-sm print:hidden',
     icon: 'w-4 h-4 text-gray-500',
     text: 'text-sm font-medium text-gray-600 dark:text-gray-300'
 };
@@ -23,7 +23,8 @@ export const SECTION_DELETE_ICON_SIZE = 'w-3 h-3';
 export const SECTION_DELETE_SMALL_ICON_SIZE = 'w-2.5 h-2.5';
 
 // Common button text styles
-export const SECTION_BUTTON_TEXT_STYLE = 'text-xs text-gray-900 dark:text-gray-200 font-normal';
+export const SECTION_BUTTON_TEXT_STYLE = SECTION_BUTTON_STYLES.text;
+
 
 // Common delete button styles
 export const SECTION_DELETE_BUTTON_BASE = 'text-gray-400 hover:text-red-500 opacity-0 transition-opacity print:hidden';

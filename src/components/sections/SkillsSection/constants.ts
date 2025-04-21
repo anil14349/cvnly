@@ -40,8 +40,8 @@ export const NEW_SKILL_ADD_ICON_CLASS = 'w-2.5 h-2.5';
 
 // Add Category Button Classes
 export const ADD_SKILL_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
-export const ADD_SKILL_CATEGORY_ICON_CLASS = SECTION_BUTTON_STYLES.icon;
-export const ADD_SKILL_LABEL_CLASS = SECTION_BUTTON_STYLES.text;
+export const ADD_SKILL_ICON_SIZE = SECTION_BUTTON_STYLES.icon;
+export const ADD_SKILL_TEXT_SIZE = SECTION_BUTTON_STYLES.text;
 
 // Main Container Classes
 export const SKILL_CATEGORY_CLASS = 'skill-category-card mt-0 grid grid-cols-1 auto-rows-min gap-0.5 sm:grid-cols-2 md:grid-cols-3';

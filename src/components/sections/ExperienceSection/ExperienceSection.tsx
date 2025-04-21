@@ -8,7 +8,7 @@ import FormattedText from '../../common/FormattedText';
 import { getFontClassNames } from '../../../utils/fontUtils';
 import {
   ADD_EXPERIENCE_BUTTON_CLASS,
-  SECTION_BUTTON_TEXT_STYLE,
+  ADD_EXPERIENCE_TEXT_CLASS,
   ADD_EXPERIENCE_TEXT,
   ADD_EXPERIENCE_ICON_SIZE,
   DELETE_EXPERIENCE_BUTTON_CLASS,
@@ -166,13 +166,13 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
           </div>
         ))}
       </div>
-      <div className="mt-4 print:hidden">
+      <div className="mt-2 print:hidden">
         <AddSectionButton
           onClick={addExperience}
           text={ADD_EXPERIENCE_TEXT}
           buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
           iconClassName={ADD_EXPERIENCE_ICON_SIZE}
-          textClassName={SECTION_BUTTON_TEXT_STYLE}
+          textClassName={ADD_EXPERIENCE_TEXT_CLASS}
           fontOptions={fontOptions}
         />
       </div>

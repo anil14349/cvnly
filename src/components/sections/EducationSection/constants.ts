@@ -1,8 +1,4 @@
-import {
-  SECTION_BUTTON_TEXT_STYLE,
-  SECTION_BUTTON_STYLES,
-  SECTION_ADD_ICON_SIZE
-} from '../../common/constants';
+import { SECTION_BUTTON_STYLES } from '../../common/constants';
 
 // Layout classes
 export const EDUCATION_CONTAINER_CLASS = 'relative group';
@@ -13,7 +9,7 @@ export const EDUCATION_DATE_CLASS = 'education-date';
 export const EDUCATION_DETAILS_CLASS = 'space-y-0.5';
 export const EDUCATION_DETAILS_LIST_CLASS = 'list-disc ml-4 space-y-0.5';
 export const EDUCATION_DETAIL_ITEM_CLASS = 'group/detail relative';
-export const EDUCATION_TEXT_CLASS = SECTION_BUTTON_TEXT_STYLE;
+export const EDUCATION_TEXT_CLASS = SECTION_BUTTON_STYLES.text;
 export const INLINE_BLOCK_CLASS = 'inline-block';
 
 // Button classes
@@ -23,7 +19,7 @@ export const ADD_EDUCATION_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
 
 // Icon sizes
 export const DELETE_ICON_SIZE = 'w-3 h-3';
-export const ADD_ICON_SIZE = SECTION_ADD_ICON_SIZE;
+export const ADD_ICON_SIZE = SECTION_BUTTON_STYLES.icon;
 
 // Text content
 export const DEFAULT_TITLE = 'Education';

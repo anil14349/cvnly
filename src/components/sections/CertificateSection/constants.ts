@@ -1,7 +1,5 @@
 import { 
-  SECTION_BUTTON_TEXT_STYLE, 
   SECTION_BUTTON_STYLES, 
-  SECTION_ADD_ICON_SIZE 
 } from '../../common/constants';
 
 export const CERTIFICATION_CONTAINER_CLASS = 'relative group';
@@ -11,8 +9,8 @@ export const CERTIFICATION_CONTENT_CLASS = 'flex flex-col sm:flex-row sm:items-c
 export const CERTIFICATION_DATE_CLASS = 'text-sm mt-1 sm:mt-0';
 export const CERTIFICATION_LINK_CLASS = 'inline-flex items-center gap-1';
 export const ADD_CERTIFICATION_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
-export const ADD_ICON_SIZE = SECTION_ADD_ICON_SIZE;
-export const CERTIFICATION_TEXT_CLASS = SECTION_BUTTON_TEXT_STYLE;
+export const ADD_ICON_SIZE = SECTION_BUTTON_STYLES.icon;
+export const CERTIFICATION_TEXT_CLASS = SECTION_BUTTON_STYLES.text;
 // Text content
 export const DEFAULT_TITLE = 'Certifications';
 export const VIEW_CERTIFICATE_TEXT = 'View Certificate';

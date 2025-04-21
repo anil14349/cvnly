@@ -8,16 +8,14 @@ interface Props {
 }
 
 const AddSummaryButton: React.FC<Props> = ({ onClick, fontOptions }) => (
-    <div className="mt-2 print:hidden">
-        <AddSectionButton
-            onClick={onClick}
-            text={ADD_SUMMARY_TEXT}
-            buttonClassName={ADD_SUMMARY_BUTTON_CLASS}
-            iconClassName={ADD_SUMMARY_ICON_SIZE}
-            textClassName={ADD_SUMMARY_TEXT_SIZE}
-            fontOptions={fontOptions}
-        />
-    </div>
+    <AddSectionButton
+        onClick={onClick}
+        text={ADD_SUMMARY_TEXT}
+        buttonClassName={ADD_SUMMARY_BUTTON_CLASS}
+        iconClassName={ADD_SUMMARY_ICON_SIZE}
+        textClassName={ADD_SUMMARY_TEXT_SIZE}
+        fontOptions={fontOptions}
+    />
 );
 
 export default AddSummaryButton;

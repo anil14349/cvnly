@@ -27,7 +27,7 @@ import {
   DELETE_PROJECT_ARIA_LABEL,
   DEFAULT_BG_DARK,
   DEFAULT_BG_LIGHT,
-  ADD_PROJECT_ICON_SIZE,
+  ADD_PROJECT_ICON_CLASS,
   PROJECT_TEXT_CLASS,
 } from './constants';
 import AddSectionButton from '../../common/AddSectionButton';
@@ -227,7 +227,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           onClick={addProject}
           text={ADD_PROJECT_TEXT}
           buttonClassName={ADD_PROJECT_BUTTON_CLASS}
-          iconClassName={ADD_PROJECT_ICON_SIZE}
+          iconClassName={ADD_PROJECT_ICON_CLASS}
           textClassName={PROJECT_TEXT_CLASS}
           fontOptions={fontOptions}
         />

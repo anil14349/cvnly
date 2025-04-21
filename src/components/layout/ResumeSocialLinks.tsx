@@ -2,7 +2,7 @@ import React from "react";
 import { Phone, Mail, Linkedin, Github, MapPin, X } from "lucide-react";
 import { FontOptions, IconType, SocialLink } from "../../types/common";
 import { getIcon, SocialType } from "../../utils/iconUtils";
-import { getHeaderLineColor } from "../../utils/fontUtils";
+
 import {
     SOCIAL_LINK_CONTAINER_CLASS,
     SOCIAL_LINK_ITEM_CLASS,

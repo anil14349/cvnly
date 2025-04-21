@@ -63,7 +63,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       />
 
       {/* Add margin between section header and grid */}
-      <div>
+      <div className="mt-2">
         {skillLayout === 'classic' ? (
           <div>
             {skills.map((skillCategory) => (

@@ -774,10 +774,7 @@ function App() {
           <div className="col-span-4 space-y-4">
             <FontControlPanel
               fontOptions={fontOptions}
-              setFontOptions={setFontOptions}
               updateFontOption={updateFontOption}
-              iconFormat="symbol"
-              updateIconFormat={() => { }}
             />
             <LineBreakTool
               fontOptions={fontOptions}

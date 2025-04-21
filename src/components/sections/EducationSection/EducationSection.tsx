@@ -32,7 +32,6 @@ import {
   DETAIL_SUFFIX,
   EDUCATION_TEXT_CLASS, 
 } from "./constants";
-import { color } from "html2canvas/dist/types/css/types/color";
 
 const EducationSection: React.FC<EducationSectionProps> = ({
   educations,
@@ -256,6 +255,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
           buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
           iconClassName={ADD_ICON_SIZE}
           textClassName={EDUCATION_TEXT_CLASS}
+          fontOptions={fontOptions}
         />
       </div>
     </div>

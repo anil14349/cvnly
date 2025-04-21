@@ -78,12 +78,12 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="relative bg-white dark:bg-gray-800 rounded-lg p-0 w-[21cm] h-[29.7cm] overflow-y-auto mt-24 shadow-2xl border border-gray-200">
+            <div className="relative bg-white dark:bg-gray-800 rounded-lg p-0 w-[21cm] h-[29.7cm] overflow-y-auto mt-24 shadow-2xl border border-gray-200" style={{ marginTop: '10rem' }}>
                 {/* Print Preview Modal Header */}
                 <div className="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 flex items-center justify-between px-6 py-3">
                     <div className="flex items-center gap-3">
                         {/* Remove thumbnail from header */}
-                        <span className="font-semibold text-lg text-gray-700 dark:text-gray-100">CVnly Print Preview (A4 size)</span>
+                        <span className="font-semibold text-lg text-gray-700 dark:text-gray-100">CVnly Print Preview</span>
                     </div>
                     <button
                         onClick={onClose}

@@ -102,6 +102,24 @@
 
   /* Line options */
   --line-width: 100%;
+
+  /* Theme color variables */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --accent-color: #3b82f6;
+  --border-color: #e5e7eb;
+}
+
+.dark {
+  /* Theme color variables */
+  --bg-primary: #1f2937;
+  --bg-secondary: #111827;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --accent-color: #60a5fa;
+  --border-color: #374151;
 }
 
 /* Default Theme */

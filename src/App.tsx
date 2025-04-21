@@ -31,6 +31,7 @@ import usePdfGeneration from './hooks/usePdfGeneration';
 // Import utils
 import { HEADER_FONTS, BODY_FONTS } from './utils/fontUtils';
 import LineBreakTool from './components/widgets/LineBreakTool';
+import { applyTheme } from './utils/themeUtils';
 
 // Initialize default font options
 const defaultFontOptions: FontOptions = {
@@ -168,10 +169,10 @@ function App() {
     });
   }, []); // Run once on mount
 
-  // Apply theme on mount
+  // Apply theme on mount and whenever activeTheme changes
   useEffect(() => {
-    applyTheme(activeTheme);
-  }, []);
+    applyTheme(activeTheme, setActiveTheme);
+  }, [activeTheme, setActiveTheme]);
 
   // Update individual font settings
   const updateFontOption = (option: keyof FontOptions, value: string | boolean) => {
@@ -253,47 +254,7 @@ function App() {
     }
   };
 
-  // Enhanced theme handling
-  const applyTheme = (theme: 'light' | 'dark') => {
-    setActiveTheme(theme);
-
-    // Remove all existing theme classes
-    document.documentElement.classList.remove('light', 'dark');
-
-    // Add the new theme class
-    document.documentElement.classList.add(theme);
-
-    // Handle dark mode class
-    if (theme === 'dark') {
-      document.documentElement.classList.add('dark');
-      document.body.style.backgroundColor = '#1a202c';
-      document.body.style.color = '#f7fafc';
-    } else {
-      document.documentElement.classList.remove('dark');
-      document.body.style.backgroundColor = '#ffffff';
-      document.body.style.color = '#1a202c';
-    }
-
-    // Update CSS variables for the theme
-    const root = document.documentElement;
-    if (theme === 'dark') {
-      root.style.setProperty('--bg-primary', '#1a202c');
-      root.style.setProperty('--bg-secondary', '#2d3748');
-      root.style.setProperty('--text-primary', '#f7fafc');
-      root.style.setProperty('--text-secondary', '#cbd5e0');
-      root.style.setProperty('--border-color', '#4a5568');
-      root.style.setProperty('--accent-color', '#63b3ed');
-      root.style.setProperty('--line-color', '#63b3ed');
-    } else {
-      root.style.setProperty('--bg-primary', '#ffffff');
-      root.style.setProperty('--bg-secondary', '#f7fafc');
-      root.style.setProperty('--text-primary', '#1a202c');
-      root.style.setProperty('--text-secondary', '#4a5568');
-      root.style.setProperty('--border-color', '#e2e8f0');
-      root.style.setProperty('--accent-color', '#4299e1');
-      root.style.setProperty('--line-color', '#4299e1');
-    }
-  };
+  // Enhanced theme handling is now handled by the imported applyTheme utility.
 
   const moveSection = (index: number, direction: 'up' | 'down') => {
     const newSections = [...sections];
@@ -347,51 +308,6 @@ function App() {
     }
   };
 
-  const addSkill = () => {
-    const newSkill: Skill = {
-      id: Date.now().toString(),
-      category: 'New Category',
-      items: ['Skill 1', 'Skill 2', 'Skill 3'],
-      backgroundColor: '#fff',
-      borderColor: '#e5e7eb',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderRadius: '4px'
-    };
-    setSkills([...skills, newSkill]);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          skills: [...(sections[sectionIndex].content.skills || []), newSkill]
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteSkill = (id: string) => {
-    // Update skills state
-    const updatedSkills = skills.filter(skill => skill.id !== id);
-    setSkills(updatedSkills);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          skills: updatedSkills
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
 
   const addExperience = () => {
     const newExperience: Experience = {
@@ -512,28 +428,6 @@ function App() {
       }
       return cert;
     }));
-  };
-
-  // Update the updateSkill function to handle both section content and state
-  const updateSkill = (id: string, updates: Partial<Skill>) => {
-    // Update skills state
-    const updatedSkills = skills.map(skill =>
-      skill.id === id ? { ...skill, ...updates } : skill
-    );
-    setSkills(updatedSkills);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          skills: updatedSkills
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
   };
 
   // Update the updateExperience function to handle responsibilities

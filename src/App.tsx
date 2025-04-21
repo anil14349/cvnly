@@ -1,4 +1,5 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { useResumeSections } from './hooks/useResumeSections';
 import { Download } from 'lucide-react';
 import './index.css';
 import './styles/index.css';
@@ -6,9 +7,7 @@ import './styles/index.css';
 // Import types
 import { FontOptions, ResumeSection, SocialLink } from './types/common';
 import { Education } from './types/education';
-import { Experience } from './types/experience';
 import { Project } from './types/project';
-import { Skill } from './types/skill';
 import { Certification } from './types/certification';
 
 // Import components
@@ -32,6 +31,7 @@ import usePdfGeneration from './hooks/usePdfGeneration';
 import { HEADER_FONTS, BODY_FONTS } from './utils/fontUtils';
 import LineBreakTool from './components/widgets/LineBreakTool';
 import { applyTheme } from './utils/themeUtils';
+import { Experience } from './types/experience';
 
 // Initialize default font options
 const defaultFontOptions: FontOptions = {
@@ -81,36 +81,18 @@ const defaultFontOptions: FontOptions = {
 };
 
 function App() {
-  // Individual section states
-  const [skills, setSkills] = useState<Skill[]>([]);
-  const [experiences, setExperiences] = useState<Experience[]>([]);
-  const [educations, setEducations] = useState<Education[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [certifications, setCertifications] = useState<Certification[]>([]);
-
-  // Resume sections state
-  const [sections, setSections] = useState<ResumeSection[]>([
-    { type: 'summary', visible: true, content: {} },
-    { type: 'skills', visible: true, content: { skills: [] } },
-    { type: 'experience', visible: true, content: { experiences: [] } },
-    { type: 'education', visible: true, content: { educations: [] } },
-    { type: 'projects', visible: true, content: { projects: [] } },
-    { type: 'certifications', visible: true, content: { certifications: [] } },
-    { type: 'social', visible: true, content: { socialLinks: [] } }
-  ]);
-
-  // Section titles state
-  const [sectionTitles, setSectionTitles] = useState({
-    summary: 'Summary',
-    skills: 'Skills',
-    experience: 'Work Experience',
-    education: 'Education',
-    projects: 'Projects',
-    certifications: 'Certifications'
-  });
-
-  // Resume container ref for PDF generation and stats
-  const resumeRef = useRef<HTMLDivElement>(null);
+  // Use custom hook for all section-related state
+  const {
+    skills, setSkills,
+    experiences, setExperiences,
+    educations, setEducations,
+    projects, setProjects,
+    certifications, setCertifications,
+    sections, setSections,
+    sectionTitles, setSectionTitles,
+    socialLinks, setSocialLinks,
+    resumeRef
+  } = useResumeSections();
 
   // Use custom hooks
   const { generatePdf } = usePdfGeneration();
@@ -122,30 +104,6 @@ function App() {
   // Font options state
   const [fontOptions, setFontOptions] = useState<FontOptions>(defaultFontOptions);
 
-  // Update social links state with more options
-  const [socialLinks, setSocialLinks] = useState<SocialLink[]>([
-    {
-      id: '1',
-      type: 'email',
-      value: 'john.doe@example.com'
-    },
-    {
-      id: '2',
-      type: 'phone',
-      value: '+1 (555) 123-4567'
-    },
-    {
-      id: '3',
-      type: 'linkedin',
-      value: 'linkedin.com/in/johndoe'
-    }
-  ]);
-
-  // Add resumeData state
-  const [resumeData] = useState({
-    name: "Anil Kumar",
-    title: "Integration Architect/AI & ML Engineer"
-  });
 
   // Initialize CSS variables on mount
   useEffect(() => {
@@ -551,7 +509,10 @@ function App() {
           <div className="col-span-8">
             <div className={`bg-white rounded-lg shadow-lg p-8`} ref={resumeRef}>
               <ResumeHeader
-                resumeData={resumeData}
+                resumeData={{
+                  name: "Anil Kumar",
+                  title: "Integration Architect/AI & ML Engineer"
+                }}
                 socialLinks={socialLinks}
                 deleteSocialLink={deleteSocialLink}
                 addSocialLink={addSocialLink}

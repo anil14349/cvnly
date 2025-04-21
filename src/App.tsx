@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState, useEffect } from 'react';
 import { useResumeSections } from './hooks/useResumeSections';
 import { Download } from 'lucide-react';
@@ -14,6 +15,7 @@ import ResumeSectionsWidget from './components/widgets/ResumeSectionsWidget';
 
 // Import section components
 import ResumeSectionRenderer from './components/ResumeSectionRenderer';
+import PageBreak from './components/PageBreak';
 
 // Import hooks
 import usePdfGeneration from './hooks/usePdfGeneration';
@@ -111,6 +113,9 @@ const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>(initialTheme);
   const [fontOptions, setFontOptions] = useState<FontOptions>(
     storedFontOptions ? JSON.parse(storedFontOptions) : defaultFontOptions
   );
+
+  // PDF preview toggle state
+  const [showPdfPreview, setShowPdfPreview] = React.useState(false);
 
   // Initialize CSS variables on mount
   useEffect(() => {
@@ -247,31 +252,35 @@ const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>(initialTheme);
                 updateSocialLink={updateSocialLink}
                 fontOptions={fontOptions}
               />
-              {sections.map((section, index) => (
-                <ResumeSectionRenderer
-                  key={section.type}
-                  section={section}
-                  index={index}
-                  sectionTitles={sectionTitles}
-                  fontOptions={fontOptions}
-                  sectionsLength={sections.length}
-                  moveSection={moveSection}
-                  deleteSection={deleteSection}
-                  updateSectionTitle={updateSectionTitle}
-                  setSkills={setSkills}
-                  addExperience={addExperience}
-                  deleteExperience={deleteExperience}
-                  updateExperience={updateExperience}
-                  addEducation={addEducation}
-                  deleteEducation={deleteEducation}
-                  addProject={addProject}
-                  deleteProject={deleteProject}
-                  updateProject={updateProject}
-                  addCertification={addCertification}
-                  deleteCertification={deleteCertification}
-                  updateCertification={updateCertification}
-                />
-              ))}
+              {(() => {
+  // Get only visible sections
+  const visibleSections = sections.filter(section => section.visible);
+  return visibleSections.map((section, index) => (
+    <ResumeSectionRenderer
+      key={section.type}
+      section={section}
+      index={index}
+      sectionTitles={sectionTitles}
+      fontOptions={fontOptions}
+      sectionsLength={visibleSections.length}
+      moveSection={moveSection}
+      deleteSection={deleteSection}
+      updateSectionTitle={updateSectionTitle}
+      setSkills={setSkills}
+      addExperience={addExperience}
+      deleteExperience={deleteExperience}
+      updateExperience={updateExperience}
+      addEducation={addEducation}
+      deleteEducation={deleteEducation}
+      addProject={addProject}
+      deleteProject={deleteProject}
+      updateProject={updateProject}
+      addCertification={addCertification}
+      deleteCertification={deleteCertification}
+      updateCertification={updateCertification}
+    />
+  ));
+})()}
             </div>
           </div>
 
@@ -319,6 +328,5 @@ const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>(initialTheme);
       </style>
     </div>
   );
-}
-
+} 
 export default App;

@@ -87,7 +87,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
             <div className={CERTIFICATION_CONTENT_CLASS}>
               <div>
                 <h4
-                  className={`${baseTextClasses} ${CERTIFICATION_HEADER_CLASS}`}
+                  className={baseTextClasses}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={(e) =>
@@ -97,7 +97,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
                   {cert.name}
                 </h4>
                 <div
-                  className={`${baseTextClasses} ${CERTIFICATION_ISSUER_CLASS}`}
+                  className={baseTextClasses}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={(e) =>

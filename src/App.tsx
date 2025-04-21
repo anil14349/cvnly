@@ -5,10 +5,7 @@ import './index.css';
 import './styles/index.css';
 
 // Import types
-import { FontOptions, ResumeSection, SocialLink } from './types/common';
-import { Education } from './types/education';
-import { Project } from './types/project';
-import { Certification } from './types/certification';
+import { FontOptions } from './types/common';
 
 // Import components
 import ResumeHeader from './components/layout/ResumeHeader';
@@ -16,22 +13,15 @@ import FontControlPanel from './components/widgets/FontControlPanel';
 import ResumeSectionsWidget from './components/widgets/ResumeSectionsWidget';
 
 // Import section components
-import SummarySection from './components/sections/SummarySection/SummarySection';
-import SkillsSection from './components/sections/SkillsSection/SkillsSection';
-import ExperienceSection from './components/sections/ExperienceSection/ExperienceSection';
-import EducationSection from './components/sections/EducationSection/EducationSection';
-import ProjectsSection from './components/sections/ProjectsSection/ProjectsSection';
-import CertificationsSection from './components/sections/CertificateSection/CertificationsSection';
+import ResumeSectionRenderer from './components/ResumeSectionRenderer';
 
 // Import hooks
 import usePdfGeneration from './hooks/usePdfGeneration';
-// import useResumeStats from './hooks/useResumeStats';
 
 // Import utils
 import { HEADER_FONTS, BODY_FONTS } from './utils/fontUtils';
 import LineBreakTool from './components/widgets/LineBreakTool';
 import { applyTheme } from './utils/themeUtils';
-import { Experience } from './types/experience';
 
 // Initialize default font options
 const defaultFontOptions: FontOptions = {
@@ -84,26 +74,43 @@ function App() {
   // Use custom hook for all section-related state
   const {
     skills, setSkills,
-    experiences, setExperiences,
-    educations, setEducations,
-    projects, setProjects,
-    certifications, setCertifications,
     sections, setSections,
-    sectionTitles, setSectionTitles,
-    socialLinks, setSocialLinks,
-    resumeRef
+    sectionTitles,
+    socialLinks,
+    resumeRef,
+    handleSectionUpdate,
+    addProject,
+    deleteProject,
+    addEducation,
+    deleteEducation,
+    addExperience,
+    deleteExperience,
+    addCertification,
+    deleteCertification,
+    updateCertification,
+    updateExperience,
+    updateProject,
+    updateSectionTitle,
+    moveSection,
+    deleteSection,
+    addSocialLink,
+    deleteSocialLink,
+    updateSocialLink
   } = useResumeSections();
 
   // Use custom hooks
   const { generatePdf } = usePdfGeneration();
-  // const { resumeStats, atsScore } = useResumeStats(resumeRef, sections.length);
 
   // Theme state
-  const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>('light');
+  const storedTheme = localStorage.getItem('theme');
+const initialTheme: 'light' | 'dark' = storedTheme === 'dark' ? 'dark' : 'light';
+const [activeTheme, setActiveTheme] = useState<'light' | 'dark'>(initialTheme);
 
   // Font options state
-  const [fontOptions, setFontOptions] = useState<FontOptions>(defaultFontOptions);
-
+  const storedFontOptions = localStorage.getItem('fontOptions') as string | null;
+  const [fontOptions, setFontOptions] = useState<FontOptions>(
+    storedFontOptions ? JSON.parse(storedFontOptions) : defaultFontOptions
+  );
 
   // Initialize CSS variables on mount
   useEffect(() => {
@@ -135,7 +142,7 @@ function App() {
   // Update individual font settings
   const updateFontOption = (option: keyof FontOptions, value: string | boolean) => {
     // Update the state
-    setFontOptions(prevOptions => {
+    setFontOptions((prevOptions: FontOptions) => {
       const newOptions = {
         ...prevOptions,
         [option]: value
@@ -184,285 +191,6 @@ function App() {
       return newOptions;
     });
   };
-  // Removed unused function updateIconFormat as per linting suggestion
-  // Add missing project management function
-  const addProject = () => {
-    const newProject: Project = {
-      id: Date.now().toString(),
-      name: 'New Project',
-      company: 'Company Name',
-      period: 'Duration',
-      description: 'Project description goes here.',
-      responsibilities: ['Responsibility 1', 'Responsibility 2', 'Responsibility 3'],
-      technologies: ['Tech 1', 'Tech 2', 'Tech 3']
-    };
-    setProjects([...projects, newProject]);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'projects');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          projects: [...(sections[sectionIndex].content.projects || []), newProject]
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  // Enhanced theme handling is now handled by the imported applyTheme utility.
-
-  const moveSection = (index: number, direction: 'up' | 'down') => {
-    const newSections = [...sections];
-    const newIndex = direction === 'up' ? index - 1 : index + 1;
-
-    if (newIndex >= 0 && newIndex < sections.length) {
-      [newSections[index], newSections[newIndex]] = [newSections[newIndex], newSections[index]];
-      setSections(newSections);
-    }
-  };
-
-  const addEducation = () => {
-    const newEducation: Education = {
-      id: Date.now().toString(),
-      degree: 'New Degree',
-      school: 'University Name',
-      startDate: 'Start Date',
-      endDate: 'End Date',
-      details: []
-    };
-    setEducations([...educations, newEducation]);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'education');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          educations: [...(sections[sectionIndex].content.educations || []), newEducation]
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteEducation = (id: string) => {
-    setEducations(educations.filter(edu => edu.id !== id));
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'education');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          educations: sections[sectionIndex].content.educations?.filter(edu => edu.id !== id) || []
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-
-  const addExperience = () => {
-    const newExperience: Experience = {
-      id: Date.now().toString(),
-      title: 'New Position',
-      company: 'Company Name',
-      period: 'Start Date - End Date',
-      achievements: ['Achievement 1', 'Achievement 2', 'Achievement 3']
-    };
-    setExperiences([...experiences, newExperience]);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'experience');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          experiences: [...(sections[sectionIndex].content.experiences || []), newExperience]
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteExperience = (id: string) => {
-    // Update experiences state
-    const updatedExperiences = experiences.filter(exp => exp.id !== id);
-    setExperiences(updatedExperiences);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'experience');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          experiences: updatedExperiences
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteProject = (id: string) => {
-    setProjects(projects.filter(project => project.id !== id));
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'projects');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          projects: sections[sectionIndex].content.projects?.filter(project => project.id !== id) || []
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteSection = (index: number) => {
-    const newSections = sections.filter((_, i) => i !== index);
-    setSections(newSections);
-  };
-
-  const deleteSocialLink = (id: string) => {
-    setSocialLinks(socialLinks.filter(link => link.id !== id));
-  };
-
-  const addCertification = () => {
-    const newCertification: Certification = {
-      id: Date.now().toString(),
-      name: 'New Certification',
-      issuer: 'Issuing Organization',
-      date: 'Date'
-    };
-    setCertifications([...certifications, newCertification]);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'certifications');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          certifications: [...(sections[sectionIndex].content.certifications || []), newCertification]
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteCertification = (id: string) => {
-    setCertifications(certifications.filter(cert => cert.id !== id));
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'certifications');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          certifications: sections[sectionIndex].content.certifications?.filter(cert => cert.id !== id) || []
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const updateCertification = (id: string, field: string, value: string) => {
-    setCertifications(certifications.map(cert => {
-      if (cert.id === id) {
-        return {
-          ...cert,
-          [field]: value
-        };
-      }
-      return cert;
-    }));
-  };
-
-  // Update the updateExperience function to handle responsibilities
-  const updateExperience = (id: string, updatedExperience: Experience) => {
-    // Update experiences state
-    const updatedExperiences = experiences.map(exp =>
-      exp.id === id ? updatedExperience : exp
-    );
-    setExperiences(updatedExperiences);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'experience');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          experiences: updatedExperiences
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  // Update the updateProject function to handle section content
-  const updateProject = (id: string, updatedProject: Project) => {
-    // Update projects state
-    const updatedProjects = projects.map(project =>
-      project.id === id ? updatedProject : project
-    );
-    setProjects(updatedProjects);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'projects');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          projects: updatedProjects
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  // Update section title
-  const updateSectionTitle = (index: number, newTitle: string) => {
-    setSectionTitles(prev => ({
-      ...prev,
-      [sections[index].type]: newTitle
-    }));
-  };
-
-  // Add section update and delete handlers
-  const handleSectionUpdate = (index: number, updatedSection: ResumeSection) => {
-    const newSections = [...sections];
-    newSections[index] = updatedSection;
-    setSections(newSections);
-  };
-
-  // Add function to add new social link
-  const addSocialLink = (type: 'phone' | 'email' | 'linkedin' | 'github' | 'location') => {
-    const newLink: SocialLink = {
-      id: Date.now().toString(),
-      type: type,
-      value: ''
-    };
-    setSocialLinks([...socialLinks, newLink]);
-  };
-
-  // Update social link value
-  const updateSocialLink = (id: string, value: string) => {
-    setSocialLinks(socialLinks.map(link =>
-      link.id === id ? { ...link, value } : link
-    ));
-  };
 
   // Add useEffect to sync skills with section content
   useEffect(() => {
@@ -476,9 +204,9 @@ function App() {
           skills: skills
         }
       };
-      setSections(updatedSections);
+      handleSectionUpdate(sectionIndex, updatedSections[sectionIndex]);
     }
-  }, [skills]);
+  }, [skills, sections, handleSectionUpdate]);
 
   return (
     <div className={`min-h-screen ${activeTheme === 'dark' ? 'dark' : ''}`}>
@@ -519,109 +247,31 @@ function App() {
                 updateSocialLink={updateSocialLink}
                 fontOptions={fontOptions}
               />
-              {sections.map((section, index) => {
-                if (!section.visible) return null;
-
-                switch (section.type) {
-                  case 'summary':
-                    return (
-                      <SummarySection
-                        key="summary"
-                        index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
-                        sectionsLength={sections.length}
-                        fontOptions={fontOptions}
-                        title={sectionTitles.summary}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                      />
-                    );
-                  case 'skills':
-                    return (
-                      <SkillsSection
-                        key="skills"
-                        index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
-                        sectionsLength={sections.length}
-                        fontOptions={fontOptions}
-                        title={sectionTitles.skills}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        skills={section.content.skills || []}
-                        setSkills={setSkills}
-                      />
-                    );
-                  case 'experience':
-                    return (
-                      <ExperienceSection
-                        key="experience"
-                        index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
-                        sectionsLength={sections.length}
-                        fontOptions={fontOptions}
-                        title={sectionTitles.experience}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        experiences={section.content.experiences || []}
-                        addExperience={addExperience}
-                        deleteExperience={deleteExperience}
-                        updateExperience={updateExperience}
-                      />
-                    );
-                  case 'education':
-                    return (
-                      <EducationSection
-                        key="education"
-                        index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
-                        sectionsLength={sections.length}
-                        fontOptions={fontOptions}
-                        title={sectionTitles.education}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        educations={section.content.educations || []}
-                        addEducation={addEducation}
-                        deleteEducation={deleteEducation}
-                      />
-                    );
-                  case 'projects':
-                    return (
-                      <ProjectsSection
-                        key="projects"
-                        index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
-                        sectionsLength={sections.length}
-                        fontOptions={fontOptions}
-                        title={sectionTitles.projects}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        projects={section.content.projects || []}
-                        addProject={addProject}
-                        deleteProject={deleteProject}
-                        updateProject={updateProject}
-                      />
-                    );
-                  case 'certifications':
-                    return (
-                      <CertificationsSection
-                        key="certifications"
-                        index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
-                        sectionsLength={sections.length}
-                        fontOptions={fontOptions}
-                        title={sectionTitles.certifications}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        certifications={section.content.certifications || []}
-                        addCertification={addCertification}
-                        deleteCertification={deleteCertification}
-                        updateCertification={updateCertification}
-                      />
-                    );
-                  default:
-                    return null;
-                }
-              })}
+              {sections.map((section, index) => (
+                <ResumeSectionRenderer
+                  key={section.type}
+                  section={section}
+                  index={index}
+                  sectionTitles={sectionTitles}
+                  fontOptions={fontOptions}
+                  sectionsLength={sections.length}
+                  moveSection={moveSection}
+                  deleteSection={deleteSection}
+                  updateSectionTitle={updateSectionTitle}
+                  setSkills={setSkills}
+                  addExperience={addExperience}
+                  deleteExperience={deleteExperience}
+                  updateExperience={updateExperience}
+                  addEducation={addEducation}
+                  deleteEducation={deleteEducation}
+                  addProject={addProject}
+                  deleteProject={deleteProject}
+                  updateProject={updateProject}
+                  addCertification={addCertification}
+                  deleteCertification={deleteCertification}
+                  updateCertification={updateCertification}
+                />
+              ))}
             </div>
           </div>
 

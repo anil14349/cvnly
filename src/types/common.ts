@@ -1,8 +1,9 @@
-import type { Skill } from './skill';
-import type { Experience } from './experience';
-import type { Education } from './education';
-import type { Project } from './project';
-import type { Certification } from './certification';
+
+export type { Skill } from './skill';
+export type { Experience } from './experience';
+export type { Education } from './education';
+export type { Project } from './project';
+export type { Certification } from './certification';
 
 export interface FontOptions {
   // Header font settings
@@ -120,11 +121,11 @@ export interface ResumeSection {
   type: 'summary' | 'skills' | 'experience' | 'education' | 'projects' | 'certifications' | 'social';
   visible: boolean;
   content: {
-    skills?: Skill[];
-    experiences?: Experience[];
-    educations?: Education[];
-    projects?: Project[];
-    certifications?: Certification[];
+    skills?: import('./skill').Skill[];
+    experiences?: import('./experience').Experience[];
+    educations?: import('./education').Education[];
+    projects?: import('./project').Project[];
+    certifications?: import('./certification').Certification[];
     socialLinks?: SocialLink[];
   };
 }

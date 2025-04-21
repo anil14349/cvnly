@@ -167,10 +167,20 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 <span>Add Responsibility</span>
               </button>
 
-              <ul className={`${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses}`}>
+              <ul className={`${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses} flex flex-wrap items-center gap-x-2 gap-y-2 mt-2`}>
                 {project.technologies?.map((tech, idx) => (
-                  <li key={idx} className={PROJECT_TECH_ITEM_CLASS}>
-                    <span className="inline-flex items-center">
+                  <li key={idx} className={`${PROJECT_TECH_ITEM_CLASS} group/tech`}>
+                    <span
+  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border print:bg-transparent print:text-inherit print:border-none"
+  style={{
+    background: fontOptions.theme === 'dark' ? fontOptions.widgetBgDark || '#181f2a' : fontOptions.widgetBgLight || '#fff',
+    color: fontOptions.bodyColor,
+    fontFamily: fontOptions.bodyFont,
+    fontSize: fontOptions.bodySize,
+    fontWeight: fontOptions.bodyWeight,
+    borderColor: fontOptions.theme === 'dark' ? '#333' : '#ccc',
+  }}
+>
                       <FormattedText
                         text={tech}
                         fontOptions={fontOptions}

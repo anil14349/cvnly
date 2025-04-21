@@ -1,8 +1,7 @@
 import React from 'react';
-import LineColorButton from '../../common/LineColorButton';
-import { ADD_SUMMARY_TEXT } from './constants';
+import AddSectionButton from '../../common/AddSectionButton';
 import { FontOptions } from '../../../types/common';
-
+import { ADD_SUMMARY_BUTTON_CLASS, ADD_SUMMARY_TEXT_SIZE, ADD_SUMMARY_TEXT, ADD_SUMMARY_ICON_SIZE } from './constants';
 interface Props {
     onClick: () => void;
     fontOptions: FontOptions;
@@ -10,9 +9,12 @@ interface Props {
 
 const AddSummaryButton: React.FC<Props> = ({ onClick, fontOptions }) => (
     <div className="mt-2 print:hidden">
-        <LineColorButton
+        <AddSectionButton
             onClick={onClick}
             text={ADD_SUMMARY_TEXT}
+            buttonClassName={ADD_SUMMARY_BUTTON_CLASS}
+            iconClassName={ADD_SUMMARY_ICON_SIZE}
+            textClassName={ADD_SUMMARY_TEXT_SIZE}
             fontOptions={fontOptions}
         />
     </div>

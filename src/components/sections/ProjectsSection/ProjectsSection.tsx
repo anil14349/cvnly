@@ -73,7 +73,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
       <div className={PROJECTS_LIST_CLASS}>
         {projects.map(project => (
-          <div key={project.id} className={PROJECT_ITEM_CLASS}>
+          <div key={project.id} className={`${PROJECT_ITEM_CLASS} mt-2`}>
             <button
               onClick={() => deleteProject?.(project.id)}
               className={DELETE_PROJECT_BUTTON_CLASS}

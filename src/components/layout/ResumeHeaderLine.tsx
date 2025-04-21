@@ -18,7 +18,7 @@ const ResumeHeaderLine: React.FC<ResumeHeaderLineProps> = ({ fontOptions }) => {
 
     return (
         <div
-            className="w-full h-[1px] mt-6"
+            className="w-full h-[1px] mt-1"
             style={{
                 backgroundColor: getHeaderLineColor(),
                 boxShadow: '0 0.5px 0 rgba(0, 0, 0, 0.05)'

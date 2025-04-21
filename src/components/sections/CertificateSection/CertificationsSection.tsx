@@ -53,6 +53,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
   return (
     <div
       style={{
+        marginTop: '0.5rem',
         background:
           fontOptions.theme === "dark"
             ? fontOptions.widgetBgDark || DEFAULT_BG_DARK

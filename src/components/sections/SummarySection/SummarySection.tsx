@@ -30,7 +30,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
 
   return (
     <section
-      className="relative group"
+      className="relative group mt-2"
       style={{
         background:
           fontOptions.theme === 'dark'

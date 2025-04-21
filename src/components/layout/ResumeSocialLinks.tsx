@@ -27,8 +27,8 @@ const ResumeSocialLinks: React.FC<Props> = ({
     fontOptions,
     iconFormat = "symbol",
 }) => {
-    // Get the section line color for icons
-    const lineColor = getHeaderLineColor(fontOptions);
+    // Use fontOptions.lineColor directly for icon color
+    const lineColor = fontOptions.lineColor;
 
     const renderIcon = (type: SocialType) => {
         const iconClasses = SOCIAL_LINK_ICON_CLASS;

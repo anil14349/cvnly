@@ -27,6 +27,7 @@ const AchievementsSection: React.FC<AchievementsSectionProps> = ({
 
     return (
         <div
+            className="mt-2"
             style={{
                 background: fontOptions.theme === 'dark'
                     ? fontOptions.widgetBgDark || '#181f2a'

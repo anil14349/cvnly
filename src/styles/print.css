@@ -97,7 +97,7 @@
 
   /* Force background colors and images to print */
   * {
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
     forced-color-adjust: none !important;
   }
 
@@ -111,7 +111,7 @@
   * {
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 
   /* Remove all animations and transitions */
@@ -330,7 +330,7 @@
   }
 
   * {
-    color-adjust: exact !important;
+    print-color-adjust: exact !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

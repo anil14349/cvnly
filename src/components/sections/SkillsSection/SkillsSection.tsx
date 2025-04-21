@@ -55,7 +55,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   const skillLayout = fontOptions.skillLayout || 'bulleted';
 
   return (
-    <section className="mt-2" className="relative group" aria-labelledby={`skills-section-${index}`}> 
+    <section className="mt-2 relative group" aria-labelledby={`skills-section-${index}`}> 
       <SectionHeaderLine
         title={title}
         fontOptions={fontOptions}
@@ -71,7 +71,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
       />
 
       {/* Add margin between section header and grid */}
-      <div className="mt-2">
+      <div>
         {skillLayout === 'classic' ? (
           <div>
             {skills.map((skillCategory) => (
@@ -100,7 +100,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
           </div>
         )}
       </div>
-      <div className="mt-4 print:hidden">
+      <div className="mt-2 print:hidden">
         <AddSkillCategoryButton onClick={addSkillCategory} />
       </div>
     </section>

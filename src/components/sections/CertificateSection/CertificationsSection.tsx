@@ -144,7 +144,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
         ))}
       </div>
 
-      <div className="mt-4 print:hidden">
+      <div className="mt-2 print:hidden">
         <AddSectionButton
           onClick={addCertification}
           text={ADD_CERTIFICATION_TEXT}

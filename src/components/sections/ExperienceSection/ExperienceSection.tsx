@@ -86,13 +86,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
 
   return (
     <div
+      className={`mt-2 ${EXPERIENCE_CONTAINER_CLASS}`}
       style={{
-        marginTop: '0.5rem',
         background: fontOptions.theme === 'dark'
           ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
           : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className={EXPERIENCE_CONTAINER_CLASS}
     >
       <SectionHeaderLine
         title={title}

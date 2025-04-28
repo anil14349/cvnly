@@ -128,7 +128,8 @@ export const NewSkillInput = ({
   onAdd,
   onKeyPress,
   fontOptions,
-  baseTextClasses
+  baseTextClasses,
+  className = ''
 }: {
   value: string;
   onChange: (val: string) => void;
@@ -136,8 +137,9 @@ export const NewSkillInput = ({
   onKeyPress: React.KeyboardEventHandler;
   fontOptions: FontOptions;
   baseTextClasses: string;
+  className?: string;
 }) => (
-  <div className={NEW_SKILL_CONTAINER_CLASS + ' ' + baseTextClasses}>
+  <div className={NEW_SKILL_CONTAINER_CLASS + ' ' + baseTextClasses + (className ? ' ' + className : '')}>
     <span
       className={SKILL_BULLET_CLASS}
       style={{

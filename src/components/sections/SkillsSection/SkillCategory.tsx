@@ -119,6 +119,7 @@ const SkillCategory: React.FC<Props> = ({
                 onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
                 fontOptions={fontOptions}
                 baseTextClasses={baseTextClasses}
+                className={(isPreview || skillLayout === 'classic') ? 'hidden' : 'print:hidden'}
             />
         </div>
     );

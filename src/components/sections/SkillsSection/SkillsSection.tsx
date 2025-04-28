@@ -7,7 +7,6 @@ import { DEFAULT_SKILLS_TITLE, SKILL_CATEGORY_CLASS } from './constants';
 import SkillCategory from './SkillCategory';
 import { AddSkillCategoryButton } from './AddSkillCategoryButton';
 
-
 export const SkillsSection: React.FC<SkillsSectionProps & { isPreview?: boolean }> = ({
   index,
   moveSection,
@@ -15,23 +14,24 @@ export const SkillsSection: React.FC<SkillsSectionProps & { isPreview?: boolean 
   sectionsLength,
   fontOptions,
   skills,
+  setSkills,
   title = DEFAULT_SKILLS_TITLE,
   onTitleChange,
-  addSkill,
-  deleteSkill,
+  addSkillCategory,
   updateSkill,
+  deleteSkill,
   isPreview = false
 }) => {
   const skillLayout = fontOptions.skillLayout || 'bulleted';
 
   return (
-    <section className="relative group" aria-labelledby={`skills-section-${index}`}>
+    <section className="mt-2 relative group skills-section" aria-labelledby={`skills-section-${index}`}> 
       <SectionHeaderLine
         title={title}
         fontOptions={fontOptions}
         onTitleChange={onTitleChange}
         controls={
-          !isPreview && (
+          !isPreview && moveSection && deleteSection && (
             <SectionControls
               index={index}
               moveSection={moveSection}
@@ -41,8 +41,7 @@ export const SkillsSection: React.FC<SkillsSectionProps & { isPreview?: boolean 
           )
         }
       />
-
-      {/* Add margin between section header and grid */}
+      {/* Render skills here using skillLayout and skills */}
       <div className="mt-2">
         {skillLayout === 'classic' ? (
           <div>
@@ -51,10 +50,10 @@ export const SkillsSection: React.FC<SkillsSectionProps & { isPreview?: boolean 
                 key={skillCategory.id}
                 category={skillCategory}
                 fontOptions={fontOptions}
-                updateSkill={updateSkill || (() => { })}
-                deleteSkill={deleteSkill || (() => { })}
                 skillLayout={skillLayout}
                 isPreview={isPreview}
+                updateSkill={updateSkill ? updateSkill : () => {}}
+                deleteSkill={deleteSkill ? deleteSkill : () => {}}
               />
             ))}
           </div>
@@ -65,18 +64,18 @@ export const SkillsSection: React.FC<SkillsSectionProps & { isPreview?: boolean 
                 key={skillCategory.id}
                 category={skillCategory}
                 fontOptions={fontOptions}
-                updateSkill={updateSkill || (() => { })}
-                deleteSkill={deleteSkill || (() => { })}
                 skillLayout={skillLayout}
                 isPreview={isPreview}
+                updateSkill={updateSkill ? updateSkill : () => {}}
+                deleteSkill={deleteSkill ? deleteSkill : () => {}}
               />
             ))}
           </div>
         )}
       </div>
-      {!isPreview && (
+      {!isPreview && addSkillCategory && (
         <div className="mt-4 print:hidden">
-          <AddSkillCategoryButton onClick={addSkill || (() => { })} />
+          <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
         </div>
       )}
     </section>

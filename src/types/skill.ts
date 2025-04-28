@@ -21,9 +21,10 @@ export interface SkillsSectionProps {
   fontOptions: FontOptions;
   skills: Skill[];
   setSkills?: (skills: Skill[]) => void;
+  addSkill?: () => void;
+  addSkillCategory?: () => void;
   updateSkill?: (id: string, updates: Partial<Skill>) => void;
+  deleteSkill?: (id: string) => void;
   title?: string;
   onTitleChange?: (newTitle: string) => void;
-  addSkill?: () => void;
-  deleteSkill?: (id: string) => void;
 }

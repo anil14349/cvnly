@@ -2,6 +2,7 @@ import React from "react";
 import { Phone, Mail, Linkedin, Github, MapPin, X } from "lucide-react";
 import { FontOptions, IconType, SocialLink } from "../../types/common";
 import { getIcon, SocialType } from "../../utils/iconUtils";
+
 import {
     SOCIAL_LINK_CONTAINER_CLASS,
     SOCIAL_LINK_ITEM_CLASS,
@@ -26,20 +27,28 @@ const ResumeSocialLinks: React.FC<Props> = ({
     fontOptions,
     iconFormat = "symbol",
 }) => {
+    // Use fontOptions.lineColor directly for icon color
+    const lineColor = fontOptions.lineColor;
+
     const renderIcon = (type: SocialType) => {
         const iconClasses = SOCIAL_LINK_ICON_CLASS;
+        const iconStyle = { color: lineColor };
+
         const icons: { [key in SocialType]: JSX.Element } = {
-            phone: <Phone className={iconClasses} />,
-            email: <Mail className={iconClasses} />,
-            linkedin: <Linkedin className={iconClasses} />,
-            github: <Github className={iconClasses} />,
-            location: <MapPin className={iconClasses} />,
+            phone: <Phone className={iconClasses} style={iconStyle} />,
+            email: <Mail className={iconClasses} style={iconStyle} />,
+            linkedin: <Linkedin className={iconClasses} style={iconStyle} />,
+            github: <Github className={iconClasses} style={iconStyle} />,
+            location: <MapPin className={iconClasses} style={iconStyle} />,
         };
 
         return iconFormat === "symbol"
             ? icons[type]
             : (
-                <span className="text-base text-gray-500 flex-shrink-0 w-5 h-5 flex items-center justify-center">
+                <span 
+                    className="text-base flex-shrink-0 w-5 h-5 flex items-center justify-center"
+                    style={{ color: lineColor }}
+                >
                     {getIcon(type, iconFormat)}
                 </span>
             );

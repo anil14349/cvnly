@@ -63,13 +63,13 @@ const EducationSection: React.FC<EducationSectionProps & { isPreview?: boolean }
 
   return (
     <div
+      className={`mt-2 ${EDUCATION_CONTAINER_CLASS}`}
       style={{
         background:
           fontOptions.theme === "dark"
             ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
             : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className={EDUCATION_CONTAINER_CLASS}
     >
       <SectionHeaderLine
         title={title}
@@ -163,15 +163,15 @@ const EducationSection: React.FC<EducationSectionProps & { isPreview?: boolean }
                 } ${fontOptions.bodyUnderline ? "underline" : ""}`}
               >
                 <FormattedText
-                  text={edu.startDate}
+                  text={edu.startDate + DATE_SEPARATOR}
                   fontOptions={fontOptions}
                   onTextChange={(newText) =>
                     updateEducation?.(edu.id, "startDate", newText)
                   }
                   isEditing={!isPreview}
                   className={INLINE_BLOCK_CLASS}
+                  style={{ color: fontOptions.lineColor }}
                 />
-                {DATE_SEPARATOR}
                 <FormattedText
                   text={edu.endDate || PRESENT_TEXT}
                   fontOptions={fontOptions}
@@ -180,6 +180,7 @@ const EducationSection: React.FC<EducationSectionProps & { isPreview?: boolean }
                   }
                   isEditing={!isPreview}
                   className={INLINE_BLOCK_CLASS}
+                  style={{color: fontOptions.lineColor}}
                 />
               </div>
             </div>
@@ -262,6 +263,7 @@ const EducationSection: React.FC<EducationSectionProps & { isPreview?: boolean }
             buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
             iconClassName={ADD_ICON_SIZE}
             textClassName={EDUCATION_TEXT_CLASS}
+            fontOptions={fontOptions}
           />
         </div>
       )}

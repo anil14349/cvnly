@@ -88,7 +88,7 @@ const SkillCategory: React.FC<Props> = ({
         );
     }
     return (
-        <div className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 group/category">
+        <div className="bg-white border-none border-gray-100 rounded-lg shadow-sm p-4 group/category">
             <CategoryHeader
                 category={category}
                 onChange={handleCategoryChange}

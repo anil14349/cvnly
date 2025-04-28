@@ -23,8 +23,6 @@ import {
   ADD_ICON_SIZE,
   EXTERNAL_LINK_ICON_SIZE,
   CERTIFICATIONS_LIST_CLASS,
-  CERTIFICATION_HEADER_CLASS,
-  CERTIFICATION_ISSUER_CLASS,
   DEFAULT_BG_DARK,
   DEFAULT_BG_LIGHT,
   CERTIFICATION_TEXT_CLASS,
@@ -53,6 +51,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { isPreview?: 
   return (
     <div
       style={{
+        marginTop: '0.5rem',
         background:
           fontOptions.theme === "dark"
             ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
@@ -90,7 +89,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { isPreview?: 
             <div className={CERTIFICATION_CONTENT_CLASS}>
               <div>
                 <h4
-                  className={`${baseTextClasses} ${CERTIFICATION_HEADER_CLASS}`}
+                  className={baseTextClasses}
                   contentEditable={!isPreview}
                   suppressContentEditableWarning
                   onBlur={!isPreview ? (e) => handleBlur(cert, "name", e.currentTarget.textContent || "") : undefined}
@@ -98,7 +97,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { isPreview?: 
                   {cert.name}
                 </h4>
                 <div
-                  className={`${baseTextClasses} ${CERTIFICATION_ISSUER_CLASS}`}
+                  className={baseTextClasses}
                   contentEditable={!isPreview}
                   suppressContentEditableWarning
                   onBlur={!isPreview ? (e) => handleBlur(cert, "issuer", e.currentTarget.textContent || "") : undefined}
@@ -107,7 +106,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { isPreview?: 
                 </div>
               </div>
               <div
-                className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses}`}
+                className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses} education-date`}
                 contentEditable={!isPreview}
                 suppressContentEditableWarning
                 onBlur={!isPreview ? (e) => handleBlur(cert, "date", e.currentTarget.textContent || "") : undefined}
@@ -142,6 +141,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { isPreview?: 
             buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
             iconClassName={ADD_ICON_SIZE}
             textClassName={CERTIFICATION_TEXT_CLASS}
+            fontOptions={fontOptions}
           />
         </div>
       )}

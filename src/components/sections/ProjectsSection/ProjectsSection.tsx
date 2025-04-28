@@ -3,7 +3,6 @@ import { Plus, X } from 'lucide-react';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import { ProjectsSectionProps, Project } from '../../../types/project';
-import FormattedText from '../../common/FormattedText';
 import { getFontClassNames } from '../../../utils/fontUtils';
 import {
   PROJECTS_CONTAINER_CLASS,
@@ -11,12 +10,10 @@ import {
   PROJECT_ITEM_CLASS,
   PROJECT_CONTENT_CLASS,
   PROJECT_DETAILS_CLASS,
-  PROJECT_DESCRIPTION_CLASS,
   PROJECT_TECHNOLOGIES_CLASS,
   PROJECT_TECH_ITEM_CLASS,
   PROJECT_RESPONSIBILITIES_LIST_CLASS,
   PROJECT_RESPONSIBILITY_ITEM_CLASS,
-  INLINE_BLOCK_CLASS,
   DELETE_PROJECT_BUTTON_CLASS,
   ADD_PROJECT_BUTTON_CLASS,
   DELETE_ICON_SIZE,
@@ -27,10 +24,11 @@ import {
   DELETE_PROJECT_ARIA_LABEL,
   DEFAULT_BG_DARK,
   DEFAULT_BG_LIGHT,
-  ADD_PROJECT_ICON_SIZE,
+  ADD_PROJECT_ICON_CLASS,
   PROJECT_TEXT_CLASS,
 } from './constants';
 import AddSectionButton from '../../common/AddSectionButton';
+import FormattedText from '../../common/FormattedText';
 
 const ProjectsSection: React.FC<ProjectsSectionProps & { isPreview?: boolean }> = ({
   index,
@@ -88,80 +86,140 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { isPreview?: boolean }> 
             )}
             <div className={PROJECT_CONTENT_CLASS}>
               <div className={PROJECT_DETAILS_CLASS}>
-                <h4 className={baseTextClasses}>{project.name}</h4>
-                <div className={baseTextClasses}>{project.company}</div>
+                <h4 className={baseTextClasses}>
+                  <FormattedText
+                    text={project.name}
+                    fontOptions={fontOptions}
+                    onTextChange={(newText) => updateProject(project.id, { ...project, name: newText })}
+                    isEditing={true}
+                    className="inline-block"
+                  />
+                </h4>
+                <div className={baseTextClasses}>
+                  <FormattedText
+                    text={project.company}
+                    fontOptions={fontOptions}
+                    onTextChange={(newText) => updateProject(project.id, { ...project, company: newText })}
+                    isEditing={true}
+                    className="inline-block"
+                  />
+                </div>
               </div>
-              <div className={baseTextClasses}>{project.period}</div>
+              <div className={`${baseTextClasses} experience-period`}>
+                <FormattedText
+                  text={project.period}
+                  fontOptions={fontOptions}
+                  onTextChange={(newText) => updateProject(project.id, { ...project, period: newText })}
+                  isEditing={true}
+                  className="inline-block"
+                />
+              </div>
             </div>
-            <div className={baseTextClasses}>{project.description}</div>
+            <div className={baseTextClasses}>
+              <FormattedText
+                text={project.description}
+                fontOptions={fontOptions}
+                onTextChange={(newText) => updateProject(project.id, { ...project, description: newText })}
+                isEditing={true}
+                className=""
+              />
+            </div>
             <ul className={`${PROJECT_RESPONSIBILITIES_LIST_CLASS} ${baseTextClasses}`}>
               {project.responsibilities?.map((responsibility, idx) => (
                 <li key={idx} className={PROJECT_RESPONSIBILITY_ITEM_CLASS}>
                   <span className="inline-flex items-center">
-                    {responsibility}
-                    {!isPreview && (
-                      <button
-                        onClick={() => {
-                          const updatedResponsibilities = project.responsibilities.filter((_, i) => i !== idx);
-                          updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
-                        }}
-                        className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
-                        aria-label={`Delete responsibility: ${responsibility.substring(0, 20)}...`}
-                      >
-                        <X className="w-3 h-3" aria-hidden="true" />
-                      </button>
-                    )}
+                    <FormattedText
+                      text={responsibility}
+                      fontOptions={fontOptions}
+                      onTextChange={(newText) => {
+                        const updatedResponsibilities = [...project.responsibilities];
+                        updatedResponsibilities[idx] = newText;
+                        updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
+                      }}
+                      isEditing={true}
+                      className="inline-block"
+                    />
+                    <button
+                      onClick={() => {
+                        const updatedResponsibilities = project.responsibilities.filter((_, i) => i !== idx);
+                        updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
+                      }}
+                      className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+                      aria-label={`Delete responsibility: ${responsibility.substring(0, 20)}...`}
+                    >
+                      <X className="w-3 h-3" aria-hidden="true" />
+                    </button>
                   </span>
                 </li>
               ))}
             </ul>
-            {!isPreview && (
-              <button
-                onClick={() => {
-                  const updatedResponsibilities = [...(project.responsibilities || []), ADD_RESPONSIBILITY_TEXT];
-                  updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
-                }}
-                className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
-                aria-label="Add responsibility"
-              >
-                <Plus className="w-3 h-3" aria-hidden="true" />
-                <span>Add Responsibility</span>
-              </button>
-            )}
-            <ul className={`${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses}`}>
+            <button
+              onClick={() => {
+                const updatedResponsibilities = [...(project.responsibilities || []), ADD_RESPONSIBILITY_TEXT];
+                updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
+              }}
+              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
+              aria-label="Add responsibility"
+            >
+              <Plus className="w-3 h-3" aria-hidden="true" />
+              <span>Add Responsibility</span>
+            </button>
+            <ul className={`flex flex-wrap items-center gap-2 mt-2 ${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses}`}>
               {project.technologies?.map((tech, idx) => (
-                <li key={idx} className={PROJECT_TECH_ITEM_CLASS}>
-                  <span className="inline-flex items-center">
-                    {tech}
-                    {!isPreview && (
-                      <button
-                        onClick={() => {
-                          const updatedTechnologies = project.technologies.filter((_, i) => i !== idx);
-                          updateProject(project.id, { ...project, technologies: updatedTechnologies });
-                        }}
-                        className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
-                        aria-label={`Delete technology: ${tech}`}
-                      >
-                        <X className="w-3 h-3" aria-hidden="true" />
-                      </button>
-                    )}
+                <li key={idx} className="flex items-center">
+                  <span
+                    className="inline-flex items-center align-middle px-3 py-1 rounded-full text-xs font-medium border"
+                    style={{
+                      height: '2rem',
+                      lineHeight: '1.5',
+                      verticalAlign: 'middle',
+                      background: fontOptions.theme === 'dark' ? fontOptions.widgetBgDark || '#181f2a' : fontOptions.widgetBgLight || '#fff',
+                      color: fontOptions.bodyColor,
+                      fontFamily: fontOptions.bodyFont,
+                      fontSize: fontOptions.bodySize,
+                      fontWeight: fontOptions.bodyWeight,
+                      borderColor: fontOptions.theme === 'dark' ? '#333' : '#ccc',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                    }}
+                  >
+                    <FormattedText
+                      text={tech.trim()}
+                      fontOptions={fontOptions}
+                      onTextChange={(newText) => {
+                        const updatedTechnologies = [...project.technologies];
+                        updatedTechnologies[idx] = newText;
+                        updateProject(project.id, { ...project, technologies: updatedTechnologies });
+                      }}
+                      isEditing={true}
+                      className="inline-block align-middle"
+                    />
+                    <button
+                      onClick={() => {
+                        const updatedTechnologies = project.technologies.filter((_, i) => i !== idx);
+                        updateProject(project.id, { ...project, technologies: updatedTechnologies });
+                      }}
+                      className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden align-middle"
+                      aria-label={`Delete technology: ${tech}`}
+                    >
+                      <X className="w-3 h-3" aria-hidden="true" />
+                    </button>
                   </span>
                 </li>
               ))}
             </ul>
-            {!isPreview && (
-              <button
-                onClick={() => {
-                  const updatedTechnologies = [...(project.technologies || []), ADD_TECHNOLOGY_TEXT];
-                  updateProject(project.id, { ...project, technologies: updatedTechnologies });
-                }}
-                className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
-                aria-label="Add technology"
-              >
-                <Plus className="w-3 h-3" aria-hidden="true" />
-                <span>Add Technology</span>
-              </button>
-            )}
+            <button
+              onClick={() => {
+                const updatedTechnologies = [...(project.technologies || []), ADD_TECHNOLOGY_TEXT];
+                updateProject(project.id, { ...project, technologies: updatedTechnologies });
+              }}
+              className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
+              aria-label="Add technology"
+            >
+              <Plus className="w-3 h-3" aria-hidden="true" />
+              <span>Add Technology</span>
+            </button>
           </div>
         ))}
       </div>
@@ -171,8 +229,9 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { isPreview?: boolean }> 
             onClick={addProject}
             text={ADD_PROJECT_TEXT}
             buttonClassName={ADD_PROJECT_BUTTON_CLASS}
-            iconClassName={ADD_PROJECT_ICON_SIZE}
+            iconClassName={ADD_PROJECT_ICON_CLASS}
             textClassName={PROJECT_TEXT_CLASS}
+            fontOptions={fontOptions}
           />
         </div>
       )}

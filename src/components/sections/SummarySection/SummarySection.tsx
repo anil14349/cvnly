@@ -18,8 +18,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   title = DEFAULT_SUMMARY_TITLE,
   onTitleChange,
   summary,
-  onSummaryChange,
-  isPreview = false
+  onSummaryChange
 }) => {
   const [isEditing, setIsEditing] = useState(false);
 
@@ -32,7 +31,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
 
   return (
     <section
-      className="relative group"
+      className="relative group mt-2"
       style={{
         background:
           fontOptions.theme === 'dark'
@@ -55,7 +54,9 @@ const SummarySection: React.FC<SummarySectionProps> = ({
       />
 
       {!summary && !isEditing ? (
-        <AddSummaryButton onClick={handleEditToggle} />
+        <div className="mt-2">
+          <AddSummaryButton onClick={handleEditToggle} fontOptions={fontOptions} />
+        </div>
       ) : (
         <div className="mt-4">
           {isEditing ? (

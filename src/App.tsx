@@ -740,7 +740,7 @@ function App() {
                         onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
                         skills={section.content.skills || []}
                         setSkills={setSkills}
-                        addSkill={addSkill}
+                        addSkillCategory={addSkill}
                         deleteSkill={deleteSkill}
                         updateSkill={updateSkill}
                       />
@@ -824,7 +824,6 @@ function App() {
           <div className="col-span-4 space-y-4">
             <FontControlPanel
               fontOptions={fontOptions}
-              //setFontOptions={setFontOptions}
               updateFontOption={updateFontOption}
             />
             <LineBreakTool

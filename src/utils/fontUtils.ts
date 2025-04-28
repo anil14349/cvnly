@@ -277,3 +277,13 @@ export const getFontInlineStyles = (fontOptions: FontOptions) => ({
   lineHeight: fontOptions.bodyLineHeight,
   letterSpacing: fontOptions.bodyLetterSpacing,
 });
+
+// Get the header line color based on theme
+export const getHeaderLineColor = (fontOptions: FontOptions) => {
+  // If dark mode, use lighter colors
+  if (fontOptions.theme === 'dark') {
+    return 'rgba(229, 231, 235, 0.2)'; // Light gray with low opacity for dark mode
+  }
+  // For light mode, use subtle gray
+  return 'rgba(156, 163, 175, 0.2)'; // Gray-400 with low opacity
+};

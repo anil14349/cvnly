@@ -73,17 +73,17 @@ export const SkillList = ({
   fontOptions: FontOptions;
   baseTextClasses: string;
 }) => (
-  <ul className={SKILL_LIST_CLASS}>
+  <ul className={`${SKILL_LIST_CLASS} achievement-list`}>
     {items.map((item, index) => (
       <li key={index} className={SKILL_LIST_ITEM_CLASS + ' ' + baseTextClasses}>
         <span
-          className={SKILL_BULLET_CLASS}
+          className={`${SKILL_BULLET_CLASS} skill-bullet`}
           style={{
             fontFamily: fontOptions.bodyFont,
             fontSize: fontOptions.bodySize,
             lineHeight: fontOptions.bodyLineHeight,
             fontWeight: fontOptions.bodyWeight,
-            color: fontOptions.bodyColor,
+            color: 'var(--line-color)',
             letterSpacing: fontOptions.bodyLetterSpacing,
             fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
             textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',
@@ -141,13 +141,13 @@ export const NewSkillInput = ({
 }) => (
   <div className={NEW_SKILL_CONTAINER_CLASS + ' ' + baseTextClasses + (className ? ' ' + className : '')}>
     <span
-      className={SKILL_BULLET_CLASS}
+      className={`${SKILL_BULLET_CLASS} skill-bullet`}
       style={{
         fontFamily: fontOptions.bodyFont,
         fontSize: fontOptions.bodySize,
         lineHeight: fontOptions.bodyLineHeight,
         fontWeight: fontOptions.bodyWeight,
-        color: fontOptions.bodyColor,
+        color: 'var(--line-color)',
         letterSpacing: fontOptions.bodyLetterSpacing,
         fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
         textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',

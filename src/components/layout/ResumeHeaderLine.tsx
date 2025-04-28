@@ -10,15 +10,15 @@ const ResumeHeaderLine: React.FC<ResumeHeaderLineProps> = ({ fontOptions }) => {
     const getHeaderLineColor = () => {
         // If dark mode, use lighter colors
         if (fontOptions.theme === 'dark') {
-            return 'rgba(229, 231, 235, 0.2)'; // Light gray with low opacity for dark mode
+            return 'rgba(229, 231, 235, 0.93)'; // Light gray with low opacity for dark mode
         }
         // For light mode, use subtle gray
-        return 'rgba(156, 163, 175, 0.2)'; // Gray-400 with low opacity
+        return 'rgba(232, 234, 238, 0.97)'; // Gray-400 with low opacity
     };
 
     return (
         <div
-            className="w-full h-[1px] mt-6"
+            className="w-full h-[1px] mt-1"
             style={{
                 backgroundColor: getHeaderLineColor(),
                 boxShadow: '0 0.5px 0 rgba(0, 0, 0, 0.05)'

@@ -26,7 +26,7 @@ const HobbiesSection: React.FC<HobbiesSectionProps> = ({
     };
 
     return (
-        <div>
+        <div className="mt-2">
             <SectionHeaderLine
                 title={title}
                 fontOptions={fontOptions}

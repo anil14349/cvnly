@@ -27,7 +27,7 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
   iconFormat = "symbol",
 }) => {
   return (
-    <header className="resume-header mb-8">
+    <div className="mt-2 ">
       <ResumeHeaderName
         name={resumeData.name}
         fontOptions={fontOptions}
@@ -46,7 +46,8 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
       <ResumeHeaderLine
         fontOptions={fontOptions}
       />
-    </header>
+
+    </div>
   );
 };
 

@@ -8,7 +8,7 @@ import FormattedText from '../../common/FormattedText';
 import { getFontClassNames } from '../../../utils/fontUtils';
 import {
   ADD_EXPERIENCE_BUTTON_CLASS,
-  SECTION_BUTTON_TEXT_STYLE,
+  ADD_EXPERIENCE_TEXT_CLASS,
   ADD_EXPERIENCE_TEXT,
   ADD_EXPERIENCE_ICON_SIZE,
   DELETE_EXPERIENCE_BUTTON_CLASS,
@@ -87,12 +87,12 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { isPreview?: boolean
 
   return (
     <div
+      className={`mt-2 ${EXPERIENCE_CONTAINER_CLASS}`}
       style={{
         background: fontOptions.theme === 'dark'
           ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
           : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className={EXPERIENCE_CONTAINER_CLASS}
     >
       <SectionHeaderLine
         title={title}
@@ -132,7 +132,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { isPreview?: boolean
                   {experience.company}
                 </div>
               </div>
-              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS}`} contentEditable suppressContentEditableWarning>
+              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS} experience-period`} contentEditable suppressContentEditableWarning>
                 {experience.period}
               </div>
             </div>
@@ -182,7 +182,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { isPreview?: boolean
             text={ADD_EXPERIENCE_TEXT}
             buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
             iconClassName={ADD_EXPERIENCE_ICON_SIZE}
-            textClassName={SECTION_BUTTON_TEXT_STYLE}
+            textClassName={ADD_EXPERIENCE_TEXT_CLASS}
+            fontOptions={fontOptions}
           />
         </div>
       )}

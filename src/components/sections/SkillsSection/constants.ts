@@ -26,7 +26,7 @@ export const CATEGORY_DELETE_ICON_CLASS = 'w-3 h-3';
 
 // Skill List Classes
 export const SKILL_LIST_CLASS = 'space-y-0.5 list-none pl-1';
-export const SKILL_LIST_ITEM_CLASS = 'group/skill skill-chip relative flex items-center gap-1';
+export const SKILL_LIST_ITEM_CLASS = 'group/skill skill-chip relative flex items-center gap-1 bg-transparent';
 export const SKILL_BULLET_CLASS = 'select-none';
 export const SKILL_TEXT_CONTAINER_CLASS = 'flex-1 min-w-0 inline-flex items-center justify-between gap-2';
 export const SKILL_DELETE_BUTTON_CLASS = 'opacity-0 group-hover/skill:opacity-100 transition-all print:hidden p-1 rounded hover:bg-red-500/10';
@@ -40,12 +40,12 @@ export const NEW_SKILL_ADD_ICON_CLASS = 'w-2.5 h-2.5';
 
 // Add Category Button Classes
 export const ADD_SKILL_BUTTON_CLASS = SECTION_BUTTON_STYLES.button;
-export const ADD_SKILL_CATEGORY_ICON_CLASS = SECTION_BUTTON_STYLES.icon;
-export const ADD_SKILL_LABEL_CLASS = SECTION_BUTTON_STYLES.text;
+export const ADD_SKILL_ICON_SIZE = SECTION_BUTTON_STYLES.icon;
+export const ADD_SKILL_TEXT_SIZE = SECTION_BUTTON_STYLES.text;
 
 // Main Container Classes
 export const SKILL_CATEGORY_CLASS = 'skill-category-card mt-0 grid grid-cols-1 auto-rows-min gap-0.5 sm:grid-cols-2 md:grid-cols-3';
-export const SKILL_CATEGORY_HEADER_CLASS = 'skill-category relative group/category rounded bg-transparent flex flex-col min-h-[80px] mb-1';
+export const SKILL_CATEGORY_HEADER_CLASS = 'skill-category relative group/category bg-transparent flex flex-col min-h-[80px] mb-3';
 
 export const ADD_SUMMARY_ICON_SIZE = 'w-3 h-3';
 export const FORMATTED_TEXT_CLASS = 'inline-block w-full';

@@ -8,6 +8,7 @@ interface FormattedTextProps {
     onTextChange: (newText: string) => void;
     isEditing?: boolean;
     className?: string;
+    style?: React.CSSProperties;
 }
 
 const FormattedText: React.FC<FormattedTextProps> = ({
@@ -16,6 +17,7 @@ const FormattedText: React.FC<FormattedTextProps> = ({
     onTextChange,
     isEditing = false,
     className = '',
+    style,
 }) => {
     const contentRef = useRef<HTMLDivElement>(null);
 
@@ -113,14 +115,28 @@ const FormattedText: React.FC<FormattedTextProps> = ({
         return <span dangerouslySetInnerHTML={{ __html: formatted }} />;
     };
 
-    const textStyle = {
+    const trimmedText = text.trim();
+
+    const isDatePattern =
+        /^\d{4}\s*-\s*(\d{4}|Present)$/i.test(trimmedText) || // "2020 - 2024" or "2020 - Present"
+        /^(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?)\s+\d{4}\s*-\s*(Jan(uary)?|Feb(ruary)?|Mar(ch)?|Apr(il)?|May|Jun(e)?|Jul(y)?|Aug(ust)?|Sep(tember)?|Oct(ober)?|Nov(ember)?|Dec(ember)?|\d{4}|Present)$/i.test(trimmedText) || // Month Year - Month Year | Month Year - Present
+        trimmedText === 'Start Date - End Date';
+
+    const isDateElement =
+        (className.includes('inline-block') && isDatePattern) ||
+        trimmedText === 'Present' ||
+        className.includes('experience-period');
+
+    // Create the text style with fontOptions and apply custom styles if provided
+    const textStyle: React.CSSProperties = {
         fontWeight: fontOptions.bodyWeight,
-        color: fontOptions.bodyColor,
+        color: isDateElement ? 'var(--line-color)' : fontOptions.bodyColor,
         fontFamily: fontOptions.bodyFont,
         lineHeight: fontOptions.bodyLineHeight,
         letterSpacing: fontOptions.bodyLetterSpacing,
         fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
         textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',
+        ...(style || {}), // Merge custom styles (overrides fontOptions)
     };
 
     return (

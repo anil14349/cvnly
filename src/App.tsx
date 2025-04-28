@@ -717,6 +717,14 @@ function App() {
                         fontOptions={fontOptions}
                         title={sectionTitles.summary}
                         onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
+                        summary={section.content.summary || ''}
+                        onSummaryChange={(value) => handleSectionUpdate(index, {
+                          ...section,
+                          content: {
+                            ...section.content,
+                            summary: value
+                          }
+                        })}
                       />
                     );
                   case 'skills':
@@ -816,12 +824,12 @@ function App() {
           <div className="col-span-4 space-y-4">
             <FontControlPanel
               fontOptions={fontOptions}
-              setFontOptions={setFontOptions}
+              //setFontOptions={setFontOptions}
               updateFontOption={updateFontOption}
             />
             <LineBreakTool
-              fontOptions={fontOptions}
-              onFontOptionChange={updateFontOption}
+              //fontOptions={fontOptions}
+              //onFontOptionChange={updateFontOption}
             />
             <ResumeSectionsWidget
               sections={sections}

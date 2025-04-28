@@ -120,6 +120,7 @@ export interface ResumeSection {
   type: 'summary' | 'skills' | 'experience' | 'education' | 'projects' | 'certifications' | 'social';
   visible: boolean;
   content: {
+    summary?: string;
     skills?: Skill[];
     experiences?: Experience[];
     educations?: Education[];

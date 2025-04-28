@@ -17,16 +17,17 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   fontOptions,
   title = DEFAULT_SUMMARY_TITLE,
   onTitleChange,
+  summary,
+  onSummaryChange,
   isPreview = false
 }) => {
-  const [summary, setSummary] = useState('');
   const [isEditing, setIsEditing] = useState(false);
 
   const baseTextClasses = getFontClassNames(fontOptions);
   const lineStyle = getFontInlineStyles(fontOptions);
 
   const handleEditToggle = () => setIsEditing(true);
-  const handleSummaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setSummary(e.target.value);
+  const handleSummaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => onSummaryChange(e.target.value);
   const handleBlur = () => setIsEditing(false);
 
   return (

@@ -78,7 +78,7 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="relative bg-white dark:bg-gray-800 rounded-lg p-0 w-[21cm] h-[29.7cm] overflow-y-auto mt-24 shadow-2xl border border-gray-200" style={{ marginTop: '10rem' }}>
+            <div className="relative bg-white dark:bg-gray-800 rounded-lg p-0 w-[21cm] h-[70vh] overflow-y-auto shadow-2xl border border-gray-200" style={{ marginTop: '3rem' }}>
                 {/* Print Preview Modal Header */}
                 <div className="sticky top-0 z-10 bg-gray-100 dark:bg-gray-900 border-b border-gray-200 flex items-center justify-between px-6 py-3">
                     <div className="flex items-center gap-3">
@@ -116,131 +116,131 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
                         ))
                     ))}
                 </div>
-                <div className="h-full overflow-auto">
-                    <div className="bg-white rounded-lg p-8">
-                        <div className="flex flex-col items-center">
-                            <ResumeHeader
-                                resumeData={resumeData}
-                                socialLinks={socialLinks}
-                                deleteSocialLink={deleteSocialLink}
-                                addSocialLink={addSocialLink}
-                                updateSocialLink={updateSocialLink}
-                                fontOptions={fontOptions}
-                            />
-                        </div>
-                        {sections.map((section, index) => {
-                            if (!section.visible) return null;
-                            switch (section.type) {
-                                case 'summary':
-                                    return (
-                                        <SummarySection
-                                            key="summary"
-                                            index={index}
-                                            moveSection={() => {}}
-                                            deleteSection={() => {}}
-                                            sectionsLength={sections.length}
-                                            fontOptions={fontOptions}
-                                            title={sectionTitles.summary}
-                                            onTitleChange={() => {}}
-                                            isPreview={true}
-                                        />
-                                    );
-                                case 'skills':
-                                    return (
-                                        <SkillsSection
-                                            key="skills"
-                                            index={index}
-                                            moveSection={() => {}}
-                                            deleteSection={() => {}}
-                                            sectionsLength={sections.length}
-                                            fontOptions={fontOptions}
-                                            title={sectionTitles.skills}
-                                            onTitleChange={() => {}}
-                                            skills={section.content.skills || []}
-                                            setSkills={() => {}}
-                                            addSkill={addSkill}
-                                            deleteSkill={deleteSkill}
-                                            updateSkill={updateSkill}
-                                            isPreview={true}
-                                        />
-                                    );
-                                case 'experience':
-                                    return (
-                                        <ExperienceSection
-                                            key="experience"
-                                            index={index}
-                                            moveSection={() => {}}
-                                            deleteSection={() => {}}
-                                            sectionsLength={sections.length}
-                                            fontOptions={fontOptions}
-                                            title={sectionTitles.experience}
-                                            onTitleChange={() => {}}
-                                            experiences={section.content.experiences || []}
-                                            addExperience={addExperience}
-                                            deleteExperience={deleteExperience}
-                                            updateExperience={updateExperience}
-                                            isPreview={true}
-                                        />
-                                    );
-                                case 'education':
-                                    return (
-                                        <EducationSection
-                                            key="education"
-                                            index={index}
-                                            moveSection={() => {}}
-                                            deleteSection={() => {}}
-                                            sectionsLength={sections.length}
-                                            fontOptions={fontOptions}
-                                            title={sectionTitles.education}
-                                            onTitleChange={() => {}}
-                                            educations={section.content.educations || []}
-                                            addEducation={addEducation}
-                                            deleteEducation={deleteEducation}
-                                            updateEducation={updateEducation}
-                                            isPreview={true}
-                                        />
-                                    );
-                                case 'projects':
-                                    return (
-                                        <ProjectsSection
-                                            key="projects"
-                                            index={index}
-                                            moveSection={() => {}}
-                                            deleteSection={() => {}}
-                                            sectionsLength={sections.length}
-                                            fontOptions={fontOptions}
-                                            title={sectionTitles.projects}
-                                            onTitleChange={() => {}}
-                                            projects={section.content.projects || []}
-                                            addProject={addProject}
-                                            deleteProject={deleteProject}
-                                            updateProject={updateProject}
-                                            isPreview={true}
-                                        />
-                                    );
-                                case 'certifications':
-                                    return (
-                                        <CertificationsSection
-                                            key="certifications"
-                                            index={index}
-                                            moveSection={() => {}}
-                                            deleteSection={() => {}}
-                                            sectionsLength={sections.length}
-                                            fontOptions={fontOptions}
-                                            title={sectionTitles.certifications}
-                                            onTitleChange={() => {}}
-                                            certifications={section.content.certifications || []}
-                                            addCertification={addCertification}
-                                            deleteCertification={deleteCertification}
-                                            updateCertification={updateCertification}
-                                            isPreview={true}
-                                        />
-                                    );
-                                default:
-                                    return null;
-                            }
-                        })}
+                <div className="bg-white rounded-lg p-8">
+                    <div className="flex flex-col items-center">
+                        <ResumeHeader
+                            resumeData={resumeData}
+                            socialLinks={socialLinks}
+                            deleteSocialLink={deleteSocialLink}
+                            addSocialLink={addSocialLink}
+                            updateSocialLink={updateSocialLink}
+                            fontOptions={fontOptions}
+                        />
                     </div>
+                    {sections.map((section, index) => {
+                        if (!section.visible) return null;
+                        switch (section.type) {
+                            case 'summary':
+                                return (
+                                    <SummarySection
+                                        key="summary"
+                                        index={index}
+                                        moveSection={() => {}}
+                                        deleteSection={() => {}}
+                                        sectionsLength={sections.length}
+                                        fontOptions={fontOptions}
+                                        title={sectionTitles.summary}
+                                        onTitleChange={() => {}}
+                                        summary={section.content.summary || ''}
+                                        onSummaryChange={() => {}}
+                                        isPreview={true}
+                                    />
+                                );
+                            case 'skills':
+                                return (
+                                    <SkillsSection
+                                        key="skills"
+                                        index={index}
+                                        moveSection={() => {}}
+                                        deleteSection={() => {}}
+                                        sectionsLength={sections.length}
+                                        fontOptions={fontOptions}
+                                        title={sectionTitles.skills}
+                                        onTitleChange={() => {}}
+                                        skills={section.content.skills || []}
+                                        setSkills={() => {}}
+                                        addSkill={addSkill}
+                                        deleteSkill={deleteSkill}
+                                        updateSkill={updateSkill}
+                                        isPreview={true}
+                                    />
+                                );
+                            case 'experience':
+                                return (
+                                    <ExperienceSection
+                                        key="experience"
+                                        index={index}
+                                        moveSection={() => {}}
+                                        deleteSection={() => {}}
+                                        sectionsLength={sections.length}
+                                        fontOptions={fontOptions}
+                                        title={sectionTitles.experience}
+                                        onTitleChange={() => {}}
+                                        experiences={section.content.experiences || []}
+                                        addExperience={addExperience}
+                                        deleteExperience={deleteExperience}
+                                        updateExperience={updateExperience}
+                                        isPreview={true}
+                                    />
+                                );
+                            case 'education':
+                                return (
+                                    <EducationSection
+                                        key="education"
+                                        index={index}
+                                        moveSection={() => {}}
+                                        deleteSection={() => {}}
+                                        sectionsLength={sections.length}
+                                        fontOptions={fontOptions}
+                                        title={sectionTitles.education}
+                                        onTitleChange={() => {}}
+                                        educations={section.content.educations || []}
+                                        addEducation={addEducation}
+                                        deleteEducation={deleteEducation}
+                                        updateEducation={updateEducation}
+                                        isPreview={true}
+                                    />
+                                );
+                            case 'projects':
+                                return (
+                                    <ProjectsSection
+                                        key="projects"
+                                        index={index}
+                                        moveSection={() => {}}
+                                        deleteSection={() => {}}
+                                        sectionsLength={sections.length}
+                                        fontOptions={fontOptions}
+                                        title={sectionTitles.projects}
+                                        onTitleChange={() => {}}
+                                        projects={section.content.projects || []}
+                                        addProject={addProject}
+                                        deleteProject={deleteProject}
+                                        updateProject={updateProject}
+                                        isPreview={true}
+                                    />
+                                );
+                            case 'certifications':
+                                return (
+                                    <CertificationsSection
+                                        key="certifications"
+                                        index={index}
+                                        moveSection={() => {}}
+                                        deleteSection={() => {}}
+                                        sectionsLength={sections.length}
+                                        fontOptions={fontOptions}
+                                        title={sectionTitles.certifications}
+                                        onTitleChange={() => {}}
+                                        certifications={section.content.certifications || []}
+                                        addCertification={addCertification}
+                                        deleteCertification={deleteCertification}
+                                        updateCertification={updateCertification}
+                                        isPreview={true}
+                                    />
+                                );
+                            default:
+                                return null;
+                        }
+                    })}
                 </div>
             </div>
         </div>

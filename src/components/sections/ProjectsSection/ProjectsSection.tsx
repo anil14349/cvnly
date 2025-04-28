@@ -167,20 +167,23 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 <span>Add Responsibility</span>
               </button>
 
-              <ul className={`${PROJECT_TECHNOLOGIES_CLASS} ${baseTextClasses} flex flex-wrap items-center gap-x-2 gap-y-2 mt-2`}>
+              {/* Technology Chips - Solid Border, FontOptions Applied */}
+              <ul className="flex flex-wrap gap-2 items-center mt-3">
                 {project.technologies?.map((tech, idx) => (
-                  <li key={idx} className={`${PROJECT_TECH_ITEM_CLASS} group/tech`}>
+                  <li key={idx}>
                     <span
-  className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border print:bg-transparent print:text-inherit print:border-none"
-  style={{
-    background: fontOptions.theme === 'dark' ? fontOptions.widgetBgDark || '#181f2a' : fontOptions.widgetBgLight || '#fff',
-    color: fontOptions.bodyColor,
-    fontFamily: fontOptions.bodyFont,
-    fontSize: fontOptions.bodySize,
-    fontWeight: fontOptions.bodyWeight,
-    borderColor: fontOptions.theme === 'dark' ? '#333' : '#ccc',
-  }}
->
+                      className="group flex items-center rounded-full border border-gray-400 bg-white text-gray-500 px-3 py-1 font-medium transition hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 whitespace-nowrap"
+                      style={{
+                        color: fontOptions.bodyColor,
+                        fontFamily: fontOptions.bodyFont,
+                        fontSize: fontOptions.bodySize,
+                        fontWeight: fontOptions.bodyWeight,
+                        minHeight: '1.75rem',
+                        lineHeight: 1.3,
+                        boxSizing: 'border-box',
+                        borderStyle: 'solid', // Ensure solid border
+                      }}
+                    >
                       <FormattedText
                         text={tech}
                         fontOptions={fontOptions}
@@ -191,33 +194,42 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                         }}
                         isEditing={true}
                         className={INLINE_BLOCK_CLASS}
+                        style={{
+                          color: fontOptions.bodyColor,
+                          fontFamily: fontOptions.bodyFont,
+                          fontSize: fontOptions.bodySize,
+                          fontWeight: fontOptions.bodyWeight,
+                        }}
                       />
                       <button
                         onClick={() => {
                           const updatedTechnologies = project.technologies.filter((_, i) => i !== idx);
                           updateProject(project.id, { ...project, technologies: updatedTechnologies });
                         }}
-                        className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+                        className="ml-0 opacity-0 group-hover:opacity-100 group-hover:ml-2 text-gray-400 hover:text-red-500 transition p-0 h-auto w-auto"
                         aria-label={`Delete technology: ${tech}`}
+                        tabIndex={-1}
+                        style={{ fontSize: fontOptions.bodySize }}
                       >
-                        <X className="w-3 h-3" aria-hidden="true" />
+                        <X className="w-4 h-4" aria-hidden="true" />
                       </button>
                     </span>
                   </li>
                 ))}
+                <li>
+                  <AddSectionButton
+                    onClick={() => {
+                      const updatedTechnologies = [...(project.technologies || []), ADD_TECHNOLOGY_TEXT];
+                      updateProject(project.id, { ...project, technologies: updatedTechnologies });
+                    }}
+                    text="Add Technology"
+                    fontOptions={fontOptions}
+                    buttonClassName={ADD_PROJECT_BUTTON_CLASS}
+                    iconClassName={ADD_PROJECT_ICON_CLASS}
+                    textClassName={PROJECT_TEXT_CLASS}
+                  />
+                </li>
               </ul>
-
-              <button
-                onClick={() => {
-                  const updatedTechnologies = [...(project.technologies || []), ADD_TECHNOLOGY_TEXT];
-                  updateProject(project.id, { ...project, technologies: updatedTechnologies });
-                }}
-                className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
-                aria-label="Add technology"
-              >
-                <Plus className="w-3 h-3" aria-hidden="true" />
-                <span>Add Technology</span>
-              </button>
             </div>
           </div>
         ))}
@@ -236,4 +248,4 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   );
 };
 
-export default ProjectsSection; 
+export default ProjectsSection;

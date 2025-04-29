@@ -32,7 +32,7 @@ import {
 } from './constants';
 import AddSectionButton from '../../common/AddSectionButton';
 
-const ProjectsSection: React.FC<ProjectsSectionProps> = ({
+const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }> = ({
   index,
   moveSection,
   deleteSection,
@@ -41,10 +41,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   projects,
   addProject,
   deleteProject,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  updateProject = (_id: string, _project: Project) => { },
+  updateProject,
   title = DEFAULT_TITLE,
-  onTitleChange
+  onTitleChange,
+  previewMode = false
 }) => {
   const baseTextClasses = getFontClassNames(fontOptions);
 
@@ -88,7 +88,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                   <FormattedText
                     text={project.name}
                     fontOptions={fontOptions}
-                    onTextChange={(newText) => updateProject(project.id, { ...project, name: newText })}
+                    onTextChange={(newText) => updateProject?.(project.id, { ...project, name: newText })}
                     isEditing={true}
                     className={INLINE_BLOCK_CLASS}
                   />
@@ -97,7 +97,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                   <FormattedText
                     text={project.company}
                     fontOptions={fontOptions}
-                    onTextChange={(newText) => updateProject(project.id, { ...project, company: newText })}
+                    onTextChange={(newText) => updateProject?.(project.id, { ...project, company: newText })}
                     isEditing={true}
                     className={INLINE_BLOCK_CLASS}
                   />
@@ -107,7 +107,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                 <FormattedText
                   text={project.period}
                   fontOptions={fontOptions}
-                  onTextChange={(newText) => updateProject(project.id, { ...project, period: newText })}
+                  onTextChange={(newText) => updateProject?.(project.id, { ...project, period: newText })}
                   isEditing={true}
                   className={INLINE_BLOCK_CLASS}
                 />
@@ -118,7 +118,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <FormattedText
                 text={project.description}
                 fontOptions={fontOptions}
-                onTextChange={(newText) => updateProject(project.id, { ...project, description: newText })}
+                onTextChange={(newText) => updateProject?.(project.id, { ...project, description: newText })}
                 isEditing={true}
                 className={INLINE_BLOCK_CLASS}
               />
@@ -135,7 +135,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                         onTextChange={(newText) => {
                           const updatedResponsibilities = [...project.responsibilities];
                           updatedResponsibilities[idx] = newText;
-                          updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
+                          updateProject?.(project.id, { ...project, responsibilities: updatedResponsibilities });
                         }}
                         isEditing={true}
                         className={INLINE_BLOCK_CLASS}
@@ -143,7 +143,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       <button
                         onClick={() => {
                           const updatedResponsibilities = project.responsibilities.filter((_, i) => i !== idx);
-                          updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
+                          updateProject?.(project.id, { ...project, responsibilities: updatedResponsibilities });
                         }}
                         className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
                         aria-label={`Delete responsibility: ${responsibility.substring(0, 20)}...`}
@@ -158,7 +158,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               <button
                 onClick={() => {
                   const updatedResponsibilities = [...(project.responsibilities || []), ADD_RESPONSIBILITY_TEXT];
-                  updateProject(project.id, { ...project, responsibilities: updatedResponsibilities });
+                  updateProject?.(project.id, { ...project, responsibilities: updatedResponsibilities });
                 }}
                 className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
                 aria-label="Add responsibility"
@@ -190,7 +190,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                         onTextChange={(newText) => {
                           const updatedTechnologies = [...project.technologies];
                           updatedTechnologies[idx] = newText;
-                          updateProject(project.id, { ...project, technologies: updatedTechnologies });
+                          updateProject?.(project.id, { ...project, technologies: updatedTechnologies });
                         }}
                         isEditing={true}
                         className={INLINE_BLOCK_CLASS}
@@ -204,7 +204,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                       <button
                         onClick={() => {
                           const updatedTechnologies = project.technologies.filter((_, i) => i !== idx);
-                          updateProject(project.id, { ...project, technologies: updatedTechnologies });
+                          updateProject?.(project.id, { ...project, technologies: updatedTechnologies });
                         }}
                         className="ml-0 opacity-0 group-hover:opacity-100 group-hover:ml-2 text-gray-400 hover:text-red-500 transition p-0 h-auto w-auto"
                         aria-label={`Delete technology: ${tech}`}
@@ -220,7 +220,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                   <AddSectionButton
                     onClick={() => {
                       const updatedTechnologies = [...(project.technologies || []), ADD_TECHNOLOGY_TEXT];
-                      updateProject(project.id, { ...project, technologies: updatedTechnologies });
+                      updateProject?.(project.id, { ...project, technologies: updatedTechnologies });
                     }}
                     text="Add Technology"
                     fontOptions={fontOptions}
@@ -235,14 +235,16 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         ))}
       </div>
       <div className="mt-2 print:hidden">
-        <AddSectionButton
-          onClick={addProject}
-          text={ADD_PROJECT_TEXT}
-          buttonClassName={ADD_PROJECT_BUTTON_CLASS}
-          iconClassName={ADD_PROJECT_ICON_CLASS}
-          textClassName={PROJECT_TEXT_CLASS}
-          fontOptions={fontOptions}
-        />
+        {!previewMode && (
+          <AddSectionButton
+            onClick={addProject}
+            text={ADD_PROJECT_TEXT}
+            buttonClassName={ADD_PROJECT_BUTTON_CLASS}
+            iconClassName={ADD_PROJECT_ICON_CLASS}
+            textClassName={PROJECT_TEXT_CLASS}
+            fontOptions={fontOptions}
+          />
+        )}
       </div>
     </div>
   );

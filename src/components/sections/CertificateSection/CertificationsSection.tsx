@@ -28,7 +28,7 @@ import {
   CERTIFICATION_TEXT_CLASS,
 } from "./constants";
 
-const CertificationsSection: React.FC<CertificationSectionProps> = ({
+const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?: boolean }> = ({
   certifications,
   fontOptions,
   moveSection,
@@ -40,6 +40,7 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
   updateCertification = () => { },
   title = DEFAULT_TITLE,
   onTitleChange,
+  previewMode = false
 }) => {
   const handleBlur = (cert: Certification, field: string, value: string) => {
     updateCertification(cert.id, field, value);
@@ -142,14 +143,16 @@ const CertificationsSection: React.FC<CertificationSectionProps> = ({
       </div>
 
       <div className="mt-2 print:hidden">
-        <AddSectionButton
-          onClick={addCertification}
-          text={ADD_CERTIFICATION_TEXT}
-          buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
-          iconClassName={ADD_ICON_SIZE}
-          textClassName={CERTIFICATION_TEXT_CLASS}
-          fontOptions={fontOptions}
-        />
+        {!previewMode && (
+          <AddSectionButton
+            onClick={addCertification}
+            text={ADD_CERTIFICATION_TEXT}
+            buttonClassName={ADD_CERTIFICATION_BUTTON_CLASS}
+            iconClassName={ADD_ICON_SIZE}
+            textClassName={CERTIFICATION_TEXT_CLASS}
+            fontOptions={fontOptions}
+          />
+        )}
       </div>
     </div>
   );

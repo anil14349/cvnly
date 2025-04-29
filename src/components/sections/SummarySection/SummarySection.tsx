@@ -2,12 +2,22 @@ import React, { useState } from 'react';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import { getFontClassNames, getFontInlineStyles } from '../../../utils/fontUtils';
-import { SummarySectionProps } from './types';
 import { DEFAULT_SUMMARY_TITLE, PLACEHOLDER_TEXT } from './constants';
 import AddSummaryButton from './AddSummaryButton';
 import SummaryEditor from './SummaryEditor';
 import SummaryDisplay from './SummaryDisplay';
 
+// If props are defined as type instead of interface, ensure previewMode?: boolean is present
+type SummarySectionProps = {
+  index: number;
+  moveSection: (index: number, direction: "up" | "down") => void;
+  deleteSection: (index: number) => void;
+  sectionsLength: number;
+  fontOptions: any;
+  title?: string;
+  onTitleChange?: (title: string) => void;
+  previewMode?: boolean;
+};
 
 const SummarySection: React.FC<SummarySectionProps> = ({
   index,
@@ -17,6 +27,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   fontOptions,
   title = DEFAULT_SUMMARY_TITLE,
   onTitleChange,
+  previewMode,
 }) => {
   const [summary, setSummary] = useState('');
   const [isEditing, setIsEditing] = useState(false);

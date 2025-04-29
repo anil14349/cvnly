@@ -33,7 +33,7 @@ import {
   EDUCATION_TEXT_CLASS, 
 } from "./constants";
 
-const EducationSection: React.FC<EducationSectionProps> = ({
+const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean }> = ({
   educations,
   fontOptions,
   moveSection,
@@ -45,6 +45,7 @@ const EducationSection: React.FC<EducationSectionProps> = ({
   updateEducation,
   title = DEFAULT_TITLE,
   onTitleChange,
+  previewMode = false
 }) => {
   const updateDetail = (
     educationId: string,
@@ -249,14 +250,16 @@ const EducationSection: React.FC<EducationSectionProps> = ({
         ))}
       </div>
       <div className="mt-2 print:hidden">
-        <AddSectionButton
-          onClick={addEducation}
-          text={ADD_EDUCATION_TEXT}
-          buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
-          iconClassName={ADD_ICON_SIZE}
-          textClassName={EDUCATION_TEXT_CLASS}
-          fontOptions={fontOptions}
-        />
+        {!previewMode && (
+          <AddSectionButton
+            onClick={addEducation}
+            text={ADD_EDUCATION_TEXT}
+            buttonClassName={ADD_EDUCATION_BUTTON_CLASS}
+            iconClassName={ADD_ICON_SIZE}
+            textClassName={EDUCATION_TEXT_CLASS}
+            fontOptions={fontOptions}
+          />
+        )}
       </div>
     </div>
   );

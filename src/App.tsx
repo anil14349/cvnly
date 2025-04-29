@@ -146,6 +146,9 @@ function App() {
     title: "Integration Architect/AI & ML Engineer"
   });
 
+  // Preview mode state
+  const [previewMode, setPreviewMode] = useState(false);
+
   // Initialize CSS variables on mount
   useEffect(() => {
     const root = document.documentElement;
@@ -225,7 +228,7 @@ function App() {
       return newOptions;
     });
   };
-  // Removed unused function updateIconFormat as per linting suggestion
+
   // Add missing project management function
   const addProject = () => {
     const newProject: Project = {
@@ -629,7 +632,7 @@ function App() {
   }, [skills]);
 
   return (
-    <div className={`min-h-screen ${activeTheme === 'dark' ? 'dark' : ''}`}>
+    <div className={`min-h-screen ${activeTheme === 'dark' ? 'dark' : ''} ${previewMode ? 'preview-mode' : ''}`}>
       {/* App Header */}
       <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
         <div className="container mx-auto px-4 py-4">
@@ -645,6 +648,20 @@ function App() {
                 <Download className="w-4 h-4" />
                 Download PDF
               </button>
+              <button
+                onClick={() => setPreviewMode(true)}
+                className="ml-2 px-4 py-2 border border-blue-400 text-blue-600 rounded-full bg-white hover:bg-blue-50 transition print:hidden"
+              >
+                Preview Resume
+              </button>
+              {previewMode && (
+                <button
+                  onClick={() => setPreviewMode(false)}
+                  className="ml-2 px-4 py-2 border border-gray-400 text-gray-600 rounded-full bg-white hover:bg-gray-50 transition print:hidden"
+                >
+                  Exit Preview
+                </button>
+              )}
             </div>
           </div>
         </div>
@@ -659,9 +676,9 @@ function App() {
               <ResumeHeader
                 resumeData={resumeData}
                 socialLinks={socialLinks}
-                deleteSocialLink={deleteSocialLink}
-                addSocialLink={addSocialLink}
-                updateSocialLink={updateSocialLink}
+                deleteSocialLink={previewMode ? (() => {}) : deleteSocialLink}
+                addSocialLink={previewMode ? (() => {}) : addSocialLink}
+                updateSocialLink={previewMode ? (() => {}) : updateSocialLink}
                 fontOptions={fontOptions}
               />
               {sections.map((section, index) => {
@@ -673,12 +690,13 @@ function App() {
                       <SummarySection
                         key="summary"
                         index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
+                        moveSection={previewMode ? (() => {}) : moveSection}
+                        deleteSection={previewMode ? (() => {}) : (() => deleteSection(index))}
                         sectionsLength={sections.length}
                         fontOptions={fontOptions}
                         title={sectionTitles.summary}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
+                        onTitleChange={previewMode ? (() => {}) : (newTitle => updateSectionTitle(index, newTitle))}
+                        previewMode={previewMode}
                       />
                     );
                   case 'skills':
@@ -686,14 +704,15 @@ function App() {
                       <SkillsSection
                         key="skills"
                         index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
+                        moveSection={previewMode ? (() => {}) : moveSection}
+                        deleteSection={previewMode ? (() => {}) : (() => deleteSection(index))}
                         sectionsLength={sections.length}
                         fontOptions={fontOptions}
+                        skills={skills}
+                        setSkills={previewMode ? (() => {}) : setSkills}
                         title={sectionTitles.skills}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        skills={section.content.skills || []}
-                        setSkills={setSkills}
+                        onTitleChange={previewMode ? (() => {}) : (newTitle => updateSectionTitle(index, newTitle))}
+                        previewMode={previewMode}
                       />
                     );
                   case 'experience':
@@ -701,16 +720,17 @@ function App() {
                       <ExperienceSection
                         key="experience"
                         index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
+                        moveSection={previewMode ? (() => {}) : moveSection}
+                        deleteSection={previewMode ? (() => {}) : (() => deleteSection(index))}
                         sectionsLength={sections.length}
                         fontOptions={fontOptions}
+                        experiences={experiences}
+                        addExperience={previewMode ? (() => {}) : addExperience}
+                        deleteExperience={previewMode ? (() => {}) : deleteExperience}
+                        updateExperience={previewMode ? (() => {}) : updateExperience}
                         title={sectionTitles.experience}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        experiences={section.content.experiences || []}
-                        addExperience={addExperience}
-                        deleteExperience={deleteExperience}
-                        updateExperience={updateExperience}
+                        onTitleChange={previewMode ? (() => {}) : (newTitle => updateSectionTitle(index, newTitle))}
+                        previewMode={previewMode}
                       />
                     );
                   case 'education':
@@ -718,15 +738,16 @@ function App() {
                       <EducationSection
                         key="education"
                         index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
+                        moveSection={previewMode ? (() => {}) : moveSection}
+                        deleteSection={previewMode ? (() => {}) : (() => deleteSection(index))}
                         sectionsLength={sections.length}
                         fontOptions={fontOptions}
+                        educations={educations}
+                        addEducation={previewMode ? (() => {}) : addEducation}
+                        deleteEducation={previewMode ? (() => {}) : deleteEducation}
                         title={sectionTitles.education}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        educations={section.content.educations || []}
-                        addEducation={addEducation}
-                        deleteEducation={deleteEducation}
+                        onTitleChange={previewMode ? (() => {}) : (newTitle => updateSectionTitle(index, newTitle))}
+                        previewMode={previewMode}
                       />
                     );
                   case 'projects':
@@ -734,16 +755,17 @@ function App() {
                       <ProjectsSection
                         key="projects"
                         index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
+                        moveSection={previewMode ? (() => {}) : moveSection}
+                        deleteSection={previewMode ? (() => {}) : (() => deleteSection(index))}
                         sectionsLength={sections.length}
                         fontOptions={fontOptions}
+                        projects={projects}
+                        addProject={previewMode ? (() => {}) : addProject}
+                        deleteProject={previewMode ? (() => {}) : deleteProject}
+                        updateProject={previewMode ? (() => {}) : updateProject}
                         title={sectionTitles.projects}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        projects={section.content.projects || []}
-                        addProject={addProject}
-                        deleteProject={deleteProject}
-                        updateProject={updateProject}
+                        onTitleChange={previewMode ? (() => {}) : (newTitle => updateSectionTitle(index, newTitle))}
+                        previewMode={previewMode}
                       />
                     );
                   case 'certifications':
@@ -751,16 +773,17 @@ function App() {
                       <CertificationsSection
                         key="certifications"
                         index={index}
-                        moveSection={moveSection}
-                        deleteSection={() => deleteSection(index)}
+                        moveSection={previewMode ? (() => {}) : moveSection}
+                        deleteSection={previewMode ? (() => {}) : (() => deleteSection(index))}
                         sectionsLength={sections.length}
                         fontOptions={fontOptions}
+                        certifications={certifications}
+                        addCertification={previewMode ? (() => {}) : addCertification}
+                        deleteCertification={previewMode ? (() => {}) : deleteCertification}
+                        updateCertification={previewMode ? (() => {}) : updateCertification}
                         title={sectionTitles.certifications}
-                        onTitleChange={(newTitle) => updateSectionTitle(index, newTitle)}
-                        certifications={section.content.certifications || []}
-                        addCertification={addCertification}
-                        deleteCertification={deleteCertification}
-                        updateCertification={updateCertification}
+                        onTitleChange={previewMode ? (() => {}) : (newTitle => updateSectionTitle(index, newTitle))}
+                        previewMode={previewMode}
                       />
                     );
                   default:
@@ -770,23 +793,25 @@ function App() {
             </div>
           </div>
 
-          {/* Left sidebar with controls */}
-          <div className="col-span-4 space-y-4">
-            <FontControlPanel
-              fontOptions={fontOptions}
-              updateFontOption={updateFontOption}
-            />
-            <LineBreakTool
-              fontOptions={fontOptions}
-              onFontOptionChange={updateFontOption}
-            />
-            <ResumeSectionsWidget
-              sections={sections}
-              onSectionsChange={setSections}
-              socialLinks={socialLinks}
-              addSocialLink={addSocialLink}
-            />
-          </div>
+          {/* Hide sidebar controls in preview mode */}
+          {!previewMode && (
+            <div className="col-span-4 space-y-4">
+              <FontControlPanel
+                fontOptions={fontOptions}
+                updateFontOption={updateFontOption}
+              />
+              <LineBreakTool
+                fontOptions={fontOptions}
+                onFontOptionChange={updateFontOption}
+              />
+              <ResumeSectionsWidget
+                sections={sections}
+                onSectionsChange={setSections}
+                socialLinks={socialLinks}
+                addSocialLink={addSocialLink}
+              />
+            </div>
+          )}
         </div>
       </div>
 

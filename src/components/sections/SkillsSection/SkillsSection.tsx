@@ -8,7 +8,7 @@ import { v4 as uuidv4 } from 'uuid';
 import SkillCategory from './SkillCategory';
 import { AddSkillCategoryButton } from './AddSkillCategoryButton';
 
-export const SkillsSection: React.FC<SkillsSectionProps> = ({
+export const SkillsSection: React.FC<SkillsSectionProps & { previewMode?: boolean }> = ({
   index,
   moveSection,
   deleteSection,
@@ -17,7 +17,8 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
   skills,
   setSkills,
   title = DEFAULT_SKILLS_TITLE,
-  onTitleChange
+  onTitleChange,
+  previewMode = false
 }) => {
   const handleUpdateSkill = (id: string, updates: Partial<Skill>) => {
     if (!setSkills) return;
@@ -93,7 +94,9 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({
         )}
       </div>
       <div className="mt-2 print:hidden">
-        <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
+        {!previewMode && (
+          <AddSkillCategoryButton onClick={addSkillCategory} fontOptions={fontOptions} />
+        )}
       </div>
     </section>
   );

@@ -29,7 +29,7 @@ import {
   DEFAULT_BG_LIGHT
 } from './constants';
 
-const ExperienceSection: React.FC<ExperienceSectionProps> = ({
+const ExperienceSection: React.FC<ExperienceSectionProps & { previewMode?: boolean }> = ({
   experiences,
   fontOptions,
   moveSection,
@@ -40,7 +40,8 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
   deleteExperience,
   updateExperience,
   title = "Work Experience",
-  onTitleChange
+  onTitleChange,
+  previewMode = false
 }) => {
   const addAchievement = (experienceId: string) => {
     const experience = experiences.find(exp => exp.id === experienceId);
@@ -167,14 +168,16 @@ const ExperienceSection: React.FC<ExperienceSectionProps> = ({
         ))}
       </div>
       <div className="mt-2 print:hidden">
-        <AddSectionButton
-          onClick={addExperience}
-          text={ADD_EXPERIENCE_TEXT}
-          buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
-          iconClassName={ADD_EXPERIENCE_ICON_SIZE}
-          textClassName={ADD_EXPERIENCE_TEXT_CLASS}
-          fontOptions={fontOptions}
-        />
+        {!previewMode && (
+          <AddSectionButton
+            onClick={addExperience}
+            text={ADD_EXPERIENCE_TEXT}
+            buttonClassName={ADD_EXPERIENCE_BUTTON_CLASS}
+            iconClassName={ADD_EXPERIENCE_ICON_SIZE}
+            textClassName={ADD_EXPERIENCE_TEXT_CLASS}
+            fontOptions={fontOptions}
+          />
+        )}
       </div>
     </div>
   );

@@ -18,38 +18,6 @@ interface PrintPreviewProps {
     };
 }
 
-// Add print-specific styles at the top
-const printStyles = `
-@media print {
-  @page {
-    margin: 0;
-    size: A4;
-  }
-  .print-preview {
-    background: none;
-  }
-  .print-content {
-    box-shadow: none !important;
-    margin: 0 !important;
-    max-width: none !important;
-  }
-  .skill-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    page-break-inside: avoid;
-  }
-  .skill-card {
-    background-color: transparent !important;
-    padding: 0 !important;
-    border: none !important;
-  }
-  .skill-list {
-    margin-left: 1.5rem;
-  }
-}
-`;
-
 const PrintPreview: React.FC<PrintPreviewProps> = ({
     sections,
     sectionTitles,
@@ -61,17 +29,6 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
 }) => {
     const contentRef = useRef<HTMLDivElement>(null);
 
-    const getFontStyle = (options: FontOptions) => {
-        return {
-            '--font-family': options.headerFont,
-            '--font-size': options.headerSize,
-            '--font-weight': getFontWeightValue(options.headerWeight),
-            '--line-height': options.headerLineHeight,
-            '--letter-spacing': options.headerLetterSpacing,
-            '--color': options.headerColor,
-        } as React.CSSProperties;
-    };
-
     useEffect(() => {
         if (contentRef.current) {
             const content = contentRef.current;
@@ -81,24 +38,20 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
     }, [sections]);
 
     const renderSection = (section: ResumeSection) => {
-        const sectionClass = "mb-6 last:mb-0";
-        const titleClass = "text-xl font-semibold mb-4 pb-2 border-b border-gray-200";
-        const contentClass = "space-y-4";
-
         switch (section.type) {
             case 'summary':
                 return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
+                    <div key={section.type} className="mb-6 last:mb-0">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">{sectionTitles[section.type]}</h2>
+                        <div className="space-y-4">
                             {/* Summary content will be added when available */}
                         </div>
                     </div>
                 );
             case 'skills':
                 return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
+                    <div key={section.type} className="mb-6 last:mb-0">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">{sectionTitles[section.type]}</h2>
                         <div className="grid grid-cols-2 gap-4 skill-grid">
                             {section.content.skills?.map((skill) => (
                                 <div key={skill.id} className="bg-gray-50 p-4 rounded skill-card">
@@ -115,9 +68,9 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
                 );
             case 'experience':
                 return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
+                    <div key={section.type} className="mb-6 last:mb-0">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">{sectionTitles[section.type]}</h2>
+                        <div className="space-y-4">
                             {section.content.experiences?.map((exp) => (
                                 <div key={exp.id} className="mb-4 last:mb-0">
                                     <h3 className="font-medium">{exp.title}</h3>
@@ -135,9 +88,9 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
                 );
             case 'education':
                 return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
+                    <div key={section.type} className="mb-6 last:mb-0">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">{sectionTitles[section.type]}</h2>
+                        <div className="space-y-4">
                             {section.content.educations?.map((edu) => (
                                 <div key={edu.id} className="mb-4 last:mb-0">
                                     <h3 className="font-medium">{edu.degree}</h3>
@@ -157,9 +110,9 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
                 );
             case 'projects':
                 return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
+                    <div key={section.type} className="mb-6 last:mb-0">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">{sectionTitles[section.type]}</h2>
+                        <div className="space-y-4">
                             {section.content.projects?.map((project) => (
                                 <div key={project.id} className="mb-4 last:mb-0">
                                     <h3 className="font-medium">{project.name}</h3>
@@ -172,9 +125,9 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
                 );
             case 'certifications':
                 return (
-                    <div key={section.type} className={sectionClass}>
-                        <h2 className={titleClass}>{sectionTitles[section.type]}</h2>
-                        <div className={contentClass}>
+                    <div key={section.type} className="mb-6 last:mb-0">
+                        <h2 className="text-xl font-semibold mb-4 pb-2 border-b border-gray-200">{sectionTitles[section.type]}</h2>
+                        <div className="space-y-4">
                             {section.content.certifications?.map((cert) => (
                                 <div key={cert.id} className="mb-4 last:mb-0">
                                     <h3 className="font-medium">{cert.name}</h3>
@@ -196,42 +149,39 @@ const PrintPreview: React.FC<PrintPreviewProps> = ({
     if (!isOpen) return null;
 
     return (
-        <>
-            <style>{printStyles}</style>
-            <div className="print-preview fixed inset-0 bg-gray-100 overflow-auto z-50">
-                <div className="print-content max-w-[210mm] mx-auto bg-white shadow-lg my-8" ref={contentRef}>
-                    <div style={getFontStyle(fontOptions)} className="p-8 print:p-0">
-                        <ResumeHeaderName
-                            name={resumeData.name}
-                            fontOptions={fontOptions}
-                            onUpdate={() => { }}
-                        />
-                        <ResumeHeaderTitle
-                            title={resumeData.title}
-                            fontOptions={fontOptions}
-                            onUpdate={() => { }}
-                        />
-                        <ResumeSocialLinks
-                            socialLinks={socialLinks}
-                            fontOptions={fontOptions}
-                            deleteSocialLink={() => { }}
-                            iconFormat="symbol"
-                            updateSocialLink={() => {
-                                throw new Error('Function not implemented.');
-                            }}
-                        />
-                        {sections.map((section) => renderSection(section))}
-                    </div>
+        <div className="print-preview fixed inset-0 bg-gray-100 overflow-auto z-50">
+            <div className="print-content max-w-[210mm] mx-auto bg-white shadow-lg my-8 resume-container" ref={contentRef}>
+                <div className="p-8 print:p-0">
+                    <ResumeHeaderName
+                        name={resumeData.name}
+                        fontOptions={fontOptions}
+                        onUpdate={() => { }}
+                    />
+                    <ResumeHeaderTitle
+                        title={resumeData.title}
+                        fontOptions={fontOptions}
+                        onUpdate={() => { }}
+                    />
+                    <ResumeSocialLinks
+                        socialLinks={socialLinks}
+                        fontOptions={fontOptions}
+                        deleteSocialLink={() => { }}
+                        iconFormat="symbol"
+                        updateSocialLink={() => {
+                            throw new Error('Function not implemented.');
+                        }}
+                    />
+                    {sections.map((section) => renderSection(section))}
                 </div>
-                <button
-                    onClick={onClose}
-                    className="fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 print:hidden"
-                >
-                    Close
-                </button>
             </div>
-        </>
+            <button
+                onClick={onClose}
+                className="fixed top-4 right-4 bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 print:hidden"
+            >
+                Close
+            </button>
+        </div>
     );
 };
 
-export default PrintPreview; 
+export default PrintPreview;

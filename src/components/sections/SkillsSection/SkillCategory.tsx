@@ -16,6 +16,7 @@ interface Props {
     updateSkill: (id: string, updates: Partial<Skill>) => void;
     deleteSkill: (id: string) => void;
     skillLayout?: import('../../../types/common').SkillLayoutType;
+    previewMode?: boolean;
 }
 
 const SkillCategory: React.FC<Props> = ({
@@ -24,6 +25,7 @@ const SkillCategory: React.FC<Props> = ({
     updateSkill,
     deleteSkill,
     skillLayout = 'bulleted',
+    previewMode = false,
 }) => {
     const [newSkill, setNewSkill] = useState('');
 
@@ -117,6 +119,7 @@ const SkillCategory: React.FC<Props> = ({
                 onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
                 fontOptions={fontOptions}
                 baseTextClasses={baseTextClasses}
+                previewMode={previewMode}
             />
         </div>
     );

@@ -128,7 +128,8 @@ export const NewSkillInput = ({
   onAdd,
   onKeyPress,
   fontOptions,
-  baseTextClasses
+  baseTextClasses,
+  previewMode = false
 }: {
   value: string;
   onChange: (val: string) => void;
@@ -136,52 +137,59 @@ export const NewSkillInput = ({
   onKeyPress: React.KeyboardEventHandler;
   fontOptions: FontOptions;
   baseTextClasses: string;
-}) => (
-  <div className={NEW_SKILL_CONTAINER_CLASS + ' ' + baseTextClasses}>
-    <span
-      className={`${SKILL_BULLET_CLASS} skill-bullet`}
-      style={{
-        fontFamily: fontOptions.bodyFont,
-        fontSize: fontOptions.bodySize,
-        lineHeight: fontOptions.bodyLineHeight,
-        fontWeight: fontOptions.bodyWeight,
-        color: 'var(--line-color)',
-        letterSpacing: fontOptions.bodyLetterSpacing,
-        fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
-        textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',
-      }}
-    >
-      {BULLET_POINT}
-    </span>
-    <input
-      type="text"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      onKeyPress={onKeyPress}
-      placeholder={ADD_NEW_SKILL_PLACEHOLDER}
-      className={NEW_SKILL_INPUT_CLASS}
-      style={{
-        fontFamily: fontOptions.bodyFont,
-        fontSize: fontOptions.bodySize,
-        lineHeight: fontOptions.bodyLineHeight,
-        fontWeight: fontOptions.bodyWeight,
-        color: fontOptions.bodyColor,
-        letterSpacing: fontOptions.bodyLetterSpacing,
-        fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
-        textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',
-      }}
-      aria-label={ARIA_LABELS.addNewSkill}
-    />
-    <button
-      onClick={onAdd}
-      className={NEW_SKILL_ADD_BUTTON_CLASS}
-      aria-label={ARIA_LABELS.addSkill}
-      disabled={!value.trim()}
-    >
-      <Plus className={NEW_SKILL_ADD_ICON_CLASS} />
-    </button>
-  </div>
-);
+  previewMode?: boolean;
+}) => {
+  if (previewMode) {
+    return null;
+  }
+
+  return (
+    <div className={NEW_SKILL_CONTAINER_CLASS + ' ' + baseTextClasses}>
+      <span
+        className={`${SKILL_BULLET_CLASS} skill-bullet`}
+        style={{
+          fontFamily: fontOptions.bodyFont,
+          fontSize: fontOptions.bodySize,
+          lineHeight: fontOptions.bodyLineHeight,
+          fontWeight: fontOptions.bodyWeight,
+          color: 'var(--line-color)',
+          letterSpacing: fontOptions.bodyLetterSpacing,
+          fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
+          textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',
+        }}
+      >
+        {BULLET_POINT}
+      </span>
+      <input
+        type="text"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        onKeyPress={onKeyPress}
+        placeholder={ADD_NEW_SKILL_PLACEHOLDER}
+        className={NEW_SKILL_INPUT_CLASS}
+        style={{
+          fontFamily: fontOptions.bodyFont,
+          fontSize: fontOptions.bodySize,
+          lineHeight: fontOptions.bodyLineHeight,
+          fontWeight: fontOptions.bodyWeight,
+          color: fontOptions.bodyColor,
+          letterSpacing: fontOptions.bodyLetterSpacing,
+          fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',
+          textDecoration: fontOptions.bodyUnderline ? 'underline' : 'none',
+        }}
+        aria-label={ARIA_LABELS.addNewSkill}
+      />
+      <button
+        onClick={onAdd}
+        className={NEW_SKILL_ADD_BUTTON_CLASS}
+        aria-label={ARIA_LABELS.addSkill}
+        disabled={!value.trim()}
+      >
+        <Plus className={NEW_SKILL_ADD_ICON_CLASS} />
+      </button>
+    </div>
+  );
+};
 
 // Only render SkillList if layout is not classic or pill
 // All layout logic now handled in SkillCategory

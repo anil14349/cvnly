@@ -160,7 +160,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                   const updatedResponsibilities = [...(project.responsibilities || []), ADD_RESPONSIBILITY_TEXT];
                   updateProject?.(project.id, { ...project, responsibilities: updatedResponsibilities });
                 }}
-                className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1`}
+                className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1 ${previewMode ? 'hidden' : ''}`}
                 aria-label="Add responsibility"
               >
                 <Plus className="w-3 h-3" aria-hidden="true" />
@@ -227,6 +227,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                     buttonClassName={ADD_PROJECT_BUTTON_CLASS}
                     iconClassName={ADD_PROJECT_ICON_CLASS}
                     textClassName={PROJECT_TEXT_CLASS}
+                    previewMode={previewMode}
                   />
                 </li>
               </ul>

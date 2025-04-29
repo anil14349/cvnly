@@ -158,7 +158,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { previewMode?: boole
 
             <button
               onClick={() => addAchievement(experience.id)}
-              className={`${ADD_ACHIEVEMENT_BUTTON_CLASS} ${baseTextClasses}`}
+              className={`${ADD_ACHIEVEMENT_BUTTON_CLASS} ${baseTextClasses} ${previewMode ? 'hidden' : ''}`}
               aria-label="Add achievement"
             >
               <Plus className={ADD_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />

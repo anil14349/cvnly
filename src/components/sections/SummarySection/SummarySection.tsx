@@ -27,7 +27,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   fontOptions,
   title = DEFAULT_SUMMARY_TITLE,
   onTitleChange,
-  previewMode,
+  previewMode = false,
 }) => {
   const [summary, setSummary] = useState('');
   const [isEditing, setIsEditing] = useState(false);
@@ -35,7 +35,11 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   const baseTextClasses = getFontClassNames(fontOptions);
   const lineStyle = getFontInlineStyles(fontOptions);
 
-  const handleEditToggle = () => setIsEditing(true);
+  const handleEditToggle = () => {
+    if (!previewMode) {
+      setIsEditing(true);
+    }
+  };
   const handleSummaryChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => setSummary(e.target.value);
   const handleBlur = () => setIsEditing(false);
 
@@ -64,12 +68,14 @@ const SummarySection: React.FC<SummarySectionProps> = ({
       />
 
       {!summary && !isEditing ? (
-        <div className="mt-2">
-          <AddSummaryButton onClick={handleEditToggle} fontOptions={fontOptions} />
+        <div className="mt-2 print:hidden">
+          {!previewMode && (
+            <AddSummaryButton onClick={handleEditToggle} fontOptions={fontOptions} previewMode={previewMode} />
+          )}
         </div>
       ) : (
         <div className="mt-4">
-          {isEditing ? (
+          {isEditing && !previewMode ? (
             <SummaryEditor
               value={summary}
               onChange={handleSummaryChange}
@@ -84,6 +90,7 @@ const SummarySection: React.FC<SummarySectionProps> = ({
               style={lineStyle}
               onClick={handleEditToggle}
               placeholder={PLACEHOLDER_TEXT}
+              previewMode={previewMode}
             />
           )}
         </div>

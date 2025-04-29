@@ -32,8 +32,8 @@
 /* Achievement List Styles */
 .achievement-list {
   list-style-type: disc;
-  padding-left: 1.25rem;
-  margin-top: 0.5rem;
+  padding-left: 0.1rem;
+  margin-top: 0.1rem;
 }
 
 .achievement-item {

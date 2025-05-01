@@ -9,6 +9,7 @@ export interface Education {
   endDate?: string;
   gpa?: string;
   details: string[];
+  location?: string;
 }
 
 export interface EducationSectionProps {

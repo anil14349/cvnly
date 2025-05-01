@@ -7,9 +7,10 @@ interface Props {
     style?: React.CSSProperties;
     onClick: () => void;
     placeholder: string;
+    previewMode?: boolean;
 }
 
-const SummaryDisplay: React.FC<Props> = ({ summary, fontClass, style, onClick, placeholder }) => (
+const SummaryDisplay: React.FC<Props> = ({ summary, fontClass, style, onClick, placeholder, previewMode }) => (
     <div
         onClick={onClick}
         className={`${SUMMARY_DISPLAY_CLASS} ${fontClass}`}

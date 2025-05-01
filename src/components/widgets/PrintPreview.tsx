@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import type { ResumeSection, FontOptions, SocialLink } from '../../types/common';
-import { getFontWeightValue } from '../../utils/fontUtils';
 import ResumeHeaderName from '../layout/ResumeHeaderName';
 import ResumeHeaderTitle from '../layout/ResumeHeaderTitle';
 import ResumeSocialLinks from '../layout/ResumeSocialLinks';

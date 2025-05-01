@@ -12,6 +12,7 @@ interface ResumeSectionsWidgetProps {
     onSectionsChange: (sections: ResumeSection[]) => void;
     socialLinks: SocialLink[];
     addSocialLink: (type: 'phone' | 'email' | 'linkedin' | 'github' | 'location') => void;
+    resumeHeaderTitle?: string;
 }
 
 const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
@@ -19,6 +20,7 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
     onSectionsChange,
     socialLinks,
     addSocialLink,
+    resumeHeaderTitle
 }) => {
     const handleDragEnd = (result: any) => {
         if (!result.destination) return;
@@ -48,7 +50,8 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
             education: 'Education',
             projects: 'Projects',
             certifications: 'Certifications',
-            social: 'Social Links'
+            social: 'Social Links',
+            title: 'Resume Header Title'
         };
         return titles[type] || type;
     };
@@ -67,6 +70,7 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
       { type: 'projects', label: 'Projects' },
       { type: 'certifications', label: 'Certifications' },
       { type: 'social', label: 'Social Links' },
+      { type: 'title', label: 'Add Resume Header Title' },
     ];
 
     const activeSectionTypes = sections.map(s => s.type);
@@ -76,34 +80,52 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
     const socialSectionActive = activeSectionTypes.includes('social');
     const availableSocialLinks = socialSectionActive ? getAvailableSocialLinks() : [];
 
+    // Only show Resume Header Title if it's not already present in sections and resumeHeaderTitle is empty
+    const showResumeHeaderTitleButton = !resumeHeaderTitle;
+
     return (
       <div className={PANEL_STYLES.container} style={sections && sections.length && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}>
         {/* --- Available Sections Pool (including Social Links if active) --- */}
         <div className="mb-4">
-          <h3 className="text-xs font-semibold text-gray-500 dark:text-gray-300 mb-2">Add Section</h3>
-          <div className="flex flex-wrap gap-2">
+          <h2 className="text-lg font-semibold mb-2">Add Section</h2>
+          <div className="flex flex-wrap gap-2 mb-2">
             {availableSections.length === 0 && availableSocialLinks.length === 0 ? (
               <span className="text-xs text-gray-400">All sections are added</span>
             ) : (
               <>
-                {availableSections.map((sec) => (
+                {availableSections.filter(section => section.type !== 'title' || showResumeHeaderTitleButton).map(section => (
                   <button
-                    key={sec.type}
-                    className="flex items-center gap-1 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-200 hover:bg-blue-50 dark:hover:bg-blue-900 transition"
+                    key={section.type}
+                    className="flex items-center gap-2 px-4 py-2 rounded bg-gray-700 text-white hover:bg-gray-600 transition-colors"
                     onClick={() => {
-                      // Add the section to the end of the list, marked as visible
-                      onSectionsChange([...sections, { type: sec.type, visible: true, content: {} }]);
+                      if (section.type === 'title') {
+                        // Remove any lingering 'title' section
+                        onSectionsChange(sections.filter(s => s.type !== 'title'));
+                        if (typeof window !== 'undefined') {
+                          window.dispatchEvent(new CustomEvent('add-resume-header-title'));
+                        }
+                      } else {
+                        onSectionsChange([
+                          ...sections,
+                          {
+                            type: section.type,
+                            visible: true,
+                            content: {}
+                          }
+                        ]);
+                      }
                     }}
                   >
-                    {sec.icon}
-                    {sec.label}
+                    {/* Consistent "+" icon for all add buttons */}
+                    {section.type === 'title' ? <Plus className="w-4 h-4" /> : section.icon}
+                    {section.label}
                   </button>
                 ))}
-                {availableSocialLinks.map((type) => (
+                {availableSocialLinks.map(type => (
                   <button
                     key={type}
+                    className="flex items-center gap-2 px-4 py-2 rounded bg-gray-700 text-white hover:bg-gray-600 transition-colors"
                     onClick={() => addSocialLink(type)}
-                    className="flex items-center gap-1 px-3 py-1 rounded-full border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 text-xs text-gray-700 dark:text-gray-200 hover:bg-green-50 dark:hover:bg-green-900 transition"
                   >
                     <Plus className="w-4 h-4" />
                     Add {type.charAt(0).toUpperCase() + type.slice(1)}

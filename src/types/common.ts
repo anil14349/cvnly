@@ -117,7 +117,7 @@ export interface SocialLink {
 }
 
 export interface ResumeSection {
-  type: 'summary' | 'skills' | 'experience' | 'education' | 'projects' | 'certifications' | 'social';
+  type: 'summary' | 'skills' | 'experience' | 'education' | 'projects' | 'certifications' | 'social' | 'title';
   visible: boolean;
   content: {
     skills?: Skill[];
@@ -126,5 +126,6 @@ export interface ResumeSection {
     projects?: Project[];
     certifications?: Certification[];
     socialLinks?: SocialLink[];
+    title?: string;
   };
 }

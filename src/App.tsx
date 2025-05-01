@@ -141,7 +141,7 @@ function App() {
   ]);
 
   // Add resumeData state
-  const [resumeData] = useState({
+  const [resumeData, setResumeData] = useState({
     name: "Anil Kumar",
     title: "Integration Architect/AI & ML Engineer"
   });
@@ -615,21 +615,20 @@ function App() {
     ));
   };
 
-  // Add useEffect to sync skills with section content
+  // Listen for 'add-resume-header-title' event from ResumeSectionsWidget
   useEffect(() => {
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSections = [...sections];
-      updatedSections[sectionIndex] = {
-        ...updatedSections[sectionIndex],
-        content: {
-          ...updatedSections[sectionIndex].content,
-          skills: skills
+    const handler = () => {
+      setResumeData(prev => {
+        // Only restore if title is empty
+        if (!prev.title) {
+          return { ...prev, title: "Integration Architect/AI & ML Engineer" };
         }
-      };
-      setSections(updatedSections);
-    }
-  }, [skills]);
+        return prev;
+      });
+    };
+    window.addEventListener('add-resume-header-title', handler);
+    return () => window.removeEventListener('add-resume-header-title', handler);
+  }, []);
 
   return (
     <div className={`min-h-screen ${activeTheme === 'dark' ? 'dark' : ''} ${previewMode ? 'preview-mode' : ''}`}>
@@ -675,6 +674,7 @@ function App() {
             <div className={`bg-white rounded-lg shadow-lg p-8`} ref={resumeRef}>
               <ResumeHeader
                 resumeData={resumeData}
+                setResumeData={previewMode ? (() => {}) : setResumeData}
                 socialLinks={socialLinks}
                 deleteSocialLink={previewMode ? (() => {}) : deleteSocialLink}
                 addSocialLink={previewMode ? (() => {}) : addSocialLink}
@@ -809,6 +809,7 @@ function App() {
                 onSectionsChange={setSections}
                 socialLinks={socialLinks}
                 addSocialLink={addSocialLink}
+                resumeHeaderTitle={resumeData.title}
               />
             </div>
           )}

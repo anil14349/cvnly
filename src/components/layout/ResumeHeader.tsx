@@ -10,6 +10,7 @@ interface ResumeHeaderProps {
     name: string;
     title: string;
   };
+  setResumeData: (data: any) => void;
   socialLinks: SocialLink[];
   deleteSocialLink: (id: string) => void;
   addSocialLink: (type: 'phone' | 'email' | 'linkedin' | 'github' | 'location') => void;
@@ -25,7 +26,13 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
   updateSocialLink,
   fontOptions,
   iconFormat = "symbol",
+  setResumeData,
+  addSocialLink
 }) => {
+  const handleRemoveTitle = () => {
+    setResumeData((prev: any) => ({ ...prev, title: '' }));
+  };
+
   return (
     <div className="mt-2 ">
       <ResumeHeaderName
@@ -35,6 +42,7 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
       <ResumeHeaderTitle
         title={resumeData.title}
         fontOptions={fontOptions}
+        onDelete={handleRemoveTitle}
       />
       <ResumeSocialLinks
         socialLinks={socialLinks}
@@ -46,7 +54,6 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
       <ResumeHeaderLine
         fontOptions={fontOptions}
       />
-
     </div>
   );
 };

@@ -62,9 +62,8 @@ export const SkillsSection: React.FC<SkillsSectionProps & { previewMode?: boolea
           />
         }
       />
-
-      {/* Add margin between section header and grid */}
-      <div className="mt-2">
+      {/* Reduced margin below the header */}
+      <div className="mt-0.5">
         {skillLayout === 'classic' ? (
           <div>
             {skills.map((skillCategory) => (

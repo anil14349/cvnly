@@ -30,6 +30,7 @@
 /* Skill Category Styles */
 .skill-category {
   margin-bottom: 1rem;
+  margin-top: 0.25rem;
   animation: fadeIn 0.3s ease-out;
 }
 

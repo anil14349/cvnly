@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FontOptions } from '../../types/common';
-import { Section } from '../../types/section';
-import { SocialLink } from '../../types/social';
+import type { FontOptions, SocialLink, ResumeSection } from '../../types/common';
 import { getFontWeightValue } from '../../utils/fontUtils';
 import ResumeHeaderName from './ResumeHeaderName';
 import ResumeHeaderTitle from './ResumeHeaderTitle';
@@ -10,60 +8,60 @@ import SectionHeaderLine from '../common/SectionHeaderLine';
 
 const PAGE_HEIGHT = 1123; // A4 height at 96 DPI
 const PAGE_WIDTH = 794; // A4 width at 96 DPI
+const A4_HEIGHT_PX = 1123; // 297mm at 96dpi
+const A4_WIDTH_PX = 794;   // 210mm at 96dpi
 
 interface PaginatedResumeProps {
-    sections: Section[];
+    sections: ResumeSection[];
     sectionTitles: Record<string, string>;
     fontOptions: FontOptions;
     socialLinks: SocialLink[];
-    resumeData: {
-        name: string;
-        title: string;
-    };
-    onUpdateSection: (field: string, value: string) => void;
+    name: string;
+    title: string;
     onMoveSection: (fromIndex: number, toIndex: number) => void;
     onAddSocialLink: (type: string) => void;
     onUpdateSocialLink: (index: number, field: string, value: string) => void;
     onDeleteSocialLink: (index: number) => void;
-    renderSection: (section: Section) => React.ReactNode;
-    name: string;
-    title: string;
+    renderSection: (section: ResumeSection) => React.ReactNode;
     onUpdateName: (name: string) => void;
     onUpdateTitle: (title: string) => void;
 }
 
-export const PaginatedResume: React.FC<PaginatedResumeProps> = ({
-    sections,
-    sectionTitles,
-    fontOptions,
-    socialLinks,
-    resumeData,
-    onUpdateSection,
-    onMoveSection,
-    onAddSocialLink,
-    onUpdateSocialLink,
-    onDeleteSocialLink,
-    renderSection,
-    name,
-    title,
-    onUpdateName,
-    onUpdateTitle,
-}) => {
+const getPageBreaks = (contentHeight: number, pageHeight: number) => {
+    const breaks = [];
+    let curr = pageHeight;
+    while (curr < contentHeight) {
+        breaks.push(curr);
+        curr += pageHeight;
+    }
+    return breaks;
+};
+
+export const PaginatedResume = React.forwardRef<HTMLDivElement, PaginatedResumeProps>((props, ref) => {
     const contentRef = useRef<HTMLDivElement>(null);
+    const [contentHeight, setContentHeight] = useState(0);
     const [pages, setPages] = useState<HTMLDivElement[]>([]);
 
     const getFontStyle = (options: FontOptions) => {
         return {
-            '--font-family': options.fontFamily,
-            '--font-size': `${options.fontSize}px`,
-            '--font-weight': getFontWeightValue(options.fontWeight),
-            '--line-height': options.lineHeight,
-            '--letter-spacing': `${options.letterSpacing}px`,
-            '--color': options.color,
-            fontStyle: options.italic ? 'italic' : 'normal',
-            textDecoration: options.underline ? 'underline' : 'none',
+            '--font-family': options.bodyFont,
+            '--font-size': options.bodySize,
+            '--font-weight': getFontWeightValue(options.bodyWeight),
+            '--line-height': options.bodyLineHeight,
+            '--letter-spacing': options.bodyLetterSpacing,
+            '--color': options.bodyColor,
+            fontStyle: options.bodyItalic ? 'italic' : 'normal',
+            textDecoration: options.bodyUnderline ? 'underline' : 'none',
         } as React.CSSProperties;
     };
+
+    useEffect(() => {
+        if (contentRef.current) {
+            setContentHeight(contentRef.current.scrollHeight);
+        }
+    }, [props.sections, props.fontOptions, props.socialLinks, props.name, props.title]);
+
+    const pageBreaks = getPageBreaks(contentHeight, PAGE_HEIGHT);
 
     useEffect(() => {
         const calculatePages = () => {
@@ -110,54 +108,82 @@ export const PaginatedResume: React.FC<PaginatedResumeProps> = ({
         return () => {
             window.removeEventListener('resize', calculatePages);
         };
-    }, [sections, fontOptions]);
+    }, [props.sections, props.fontOptions]);
 
     return (
-        <div className="resume-container" style={getFontStyle(fontOptions)}>
+        <div ref={ref} style={{ position: 'relative' }}>
             <div ref={contentRef} className="hidden">
                 {/* Header Section */}
                 <div className="mb-8">
                     <ResumeHeaderName
-                        name={name}
-                        fontOptions={fontOptions}
-                        onUpdate={onUpdateName}
+                        name={props.name}
+                        fontOptions={props.fontOptions}
+                        onUpdate={() => props.onUpdateName(props.name)}
                     />
                     <ResumeHeaderTitle
-                        title={title}
-                        fontOptions={fontOptions}
-                        onUpdate={onUpdateTitle}
+                        title={props.title}
+                        fontOptions={props.fontOptions}
+                        onUpdate={() => props.onUpdateTitle(props.title)}
                     />
                     <ResumeSocialLinks
-                        socialLinks={socialLinks}
-                        fontOptions={fontOptions}
-                        onAdd={onAddSocialLink}
-                        onUpdate={onUpdateSocialLink}
-                        onDelete={onDeleteSocialLink}
+                        socialLinks={props.socialLinks}
+                        fontOptions={props.fontOptions}
+                        deleteSocialLink={() => {}}
+                        updateSocialLink={() => {}}
                     />
                 </div>
 
                 {/* Resume Sections */}
-                {sections.map((section, index) => (
-                    <div key={section} className="section mb-8">
+                {props.sections.map((section, index) => (
+                    <div key={section.type + index} className="section mb-8">
                         <SectionHeaderLine
-                            title={sectionTitles[section]}
-                            fontOptions={fontOptions}
-                            moveSection={onMoveSection}
-                            section={section}
-                            index={index}
+                            title={props.sectionTitles[section.type]}
+                            fontOptions={props.fontOptions}
                         />
-                        {renderSection(section)}
+                        {props.renderSection(section)}
                     </div>
                 ))}
             </div>
 
+            {/* A4 page margin indicator overlay */}
+            <div
+                className="a4-page-indicator"
+                style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    width: `${A4_WIDTH_PX}px`,
+                    height: `${A4_HEIGHT_PX}px`,
+                    border: '2px dashed #e74c3c',
+                    pointerEvents: 'none',
+                    zIndex: 10,
+                }}
+            />
+
+            {/* Horizontal page break lines */}
+            {pageBreaks.map((y, i) => (
+                <div
+                    key={`page-break-${i}`}
+                    style={{
+                        position: 'absolute',
+                        top: y,
+                        left: 0,
+                        width: '100%',
+                        height: 2,
+                        background: '#e74c3c',
+                        opacity: 0.3,
+                        zIndex: 10,
+                        pointerEvents: 'none',
+                    }}
+                />
+            ))}
+
             <div className="flex flex-col items-center">
                 {pages.map((page, index) => (
-                    <div key={index} className="resume-page">
-                        {page}
-                    </div>
+                    <div key={index} className="resume-page" dangerouslySetInnerHTML={{ __html: page.outerHTML }} />
                 ))}
             </div>
         </div>
     );
-}; 
+});

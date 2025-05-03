@@ -719,7 +719,7 @@ function App() {
                         left: 0,
                         width: '100%',
                         height: 2,
-                        background: '#e74c3c',
+                        background: 'var(--line-color, #4299e1)',
                         opacity: 0.3,
                         zIndex: 10,
                         pointerEvents: 'none',

@@ -15,8 +15,6 @@ import { Certification } from './types/certification';
 import ResumeHeader from './components/layout/ResumeHeader';
 import FontControlPanel from './components/widgets/FontControlPanel';
 import ResumeSectionsWidget from './components/widgets/ResumeSectionsWidget';
-import { PaginatedResume } from './components/layout/PaginatedResume';
-import A4Ruler from './components/layout/A4Ruler';
 
 // Import section components
 import SummarySection from './components/sections/SummarySection/SummarySection';
@@ -33,6 +31,7 @@ import usePdfGeneration from './hooks/usePdfGeneration';
 // Import utils
 import { HEADER_FONTS, BODY_FONTS } from './utils/fontUtils';
 import LineBreakTool from './components/widgets/LineBreakTool';
+import A4Ruler from './components/layout/A4Ruler';
 
 // Initialize default font options
 const defaultFontOptions: FontOptions = {
@@ -358,51 +357,6 @@ function App() {
     }
   };
 
-  const addSkill = () => {
-    const newSkill: Skill = {
-      id: Date.now().toString(),
-      category: 'New Category',
-      items: ['Skill 1', 'Skill 2', 'Skill 3'],
-      backgroundColor: '#fff',
-      borderColor: '#e5e7eb',
-      borderStyle: 'solid',
-      borderWidth: '1px',
-      borderRadius: '4px'
-    };
-    setSkills([...skills, newSkill]);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          skills: [...(sections[sectionIndex].content.skills || []), newSkill]
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
-
-  const deleteSkill = (id: string) => {
-    // Update skills state
-    const updatedSkills = skills.filter(skill => skill.id !== id);
-    setSkills(updatedSkills);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          skills: updatedSkills
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
 
   const addExperience = () => {
     const newExperience: Experience = {
@@ -525,27 +479,6 @@ function App() {
     }));
   };
 
-  // Update the updateSkill function to handle both section content and state
-  const updateSkill = (id: string, updates: Partial<Skill>) => {
-    // Update skills state
-    const updatedSkills = skills.map(skill =>
-      skill.id === id ? { ...skill, ...updates } : skill
-    );
-    setSkills(updatedSkills);
-
-    // Update section content
-    const sectionIndex = sections.findIndex(section => section.type === 'skills');
-    if (sectionIndex !== -1) {
-      const updatedSection = {
-        ...sections[sectionIndex],
-        content: {
-          ...sections[sectionIndex].content,
-          skills: updatedSkills
-        }
-      };
-      handleSectionUpdate(sectionIndex, updatedSection);
-    }
-  };
 
   // Update the updateExperience function to handle responsibilities
   const updateExperience = (id: string, updatedExperience: Experience) => {
@@ -643,26 +576,6 @@ function App() {
       setResumeContentHeight(resumeContentRef.current.scrollHeight);
     }
   }, [sections, skills, experiences, educations, projects, certifications, socialLinks, resumeData, fontOptions]);
-
-  const sectionTitlesMap = {
-    summary: 'Professional Summary',
-    skills: 'Skills',
-    experience: 'Experience',
-    education: 'Education',
-    projects: 'Projects',
-    certifications: 'Certifications',
-    social: 'Social Links',
-    title: 'Resume Title',
-  };
-
-  const handleMoveSection = () => {};
-  const handleAddSocialLink = () => {};
-  const handleUpdateSocialLink = () => {};
-  const handleDeleteSocialLink = () => {};
-  const handleUpdateName = () => {};
-  const handleUpdateTitle = () => {};
-
-  const renderSection = (section: ResumeSection) => <div>{section.type}</div>;
 
   return (
     <div className={`min-h-screen ${activeTheme === 'dark' ? 'dark' : ''} ${previewMode ? 'preview-mode' : ''}`}>

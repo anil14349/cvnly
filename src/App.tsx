@@ -588,7 +588,7 @@ function App() {
             </div>
             <div className="flex items-center gap-4">
               <button
-                onClick={() => generatePdf(resumeRef.current)}
+                onClick={() => generatePdf(resumeContentRef.current)}
                 className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
               >
                 <Download className="w-4 h-4" />

@@ -42,6 +42,9 @@ const usePdfGeneration = () => {
       
       // Remove print class after generation
       element.classList.remove('print-mode');
+      if (element.parentElement) {
+        element.parentElement.classList.remove('print-mode');
+      }
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {

@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from 'react';
-import { Download } from 'lucide-react';
 import './index.css';
 import './styles/index.css';
 
@@ -26,7 +25,10 @@ import CertificationsSection from './components/sections/CertificateSection/Cert
 
 // Import hooks
 import usePdfGeneration from './hooks/usePdfGeneration';
-// import useResumeStats from './hooks/useResumeStats';
+
+// Import payment and ATS components
+import DownloadWithPayment from './components/payment/DownloadWithPayment';
+import ATSScoreWidget from './components/widgets/ATSScoreWidget';
 
 // Import utils
 import { HEADER_FONTS, BODY_FONTS } from './utils/fontUtils';
@@ -587,13 +589,19 @@ function App() {
               <h1 className="text-xl font-semibold text-gray-800 dark:text-white">CVnly</h1>
             </div>
             <div className="flex items-center gap-4">
-              <button
-                onClick={() => generatePdf(resumeContentRef.current)}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
-              >
-                <Download className="w-4 h-4" />
-                Download PDF
-              </button>
+              <DownloadWithPayment
+                onDownload={() => generatePdf(resumeContentRef.current)}
+                resumeData={{
+                  name: resumeData.name,
+                  title: resumeData.title,
+                  sections,
+                  skills,
+                  experiences,
+                  educations,
+                  projects,
+                  certifications
+                }}
+              />
               <button
                 onClick={() => setPreviewMode(true)}
                 className="ml-2 px-4 py-2 border border-blue-400 text-blue-600 rounded-full bg-white hover:bg-blue-50 transition print:hidden"
@@ -765,6 +773,17 @@ function App() {
           {/* Hide sidebar controls in preview mode */}
           {!previewMode && (
             <div className="col-span-4 space-y-4">
+              <ATSScoreWidget
+                resumeData={{
+                  name: resumeData.name,
+                  title: resumeData.title,
+                  sections,
+                  skills,
+                  experiences,
+                  educations,
+                  projects
+                }}
+              />
               <FontControlPanel
                 fontOptions={fontOptions}
                 updateFontOption={updateFontOption}

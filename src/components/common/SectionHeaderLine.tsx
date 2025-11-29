@@ -28,28 +28,31 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
         document.documentElement.style.setProperty('--line-color', lineColor);
     }, [fontOptions?.lineColor]);
 
-    const headerStyle = {
-        fontFamily: fontOptions?.sectionHeaderFont || 'inherit',
-        fontSize: fontOptions?.sectionHeaderSize || 'inherit',
-        fontWeight: fontOptions?.sectionHeaderWeight || 'inherit',
-        lineHeight: fontOptions?.sectionHeaderLineHeight || 'inherit',
-        letterSpacing: fontOptions?.sectionHeaderLetterSpacing || 'inherit',
-        fontStyle: fontOptions?.sectionHeaderItalic ? 'italic' : 'normal',
-        textDecoration: fontOptions?.sectionHeaderUnderline ? 'underline' : 'none',
-        color: fontOptions?.sectionHeaderColor || 'inherit',
+    const getHeaderClasses = () => {
+        const classes = [
+            'section-header flex-grow',
+            fontOptions?.sectionHeaderSize || 'text-xl',
+            fontOptions?.sectionHeaderWeight || 'font-normal',
+            fontOptions?.sectionHeaderLineHeight || 'leading-tight',
+            fontOptions?.sectionHeaderLetterSpacing || 'tracking-tight',
+            fontOptions?.sectionHeaderColor || 'text-gray-600',
+            `font-header-${fontOptions?.sectionHeaderFont?.toLowerCase() || 'inter'}`,
+            fontOptions?.sectionHeaderItalic ? 'italic' : '',
+            fontOptions?.sectionHeaderUnderline ? 'underline' : ''
+        ];
+        return classes.filter(Boolean).join(' ');
     };
 
     return (
         <div className="relative group">
             <div className="flex items-center justify-between gap-4 pb-2">
-                <h2 className="section-header flex-grow" style={headerStyle}>
+                <h2 className={getHeaderClasses()}>
                     {onTitleChange ? (
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => onTitleChange(e.target.value)}
-                            className="bg-transparent border-none focus:outline-none focus:ring-0 w-full"
-                            style={headerStyle}
+                            className={`bg-transparent border-none focus:outline-none focus:ring-0 w-full ${getHeaderClasses()}`}
                             aria-label={`Edit ${title} section title`}
                         />
                     ) : (

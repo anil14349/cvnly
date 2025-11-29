@@ -55,8 +55,8 @@ const SkillCategory: React.FC<Props> = ({
 
     if (skillLayout === 'classic') {
         // Compose the display value
-        const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} font-header-${fontOptions.subheaderFont?.toLowerCase?.()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
-        const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
+        const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing} font-header-${fontOptions.subheaderFont?.toLowerCase?.()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
+        const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
         return (
             <li className={CLASSIC_CATEGORY_CONTAINER_CLASS}>
                 <input
@@ -96,31 +96,74 @@ const SkillCategory: React.FC<Props> = ({
                 fontOptions={fontOptions}
             />
             {skillLayout === 'pill' ? (
-                <div className="flex flex-wrap gap-2 mt-1">
-                    {category.items.map((item, idx) => (
-                        <span key={idx} className="bg-gray-100 text-gray-700 px-3 py-1 rounded-full text-sm border border-gray-200">
-                            {item}
-                        </span>
-                    ))}
-                </div>
+                <>
+                    <div className="flex flex-wrap gap-2 mt-1">
+                        {category.items.map((item, idx) => (
+                            <div key={idx} className="group/pill relative">
+                                <input
+                                    type="text"
+                                    value={item}
+                                    onChange={(e) => handleEditSkill(idx, e.target.value)}
+                                    className={`px-3 py-1 rounded-full border bg-gray-100 dark:bg-gray-700 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                    style={{
+                                        borderColor: 'var(--line-color, #d1d5db)',
+                                        fontFamily: fontOptions.bodyFont,
+                                        lineHeight: fontOptions.bodyLineHeight,
+                                        letterSpacing: fontOptions.bodyLetterSpacing,
+                                        minWidth: `${Math.max(item.length * 0.6, 3)}rem`,
+                                    }}
+                                />
+                                {!previewMode && (
+                                    <button
+                                        onClick={() => handleDeleteSkill(idx)}
+                                        className="absolute -top-1 -right-1 w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center opacity-0 group-hover/pill:opacity-100 transition-opacity"
+                                        aria-label="Delete skill"
+                                    >
+                                        <span className="text-xs">×</span>
+                                    </button>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                    {!previewMode && (
+                        <div className="mt-2">
+                            <input
+                                type="text"
+                                value={newSkill}
+                                onChange={(e) => setNewSkill(e.target.value)}
+                                onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
+                                placeholder="Add new skill..."
+                                className={`px-3 py-1 rounded-full border border-dashed bg-transparent ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont?.toLowerCase?.()} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                style={{
+                                    borderColor: 'var(--line-color, #d1d5db)',
+                                    fontFamily: fontOptions.bodyFont,
+                                    lineHeight: fontOptions.bodyLineHeight,
+                                    letterSpacing: fontOptions.bodyLetterSpacing,
+                                }}
+                            />
+                        </div>
+                    )}
+                </>
             ) : (
-                <SkillList
-                    items={category.items}
-                    onEdit={handleEditSkill}
-                    onDelete={handleDeleteSkill}
-                    fontOptions={fontOptions}
-                    baseTextClasses={baseTextClasses}
-                />
+                <>
+                    <SkillList
+                        items={category.items}
+                        onEdit={handleEditSkill}
+                        onDelete={handleDeleteSkill}
+                        fontOptions={fontOptions}
+                        baseTextClasses={baseTextClasses}
+                    />
+                    <NewSkillInput
+                        value={newSkill}
+                        onChange={setNewSkill}
+                        onAdd={handleAddSkill}
+                        onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
+                        fontOptions={fontOptions}
+                        baseTextClasses={baseTextClasses}
+                        previewMode={previewMode}
+                    />
+                </>
             )}
-            <NewSkillInput
-                value={newSkill}
-                onChange={setNewSkill}
-                onAdd={handleAddSkill}
-                onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
-                fontOptions={fontOptions}
-                baseTextClasses={baseTextClasses}
-                previewMode={previewMode}
-            />
         </div>
     );
 };

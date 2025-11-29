@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { FontOptions } from '../../types/common';
 import { Palette, Type, Layout, Italic, Underline, AlignLeft, AlignCenter } from 'lucide-react';
+import { useResumeContext } from '../../contexts/ResumeContext';
 import {
   FONT_SIZES,
   FONT_WEIGHTS,
@@ -21,6 +22,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
   fontOptions,
   updateFontOption,
 }) => {
+  const { applyTheme } = useResumeContext();
   const [activeTab, setActiveTab] = useState<TabType>('layout');
 
   const tabs = [
@@ -64,11 +66,11 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
         <div className="grid grid-cols-2 gap-3">
           <button
             className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
-              (!fontOptions || !('theme' in fontOptions) || fontOptions.theme === 'light')
+              document.documentElement.classList.contains('light') || !document.documentElement.classList.contains('dark')
                 ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-700 dark:text-blue-300 shadow-md'
                 : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400 text-gray-700 dark:text-gray-300'
             }`}
-            onClick={() => updateFontOption('theme', 'light')}
+            onClick={() => applyTheme('light')}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <circle cx="12" cy="12" r="5" />
@@ -78,11 +80,11 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
           </button>
           <button
             className={`flex flex-col items-center gap-2 p-4 rounded-lg border-2 transition-all ${
-              (fontOptions?.theme || 'light') === 'dark'
+              document.documentElement.classList.contains('dark')
                 ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-700 dark:text-blue-300 shadow-md'
                 : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400 text-gray-700 dark:text-gray-300'
             }`}
-            onClick={() => updateFontOption('theme', 'dark')}
+            onClick={() => applyTheme('dark')}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               <path d="M21 12.79A9 9 0 1111.21 3a7 7 0 109.79 9.79z" />
@@ -100,21 +102,22 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
         </h3>
         <div className="grid grid-cols-3 gap-2">
           {[
-            { value: 'bulleted', label: 'Bullets', icon: '• • •' },
-            { value: 'horizontal', label: 'Horizontal', icon: '━ ━ ━' },
-            { value: 'vertical', label: 'Vertical', icon: '| | |' },
+            { value: 'bulleted', label: 'Bullets', icon: '• • •', desc: 'Vertical list' },
+            { value: 'pill', label: 'Pills', icon: '⬭ ⬭ ⬭', desc: 'Rounded tags' },
+            { value: 'classic', label: 'Classic', icon: 'A: B, C', desc: 'Inline text' },
           ].map((layout) => (
             <button
               key={layout.value}
-              className={`flex flex-col items-center gap-2 p-3 rounded-lg border-2 transition-all text-xs ${
+              className={`flex flex-col items-center gap-1 p-3 rounded-lg border-2 transition-all ${
                 (fontOptions?.skillLayout || 'bulleted') === layout.value
-                  ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-500 text-purple-700 dark:text-purple-300'
+                  ? 'bg-purple-50 dark:bg-purple-900/30 border-purple-500 text-purple-700 dark:text-purple-300 shadow-md'
                   : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-purple-400 text-gray-700 dark:text-gray-300'
               }`}
               onClick={() => updateFontOption('skillLayout', layout.value)}
+              title={layout.desc}
             >
-              <span className="text-lg">{layout.icon}</span>
-              <span className="font-semibold">{layout.label}</span>
+              <span className="text-lg font-bold">{layout.icon}</span>
+              <span className="text-xs font-semibold">{layout.label}</span>
             </button>
           ))}
         </div>

@@ -29,7 +29,7 @@ const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, titl
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
             >
-                <div className="flex items-center mx-auto w-fit group">
+                <div className={`flex items-center mx-auto w-fit group ${getTextAlignment()}`}>
                     <h2
                         className={`
                             ${fontOptions.subheaderSize}
@@ -40,7 +40,7 @@ const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, titl
                             font-header-${fontOptions.subheaderFont.toLowerCase()}
                             ${fontOptions.subheaderItalic ? 'italic' : ''}
                             ${fontOptions.subheaderUnderline ? 'underline' : ''}
-                            text-center
+                            ${getTextAlignment()}
                         `}
                         contentEditable
                         suppressContentEditableWarning

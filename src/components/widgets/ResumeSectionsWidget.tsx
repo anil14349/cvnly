@@ -91,10 +91,10 @@ const ResumeSectionsWidget: React.FC = () => {
         <div className="space-y-4">
           {/* Add Section */}
           <div>
-            <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3">Add Section</h3>
+            <h3 className="text-xs font-bold text-gray-600 dark:text-gray-200 uppercase tracking-wider mb-3">Add Section</h3>
           <div className="flex flex-wrap gap-2">
             {availableSections.length === 0 && availableSocialLinks.length === 0 ? (
-              <span className="text-xs text-gray-500 dark:text-gray-400 italic">All sections added</span>
+              <span className="text-xs text-gray-500 dark:text-gray-300 italic">All sections added</span>
             ) : (
               <>
                 {availableSections.filter(section => section.type !== 'title' || showResumeHeaderTitleButton).map(section => (
@@ -142,7 +142,7 @@ const ResumeSectionsWidget: React.FC = () => {
 
         {/* Current Sections List */}
         <div>
-          <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3">Current Sections</h3>
+          <h3 className="text-xs font-bold text-gray-600 dark:text-gray-200 uppercase tracking-wider mb-3">Current Sections</h3>
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="sections">
               {(provided) => (
@@ -163,18 +163,18 @@ const ResumeSectionsWidget: React.FC = () => {
                           {...provided.draggableProps}
                           className={`flex items-center justify-between p-3 rounded-lg border-2 transition-all ${
                             section.visible !== false 
-                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 dark:border-blue-600' 
-                              : 'border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 opacity-60'
+                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/50 dark:border-blue-500' 
+                              : 'border-gray-200 bg-gray-50 dark:bg-gray-800/50 dark:border-gray-600 opacity-60'
                           } ${snapshot.isDragging ? 'shadow-xl scale-105' : 'shadow-sm hover:shadow-md'}`}
                         >
                           <div className="flex items-center gap-3">
                             <div {...provided.dragHandleProps} className="cursor-grab active:cursor-grabbing">
-                              <GripVertical className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                              <GripVertical className="w-4 h-4 text-gray-400 dark:text-gray-300" />
                             </div>
                             <span className={`text-sm font-semibold ${
                               section.visible !== false 
                                 ? 'text-gray-900 dark:text-white' 
-                                : 'text-gray-500 dark:text-gray-400'
+                                : 'text-gray-500 dark:text-gray-300'
                             }`}>
                               {getSectionTitle(section.type)}
                             </span>

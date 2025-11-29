@@ -53,7 +53,6 @@ export const AddSectionButton = ({
             : `rgba(${parseInt(lineColor.slice(1, 3), 16)}, ${parseInt(lineColor.slice(3, 5), 16)}, ${parseInt(lineColor.slice(5, 7), 16)}, 0.8)`; // Darker in light mode
 
         buttonStyle = {
-            border: `1.5px dashed ${isHovered ? darkLineColor : hoverColor}`,
             borderColor: isHovered ? darkLineColor : hoverColor,
             borderStyle: 'dashed',
             borderWidth: '1.5px',
@@ -63,13 +62,13 @@ export const AddSectionButton = ({
             transition: 'all 0.2s ease-in-out'
         };
         iconStyle = {
-            color: fontOptions.theme === 'dark' ? '#e5e7eb' : '#374151',
+            color: fontOptions.theme === 'dark' ? '#f3f4f6' : '#374151',
             fontWeight: 'bold',
             width: '14px',
             height: '14px'
         };
         textStyle = {
-            color: fontOptions.theme === 'dark' ? '#e5e7eb' : '#374151', // Darker text (gray-800 in light mode, gray-200 in dark mode)
+            color: fontOptions.theme === 'dark' ? '#f3f4f6' : '#374151', // Light text in dark mode (gray-100), gray-800 in light mode
             fontWeight: 400,
             marginLeft: '4px',
             fontSize: '0.75rem' // Smaller font size (12px)

@@ -11,7 +11,7 @@ import {
 const ResumeSectionsWidget: React.FC = () => {
     const {
         sections,
-        updateSections,
+        setSections,
         socialLinks,
         addSocialLink,
         resumeData
@@ -20,9 +20,7 @@ const ResumeSectionsWidget: React.FC = () => {
     const resumeHeaderTitle = resumeData?.title || '';
     
     const onSectionsChange = (newSections: ResumeSection[]) => {
-        if (updateSections) {
-            updateSections(newSections);
-        }
+        setSections(newSections);
     };
     const handleDragEnd = (result: any) => {
         if (!result.destination) return;
@@ -35,12 +33,19 @@ const ResumeSectionsWidget: React.FC = () => {
     };
 
     const toggleSectionVisibility = (sectionType: string) => {
+        console.log('Toggling visibility for:', sectionType);
+        console.log('Current sections:', sections);
+        
         const updatedSections = sections.map((section) => {
             if (section.type === sectionType) {
-                return { ...section, visible: !section.visible };
+                const newVisible = section.visible === false ? true : false;
+                console.log(`Changing ${sectionType} from ${section.visible} to ${newVisible}`);
+                return { ...section, visible: newVisible };
             }
             return section;
         });
+        
+        console.log('Updated sections:', updatedSections);
         onSectionsChange(updatedSections);
     };
 
@@ -86,29 +91,22 @@ const ResumeSectionsWidget: React.FC = () => {
     const showResumeHeaderTitleButton = !resumeHeaderTitle;
 
     return (
-      <div className={PANEL_STYLES.container}>
-        {/* --- Widget Header - Compact --- */}
-        <div className="px-4 py-2.5 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
-          <h2 className="text-sm font-semibold text-gray-900 dark:text-white">Resume Sections</h2>
-          <p className="text-xs text-gray-600 dark:text-gray-400 mt-0.5">
-            Manage sections
-          </p>
-        </div>
-
-        {/* --- Content - Compact --- */}
-        <div className="px-4 py-3 space-y-3">
-          {/* --- Available Sections Pool - Compact --- */}
+      <div className="p-5">
+        {/* NO HEADER - Panel already shows "Resume Sections" */}
+        
+        <div className="space-y-4">
+          {/* Add Section */}
           <div>
-            <h3 className="text-xs font-semibold text-gray-900 dark:text-white mb-2">Add Section</h3>
-          <div className="flex flex-wrap gap-1.5 mb-2">
+            <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3">Add Section</h3>
+          <div className="flex flex-wrap gap-2">
             {availableSections.length === 0 && availableSocialLinks.length === 0 ? (
-              <span className="text-xs text-gray-400">All added</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400 italic">All sections added</span>
             ) : (
               <>
                 {availableSections.filter(section => section.type !== 'title' || showResumeHeaderTitleButton).map(section => (
                   <button
                     key={section.type}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded bg-gray-700 text-white hover:bg-gray-600 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 transition-colors shadow-sm"
                     onClick={() => {
                       if (section.type === 'title') {
                         // Remove any lingering 'title' section
@@ -136,7 +134,7 @@ const ResumeSectionsWidget: React.FC = () => {
                 {availableSocialLinks.map(type => (
                   <button
                     key={type}
-                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs rounded bg-gray-700 text-white hover:bg-gray-600 transition-colors"
+                    className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-md bg-blue-600 text-white hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600 transition-colors shadow-sm capitalize"
                     onClick={() => addSocialLink(type)}
                   >
                     <Plus className="w-3 h-3" />
@@ -148,16 +146,16 @@ const ResumeSectionsWidget: React.FC = () => {
           </div>
         </div>
 
-        {/* --- Active Sections List - Compact --- */}
+        {/* Current Sections List */}
         <div>
-          <h3 className="text-xs font-semibold text-gray-900 dark:text-white mb-2">Current Sections</h3>
+          <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3">Current Sections</h3>
           <DragDropContext onDragEnd={handleDragEnd}>
             <Droppable droppableId="sections">
               {(provided) => (
                 <div
                   {...provided.droppableProps}
                   ref={provided.innerRef}
-                  className="space-y-1.5"
+                  className="space-y-2"
                 >
                   {sections.map((section, index) => (
                     <Draggable
@@ -169,31 +167,38 @@ const ResumeSectionsWidget: React.FC = () => {
                         <div
                           ref={provided.innerRef}
                           {...provided.draggableProps}
-                          className={`flex items-center justify-between bg-white dark:bg-gray-900 p-2 rounded border ${
-                            section.visible !== false ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/20' : 'border-gray-200 dark:border-gray-700'
-                          } ${snapshot.isDragging ? 'shadow-lg' : 'shadow-sm'}`}
+                          className={`flex items-center justify-between p-3 rounded-lg border-2 transition-all ${
+                            section.visible !== false 
+                              ? 'border-blue-500 bg-blue-50 dark:bg-blue-900/30 dark:border-blue-600' 
+                              : 'border-gray-200 bg-gray-50 dark:bg-gray-800 dark:border-gray-700 opacity-60'
+                          } ${snapshot.isDragging ? 'shadow-xl scale-105' : 'shadow-sm hover:shadow-md'}`}
                         >
-                          <div className="flex items-center gap-2">
-                            <div {...provided.dragHandleProps}>
-                              <GripVertical className="w-3.5 h-3.5 text-gray-400 cursor-grab" />
+                          <div className="flex items-center gap-3">
+                            <div {...provided.dragHandleProps} className="cursor-grab active:cursor-grabbing">
+                              <GripVertical className="w-4 h-4 text-gray-400 dark:text-gray-500" />
                             </div>
-                            <span className="text-xs font-medium text-gray-700 dark:text-gray-200">
+                            <span className={`text-sm font-semibold ${
+                              section.visible !== false 
+                                ? 'text-gray-900 dark:text-white' 
+                                : 'text-gray-500 dark:text-gray-400'
+                            }`}>
                               {getSectionTitle(section.type)}
                             </span>
                           </div>
-                          <div className="flex items-center gap-1">
-                            <button
-                              onClick={() => toggleSectionVisibility(section.type)}
-                              className="p-1 hover:bg-gray-100 dark:hover:bg-gray-800 rounded"
-                              title={section.visible !== false ? 'Hide section' : 'Show section'}
-                            >
-                              {section.visible !== false ? (
-                                <Eye className="w-3.5 h-3.5 text-blue-500" />
-                              ) : (
-                                <EyeOff className="w-3.5 h-3.5 text-gray-400" />
-                              )}
-                            </button>
-                          </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              toggleSectionVisibility(section.type);
+                            }}
+                            className="p-1.5 hover:bg-white dark:hover:bg-gray-700 rounded-md transition-colors"
+                            title={section.visible !== false ? 'Hide section' : 'Show section'}
+                          >
+                            {section.visible !== false ? (
+                              <Eye className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                            ) : (
+                              <EyeOff className="w-4 h-4 text-gray-400 dark:text-gray-500" />
+                            )}
+                          </button>
                         </div>
                       )}
                     </Draggable>

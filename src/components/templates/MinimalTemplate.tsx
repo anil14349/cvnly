@@ -46,7 +46,7 @@ const MinimalTemplate: React.FC<MinimalTemplateProps> = ({
 
       {/* Maximum whitespace between sections */}
       {sections.map((section, index) => {
-        if (!section.visible) return null;
+        if (section.visible === false) return null;
         return (
           <div key={section.type + index} style={{ marginBottom: '40px' }}>
             {renderSection(section)}

@@ -52,7 +52,7 @@ const ExecutiveTemplate: React.FC<ExecutiveTemplateProps> = ({
 
       {/* Centered sections with decorative lines */}
       {sections.map((section, index) => {
-        if (!section.visible) return null;
+        if (section.visible === false) return null;
         return (
           <div key={section.type + index} style={{ marginBottom: '36px', maxWidth: '90%', margin: '0 auto 36px auto' }}>
             {renderSection(section)}

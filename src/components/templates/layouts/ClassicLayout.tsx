@@ -47,7 +47,7 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
       {/* Single Column Content */}
       <div>
         {sections.map((section, index) => {
-          if (!section.visible) return null;
+          if (section.visible === false) return null;
           return (
             <div key={section.type + index}>
               {renderSection(section)}

@@ -59,7 +59,7 @@ const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
 
         {/* Left column sections */}
         {leftSections.map((section, index) => {
-          if (!section.visible) return null;
+          if (section.visible === false) return null;
           return (
             <div key={section.type + index} style={{ marginBottom: '24px', color: '#ecf0f1' }}>
               {renderSection(section)}
@@ -71,7 +71,7 @@ const TwoColumnLayout: React.FC<TwoColumnLayoutProps> = ({
       {/* Right Column - 65% */}
       <div style={{ flex: '0 0 65%', padding: '24px 24px 24px 0' }}>
         {rightSections.map((section, index) => {
-          if (!section.visible) return null;
+          if (section.visible === false) return null;
           return (
             <div key={section.type + index}>
               {renderSection(section)}

@@ -60,7 +60,7 @@ const ModernLayout: React.FC<ModernLayoutProps> = ({
         {/* Main content - 70% */}
         <div style={{ flex: '0 0 70%' }}>
           {mainSections.map((section, index) => {
-            if (!section.visible) return null;
+            if (section.visible === false) return null;
             return (
               <div key={section.type + index}>
                 {renderSection(section)}
@@ -72,7 +72,7 @@ const ModernLayout: React.FC<ModernLayoutProps> = ({
         {/* Sidebar - 30% */}
         <div style={{ flex: '0 0 30%', background: '#f7fafc', padding: '16px', borderRadius: '8px' }}>
           {sidebarSections.map((section, index) => {
-            if (!section.visible) return null;
+            if (section.visible === false) return null;
             return (
               <div key={section.type + index} style={{ marginBottom: '20px' }}>
                 {renderSection(section)}

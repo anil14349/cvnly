@@ -54,7 +54,7 @@ const CreativeTemplate: React.FC<CreativeTemplateProps> = ({
 
       {/* Single column with colorful accents */}
       {sections.map((section, index) => {
-        if (!section.visible) return null;
+        if (section.visible === false) return null;
         return (
           <div key={section.type + index}>
             {renderSection(section)}

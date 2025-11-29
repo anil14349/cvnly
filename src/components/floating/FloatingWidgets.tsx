@@ -21,7 +21,9 @@ const FloatingWidgetWrapper: React.FC<FloatingWidgetWrapperProps> = ({ widgetId 
     skills,
     experiences,
     educations,
-    projects
+    projects,
+    fontOptions,
+    updateFontOption
   } = useResumeContext();
 
   const [atsData, setAtsData] = useState<ReturnType<typeof calculateATSScore> | null>(null);
@@ -71,7 +73,7 @@ const FloatingWidgetWrapper: React.FC<FloatingWidgetWrapperProps> = ({ widgetId 
       return <TemplateSelector />;
 
     case 'appearance':
-      return <FontControlPanelTabbed />;
+      return <FontControlPanelTabbed fontOptions={fontOptions} updateFontOption={updateFontOption} />;
 
     case 'sections':
       return <ResumeSectionsWidget />;

@@ -46,7 +46,7 @@ const ClassicTemplate: React.FC<ClassicTemplateProps> = ({
 
       {/* Single Column Content */}
       {sections.map((section, index) => {
-        if (!section.visible) return null;
+        if (section.visible === false) return null;
         return (
           <div key={section.type + index}>
             {renderSection(section)}

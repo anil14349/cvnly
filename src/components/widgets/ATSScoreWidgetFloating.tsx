@@ -45,11 +45,11 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
       {/* Clean Score Display */}
       <div className="flex flex-col items-center mb-6">
         {/* Large Score Number */}
-        <div className="relative mb-3">
+        <div className="flex items-baseline gap-1 mb-3">
           <div className="text-7xl font-bold tracking-tight tabular-nums" style={{ color: getScoreColor(score) }}>
             {score}
           </div>
-          <div className="absolute -right-8 top-1 text-3xl font-normal text-gray-500 dark:text-gray-400">/100</div>
+          <div className="text-3xl font-normal text-gray-500 dark:text-gray-400">/100</div>
         </div>
         
         {/* Status Badge */}
@@ -79,7 +79,7 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
         </div>
         
         {/* Message */}
-        <p className="text-sm text-gray-700 dark:text-gray-300 text-center mt-3 leading-relaxed font-medium">
+        <p className="text-sm text-gray-700 dark:text-gray-100 text-center mt-3 leading-relaxed font-medium">
           {score >= 80 
             ? 'Your resume is well-optimized for ATS systems!' 
             : score >= 60 
@@ -93,7 +93,7 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
 
       {/* Breakdown Section - Compact & Clean */}
       <div className="space-y-3 mb-6">
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-400 uppercase tracking-wider mb-3">
+        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-100 uppercase tracking-wider mb-3">
           Breakdown
         </h3>
         
@@ -102,7 +102,7 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
           return (
             <div key={key} className="space-y-1.5">
               <div className="flex justify-between items-baseline">
-                <span className="text-sm font-semibold text-gray-800 dark:text-gray-200 capitalize">
+                <span className="text-sm font-semibold text-gray-800 dark:text-gray-100 capitalize">
                   {key}
                 </span>
                 <span className="text-sm font-bold text-gray-900 dark:text-white tabular-nums">
@@ -131,16 +131,16 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
         <>
           <div className="h-px bg-gray-300 dark:bg-gray-600 my-5" />
           
-          <div className="p-4 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
+          <div className="p-4 bg-blue-50 dark:bg-blue-900/50 rounded-lg border border-blue-200 dark:border-blue-600">
             <div className="flex items-start gap-3">
-              <div className="p-2 bg-blue-100 dark:bg-blue-800 rounded-lg flex-shrink-0 mt-0.5">
-                <AlertCircle className="w-4 h-4 text-blue-600 dark:text-blue-300" />
+              <div className="p-2 bg-blue-100 dark:bg-blue-700 rounded-lg flex-shrink-0 mt-0.5">
+                <AlertCircle className="w-4 h-4 text-blue-600 dark:text-blue-100" />
               </div>
               <div className="flex-1 min-w-0">
-                <h4 className="text-xs font-bold text-blue-900 dark:text-blue-100 mb-1.5 uppercase tracking-wide">
+                <h4 className="text-xs font-bold text-blue-900 dark:text-white mb-1.5 uppercase tracking-wide">
                   Priority Action
                 </h4>
-                <p className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed font-medium">
+                <p className="text-sm text-blue-800 dark:text-gray-100 leading-relaxed font-medium">
                   {recommendations[0]}
                 </p>
               </div>

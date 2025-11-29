@@ -4,13 +4,11 @@ import { ResumeTemplate, RESUME_TEMPLATES } from '../../types/templates';
 import { useResumeContext } from '../../contexts/ResumeContext';
 
 const TemplateSelector: React.FC = () => {
-  const { selectedTemplate, selectTemplate } = useResumeContext();
+  const { selectedTemplate, updateTemplate } = useResumeContext();
   const [expanded, setExpanded] = useState(false);
   
-  const onTemplateChange = (template: ResumeTemplate) => {
-    if (selectTemplate) {
-      selectTemplate(template.id);
-    }
+  const onTemplateChange = (templateId: string) => {
+    updateTemplate(templateId as any);
   };
 
   return (

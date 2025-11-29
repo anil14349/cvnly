@@ -33,19 +33,13 @@ const ResumeSectionsWidget: React.FC = () => {
     };
 
     const toggleSectionVisibility = (sectionType: string) => {
-        console.log('Toggling visibility for:', sectionType);
-        console.log('Current sections:', sections);
-        
         const updatedSections = sections.map((section) => {
             if (section.type === sectionType) {
                 const newVisible = section.visible === false ? true : false;
-                console.log(`Changing ${sectionType} from ${section.visible} to ${newVisible}`);
                 return { ...section, visible: newVisible };
             }
             return section;
         });
-        
-        console.log('Updated sections:', updatedSections);
         onSectionsChange(updatedSections);
     };
 

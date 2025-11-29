@@ -4,11 +4,11 @@ import { calculateATSScore } from '../../utils/atsScoreCalculator';
 
 // Widget Components
 import ATSScoreWidgetFloating from '../widgets/ATSScoreWidgetFloating';
-import QuickWinsWidget from '../widgets/QuickWinsWidget';
-import TemplateSelector from '../widgets/TemplateSelector';
+import QuickWinsWidgetFloating from '../widgets/QuickWinsWidgetFloating';
+import TemplateSelectorFloating from '../widgets/TemplateSelectorFloating';
 import FontControlPanelTabbed from '../widgets/FontControlPanelTabbed';
 import ResumeSectionsWidget from '../widgets/ResumeSectionsWidget';
-import ContextualTips from '../widgets/ContextualTips';
+import ContextualTipsFloating from '../widgets/ContextualTipsFloating';
 
 interface FloatingWidgetWrapperProps {
   widgetId: string;
@@ -60,7 +60,7 @@ const FloatingWidgetWrapper: React.FC<FloatingWidgetWrapperProps> = ({ widgetId 
 
     case 'quick-wins':
       return atsData ? (
-        <QuickWinsWidget 
+        <QuickWinsWidgetFloating 
           score={atsData.score}
           breakdown={atsData.breakdown}
           hasExperience={experiences.length > 0}
@@ -70,7 +70,7 @@ const FloatingWidgetWrapper: React.FC<FloatingWidgetWrapperProps> = ({ widgetId 
       ) : null;
 
     case 'template':
-      return <TemplateSelector />;
+      return <TemplateSelectorFloating />;
 
     case 'appearance':
       return <FontControlPanelTabbed fontOptions={fontOptions} updateFontOption={updateFontOption} />;
@@ -80,7 +80,7 @@ const FloatingWidgetWrapper: React.FC<FloatingWidgetWrapperProps> = ({ widgetId 
 
     case 'tips':
       return atsData ? (
-        <ContextualTips 
+        <ContextualTipsFloating 
           score={atsData.score}
           breakdown={atsData.breakdown}
         />

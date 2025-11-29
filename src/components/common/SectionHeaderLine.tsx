@@ -1,5 +1,5 @@
 import React from 'react';
-import { FontOptions } from '../../types';
+import { FontOptions } from '../../types/common';
 
 interface SectionHeaderLineProps {
     title: string;
@@ -23,11 +23,10 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
     controls
 }) => {
     React.useEffect(() => {
-        const lineColor = fontOptions?.theme === 'dark'
-            ? fontOptions.lineColorDark || '#2d3748'
-            : fontOptions.lineColorLight || '#e2e8f0';
+        // Use lineColor from fontOptions, defaulting to blue
+        const lineColor = fontOptions?.lineColor || '#4299e1';
         document.documentElement.style.setProperty('--line-color', lineColor);
-    }, [fontOptions?.theme, fontOptions?.lineColorDark, fontOptions?.lineColorLight]);
+    }, [fontOptions?.lineColor]);
 
     const headerStyle = {
         fontFamily: fontOptions?.sectionHeaderFont || 'inherit',
@@ -51,6 +50,7 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
                             onChange={(e) => onTitleChange(e.target.value)}
                             className="bg-transparent border-none focus:outline-none focus:ring-0 w-full"
                             style={headerStyle}
+                            aria-label={`Edit ${title} section title`}
                         />
                     ) : (
                         title
@@ -81,7 +81,13 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
                     ))}
                 </div>
             </div>
-            <div className="h-px bg-[var(--line-color)]" />
+            <div 
+                style={{ 
+                    height: '1px', 
+                    width: '100%', 
+                    backgroundColor: 'var(--line-color)' 
+                }} 
+            />
         </div>
     );
 };

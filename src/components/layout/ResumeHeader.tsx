@@ -34,7 +34,7 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
   };
 
   return (
-    <div className="mt-2 ">
+    <div className="mb-0">
       <ResumeHeaderName
         name={resumeData.name}
         fontOptions={fontOptions}
@@ -50,9 +50,6 @@ const ResumeHeader: React.FC<ResumeHeaderProps> = ({
         updateSocialLink={updateSocialLink}
         fontOptions={fontOptions}
         iconFormat={iconFormat}
-      />
-      <ResumeHeaderLine
-        fontOptions={fontOptions}
       />
     </div>
   );

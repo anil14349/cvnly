@@ -87,7 +87,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { previewMode?: boole
 
   return (
     <div
-      className={`mt-2 ${EXPERIENCE_CONTAINER_CLASS}`}
+      className={`mt-4 ${EXPERIENCE_CONTAINER_CLASS}`}
       style={{
         background: fontOptions.theme === 'dark'
           ? fontOptions.widgetBgDark || DEFAULT_BG_DARK

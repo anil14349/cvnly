@@ -55,7 +55,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
           ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
           : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
       }}
-      className={PROJECTS_CONTAINER_CLASS}
+      className={`${PROJECTS_CONTAINER_CLASS} mt-4`}
     >
       <SectionHeaderLine
         title={title}

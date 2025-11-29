@@ -5,6 +5,7 @@ import { Experience } from '../types/experience';
 import { Education } from '../types/education';
 import { Project } from '../types/project';
 import { Certification } from '../types/certification';
+import { ResumeTemplate } from '../types/templates';
 
 export interface ResumeContextType {
   // Resume Data
@@ -62,6 +63,10 @@ export interface ResumeContextType {
   // Theme
   activeTheme: 'light' | 'dark';
   applyTheme: (theme: 'light' | 'dark') => void;
+
+  // Template
+  selectedTemplate: ResumeTemplate;
+  updateTemplate: (template: ResumeTemplate) => void;
 }
 
 const ResumeContext = createContext<ResumeContextType | undefined>(undefined);

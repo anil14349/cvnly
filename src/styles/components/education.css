@@ -8,11 +8,7 @@
   position: relative;
 }
 
-/* Section divider styling */
-.education-section .section-divider {
-  background-color: var(--line-color, #4299e1);
-  transition: all 0.3s ease;
-}
+/* Section divider styling - Removed, handled by SectionHeaderLine component */
 
 /* Education Item Styles */
 .education-item {
@@ -43,9 +39,7 @@
   letter-spacing: 0.02em;
 }
 
-.template-modern .education-section .section-divider {
-  height: 3px;
-}
+/* Removed - handled by SectionHeaderLine component */
 
 .template-minimal .education-item input,
 .template-minimal .education-item textarea {

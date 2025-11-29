@@ -48,7 +48,7 @@ export const SkillsSection: React.FC<SkillsSectionProps & { previewMode?: boolea
   const skillLayout = fontOptions.skillLayout || 'bulleted';
 
   return (
-    <section className="mt-2 relative group skills-section" aria-labelledby={`skills-section-${index}`}>
+    <section className="mt-4 relative group skills-section" aria-labelledby={`skills-section-${index}`}>
       <SectionHeaderLine
         title={title}
         fontOptions={fontOptions}

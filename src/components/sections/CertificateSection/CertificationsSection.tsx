@@ -51,7 +51,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
   return (
     <div
       style={{
-        marginTop: '0.5rem',
+        marginTop: '1rem',
         background:
           fontOptions.theme === "dark"
             ? fontOptions.widgetBgDark || DEFAULT_BG_DARK

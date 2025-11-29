@@ -1,0 +1,326 @@
+/* Floating Toolbar Styles */
+.floating-toolbar {
+  position: fixed;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: white;
+  border-radius: 12px;
+  padding: 12px 8px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  transition: all 0.3s ease;
+}
+
+.dark .floating-toolbar {
+  background: rgba(30, 41, 59, 0.95);
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.3),
+    0 2px 4px -1px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.toolbar-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.toolbar-item {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #64748b;
+}
+
+.toolbar-item:hover {
+  background: #f1f5f9;
+  color: #3b82f6;
+  transform: translateX(-2px);
+}
+
+.dark .toolbar-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #60a5fa;
+}
+
+.toolbar-item.active {
+  background: #3b82f6;
+  color: white;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+}
+
+.dark .toolbar-item.active {
+  background: #60a5fa;
+  color: #0f172a;
+}
+
+.toolbar-icon {
+  width: 24px;
+  height: 24px;
+}
+
+.active-indicator {
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 24px;
+  background: white;
+  border-radius: 2px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+/* Mini ATS Badge */
+.mini-ats-badge {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dark .mini-ats-badge {
+  border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.badge-score {
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+/* Floating Panel Styles */
+.floating-panel {
+  position: fixed;
+  z-index: 999;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  animation: floatIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  flex-direction: column;
+  max-height: calc(100vh - 100px);
+}
+
+.dark .floating-panel {
+  background: #1e293b;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.3),
+    0 10px 10px -5px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.floating-panel.dragging {
+  cursor: grabbing;
+  box-shadow: 
+    0 25px 50px -12px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(0, 0, 0, 0.1);
+  transform: scale(1.02);
+}
+
+.floating-panel.minimized {
+  height: auto !important;
+}
+
+.floating-panel.minimized .panel-content {
+  display: none;
+}
+
+/* Panel Header */
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: linear-gradient(to bottom, rgba(248, 250, 252, 0.8), transparent);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  cursor: grab;
+  user-select: none;
+}
+
+.dark .panel-header {
+  background: linear-gradient(to bottom, rgba(15, 23, 42, 0.8), transparent);
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+
+.panel-header:active {
+  cursor: grabbing;
+}
+
+.panel-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  font-size: 15px;
+  color: #1e293b;
+}
+
+.dark .panel-title {
+  color: #f1f5f9;
+}
+
+.drag-handle {
+  width: 16px;
+  height: 16px;
+  color: #94a3b8;
+}
+
+.panel-actions {
+  display: flex;
+  gap: 4px;
+}
+
+.panel-action-btn {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 6px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s ease;
+}
+
+.panel-action-btn:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.dark .panel-action-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+/* Panel Content */
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px;
+}
+
+.panel-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.panel-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.dark .panel-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.dark .panel-content::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Resize Handle */
+.panel-resize-handle {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 16px;
+  height: 16px;
+  cursor: nwse-resize;
+  background: linear-gradient(135deg, transparent 50%, #cbd5e1 50%);
+  border-bottom-right-radius: 12px;
+}
+
+/* Animations */
+@keyframes floatIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Responsive - Hide toolbar on small screens */
+@media (max-width: 768px) {
+  .floating-toolbar {
+    right: 12px;
+    padding: 8px 6px;
+  }
+  
+  .toolbar-item {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .toolbar-icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .floating-panel {
+    left: 12px !important;
+    right: 12px !important;
+    width: calc(100vw - 24px) !important;
+    max-width: none !important;
+  }
+}
+
+/* Print - Hide floating elements */
+@media print {
+  .floating-toolbar,
+  .floating-panel {
+    display: none !important;
+  }
+}
+

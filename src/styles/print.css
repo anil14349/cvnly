@@ -2,13 +2,55 @@
 @media print {
   @page {
     size: A4;
-    margin: 0;
+    margin: 15mm 15mm 15mm 15mm; /* top, right, bottom, left */
   }
 
   body {
     margin: 0;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
+  }
+  
+  /* Ensure proper page breaks */
+  .resume-print-ready {
+    page-break-inside: auto;
+  }
+  
+  /* Avoid breaking inside sections */
+  section {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Experience, Education, Project items */
+  .experience-item,
+  .education-item,
+  .project-item,
+  .certification-item {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Skill category cards */
+  .skill-category-card {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+  
+  /* Page break helpers */
+  .page-break-before {
+    page-break-before: always;
+    break-before: page;
+  }
+  
+  .page-break-after {
+    page-break-after: always;
+    break-after: page;
+  }
+  
+  .avoid-page-break {
+    page-break-inside: avoid;
+    break-inside: avoid;
   }
 
   /* Hide UI elements */
@@ -97,6 +139,7 @@
 
   /* Force background colors and images to print */
   * {
+    -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
     forced-color-adjust: none !important;
   }
@@ -192,7 +235,6 @@
   .section-header-line {
     margin-bottom: 1rem !important;
     padding-bottom: 0.5rem !important;
-    border-bottom: 2px solid var(--line-color) !important;
   }
 
   /* Skills section */

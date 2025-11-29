@@ -3,11 +3,9 @@ import { useResumeContext } from '../../contexts/ResumeContext';
 
 interface AppHeaderProps {
   onDownload: () => void;
-  previewMode: boolean;
-  setPreviewMode: (mode: boolean) => void;
 }
 
-const AppHeader = ({ onDownload, previewMode, setPreviewMode }: AppHeaderProps) => {
+const AppHeader = ({ onDownload }: AppHeaderProps) => {
   const {
     resumeData,
     sections,
@@ -19,13 +17,18 @@ const AppHeader = ({ onDownload, previewMode, setPreviewMode }: AppHeaderProps) 
   } = useResumeContext();
 
   return (
-    <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-      <div className="container mx-auto px-4 py-4">
+    <header className="app-header-enhanced sticky top-0 z-50 bg-white/95 dark:bg-gray-800/95 backdrop-blur-sm shadow-sm border-b border-gray-200 dark:border-gray-700">
+      <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-6">
-            <h1 className="text-xl font-semibold text-gray-800 dark:text-white">CVnly</h1>
+          <div className="flex items-center space-x-4">
+            <h1 className="text-2xl font-black bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              CVnly
+            </h1>
+            <span className="hidden sm:inline text-sm text-gray-500 dark:text-gray-400 font-medium">
+              Professional Resume Builder
+            </span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <DownloadWithPayment
               onDownload={onDownload}
               resumeData={{
@@ -39,20 +42,6 @@ const AppHeader = ({ onDownload, previewMode, setPreviewMode }: AppHeaderProps) 
                 certifications
               }}
             />
-            <button
-              onClick={() => setPreviewMode(true)}
-              className="ml-2 px-4 py-2 border border-blue-400 text-blue-600 rounded-full bg-white hover:bg-blue-50 transition print:hidden"
-            >
-              Preview Resume
-            </button>
-            {previewMode && (
-              <button
-                onClick={() => setPreviewMode(false)}
-                className="ml-2 px-4 py-2 border border-gray-400 text-gray-600 rounded-full bg-white hover:bg-gray-50 transition print:hidden"
-              >
-                Exit Preview
-              </button>
-            )}
           </div>
         </div>
       </div>

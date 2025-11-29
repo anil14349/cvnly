@@ -6,7 +6,7 @@ import ExperienceSection from '../sections/ExperienceSection/ExperienceSection';
 import EducationSection from '../sections/EducationSection/EducationSection';
 import ProjectsSection from '../sections/ProjectsSection/ProjectsSection';
 import CertificationsSection from '../sections/CertificateSection/CertificationsSection';
-import A4Ruler from '../layout/A4Ruler';
+import TemplateWrapper from '../templates/TemplateWrapper';
 import { useResumeContext } from '../../contexts/ResumeContext';
 
 interface ResumeContainerProps {
@@ -47,7 +47,8 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
     deleteSocialLink,
     fontOptions,
     moveSection,
-    deleteSection
+    deleteSection,
+    selectedTemplate
   } = useResumeContext();
 
   // Update parent ref when resumeContentRef changes
@@ -66,53 +67,29 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
 
   return (
     <div className="col-span-8">
-      <div style={{ display: 'flex', alignItems: 'flex-start', width: '100%' }}>
-        <A4Ruler 
-          heightPx={1123} 
-          unit="cm" 
-          showLabels={true} 
-          style={{ marginRight: 0 }} 
-          contentHeightPx={resumeContentHeight} 
-        />
-        <div style={{ position: 'relative', flex: 1 }}>
-          <div 
-            className={`bg-white rounded-lg shadow-lg p-8`} 
-            ref={resumeContentRef} 
-            style={{ position: 'relative' }}
-          >
-            {/* Horizontal page break lines over resume content */}
-            {Array.from({ length: Math.floor(resumeContentHeight / 1123) }, (_, i) => (
-              <div
-                key={`resume-page-break-${i}`}
-                style={{
-                  position: 'absolute',
-                  top: (i + 1) * 1123 - 1,
-                  left: 0,
-                  width: '100%',
-                  height: 2,
-                  background: 'var(--line-color, #4299e1)',
-                  opacity: 0.3,
-                  zIndex: 10,
-                  pointerEvents: 'none',
-                }}
-              />
-            ))}
-            
-            <ResumeHeader
+      <div style={{ width: '100%' }}>
+        <div 
+          className="resume-container-enhanced resume-print-ready" 
+          ref={resumeContentRef} 
+          style={{ position: 'relative' }}
+        >
+          <TemplateWrapper
+              template={selectedTemplate}
               resumeData={resumeData}
-              setResumeData={previewMode ? (() => {}) : setResumeData}
               socialLinks={socialLinks}
-              deleteSocialLink={previewMode ? (() => {}) : deleteSocialLink}
-              addSocialLink={previewMode ? (() => {}) : addSocialLink}
-              updateSocialLink={previewMode ? (() => {}) : updateSocialLink}
               fontOptions={fontOptions}
-            />
-            
-            {sections.map((section, index) => {
-              if (!section.visible) return null;
-
-              switch (section.type) {
-                case 'summary':
+              sections={sections}
+              sectionTitles={sectionTitles}
+              setResumeData={setResumeData}
+              deleteSocialLink={deleteSocialLink}
+              addSocialLink={addSocialLink}
+              updateSocialLink={updateSocialLink}
+              previewMode={previewMode}
+              renderSection={(section) => {
+                const index = sections.findIndex(s => s.type === section.type);
+                
+                switch (section.type) {
+                  case 'summary':
                   return (
                     <SummarySection
                       key="summary"
@@ -213,11 +190,11 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
                       previewMode={previewMode}
                     />
                   );
-                default:
-                  return null;
-              }
-            })}
-          </div>
+                  default:
+                    return null;
+                }
+              }}
+            />
         </div>
       </div>
     </div>

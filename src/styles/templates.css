@@ -1,28 +1,11 @@
-/* Template Base Styles */
-.section-header-line {
-  position: relative;
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.5rem;
-  color: var(--text-primary);
-}
-
-.section-header-line::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background-color: var(--line-color);
-}
+/* Template Base Styles - Section header line styling is now handled by the SectionHeaderLine component */
 
 /* Minimal Template */
 .template-minimal {
   --line-width: 100%;
 }
 
-.template-minimal .section-header-line::after {
-  height: 2px;
-}
+/* Handled by component */
 
 .template-minimal .skill-category {
   background: none;
@@ -35,9 +18,7 @@
   --line-width: 50%;
 }
 
-.template-classic .section-header-line::after {
-  height: 1px;
-}
+/* Handled by component */
 
 .template-classic .skill-category {
   border: 1px solid var(--border-color);
@@ -50,10 +31,7 @@
   --line-width: 3rem;
 }
 
-.template-modern .section-header-line::after {
-  height: 3px;
-  border-radius: 1.5px;
-}
+/* Handled by component */
 
 .template-modern .skill-category {
   background-color: var(--bg-secondary);
@@ -67,10 +45,7 @@
   --line-width: 75%;
 }
 
-.template-professional .section-header-line::after {
-  height: 2px;
-  background: linear-gradient(to right, var(--line-color) 0%, transparent 100%);
-}
+/* Handled by component */
 
 .template-professional .skill-category {
   background-color: var(--bg-secondary);

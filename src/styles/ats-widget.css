@@ -1,0 +1,36 @@
+/* ATS Widget Floating Mode Styles */
+
+.ats-widget-floating {
+  /* Remove all default widget styling when in floating panel */
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* Clean spacing */
+.ats-widget-floating > * {
+  margin-bottom: 0;
+}
+
+/* Score number styling */
+.ats-widget-floating .text-6xl {
+  line-height: 1;
+  font-feature-settings: 'tnum';
+}
+
+/* Smooth transitions */
+.ats-widget-floating * {
+  transition: all 0.2s ease;
+}
+
+/* Better hover states for breakdown bars */
+.ats-widget-floating .bg-gray-200:hover {
+  background-color: #e5e7eb;
+}
+
+.dark .ats-widget-floating .bg-gray-700:hover {
+  background-color: #4b5563;
+}
+

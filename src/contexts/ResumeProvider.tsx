@@ -11,6 +11,7 @@ import { useCertifications } from '../hooks/useCertifications';
 import { useSocialLinks } from '../hooks/useSocialLinks';
 import { useFontOptions } from '../hooks/useFontOptions';
 import { useTheme } from '../hooks/useTheme';
+import { useTemplate } from '../hooks/useTemplate';
 
 interface ResumeProviderProps {
   children: ReactNode;
@@ -31,6 +32,7 @@ export const ResumeProvider = ({ children }: ResumeProviderProps) => {
   const { socialLinks, addSocialLink, updateSocialLink, deleteSocialLink } = useSocialLinks();
   const { fontOptions, updateFontOption } = useFontOptions(resumeRef);
   const { activeTheme, applyTheme } = useTheme();
+  const { selectedTemplate, updateTemplate } = useTemplate();
 
   const contextValue = {
     resumeData,
@@ -66,7 +68,9 @@ export const ResumeProvider = ({ children }: ResumeProviderProps) => {
     fontOptions,
     updateFontOption,
     activeTheme,
-    applyTheme
+    applyTheme,
+    selectedTemplate,
+    updateTemplate
   };
 
   return (

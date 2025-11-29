@@ -83,10 +83,7 @@
     padding-bottom: 0.25rem;
 }
 
-.modern .section-header-line {
-    border-bottom: 2px solid var(--accent-color);
-    width: 100%;
-}
+/* Section header line styling is now handled by the SectionHeaderLine component */
 
 /* Experience section styling */
 .modern .experience-item {

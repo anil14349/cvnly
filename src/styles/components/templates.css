@@ -11,10 +11,7 @@
   font-weight: 600;
 }
 
-.template-minimal .section-divider {
-  height: 2px;
-  width: var(--line-width, 60px);
-}
+/* Removed - handled by SectionHeaderLine component */
 
 .template-minimal input,
 .template-minimal textarea {
@@ -37,11 +34,7 @@
   font-family: Georgia, serif;
 }
 
-.template-classic .section-divider {
-  height: 1px;
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
-  width: var(--line-width, 60px);
-}
+/* Removed - handled by SectionHeaderLine component */
 
 .template-classic input,
 .template-classic textarea {
@@ -78,11 +71,7 @@
   text-transform: uppercase;
 }
 
-.template-modern .section-divider {
-  height: 4px;
-  width: var(--line-width, 40px);
-  border-radius: 2px;
-}
+/* Removed - handled by SectionHeaderLine component */
 
 .template-modern input,
 .template-modern textarea {
@@ -94,12 +83,7 @@
   border-radius: 6px;
 }
 
-/* Shared template styles for dark mode */
-.dark .template-minimal .section-divider,
-.dark .template-classic .section-divider,
-.dark .template-modern .section-divider {
-  background-color: var(--line-color, #4299e1);
-}
+/* Removed - handled by SectionHeaderLine component */
 
 /* Print optimizations for templates */
 @media print {
@@ -109,10 +93,5 @@
     font-size: 11pt;
   }
   
-  .template-minimal .section-divider,
-  .template-classic .section-divider,
-  .template-modern .section-divider {
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
+  /* Removed - handled by SectionHeaderLine component */
 } 

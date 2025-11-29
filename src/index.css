@@ -1,3 +1,8 @@
+@import './styles/animations.css';
+@import './styles/page-layout.css';
+@import './styles/floating.css';
+@import './styles/ats-widget.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

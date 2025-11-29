@@ -1,49 +1,55 @@
 /* Projects Section Styles */
-.section-header-projects {
-  color: var(--text-primary, #2d3748);
-  position: relative;
-}
-
-.section-header-projects.section-header-line::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: var(--line-width, 100%);
-  background-color: var(--line-color, #000000);
-}
-
-/* Template-specific styles */
-.template-minimal .section-header-projects.section-header-line::after {
-  height: 2px;
-}
-
-.template-classic .section-header-projects.section-header-line::after {
-  height: 1px;
-}
-
-.template-modern .section-header-projects.section-header-line::after {
-  height: 3px;
-  border-radius: 1.5px;
-}
+/* Section header line styling is now handled by the SectionHeaderLine component */
 
 /* Project Item Styles */
 .project-item {
-  position: relative;
-  padding-bottom: 1.5rem;
-  border-bottom: 1px solid var(--border-color, #e2e8f0);
   margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
 }
 
 .project-item:last-child {
   border-bottom: none;
+  padding-bottom: 0;
 }
 
-/* Technology Tags Styles */
-.tech-item {
-  background-color: #f3f4f6 !important;
-  color: #374151 !important;
-  border: 1px solid #e5e7eb !important;
+.project-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.project-title {
+  font-weight: 600;
+  font-size: 1.125rem;
+  color: var(--text-primary);
+}
+
+.project-date {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+}
+
+.project-description {
+  margin-top: 0.5rem;
+  color: var(--text-primary);
+  line-height: 1.6;
+}
+
+/* Technology Chips */
+.project-technologies {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tech-chip {
+  display: inline-flex;
+  align-items: center;
+  background-color: #f3f4f6;
+  color: #1a202c !important;
   transition: all 0.2s ease;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -52,48 +58,29 @@
   font-family: inherit !important;
 }
 
-.tech-item:hover {
-  background-color: #e5e7eb !important;
-  transform: translateY(-1px);
+.tech-chip:hover {
+  background-color: #e5e7eb;
 }
 
-/* Dark Theme Specific */
-.dark .tech-item {
-  background-color: #374151 !important;
-  color: #f3f4f6 !important;
-  border: 1px solid #4b5563 !important;
+/* Delete button */
+.delete-project-button {
+  color: #ef4444;
+  opacity: 0;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  transition: opacity 0.2s ease;
 }
 
-.dark .tech-item:hover {
-  background-color: #4b5563 !important;
+.project-item:hover .delete-project-button {
+  opacity: 1;
 }
 
-/* Blue Theme Specific */
-.blue .tech-item {
-  background-color: #dbeafe !important;
-  color: #1e40af !important;
-  border: 1px solid #bfdbfe !important;
+.delete-project-button:hover {
+  background-color: #fee2e2;
 }
 
-.blue .tech-item:hover {
-  background-color: #bfdbfe !important;
-}
-
-/* Add buttons */
-.add-responsibility-button,
-.add-technology-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.25rem;
-  transition: all 0.2s ease;
-}
-
-.add-responsibility-button:hover,
-.add-technology-button:hover {
-  opacity: 0.8;
-}
-
-.add-technology-button {
+/* Add technology button */
+.add-tech-button {
   display: inline-flex;
   align-items: center;
   gap: 0.25rem;
@@ -104,21 +91,65 @@
   border: 1px dashed #e5e7eb;
   background-color: transparent;
   color: #6b7280;
+  cursor: pointer;
   transition: all 0.2s ease;
-  font-family: inherit !important;
 }
 
-.dark .add-technology-button {
+.add-tech-button:hover {
+  border-color: var(--line-color, #4299e1);
+  color: var(--line-color, #4299e1);
+  background-color: rgba(66, 153, 225, 0.05);
+}
+
+/* Input fields */
+.project-item input,
+.project-item textarea {
+  background: transparent;
+  border: 1px dashed #e5e7eb;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  width: 100%;
+}
+
+.project-item input:focus,
+.project-item textarea:focus {
+  outline: none;
+  border-color: var(--line-color, #4299e1);
+  background-color: rgba(66, 153, 225, 0.05);
+}
+
+/* Dark mode adjustments */
+.dark .project-item {
+  border-bottom-color: #374151;
+}
+
+.dark .tech-chip {
+  background-color: #374151;
+  color: #f3f4f6 !important;
+}
+
+.dark .tech-chip:hover {
+  background-color: #4b5563;
+}
+
+.dark .add-tech-button {
   border-color: #4b5563;
   color: #9ca3af;
 }
 
-.add-technology-button:hover {
-  background-color: #f3f4f6;
-  border-color: #d1d5db;
+.dark .add-tech-button:hover {
+  border-color: var(--line-color, #4299e1);
+  color: var(--line-color, #4299e1);
+  background-color: rgba(66, 153, 225, 0.1);
 }
 
-.dark .add-technology-button:hover {
-  background-color: #374151;
-  border-color: #6b7280;
-} 
+.dark .project-item input,
+.dark .project-item textarea {
+  border-color: #4b5563;
+  color: #f3f4f6;
+}
+
+.dark .delete-project-button:hover {
+  background-color: #7f1d1d;
+}

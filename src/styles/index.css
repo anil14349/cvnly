@@ -209,10 +209,7 @@
   }
 }
 
-/* Remove old section-header-line styles */
-.section-header-line {
-  display: none;
-}
+/* Section header line styling is now handled by the SectionHeaderLine component */
 
 /* Custom styles for bullet points and dates */
 .list-disc li::marker {

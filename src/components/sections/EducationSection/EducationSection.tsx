@@ -63,7 +63,7 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
 
   return (
     <div
-      className={`mt-2 ${EDUCATION_CONTAINER_CLASS}`}
+      className={`mt-4 ${EDUCATION_CONTAINER_CLASS}`}
       style={{
         background:
           fontOptions.theme === "dark"

@@ -12,11 +12,11 @@ export const BUTTON_STYLES = {
 
 // Panel style constants
 export const PANEL_STYLES = {
-  container: 'font-control-panel rounded-lg shadow p-3 mb-4 text-xs',
+  container: 'bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden',
   section: {
-    header: 'sticky top-0 z-10 bg-white dark:bg-gray-900 py-0.5 px-0.5 rounded-t-lg flex items-center gap-1 border-b border-gray-100 dark:border-gray-800',
-    content: 'p-1 space-y-1 bg-white dark:bg-gray-900',
-    divider: 'divide-y divide-gray-200 dark:divide-gray-800 bg-gray-50 dark:bg-gray-800/50 rounded-lg overflow-hidden'
+    header: 'sticky top-0 z-10 px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900',
+    content: 'px-5 py-4 space-y-3 text-xs',
+    divider: 'divide-y divide-gray-200 dark:divide-gray-800'
   },
   button: {
     toggle: 'w-full flex items-center justify-between px-1 py-0.5 bg-gray-50 dark:bg-gray-800/50 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors',
@@ -101,17 +101,13 @@ export const PREVIEW_STYLES = {
   }
 };
 
-// Panel container styles
+// Panel container styles (for consistent widget sizing)
 export const PANEL_CONTAINER_STYLES = {
   light: {
-    background: '#181f2a',
-    color: '#181f2a',
-    maxWidth: 340
+    maxWidth: '100%'
   },
   dark: {
-    background: '#181f2a',
-    color: '#fff',
-    maxWidth: 340
+    maxWidth: '100%'
   }
 };
 

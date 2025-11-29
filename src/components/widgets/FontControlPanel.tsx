@@ -92,9 +92,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
     </div>
   );
 
-  const SectionDivider = () => (
-    <div className="my-4 h-px w-full bg-gradient-to-r from-transparent via-gray-500/20 to-transparent" />
-  );
 
   // Minimizable section component (controlled)
   const MinimizableSection: React.FC<{
@@ -104,38 +101,39 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
     onToggle: () => void;
   }> = ({ title, children, open, onToggle }) => {
     return (
-      <div className="mb-4">
-        <div className="flex items-center gap-2 w-full text-left font-semibold text-sm text-gray-100 dark:text-gray-200 mb-2 select-none">
-          <span className="flex-1">{title}</span>
-          <button
-            type="button"
-            onClick={onToggle}
-            aria-expanded={open}
-            className="ml-2 p-1 rounded hover:bg-gray-200 dark:hover:bg-gray-700 focus:outline-none"
-            tabIndex={0}
+      <div className="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
+        <button
+          type="button"
+          onClick={onToggle}
+          aria-expanded={open}
+          className="flex items-center justify-between w-full px-5 py-4 text-left font-semibold text-sm text-gray-900 dark:text-white hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+          tabIndex={0}
+        >
+          <span>{title}</span>
+          <svg 
+            className={`w-5 h-5 transition-transform duration-200 ${open ? '' : 'rotate-180'} text-gray-400`} 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            viewBox="0 0 24 24"
           >
-            <svg className={`w-4 h-4 transition-transform ${open ? '' : 'rotate-180'}`} fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        </div>
-        {open && <div>{children}</div>}
+            <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+        {open && <div className="px-5 py-4 bg-gray-50 dark:bg-gray-900/50">{children}</div>}
       </div>
     );
   };
 
   return (
-    <div
-      className={PANEL_STYLES.container}
-      style={fontOptions.theme === 'dark' ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}
-    >
+    <div className={PANEL_STYLES.container}>
       {/* Theme Selection (Minimizable) */}
       <MinimizableSection
         title="Theme"
         open={expandedSections.theme}
         onToggle={() => toggleSection('theme')}
       >
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <button
             className={`flex items-center gap-1 px-4 py-1.5 rounded-full border-2 transition-colors text-xs font-medium focus:outline-none focus:ring-2 focus:ring-blue-400
             ${fontOptions.theme === 'light' ? 'bg-blue-50 text-blue-700 border-blue-500' : 'bg-gray-800 text-gray-300 border-gray-600 hover:border-blue-400'}`}
@@ -158,8 +156,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
           </button>
         </div>
       </MinimizableSection>
-
-      <SectionDivider />
 
       {/* Skill Layout (Minimizable) */}
       <MinimizableSection
@@ -201,8 +197,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
         </div>
       </MinimizableSection>
 
-      <SectionDivider />
-
       {/* Font Families Section (Minimizable) */}
       <MinimizableSection
         title="Font Families"
@@ -218,8 +212,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
           </div>
         </div>
       </MinimizableSection>
-
-      <SectionDivider />
 
       {/* Header Text Section (Minimizable) */}
       <MinimizableSection
@@ -299,8 +291,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
         </div>
       </MinimizableSection>
 
-      <SectionDivider />
-
       {/* Subheader Text Section (Minimizable) */}
       <MinimizableSection
         title="Subheader Text"
@@ -340,8 +330,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
           </div>
         </div>
       </MinimizableSection>
-
-      <SectionDivider />
 
       {/* Section Header Text (Minimizable) */}
       <MinimizableSection
@@ -383,8 +371,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
         </div>
       </MinimizableSection>
 
-      <SectionDivider />
-
       {/* Body Text (Minimizable) */}
       <MinimizableSection
         title="Body Text"
@@ -424,8 +410,6 @@ const FontControlPanel: React.FC<FontControlPanelProps> = ({
           </div>
         </div>
       </MinimizableSection>
-
-      <SectionDivider />
 
       {/* Section Line Color Picker (Minimizable) */}
       <MinimizableSection

@@ -27,8 +27,8 @@ const ATSScoreWidget: React.FC<ATSScoreWidgetProps> = ({ resumeData }) => {
   const { score, recommendations, breakdown } = scoreData;
 
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
-      <div className="p-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
+    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md border border-gray-200 dark:border-gray-700 overflow-hidden">
+      <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-blue-50 to-white dark:from-gray-800 dark:to-gray-900">
         <div className="flex items-center justify-between">
           <h2 className="text-lg font-semibold text-gray-900 dark:text-white">ATS Score</h2>
           <TrendingUp className="w-5 h-5 text-blue-600 dark:text-blue-400" />
@@ -38,7 +38,7 @@ const ATSScoreWidget: React.FC<ATSScoreWidgetProps> = ({ resumeData }) => {
         </p>
       </div>
 
-      <div className="p-4">
+      <div className="px-5 py-5">
         {/* Score Circle */}
         <div className="flex items-center justify-center mb-6">
           <div className="relative w-32 h-32">
@@ -77,8 +77,8 @@ const ATSScoreWidget: React.FC<ATSScoreWidgetProps> = ({ resumeData }) => {
         </div>
 
         {/* Score Breakdown */}
-        <div className="space-y-3 mb-4">
-          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-2">Score Breakdown</h3>
+        <div className="space-y-3 mb-6">
+          <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Score Breakdown</h3>
           {Object.entries(breakdown).map(([key, value]) => (
             <div key={key} className="space-y-1">
               <div className="flex items-center justify-between text-sm">
@@ -104,12 +104,12 @@ const ATSScoreWidget: React.FC<ATSScoreWidgetProps> = ({ resumeData }) => {
         </div>
 
         {/* Recommendations */}
-        <div className="space-y-2">
+        <div className="space-y-3">
           <h3 className="text-sm font-semibold text-gray-900 dark:text-white flex items-center gap-2">
             <AlertCircle className="w-4 h-4" />
             Recommendations
           </h3>
-          <div className="space-y-2">
+          <div className="space-y-2.5">
             {recommendations.slice(0, 5).map((rec, index) => (
               <div
                 key={index}

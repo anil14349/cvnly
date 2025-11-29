@@ -84,10 +84,20 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
     const showResumeHeaderTitleButton = !resumeHeaderTitle;
 
     return (
-      <div className={PANEL_STYLES.container} style={sections && sections.length && typeof window !== 'undefined' && window.matchMedia('(prefers-color-scheme: dark)').matches ? PANEL_CONTAINER_STYLES.dark : PANEL_CONTAINER_STYLES.light}>
-        {/* --- Available Sections Pool (including Social Links if active) --- */}
-        <div className="mb-4">
-          <h2 className="text-lg font-semibold mb-2">Add Section</h2>
+      <div className={PANEL_STYLES.container}>
+        {/* --- Widget Header --- */}
+        <div className="px-5 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white">Resume Sections</h2>
+          <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+            Manage and organize your resume sections
+          </p>
+        </div>
+
+        {/* --- Content --- */}
+        <div className="px-5 py-4 space-y-5">
+          {/* --- Available Sections Pool (including Social Links if active) --- */}
+          <div>
+            <h3 className="text-sm font-semibold text-gray-900 dark:text-white mb-3">Add Section</h3>
           <div className="flex flex-wrap gap-2 mb-2">
             {availableSections.length === 0 && availableSocialLinks.length === 0 ? (
               <span className="text-xs text-gray-400">All sections are added</span>
@@ -184,6 +194,7 @@ const ResumeSectionsWidget: React.FC<ResumeSectionsWidgetProps> = ({
             )}
           </Droppable>
         </DragDropContext>
+        </div>
       </div>
     );
 };

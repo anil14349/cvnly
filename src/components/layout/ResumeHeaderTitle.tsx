@@ -22,14 +22,25 @@ const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, titl
         }
     };
 
+    const getContainerAlignment = () => {
+        switch (fontOptions.headerAlignment) {
+            case 'left':
+                return 'justify-start';
+            case 'right':
+                return 'justify-end';
+            default:
+                return 'justify-center';
+        }
+    };
+
     return (
         title ? (
             <div
-                className="relative group"
+                className={`relative group ${getTextAlignment()}`}
                 onMouseEnter={() => setHovered(true)}
                 onMouseLeave={() => setHovered(false)}
             >
-                <div className={`flex items-center mx-auto w-fit group ${getTextAlignment()}`}>
+                <div className={`flex items-center w-full ${getContainerAlignment()}`}>
                     <h2
                         className={`
                             ${fontOptions.subheaderSize}
@@ -40,7 +51,6 @@ const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, titl
                             font-header-${fontOptions.subheaderFont.toLowerCase()}
                             ${fontOptions.subheaderItalic ? 'italic' : ''}
                             ${fontOptions.subheaderUnderline ? 'underline' : ''}
-                            ${getTextAlignment()}
                         `}
                         contentEditable
                         suppressContentEditableWarning

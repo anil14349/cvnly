@@ -62,14 +62,14 @@ export const AddSectionButton = ({
             transition: 'all 0.2s ease-in-out'
         };
         iconStyle = {
-            color: fontOptions.theme === 'dark' ? '#f3f4f6' : '#374151',
+            color: fontOptions.theme === 'dark' ? '#ffffff' : '#374151',
             fontWeight: 'bold',
             width: '14px',
             height: '14px'
         };
         textStyle = {
-            color: fontOptions.theme === 'dark' ? '#f3f4f6' : '#374151', // Light text in dark mode (gray-100), gray-800 in light mode
-            fontWeight: 400,
+            color: fontOptions.theme === 'dark' ? '#ffffff' : '#374151', // Pure white text in dark mode for better visibility, gray-800 in light mode
+            fontWeight: 500,
             marginLeft: '4px',
             fontSize: '0.75rem' // Smaller font size (12px)
         };

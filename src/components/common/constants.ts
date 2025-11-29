@@ -4,8 +4,8 @@ export const SECTION_ADD_BUTTON_BASE = 'add-section-btn mt-4 flex items-center p
 // Button styles object pattern (for consistency)
 export const SECTION_BUTTON_STYLES = {
     button: 'inline-flex items-center gap-2 px-4 py-2 rounded-full border-1.5 border-dashed border-gray-300 hover:border-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800/30 transition-all print:hidden shadow-sm print:hidden',
-    icon: 'w-4 h-4 text-gray-500',
-    text: 'text-sm font-medium text-gray-600 dark:text-gray-300'
+    icon: 'w-4 h-4 text-gray-500 dark:text-gray-100',
+    text: 'text-sm font-medium text-gray-600 dark:text-white'
 };
 
 // Button variants

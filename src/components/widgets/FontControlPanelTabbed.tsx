@@ -59,7 +59,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
     <div className="space-y-5">
       {/* Theme Selection */}
       <div>
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span className="w-1 h-4 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></span>
           Theme
         </h3>
@@ -96,7 +96,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
 
       {/* Skill Layout */}
       <div>
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span className="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></span>
           Skills Layout
         </h3>
@@ -125,7 +125,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
 
       {/* Header Alignment */}
       <div>
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full"></span>
           Header Alignment
         </h3>
@@ -166,7 +166,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
     <div className="space-y-5">
       {/* Font Families */}
       <div>
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span className="w-1 h-4 bg-gradient-to-b from-blue-500 to-cyan-500 rounded-full"></span>
           Font Families
         </h3>
@@ -178,7 +178,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
 
       {/* Header Styles */}
       <div>
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span className="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></span>
           Header Text
         </h3>
@@ -197,7 +197,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
                 onChange={(e) => updateFontOption('headerItalic', e.target.checked)}
                 className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
               />
-              <Italic className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <Italic className="w-4 h-4 text-gray-700 dark:text-gray-200" />
               <span className="text-xs text-gray-700 dark:text-gray-300">Italic</span>
             </label>
             <label className="flex items-center gap-2 cursor-pointer">
@@ -207,7 +207,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
                 onChange={(e) => updateFontOption('headerUnderline', e.target.checked)}
                 className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
               />
-              <Underline className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+              <Underline className="w-4 h-4 text-gray-700 dark:text-gray-200" />
               <span className="text-xs text-gray-700 dark:text-gray-300">Underline</span>
             </label>
           </div>
@@ -216,7 +216,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
 
       {/* Body Text */}
       <div>
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
           <span className="w-1 h-4 bg-gradient-to-b from-orange-500 to-red-500 rounded-full"></span>
           Body Text
         </h3>
@@ -250,7 +250,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
       <div className="space-y-5">
         {/* Header Color */}
         <div>
-          <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
             <span className="w-1 h-4 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></span>
             Header Color
           </h3>
@@ -259,7 +259,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
 
         {/* Body Color */}
         <div>
-          <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
             <span className="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></span>
             Body Color
           </h3>
@@ -268,7 +268,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
 
         {/* Line Color */}
         <div>
-          <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
             <span className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full"></span>
             Section Line Color
           </h3>
@@ -278,7 +278,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
             onChange={(e) => updateFontOption('lineColor', e.target.value)}
             className="w-full h-12 rounded-lg cursor-pointer border-2 border-gray-300 dark:border-gray-600"
           />
-          <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          <p className="text-xs text-gray-700 dark:text-gray-200 mt-2">
             Current: {fontOptions?.lineColor || '#4299e1'}
           </p>
         </div>
@@ -323,7 +323,7 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
               className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 text-sm font-bold transition-all relative ${
                 activeTab === tab.id
                   ? 'text-blue-600 dark:text-blue-400'
-                  : 'text-gray-500 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                  : 'text-gray-700 dark:text-gray-200 hover:text-gray-900 dark:hover:text-white'
               }`}
             >
               <Icon className="w-4 h-4" />

@@ -140,7 +140,7 @@ const ContextualTipsFloating: React.FC<ContextualTipsFloatingProps> = ({ score, 
         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
           Excellent Work!
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-gray-700 dark:text-gray-200">
           Your resume is in great shape. Keep up the good work!
         </p>
       </div>
@@ -195,7 +195,7 @@ const ContextualTipsFloating: React.FC<ContextualTipsFloatingProps> = ({ score, 
                 <h3 className="font-bold text-gray-900 dark:text-white mb-1.5 text-sm">
                   {tip.title}
                 </h3>
-                <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p className="text-xs text-gray-700 dark:text-gray-200 leading-relaxed">
                   {tip.description}
                 </p>
               </div>
@@ -250,8 +250,8 @@ const ContextualTipsFloating: React.FC<ContextualTipsFloatingProps> = ({ score, 
       </div>
 
       {/* Bottom Note */}
-      <div className="mt-5 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
-        <p className="text-xs text-gray-700 dark:text-gray-300 text-center">
+      <div className="mt-5 p-3 bg-gray-50 dark:bg-gray-800/70 rounded-lg border border-gray-200 dark:border-gray-700">
+        <p className="text-xs text-gray-800 dark:text-gray-100 text-center">
           💡 <span className="font-bold">Remember:</span> Your resume should tell your professional story clearly and concisely.
         </p>
       </div>

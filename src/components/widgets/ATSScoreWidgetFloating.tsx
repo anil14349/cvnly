@@ -89,11 +89,11 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
       </div>
 
       {/* Divider */}
-      <div className="h-px bg-gray-300 dark:bg-gray-600 my-5" />
+      <div className="h-px bg-gray-200 dark:bg-gray-700 my-5" />
 
       {/* Breakdown Section - Compact & Clean */}
       <div className="space-y-3 mb-6">
-        <h3 className="text-xs font-bold text-gray-600 dark:text-gray-100 uppercase tracking-wider mb-3">
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3">
           Breakdown
         </h3>
         
@@ -102,7 +102,7 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
           return (
             <div key={key} className="space-y-1.5">
               <div className="flex justify-between items-baseline">
-                <span className="text-sm font-semibold text-gray-800 dark:text-gray-100 capitalize">
+                <span className="text-sm font-semibold text-gray-900 dark:text-white capitalize">
                   {key}
                 </span>
                 <span className="text-sm font-bold text-gray-900 dark:text-white tabular-nums">
@@ -129,7 +129,7 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
       {/* Top Priority Action - Single Most Important */}
       {recommendations.length > 0 && (
         <>
-          <div className="h-px bg-gray-300 dark:bg-gray-600 my-5" />
+          <div className="h-px bg-gray-200 dark:bg-gray-700 my-5" />
           
           <div className="p-4 bg-blue-50 dark:bg-blue-900/50 rounded-lg border border-blue-200 dark:border-blue-600">
             <div className="flex items-start gap-3">
@@ -140,7 +140,7 @@ const ATSScoreWidgetFloating: React.FC<ATSScoreWidgetFloatingProps> = ({ resumeD
                 <h4 className="text-xs font-bold text-blue-900 dark:text-white mb-1.5 uppercase tracking-wide">
                   Priority Action
                 </h4>
-                <p className="text-sm text-blue-800 dark:text-gray-100 leading-relaxed font-medium">
+                <p className="text-sm text-blue-800 dark:text-blue-100 leading-relaxed font-medium">
                   {recommendations[0]}
                 </p>
               </div>

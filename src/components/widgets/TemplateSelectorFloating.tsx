@@ -31,7 +31,7 @@ const TemplateSelectorFloating: React.FC = () => {
       </div>
 
       {/* Section Title */}
-      <h3 className="text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider mb-4">
+      <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-4">
         Choose a Style
       </h3>
 
@@ -120,7 +120,7 @@ const TemplateSelectorFloating: React.FC = () => {
       </div>
 
       {/* Template Descriptions */}
-      <div className="mt-5 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-gray-200 dark:border-gray-700">
+      <div className="mt-5 p-4 bg-gray-50 dark:bg-gray-800/70 rounded-lg border border-gray-200 dark:border-gray-700">
         <h4 className="text-xs font-bold text-gray-900 dark:text-white mb-3">Template Guide</h4>
         <div className="space-y-2">
           {RESUME_TEMPLATES.map((template) => (
@@ -130,7 +130,7 @@ const TemplateSelectorFloating: React.FC = () => {
                 <span className="text-xs font-semibold text-gray-900 dark:text-white">
                   {template.name}:
                 </span>
-                <span className="text-xs text-gray-600 dark:text-gray-400 ml-1">
+                <span className="text-xs text-gray-700 dark:text-gray-200 ml-1">
                   {template.description}
                 </span>
               </div>

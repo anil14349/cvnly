@@ -118,7 +118,7 @@ const QuickWinsWidgetFloating: React.FC<QuickWinsWidgetFloatingProps> = ({
         <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
           Great Job!
         </h3>
-        <p className="text-sm text-gray-600 dark:text-gray-400">
+        <p className="text-sm text-gray-700 dark:text-gray-200">
           Your resume is in excellent shape. No immediate improvements needed.
         </p>
       </div>
@@ -176,7 +176,7 @@ const QuickWinsWidgetFloating: React.FC<QuickWinsWidgetFloatingProps> = ({
                     +{win.impact}
                   </span>
                 </div>
-                <p className="text-xs text-gray-600 dark:text-gray-400">
+                <p className="text-xs text-gray-700 dark:text-gray-200">
                   Click to {win.actionText.toLowerCase()}
                 </p>
               </div>

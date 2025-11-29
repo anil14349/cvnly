@@ -179,11 +179,40 @@ export const getFontWeightValue = (fontWeight: string): number => {
 }; 
 
 
+// Add dark mode variant to color class
+const addDarkModeVariant = (colorClass: string): string => {
+  // Map light mode colors to dark mode equivalents
+  const darkModeMap: { [key: string]: string } = {
+    'text-gray-900': 'dark:text-gray-100',
+    'text-gray-800': 'dark:text-gray-200',
+    'text-gray-700': 'dark:text-gray-300',
+    'text-gray-600': 'dark:text-gray-400',
+    'text-gray-500': 'dark:text-gray-400',
+    'text-black': 'dark:text-white',
+    'text-blue-600': 'dark:text-blue-400',
+    'text-blue-700': 'dark:text-blue-300',
+    'text-blue-800': 'dark:text-blue-200',
+    'text-indigo-600': 'dark:text-indigo-400',
+    'text-indigo-700': 'dark:text-indigo-300',
+    'text-indigo-800': 'dark:text-indigo-200',
+    'text-purple-600': 'dark:text-purple-400',
+    'text-purple-700': 'dark:text-purple-300',
+    'text-purple-800': 'dark:text-purple-200',
+    'text-red-600': 'dark:text-red-400',
+    'text-red-700': 'dark:text-red-300',
+    'text-green-600': 'dark:text-green-400',
+    'text-green-700': 'dark:text-green-300',
+  };
+  
+  const darkVariant = darkModeMap[colorClass];
+  return darkVariant ? `${colorClass} ${darkVariant}` : colorClass;
+};
+
 export const getFontClassNames = (fontOptions: FontOptions): string => {
   return [
     fontOptions.bodySize,
     fontOptions.bodyWeight,
-    fontOptions.bodyColor,
+    addDarkModeVariant(fontOptions.bodyColor),
     `font-body-${fontOptions.bodyFont.toLowerCase()}`,
     fontOptions.bodyItalic ? 'italic' : '',
     fontOptions.bodyUnderline ? 'underline' : '',
@@ -196,7 +225,7 @@ export const getHeadingClassNames = (fontOptions: FontOptions): string => {
   return [
     fontOptions.headerSize,
     fontOptions.headerWeight,
-    fontOptions.headerColor,
+    addDarkModeVariant(fontOptions.headerColor),
     `font-header-${fontOptions.headerFont.toLowerCase()}`,
     fontOptions.headerItalic ? 'italic' : '',
     fontOptions.headerUnderline ? 'underline' : '',

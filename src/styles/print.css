@@ -5,8 +5,21 @@
     margin: 15mm 15mm 15mm 15mm; /* top, right, bottom, left */
   }
 
+  /* Force light mode for printing */
+  .resume-container-enhanced,
+  .resume-print-ready {
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Override dark mode text colors for print */
+  * {
+    color: inherit !important;
+  }
+
   body {
     margin: 0;
+    background: white !important;
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }

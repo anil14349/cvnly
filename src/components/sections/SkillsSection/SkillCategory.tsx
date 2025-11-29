@@ -10,6 +10,20 @@ import {
     CLASSIC_ITEMS_INPUT_CLASS
 } from './constants';
 
+// Add dark mode variant to color class
+const addDarkModeVariant = (colorClass: string): string => {
+  const darkModeMap: { [key: string]: string } = {
+    'text-gray-900': 'dark:text-gray-100',
+    'text-gray-800': 'dark:text-gray-200',
+    'text-gray-700': 'dark:text-gray-300',
+    'text-gray-600': 'dark:text-gray-400',
+    'text-gray-500': 'dark:text-gray-400',
+    'text-black': 'dark:text-white',
+    'text-blue-600': 'dark:text-blue-400',
+  };
+  return darkModeMap[colorClass] ? `${colorClass} ${darkModeMap[colorClass]}` : colorClass;
+};
+
 interface Props {
     category: Skill;
     fontOptions: FontOptions;
@@ -55,8 +69,8 @@ const SkillCategory: React.FC<Props> = ({
 
     if (skillLayout === 'classic') {
         // Compose the display value
-        const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing} font-header-${fontOptions.subheaderFont?.toLowerCase?.()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
-        const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
+        const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${addDarkModeVariant(fontOptions.subheaderColor)} ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing} font-header-${fontOptions.subheaderFont?.toLowerCase?.()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
+        const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
         return (
             <li className={CLASSIC_CATEGORY_CONTAINER_CLASS}>
                 <input
@@ -88,7 +102,7 @@ const SkillCategory: React.FC<Props> = ({
         );
     }
     return (
-        <div className="bg-white border-none border-gray-100 rounded-lg shadow-sm p-4 group/category">
+        <div className="bg-white dark:bg-gray-800 border-none border-gray-100 dark:border-gray-700 rounded-lg shadow-sm p-4 group/category">
             <CategoryHeader
                 category={category}
                 onChange={handleCategoryChange}
@@ -100,11 +114,11 @@ const SkillCategory: React.FC<Props> = ({
                     <div className="flex flex-wrap gap-2 mt-1">
                         {category.items.map((item, idx) => (
                             <div key={idx} className="group/pill relative">
-                                <input
-                                    type="text"
-                                    value={item}
-                                    onChange={(e) => handleEditSkill(idx, e.target.value)}
-                                    className={`px-3 py-1 rounded-full border bg-gray-100 dark:bg-gray-700 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                            <input
+                                type="text"
+                                value={item}
+                                onChange={(e) => handleEditSkill(idx, e.target.value)}
+                                className={`px-3 py-1 rounded-full border bg-gray-100 dark:bg-gray-700 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                     style={{
                                         borderColor: 'var(--line-color, #d1d5db)',
                                         fontFamily: fontOptions.bodyFont,
@@ -133,7 +147,7 @@ const SkillCategory: React.FC<Props> = ({
                                 onChange={(e) => setNewSkill(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
                                 placeholder="Add new skill..."
-                                className={`px-3 py-1 rounded-full border border-dashed bg-transparent ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${fontOptions.bodyColor} font-body-${fontOptions.bodyFont?.toLowerCase?.()} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                className={`px-3 py-1 rounded-full border border-dashed bg-transparent ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} font-body-${fontOptions.bodyFont?.toLowerCase?.()} focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500`}
                                 style={{
                                     borderColor: 'var(--line-color, #d1d5db)',
                                     fontFamily: fontOptions.bodyFont,

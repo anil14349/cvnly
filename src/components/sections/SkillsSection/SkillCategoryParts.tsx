@@ -26,6 +26,19 @@ import {
   BULLET_POINT,
 } from "./constants";
 
+// Add dark mode variant to color class
+const addDarkModeVariant = (colorClass: string): string => {
+  const darkModeMap: { [key: string]: string } = {
+    'text-gray-900': 'dark:text-gray-100',
+    'text-gray-800': 'dark:text-gray-200',
+    'text-gray-700': 'dark:text-gray-300',
+    'text-gray-600': 'dark:text-gray-400',
+    'text-gray-500': 'dark:text-gray-400',
+    'text-black': 'dark:text-white',
+  };
+  return darkModeMap[colorClass] ? `${colorClass} ${darkModeMap[colorClass]}` : colorClass;
+};
+
 export const CategoryHeader = ({
   category,
   onChange,
@@ -42,7 +55,7 @@ export const CategoryHeader = ({
       type="text"
       value={category.category}
       onChange={onChange}
-      className={`${CATEGORY_HEADER_INPUT_CLASS} ${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} font-header-${fontOptions.subheaderFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
+      className={`${CATEGORY_HEADER_INPUT_CLASS} ${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${addDarkModeVariant(fontOptions.subheaderColor)} font-header-${fontOptions.subheaderFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
       style={{
         ...getSubheaderFontLineStyles(fontOptions),
         fontFamily: `'${fontOptions.subheaderFont}', sans-serif`

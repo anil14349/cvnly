@@ -46,12 +46,6 @@ const SummarySection: React.FC<SummarySectionProps> = ({
   return (
     <section
       className="relative group"
-      style={{
-        background:
-          fontOptions.theme === 'dark'
-            ? fontOptions.widgetBgDark || '#181f2a'
-            : fontOptions.widgetBgLight || '#fff',
-      }}
     >
       <SectionHeaderLine
         title={title}

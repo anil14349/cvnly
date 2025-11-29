@@ -50,11 +50,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
 
   return (
     <div
-      style={{
-        background: fontOptions.theme === 'dark'
-          ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
-          : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
-      }}
       className={`${PROJECTS_CONTAINER_CLASS} mt-4`}
     >
       <SectionHeaderLine
@@ -145,7 +140,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                           const updatedResponsibilities = project.responsibilities.filter((_, i) => i !== idx);
                           updateProject?.(project.id, { ...project, responsibilities: updatedResponsibilities });
                         }}
-                        className="ml-2 text-gray-400 hover:text-red-500 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
+                        className="ml-2 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity print:hidden"
                         aria-label={`Delete responsibility: ${responsibility.substring(0, 20)}...`}
                       >
                         <X className="w-3 h-3" aria-hidden="true" />
@@ -172,9 +167,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                 {project.technologies?.map((tech, idx) => (
                   <li key={idx}>
                     <span
-                      className="group flex items-center rounded-full border border-gray-400 bg-white text-gray-500 px-3 py-1 font-medium transition hover:border-blue-400 hover:text-blue-600 hover:bg-blue-50 whitespace-nowrap"
+                      className={`group flex items-center rounded-full border px-3 py-1 font-medium transition whitespace-nowrap border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 ${fontOptions.bodyColor}`}
                       style={{
-                        color: fontOptions.bodyColor,
                         fontFamily: fontOptions.bodyFont,
                         fontSize: fontOptions.bodySize,
                         fontWeight: fontOptions.bodyWeight,
@@ -206,7 +200,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                           const updatedTechnologies = project.technologies.filter((_, i) => i !== idx);
                           updateProject?.(project.id, { ...project, technologies: updatedTechnologies });
                         }}
-                        className="ml-0 opacity-0 group-hover:opacity-100 group-hover:ml-2 text-gray-400 hover:text-red-500 transition p-0 h-auto w-auto"
+                        className="ml-0 opacity-0 group-hover:opacity-100 group-hover:ml-2 text-gray-400 dark:text-gray-500 hover:text-red-500 dark:hover:text-red-400 transition p-0 h-auto w-auto"
                         aria-label={`Delete technology: ${tech}`}
                         tabIndex={-1}
                         style={{ fontSize: fontOptions.bodySize }}

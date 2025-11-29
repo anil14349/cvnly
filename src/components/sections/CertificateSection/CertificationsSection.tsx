@@ -50,14 +50,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
 
   return (
     <div
-      style={{
-        marginTop: '1rem',
-        background:
-          fontOptions.theme === "dark"
-            ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
-            : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
-      }}
-      className={CERTIFICATION_CONTAINER_CLASS}
+      className={`mt-4 ${CERTIFICATION_CONTAINER_CLASS}`}
     >
       <SectionHeaderLine
         title={title}

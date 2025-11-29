@@ -12,6 +12,19 @@ import {
     SOCIAL_LINK_DELETE_BTN_CLASS
 } from "./constants";
 
+// Add dark mode variant to color class
+const addDarkModeVariant = (colorClass: string): string => {
+  const darkModeMap: { [key: string]: string } = {
+    'text-gray-900': 'dark:text-gray-100',
+    'text-gray-800': 'dark:text-gray-200',
+    'text-gray-700': 'dark:text-gray-300',
+    'text-gray-600': 'dark:text-gray-400',
+    'text-gray-500': 'dark:text-gray-400',
+    'text-black': 'dark:text-white',
+  };
+  return darkModeMap[colorClass] ? `${colorClass} ${darkModeMap[colorClass]}` : colorClass;
+};
+
 interface Props {
     socialLinks: SocialLink[];
     deleteSocialLink: (id: string) => void;
@@ -111,10 +124,11 @@ const ResumeSocialLinks: React.FC<Props> = ({
                                 fontOptions.bodyWeight,
                                 fontOptions.bodyLineHeight,
                                 fontOptions.bodyLetterSpacing,
-                                fontOptions.bodyColor,
+                                addDarkModeVariant(fontOptions.bodyColor),
                                 fontOptions.bodyItalic ? "italic" : "",
                                 fontOptions.bodyUnderline ? "underline" : "",
-                                SOCIAL_LINK_INPUT_CLASS
+                                SOCIAL_LINK_INPUT_CLASS,
+                                "placeholder:text-gray-400 dark:placeholder:text-gray-500"
                             ].filter(Boolean).join(" ")}
                             style={{
                                 width: `calc(${(link.value.length || getDefaultText(link.type).length) + 1}ch)`,

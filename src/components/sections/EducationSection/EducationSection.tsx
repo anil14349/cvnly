@@ -64,12 +64,6 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
   return (
     <div
       className={`mt-4 ${EDUCATION_CONTAINER_CLASS}`}
-      style={{
-        background:
-          fontOptions.theme === "dark"
-            ? fontOptions.widgetBgDark || DEFAULT_BG_DARK
-            : fontOptions.widgetBgLight || DEFAULT_BG_LIGHT,
-      }}
     >
       <SectionHeaderLine
         title={title}

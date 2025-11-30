@@ -21,7 +21,7 @@ import useFloatingPanels from './hooks/useFloatingPanels';
 
 function AppContent() {
   // PDF generation hook
-  const { generatePdf } = usePdfGeneration();
+  const { generatePdf, isGeneratingPDF } = usePdfGeneration();
   
   // Floating panels hook
   const { activePanel, togglePanel, closePanel } = useFloatingPanels();
@@ -44,10 +44,10 @@ function AppContent() {
     return () => window.removeEventListener('add-resume-header-title', handler);
   }, []);
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     if (resumeContentRef.current) {
       // Pass fontOptions to generatePdf for proper CSS rendering in PDF
-      generatePdf(resumeContentRef.current, {
+      await generatePdf(resumeContentRef.current, {
         filename: `${resumeData.name?.replace(/\s+/g, '_') || 'resume'}.pdf`,
         fontOptions: fontOptions
       });
@@ -63,6 +63,7 @@ function AppContent() {
       {/* App Header */}
       <AppHeader 
         onDownload={handleDownload}
+        isGenerating={isGeneratingPDF}
       />
 
       {/* Main content area - Full width for resume */}

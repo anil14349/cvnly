@@ -5,7 +5,7 @@ import type { FontOptions } from '../types/common';
 
 interface PdfGenerationOptions {
   filename?: string;
-  margin?: number;
+  margin?: number | number[];
   image?: { type: string; quality: number };
   html2canvas?: { 
     scale: number;
@@ -15,7 +15,7 @@ interface PdfGenerationOptions {
   };
   jsPDF?: { unit: string; format: string; orientation: string };
   fontOptions?: FontOptions;
-  pagebreak?: { mode: string[]; before?: string; after?: string };
+  pagebreak?: { mode: string[]; before?: string; after?: string; avoid?: string[] };
 }
 
 const usePdfGeneration = () => {
@@ -69,34 +69,85 @@ const usePdfGeneration = () => {
       clonedElement.classList.add('print-mode');
       clonedElement.classList.add('resume-print-ready');
       
+      // Hide all interactive elements (buttons, inputs for adding content)
+      const hideElements = clonedElement.querySelectorAll(
+        'button, .add-button, .delete-button, .edit-button, .print\\:hidden, [data-no-print]'
+      );
+      hideElements.forEach(el => {
+        (el as HTMLElement).style.display = 'none';
+      });
+      
+      // Add page break avoidance to important sections
+      const avoidBreakElements = clonedElement.querySelectorAll(
+        '.experience-item, .education-item, .project-item, .certification-item, .skill-category, h2, h3, h4'
+      );
+      avoidBreakElements.forEach(el => {
+        (el as HTMLElement).style.pageBreakInside = 'avoid';
+        (el as HTMLElement).style.breakInside = 'avoid';
+      });
+      
+      // Add orphan/widow control to paragraphs and list items
+      const textElements = clonedElement.querySelectorAll('p, li, span');
+      textElements.forEach(el => {
+        (el as HTMLElement).style.orphans = '3';
+        (el as HTMLElement).style.widows = '3';
+      });
+      
+      // Force section headers to keep with their content
+      const sectionHeaders = clonedElement.querySelectorAll('.section-header, [class*="SectionHeader"]');
+      sectionHeaders.forEach(el => {
+        (el as HTMLElement).style.pageBreakAfter = 'avoid';
+        (el as HTMLElement).style.breakAfter = 'avoid';
+      });
+      
       // Temporarily append to body (hidden) for rendering
       clonedElement.style.position = 'absolute';
       clonedElement.style.left = '-9999px';
       clonedElement.style.top = '0';
+      clonedElement.style.width = '210mm'; // A4 width
+      clonedElement.style.backgroundColor = '#ffffff';
       document.body.appendChild(clonedElement);
       
-      // Set default options with improved settings
+      // Wait for fonts to load
+      await document.fonts.ready;
+      
+      // Small delay to ensure all styles are applied
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
+      // Set default options with improved page break handling
       const defaultOptions = {
         filename: options.filename || 'resume.pdf',
-        margin: [15, 15, 15, 15], // [top, right, bottom, left] in mm
+        margin: [10, 10, 10, 10], // [top, right, bottom, left] in mm - smaller margins
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
-          scale: 3, // Higher scale for better quality
+          scale: 2, // Good balance of quality and file size
           useCORS: true,
           letterRendering: true,
           logging: false,
-          backgroundColor: '#ffffff'
+          backgroundColor: '#ffffff',
+          windowWidth: 794, // A4 width in pixels at 96dpi
+          windowHeight: 1123 // A4 height in pixels at 96dpi
         },
         jsPDF: { 
           unit: 'mm', 
           format: 'a4', 
           orientation: 'portrait',
-          compress: true
+          compress: true,
+          hotfixes: ['px_scaling']
         },
         pagebreak: { 
           mode: ['avoid-all', 'css', 'legacy'],
           before: '.page-break-before',
-          after: '.page-break-after'
+          after: '.page-break-after',
+          avoid: [
+            '.experience-item',
+            '.education-item', 
+            '.project-item',
+            '.certification-item',
+            '.skill-category',
+            'h2', 'h3', 'h4',
+            '.section-header'
+          ]
         }
       };
       
@@ -104,7 +155,8 @@ const usePdfGeneration = () => {
       const mergedOptions = { 
         ...defaultOptions, 
         ...options,
-        html2canvas: { ...defaultOptions.html2canvas, ...options.html2canvas }
+        html2canvas: { ...defaultOptions.html2canvas, ...options.html2canvas },
+        pagebreak: { ...defaultOptions.pagebreak, ...options.pagebreak }
       };
       
       // Generate the PDF
@@ -122,4 +174,4 @@ const usePdfGeneration = () => {
   return { isGeneratingPDF, generatePdf };
 };
 
-export default usePdfGeneration; 
+export default usePdfGeneration;

@@ -14,6 +14,7 @@ interface ToolbarItem {
   id: string;
   icon: React.ComponentType<{ className?: string }>;
   label: string;
+  shortLabel: string;
   shortcut?: string;
 }
 
@@ -23,12 +24,12 @@ interface FloatingToolbarProps {
 }
 
 const toolbarItems: ToolbarItem[] = [
-  { id: 'ats', icon: ChartBarIcon, label: 'ATS Score', shortcut: 'A' },
-  { id: 'quick-wins', icon: SparklesIcon, label: 'Quick Wins', shortcut: 'Q' },
-  { id: 'template', icon: DocumentTextIcon, label: 'Templates', shortcut: 'T' },
-  { id: 'appearance', icon: AdjustmentsHorizontalIcon, label: 'Appearance', shortcut: 'F' },
-  { id: 'sections', icon: RectangleStackIcon, label: 'Sections', shortcut: 'S' },
-  { id: 'tips', icon: LightBulbIcon, label: 'Tips', shortcut: 'H' },
+  { id: 'ats', icon: ChartBarIcon, label: 'ATS Score', shortLabel: 'ATS', shortcut: 'A' },
+  { id: 'quick-wins', icon: SparklesIcon, label: 'Quick Wins', shortLabel: 'Tips', shortcut: 'Q' },
+  { id: 'template', icon: DocumentTextIcon, label: 'Templates', shortLabel: 'Style', shortcut: 'T' },
+  { id: 'appearance', icon: AdjustmentsHorizontalIcon, label: 'Appearance', shortLabel: 'Look', shortcut: 'F' },
+  { id: 'sections', icon: RectangleStackIcon, label: 'Sections', shortLabel: 'Add', shortcut: 'S' },
+  { id: 'tips', icon: LightBulbIcon, label: 'Tips & Help', shortLabel: 'Help', shortcut: 'H' },
 ];
 
 const FloatingToolbar: React.FC<FloatingToolbarProps> = ({ activePanel, onTogglePanel }) => {
@@ -70,8 +71,8 @@ const FloatingToolbar: React.FC<FloatingToolbarProps> = ({ activePanel, onToggle
   };
   
   return (
-    <div className="floating-toolbar">
-      <div className="toolbar-items">
+    <div className="floating-toolbar-with-labels">
+      <div className="toolbar-items-labeled">
         {toolbarItems.map((item) => {
           const Icon = item.icon;
           const isActive = activePanel === item.id;
@@ -79,22 +80,23 @@ const FloatingToolbar: React.FC<FloatingToolbarProps> = ({ activePanel, onToggle
           return (
             <button
               key={item.id}
-              className={`toolbar-item ${isActive ? 'active' : ''}`}
+              className={`toolbar-item-labeled ${isActive ? 'active' : ''}`}
               onClick={() => onTogglePanel(item.id)}
               title={`${item.label} ${item.shortcut ? `(${item.shortcut})` : ''}`}
               aria-label={item.label}
             >
-              <Icon className="toolbar-icon" />
-              {isActive && <div className="active-indicator" />}
+              <Icon className="toolbar-icon-small" />
+              <span className="toolbar-label">{item.shortLabel}</span>
+              {isActive && <div className="active-indicator-labeled" />}
             </button>
           );
         })}
       </div>
       
       {/* Mini ATS Badge - Always visible */}
-      <div className="mini-ats-badge">
-        <span className={`badge-score bg-gradient-to-br ${getScoreBg(atsScore)} ${getScoreColor(atsScore)}`}>
-          {atsScore}
+      <div className="mini-ats-badge-labeled">
+        <span className={`badge-score-labeled bg-gradient-to-br ${getScoreBg(atsScore)} ${getScoreColor(atsScore)}`}>
+          {atsScore}%
         </span>
       </div>
     </div>
@@ -102,4 +104,3 @@ const FloatingToolbar: React.FC<FloatingToolbarProps> = ({ activePanel, onToggle
 };
 
 export default FloatingToolbar;
-

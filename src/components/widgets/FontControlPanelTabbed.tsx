@@ -178,6 +178,8 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
         </h3>
         <div className="space-y-3">
           {renderSelect('headerFont', FONT_FAMILIES as readonly string[], 'Header Font')}
+          {renderSelect('subheaderFont', FONT_FAMILIES as readonly string[], 'Subheader Font')}
+          {renderSelect('sectionHeaderFont', FONT_FAMILIES as readonly string[], 'Section Header Font')}
           {renderSelect('bodyFont', FONT_FAMILIES as readonly string[], 'Body Font')}
         </div>
       </div>
@@ -211,6 +213,82 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
                 type="checkbox"
                 checked={fontOptions?.headerUnderline || false}
                 onChange={(e) => updateFontOption('headerUnderline', e.target.checked)}
+                className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <Underline className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">Underline</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Subheader Text (Job Title) */}
+      <div>
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <span className="w-1 h-4 bg-gradient-to-b from-indigo-500 to-purple-500 rounded-full"></span>
+          Subheader (Job Title)
+        </h3>
+        <div className="space-y-3">
+          {renderSelect('subheaderSize', Array.from(FONT_SIZES) as string[], 'Size')}
+          {renderSelect('subheaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Weight')}
+          {renderSelect('subheaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Line Height')}
+          {renderSelect('subheaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Letter Spacing')}
+          
+          {/* Style Options */}
+          <div className="flex gap-4 pt-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={fontOptions?.subheaderItalic || false}
+                onChange={(e) => updateFontOption('subheaderItalic', e.target.checked)}
+                className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <Italic className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">Italic</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={fontOptions?.subheaderUnderline || false}
+                onChange={(e) => updateFontOption('subheaderUnderline', e.target.checked)}
+                className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <Underline className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">Underline</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      {/* Section Headers (WORK EXPERIENCE, SKILLS, etc.) */}
+      <div>
+        <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+          <span className="w-1 h-4 bg-gradient-to-b from-green-500 to-teal-500 rounded-full"></span>
+          Section Headers
+        </h3>
+        <div className="space-y-3">
+          {renderSelect('sectionHeaderSize', Array.from(FONT_SIZES) as string[], 'Size')}
+          {renderSelect('sectionHeaderWeight', Array.from(FONT_WEIGHTS) as string[], 'Weight')}
+          {renderSelect('sectionHeaderLineHeight', Array.from(LINE_HEIGHTS) as string[], 'Line Height')}
+          {renderSelect('sectionHeaderLetterSpacing', Array.from(LETTER_SPACING) as string[], 'Letter Spacing')}
+          
+          {/* Style Options */}
+          <div className="flex gap-4 pt-2">
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={fontOptions?.sectionHeaderItalic || false}
+                onChange={(e) => updateFontOption('sectionHeaderItalic', e.target.checked)}
+                className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <Italic className="w-4 h-4 text-gray-700 dark:text-gray-200" />
+              <span className="text-xs text-gray-700 dark:text-gray-300">Italic</span>
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={fontOptions?.sectionHeaderUnderline || false}
+                onChange={(e) => updateFontOption('sectionHeaderUnderline', e.target.checked)}
                 className="w-4 h-4 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
               />
               <Underline className="w-4 h-4 text-gray-700 dark:text-gray-200" />
@@ -263,10 +341,28 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
           {renderSelect('headerColor', textColors, 'Select Color')}
         </div>
 
-        {/* Body Color */}
+        {/* Subheader Color */}
         <div>
           <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
             <span className="w-1 h-4 bg-gradient-to-b from-purple-500 to-pink-500 rounded-full"></span>
+            Subheader Color
+          </h3>
+          {renderSelect('subheaderColor', textColors, 'Select Color')}
+        </div>
+
+        {/* Section Header Color */}
+        <div>
+          <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <span className="w-1 h-4 bg-gradient-to-b from-green-500 to-teal-500 rounded-full"></span>
+            Section Header Color
+          </h3>
+          {renderSelect('sectionHeaderColor', textColors, 'Select Color')}
+        </div>
+
+        {/* Body Color */}
+        <div>
+          <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <span className="w-1 h-4 bg-gradient-to-b from-orange-500 to-red-500 rounded-full"></span>
             Body Color
           </h3>
           {renderSelect('bodyColor', textColors, 'Select Color')}
@@ -295,6 +391,8 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
             onClick={() => {
               // Reset to defaults
               updateFontOption('headerColor', 'text-gray-700');
+              updateFontOption('subheaderColor', 'text-gray-600');
+              updateFontOption('sectionHeaderColor', 'text-gray-600');
               updateFontOption('bodyColor', 'text-gray-500');
               updateFontOption('lineColor', '#4299e1');
             }}

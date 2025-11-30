@@ -5,7 +5,7 @@ import { ExperienceSectionProps } from '../../../types/experience';
 import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import FormattedText from '../../common/FormattedText';
-import { getFontClassNames } from '../../../utils/fontUtils';
+import { getFontClassNames, getFontInlineStyles } from '../../../utils/fontUtils';
 import {
   ADD_EXPERIENCE_BUTTON_CLASS,
   ADD_EXPERIENCE_TEXT_CLASS,
@@ -84,6 +84,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { previewMode?: boole
   };
 
   const baseTextClasses = getFontClassNames(fontOptions);
+  const baseTextStyles = getFontInlineStyles(fontOptions);
 
   return (
     <div
@@ -116,19 +117,19 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { previewMode?: boole
             </button>
             <div className={EXPERIENCE_HEADER_CLASS}>
               <div>
-                <h3 className={baseTextClasses} contentEditable suppressContentEditableWarning>
+                <h3 className={baseTextClasses} style={baseTextStyles} contentEditable suppressContentEditableWarning>
                   {experience.title}
                 </h3>
-                <div className={baseTextClasses} contentEditable suppressContentEditableWarning>
+                <div className={baseTextClasses} style={baseTextStyles} contentEditable suppressContentEditableWarning>
                   {experience.company}
                 </div>
               </div>
-              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS} experience-period`} contentEditable suppressContentEditableWarning>
+              <div className={`${baseTextClasses} ${EXPERIENCE_PERIOD_CLASS} experience-period`} style={baseTextStyles} contentEditable suppressContentEditableWarning>
                 {experience.period}
               </div>
             </div>
 
-            <ul className={`${baseTextClasses} ${ACHIEVEMENT_LIST_CLASS}`}>
+            <ul className={`${baseTextClasses} ${ACHIEVEMENT_LIST_CLASS}`} style={baseTextStyles}>
               {experience.achievements.map((achievement, idx) => (
                 <li key={idx} className={ACHIEVEMENT_ITEM_CLASS}>
                   <span className={ACHIEVEMENT_TEXT_CONTAINER_CLASS}>
@@ -154,6 +155,7 @@ const ExperienceSection: React.FC<ExperienceSectionProps & { previewMode?: boole
             <button
               onClick={() => addAchievement(experience.id)}
               className={`${ADD_ACHIEVEMENT_BUTTON_CLASS} ${baseTextClasses} ${previewMode ? 'hidden' : ''}`}
+              style={baseTextStyles}
               aria-label="Add achievement"
             >
               <Plus className={ADD_ACHIEVEMENT_ICON_SIZE} aria-hidden="true" />

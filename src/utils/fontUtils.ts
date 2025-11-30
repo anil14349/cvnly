@@ -213,7 +213,6 @@ export const getFontClassNames = (fontOptions: FontOptions): string => {
     fontOptions.bodySize,
     fontOptions.bodyWeight,
     addDarkModeVariant(fontOptions.bodyColor),
-    `font-body-${fontOptions.bodyFont.toLowerCase()}`,
     fontOptions.bodyItalic ? 'italic' : '',
     fontOptions.bodyUnderline ? 'underline' : '',
   ]
@@ -302,9 +301,10 @@ export const getSectionHeaderFontLineStyles = (fontOptions: FontOptions): React.
   letterSpacing: fontOptions.sectionHeaderLetterSpacing,
 });
 
-export const getFontInlineStyles = (fontOptions: FontOptions) => ({
+export const getFontInlineStyles = (fontOptions: FontOptions): React.CSSProperties => ({
   lineHeight: fontOptions.bodyLineHeight,
   letterSpacing: fontOptions.bodyLetterSpacing,
+  fontFamily: getBodyFontFamily(fontOptions),
 });
 
 // Get the header line color based on theme

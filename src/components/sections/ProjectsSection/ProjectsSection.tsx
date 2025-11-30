@@ -4,7 +4,7 @@ import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import { ProjectsSectionProps, Project } from '../../../types/project';
 import FormattedText from '../../common/FormattedText';
-import { getFontClassNames } from '../../../utils/fontUtils';
+import { getFontClassNames, getFontInlineStyles } from '../../../utils/fontUtils';
 import {
   PROJECTS_CONTAINER_CLASS,
   PROJECTS_LIST_CLASS,
@@ -47,6 +47,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
   previewMode = false
 }) => {
   const baseTextClasses = getFontClassNames(fontOptions);
+  const baseTextStyles = getFontInlineStyles(fontOptions);
 
   return (
     <div
@@ -79,7 +80,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
 
             <div className={PROJECT_CONTENT_CLASS}>
               <div className={PROJECT_DETAILS_CLASS}>
-                <h4 className={baseTextClasses}>
+                <h4 className={baseTextClasses} style={baseTextStyles}>
                   <FormattedText
                     text={project.name}
                     fontOptions={fontOptions}
@@ -88,7 +89,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                     className={INLINE_BLOCK_CLASS}
                   />
                 </h4>
-                <div className={baseTextClasses}>
+                <div className={baseTextClasses} style={baseTextStyles}>
                   <FormattedText
                     text={project.company}
                     fontOptions={fontOptions}
@@ -98,7 +99,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                   />
                 </div>
               </div>
-              <div className={`${baseTextClasses} experience-period`}>
+              <div className={`${baseTextClasses} experience-period`} style={baseTextStyles}>
                 <FormattedText
                   text={project.period}
                   fontOptions={fontOptions}
@@ -109,7 +110,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
               </div>
             </div>
 
-            <div className={baseTextClasses}>
+            <div className={baseTextClasses} style={baseTextStyles}>
               <FormattedText
                 text={project.description}
                 fontOptions={fontOptions}
@@ -120,7 +121,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
             </div>
 
             <div className={PROJECT_DESCRIPTION_CLASS}>
-              <ul className={`${PROJECT_RESPONSIBILITIES_LIST_CLASS} ${baseTextClasses}`}>
+              <ul className={`${PROJECT_RESPONSIBILITIES_LIST_CLASS} ${baseTextClasses}`} style={baseTextStyles}>
                 {project.responsibilities?.map((responsibility, idx) => (
                   <li key={idx} className={PROJECT_RESPONSIBILITY_ITEM_CLASS}>
                     <span className="inline-flex items-center">
@@ -156,6 +157,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                   updateProject?.(project.id, { ...project, responsibilities: updatedResponsibilities });
                 }}
                 className={`flex items-center gap-1 text-xs print:hidden hover:opacity-80 transition-opacity ${baseTextClasses} mb-1 ${previewMode ? 'hidden' : ''}`}
+                style={baseTextStyles}
                 aria-label="Add responsibility"
               >
                 <Plus className="w-3 h-3" aria-hidden="true" />

@@ -96,7 +96,7 @@ const SkillCategory: React.FC<Props> = ({
                         }
                     }}
                     className={`${CLASSIC_ITEMS_INPUT_CLASS} ${bodyClasses}`}
-                    style={{ minWidth: 120 }}
+                    style={{ minWidth: 120, fontFamily: getBodyFontFamily(fontOptions) }}
                 />
             </li>
         );

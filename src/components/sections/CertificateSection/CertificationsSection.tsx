@@ -7,7 +7,7 @@ import {
 } from "../../../types/certification";
 import SectionHeaderLine from "../../common/SectionHeaderLine";
 import SectionControls from "../../common/SectionControls";
-import { getFontClassNames } from "../../../utils/fontUtils";
+import { getFontClassNames, getFontInlineStyles } from "../../../utils/fontUtils";
 import {
   CERTIFICATION_CONTAINER_CLASS,
   CERTIFICATION_ITEM_CLASS,
@@ -47,6 +47,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
   };
 
   const baseTextClasses = getFontClassNames(fontOptions);
+  const baseTextStyles = getFontInlineStyles(fontOptions);
 
   return (
     <div
@@ -80,6 +81,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
               <div>
                 <h4
                   className={baseTextClasses}
+                  style={baseTextStyles}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={(e) =>
@@ -90,6 +92,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
                 </h4>
                 <div
                   className={baseTextClasses}
+                  style={baseTextStyles}
                   contentEditable
                   suppressContentEditableWarning
                   onBlur={(e) =>
@@ -105,6 +108,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
               </div>
               <div
                 className={`${CERTIFICATION_DATE_CLASS} ${baseTextClasses} education-date`}
+                style={baseTextStyles}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={(e) =>
@@ -121,6 +125,7 @@ const CertificationsSection: React.FC<CertificationSectionProps & { previewMode?
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${CERTIFICATION_LINK_CLASS} ${baseTextClasses}`}
+                style={baseTextStyles}
                 contentEditable
                 suppressContentEditableWarning
                 onBlur={(e) =>

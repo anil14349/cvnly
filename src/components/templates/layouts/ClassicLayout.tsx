@@ -1,5 +1,6 @@
 import React from 'react';
 import ResumeHeader from '../../layout/ResumeHeader';
+import { getBodyFontFamily } from '../../../utils/fontUtils';
 
 interface ClassicLayoutProps {
   resumeData: any;
@@ -30,9 +31,14 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
   previewMode
 }) => {
   return (
-    <div className="classic-layout" style={{ fontFamily: 'Georgia, serif' }}>
+    <div className="classic-layout" style={{ fontFamily: getBodyFontFamily(fontOptions) }}>
       {/* Centered Header */}
-      <div style={{ textAlign: 'center', borderBottom: '1px solid #ddd', paddingBottom: '12px', marginBottom: '12px' }}>
+      <div style={{ 
+        textAlign: 'center', 
+        borderBottom: fontOptions?.headerLineVisible !== false ? `${fontOptions?.headerLineSize || '1px'} solid ${fontOptions?.headerLineColor || '#1f2937'}` : 'none', 
+        paddingBottom: '12px', 
+        marginBottom: '12px' 
+      }}>
         <ResumeHeader
           resumeData={resumeData}
           setResumeData={previewMode ? (() => {}) : setResumeData}
@@ -49,7 +55,7 @@ const ClassicLayout: React.FC<ClassicLayoutProps> = ({
         {sections.map((section, index) => {
           if (section.visible === false) return null;
           return (
-            <div key={section.type + index}>
+            <div key={section.type + index} style={{ marginBottom: '12px' }}>
               {renderSection(section)}
             </div>
           );

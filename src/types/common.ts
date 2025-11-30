@@ -47,7 +47,13 @@ export interface FontOptions {
   bodyUnderline: boolean;
 
   // Line settings
-  lineColor: string;
+  lineColor: string;            // Section line color (legacy, also used as fallback)
+  sectionLineColor: string;     // Section divider line color
+  sectionLineSize: string;      // Line thickness: '0px', '1px', '2px', '3px'
+  sectionLineVisible: boolean;  // Show/hide section divider lines
+  headerLineColor: string;      // Header divider line color
+  headerLineSize: string;       // Header line thickness
+  headerLineVisible: boolean;   // Show/hide header divider line
 
   // Category title font
   categoryFont?: string;

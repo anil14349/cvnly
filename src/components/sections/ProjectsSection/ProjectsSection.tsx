@@ -4,7 +4,7 @@ import SectionControls from '../../common/SectionControls';
 import SectionHeaderLine from '../../common/SectionHeaderLine';
 import { ProjectsSectionProps, Project } from '../../../types/project';
 import FormattedText from '../../common/FormattedText';
-import { getFontClassNames, getFontInlineStyles } from '../../../utils/fontUtils';
+import { getFontClassNames, getFontInlineStyles, getBodyFontFamily } from '../../../utils/fontUtils';
 import {
   PROJECTS_CONTAINER_CLASS,
   PROJECTS_LIST_CLASS,
@@ -171,7 +171,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                     <span
                       className={`group flex items-center rounded-full border px-3 py-1 font-medium transition whitespace-nowrap border-gray-400 dark:border-gray-600 bg-white dark:bg-gray-700 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/30 ${fontOptions.bodyColor}`}
                       style={{
-                        fontFamily: fontOptions.bodyFont,
+                        fontFamily: getBodyFontFamily(fontOptions),
                         fontSize: fontOptions.bodySize,
                         fontWeight: fontOptions.bodyWeight,
                         minHeight: '1.75rem',
@@ -192,7 +192,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps & { previewMode?: boolean }
                         className={INLINE_BLOCK_CLASS}
                         style={{
                           color: fontOptions.bodyColor,
-                          fontFamily: fontOptions.bodyFont,
+                          fontFamily: getBodyFontFamily(fontOptions),
                           fontSize: fontOptions.bodySize,
                           fontWeight: fontOptions.bodyWeight,
                         }}

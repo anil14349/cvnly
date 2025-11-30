@@ -58,9 +58,9 @@ const defaultFontOptions: FontOptions = {
   subheaderUnderline: false,
 
   // Section header font settings
-  sectionHeaderFont: 'inter',
-  sectionHeaderSize: 'text-xl',
-  sectionHeaderWeight: 'font-normal',
+  sectionHeaderFont: 'Inter',
+  sectionHeaderSize: 'text-lg',
+  sectionHeaderWeight: 'font-medium',
   sectionHeaderLineHeight: 'leading-tight',
   sectionHeaderLetterSpacing: 'tracking-tight',
   sectionHeaderColor: 'text-gray-600',

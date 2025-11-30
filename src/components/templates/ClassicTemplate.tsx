@@ -1,5 +1,6 @@
 import React from 'react';
 import ResumeHeader from '../layout/ResumeHeader';
+import { getBodyFontFamily } from '../../utils/fontUtils';
 
 interface ClassicTemplateProps {
   resumeData: any;
@@ -30,9 +31,14 @@ const ClassicTemplate: React.FC<ClassicTemplateProps> = ({
   previewMode
 }) => {
   return (
-    <div style={{ fontFamily: 'Georgia, serif' }}>
+    <div style={{ fontFamily: getBodyFontFamily(fontOptions) }}>
       {/* Centered Header */}
-      <div style={{ textAlign: 'center', borderBottom: '2px solid #333', paddingBottom: '16px', marginBottom: '24px' }}>
+      <div style={{ 
+        textAlign: 'center', 
+        borderBottom: fontOptions?.headerLineVisible !== false ? `${fontOptions?.headerLineSize || '2px'} solid ${fontOptions?.headerLineColor || '#1f2937'}` : 'none', 
+        paddingBottom: '16px', 
+        marginBottom: '24px' 
+      }}>
         <ResumeHeader
           resumeData={resumeData}
           setResumeData={previewMode ? (() => {}) : setResumeData}

@@ -21,6 +21,16 @@ interface TemplateWrapperProps {
   addSocialLink: any;
   updateSocialLink: any;
   previewMode: boolean;
+  // Additional props for Modern and TwoColumn templates (sidebar sections)
+  skills?: any[];
+  setSkills?: (skills: any[]) => void;
+  certifications?: any[];
+  addCertification?: () => void;
+  deleteCertification?: (id: string) => void;
+  updateCertification?: (id: string, field: string, value: string) => void;
+  onSectionTitleChange?: (sectionType: string, newTitle: string) => void;
+  moveSection?: (index: number, direction: 'up' | 'down') => void;
+  deleteSection?: (index: number) => void;
 }
 
 const TemplateWrapper: React.FC<TemplateWrapperProps> = (props) => {

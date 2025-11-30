@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import type { FontOptions } from '../../types/common';
-import { getFontSizeClass } from '../../utils/fontUtils';
+import { getFontSizeClass, getBodyFontFamily } from '../../utils/fontUtils';
 
 interface FormattedTextProps {
     text: string;
@@ -128,10 +128,11 @@ const FormattedText: React.FC<FormattedTextProps> = ({
         className.includes('experience-period');
 
     // Create the text style with fontOptions and apply custom styles if provided
+    // Note: Using getBodyFontFamily() to get proper CSS font-family string with fallbacks
     const textStyle: React.CSSProperties = {
         fontWeight: fontOptions.bodyWeight,
         color: isDateElement ? 'var(--line-color)' : fontOptions.bodyColor,
-        fontFamily: fontOptions.bodyFont,
+        fontFamily: getBodyFontFamily(fontOptions),
         lineHeight: fontOptions.bodyLineHeight,
         letterSpacing: fontOptions.bodyLetterSpacing,
         fontStyle: fontOptions.bodyItalic ? 'italic' : 'normal',

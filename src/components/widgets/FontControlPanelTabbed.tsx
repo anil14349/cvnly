@@ -368,21 +368,190 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
           {renderSelect('bodyColor', textColors, 'Select Color')}
         </div>
 
-        {/* Line Color */}
+        {/* Section Line Settings */}
         <div>
           <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
             <span className="w-1 h-4 bg-gradient-to-b from-green-500 to-emerald-500 rounded-full"></span>
-            Section Line Color
+            Section Line Settings
           </h3>
-          <input
-            type="color"
-            value={fontOptions?.lineColor || '#4299e1'}
-            onChange={(e) => updateFontOption('lineColor', e.target.value)}
-            className="w-full h-12 rounded-lg cursor-pointer border-2 border-gray-300 dark:border-gray-600"
-          />
-          <p className="text-xs text-gray-700 dark:text-gray-200 mt-2">
-            Current: {fontOptions?.lineColor || '#4299e1'}
-          </p>
+          
+          {/* Section Line Color */}
+          <div className="mb-4">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Section Line Color
+            </label>
+            <div className="flex gap-2 items-center">
+              <input
+                type="color"
+                value={fontOptions?.sectionLineColor || fontOptions?.lineColor || '#3b82f6'}
+                onChange={(e) => {
+                  updateFontOption('sectionLineColor', e.target.value);
+                  updateFontOption('lineColor', e.target.value); // Keep legacy lineColor in sync
+                }}
+                className="w-16 h-10 rounded-lg cursor-pointer border-2 border-gray-300 dark:border-gray-600"
+              />
+              <span className="text-xs text-gray-500 dark:text-gray-400 flex-1">
+                {fontOptions?.sectionLineColor || fontOptions?.lineColor || '#3b82f6'}
+              </span>
+            </div>
+          </div>
+
+          {/* Section Line Size */}
+          <div className="mb-4">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Section Line Thickness
+            </label>
+            <div className="grid grid-cols-4 gap-1 mb-1">
+              {['0px', '0.1px', '0.25px', '0.5px'].map((size) => (
+                <button
+                  key={size}
+                  className={`p-2 rounded-lg border-2 text-xs font-semibold transition-all ${
+                    (fontOptions?.sectionLineSize || '1px') === size
+                      ? 'bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300'
+                      : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-green-400 text-gray-700 dark:text-gray-300'
+                  }`}
+                  onClick={() => updateFontOption('sectionLineSize', size)}
+                >
+                  {size === '0px' ? 'None' : size.replace('px', '')}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-3 gap-1">
+              {['1px', '2px', '3px'].map((size) => (
+                <button
+                  key={size}
+                  className={`p-2 rounded-lg border-2 text-xs font-semibold transition-all ${
+                    (fontOptions?.sectionLineSize || '1px') === size
+                      ? 'bg-green-50 dark:bg-green-900/30 border-green-500 text-green-700 dark:text-green-300'
+                      : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-green-400 text-gray-700 dark:text-gray-300'
+                  }`}
+                  onClick={() => updateFontOption('sectionLineSize', size)}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Section Line Visibility Toggle */}
+          <div className="mb-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={fontOptions?.sectionLineVisible !== false}
+                onChange={(e) => updateFontOption('sectionLineVisible', e.target.checked)}
+                className="w-5 h-5 text-green-500 rounded focus:ring-2 focus:ring-green-500"
+              />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Show Section Lines</span>
+            </label>
+          </div>
+        </div>
+
+        {/* Header Line Settings */}
+        <div>
+          <h3 className="text-xs font-bold text-gray-700 dark:text-gray-200 uppercase tracking-wider mb-3 flex items-center gap-2">
+            <span className="w-1 h-4 bg-gradient-to-b from-blue-500 to-indigo-500 rounded-full"></span>
+            Header Line Settings
+          </h3>
+
+          {/* Header Line Color */}
+          <div className="mb-4">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Header Line Color
+            </label>
+            <div className="flex gap-2 items-center">
+              <input
+                type="color"
+                value={fontOptions?.headerLineColor || '#1f2937'}
+                onChange={(e) => updateFontOption('headerLineColor', e.target.value)}
+                className="w-16 h-10 rounded-lg cursor-pointer border-2 border-gray-300 dark:border-gray-600"
+              />
+              <span className="text-xs text-gray-500 dark:text-gray-400 flex-1">
+                {fontOptions?.headerLineColor || '#1f2937'}
+              </span>
+            </div>
+          </div>
+
+          {/* Header Line Size */}
+          <div className="mb-4">
+            <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Header Line Thickness
+            </label>
+            <div className="grid grid-cols-4 gap-1 mb-1">
+              {['0px', '0.1px', '0.25px', '0.5px'].map((size) => (
+                <button
+                  key={size}
+                  className={`p-2 rounded-lg border-2 text-xs font-semibold transition-all ${
+                    (fontOptions?.headerLineSize || '2px') === size
+                      ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-700 dark:text-blue-300'
+                      : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400 text-gray-700 dark:text-gray-300'
+                  }`}
+                  onClick={() => updateFontOption('headerLineSize', size)}
+                >
+                  {size === '0px' ? 'None' : size.replace('px', '')}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-3 gap-1">
+              {['1px', '2px', '3px'].map((size) => (
+                <button
+                  key={size}
+                  className={`p-2 rounded-lg border-2 text-xs font-semibold transition-all ${
+                    (fontOptions?.headerLineSize || '2px') === size
+                      ? 'bg-blue-50 dark:bg-blue-900/30 border-blue-500 text-blue-700 dark:text-blue-300'
+                      : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 hover:border-blue-400 text-gray-700 dark:text-gray-300'
+                  }`}
+                  onClick={() => updateFontOption('headerLineSize', size)}
+                >
+                  {size}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Header Line Visibility Toggle */}
+          <div className="mb-4">
+            <label className="flex items-center gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={fontOptions?.headerLineVisible !== false}
+                onChange={(e) => updateFontOption('headerLineVisible', e.target.checked)}
+                className="w-5 h-5 text-blue-500 rounded focus:ring-2 focus:ring-blue-500"
+              />
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Show Header Line</span>
+            </label>
+          </div>
+
+          {/* Preview */}
+          <div className="mt-4 p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">Preview:</p>
+            <div className="space-y-3">
+              <div>
+                <span className="text-xs text-gray-600 dark:text-gray-400">Header Line</span>
+                {fontOptions?.headerLineVisible !== false && (
+                  <div 
+                    style={{ 
+                      height: fontOptions?.headerLineSize || '2px', 
+                      backgroundColor: fontOptions?.headerLineColor || '#1f2937',
+                      marginTop: '4px'
+                    }} 
+                  />
+                )}
+              </div>
+              <div>
+                <span className="text-xs text-gray-600 dark:text-gray-400">Section Line</span>
+                {fontOptions?.sectionLineVisible !== false && (
+                  <div 
+                    style={{ 
+                      height: fontOptions?.sectionLineSize || '1px', 
+                      backgroundColor: fontOptions?.sectionLineColor || fontOptions?.lineColor || '#3b82f6',
+                      marginTop: '4px'
+                    }} 
+                  />
+                )}
+              </div>
+            </div>
+          </div>
         </div>
 
         {/* Reset Button */}
@@ -394,7 +563,13 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
               updateFontOption('subheaderColor', 'text-gray-600');
               updateFontOption('sectionHeaderColor', 'text-gray-600');
               updateFontOption('bodyColor', 'text-gray-500');
-              updateFontOption('lineColor', '#4299e1');
+              updateFontOption('lineColor', '#3b82f6');
+              updateFontOption('sectionLineColor', '#3b82f6');
+              updateFontOption('sectionLineSize', '1px');
+              updateFontOption('sectionLineVisible', true);
+              updateFontOption('headerLineColor', '#1f2937');
+              updateFontOption('headerLineSize', '2px');
+              updateFontOption('headerLineVisible', true);
             }}
             className="w-full px-4 py-3 bg-gray-100 dark:bg-gray-700 text-gray-700 dark:text-gray-300 font-semibold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
           >

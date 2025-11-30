@@ -161,7 +161,7 @@ export const NewSkillInput = ({
       <span
         className={`${SKILL_BULLET_CLASS} skill-bullet`}
         style={{
-          fontFamily: fontOptions.bodyFont,
+          fontFamily: getBodyFontFamily(fontOptions),
           fontSize: fontOptions.bodySize,
           lineHeight: fontOptions.bodyLineHeight,
           fontWeight: fontOptions.bodyWeight,
@@ -181,7 +181,7 @@ export const NewSkillInput = ({
         placeholder={ADD_NEW_SKILL_PLACEHOLDER}
         className={NEW_SKILL_INPUT_CLASS}
         style={{
-          fontFamily: fontOptions.bodyFont,
+          fontFamily: getBodyFontFamily(fontOptions),
           fontSize: fontOptions.bodySize,
           lineHeight: fontOptions.bodyLineHeight,
           fontWeight: fontOptions.bodyWeight,

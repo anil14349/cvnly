@@ -40,19 +40,19 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
     controls
 }) => {
     React.useEffect(() => {
-        // Use lineColor from fontOptions, defaulting to blue
-        const lineColor = fontOptions?.lineColor || '#4299e1';
+        // Use sectionLineColor from fontOptions, falling back to lineColor, defaulting to blue
+        const lineColor = fontOptions?.sectionLineColor || fontOptions?.lineColor || '#3b82f6';
         document.documentElement.style.setProperty('--line-color', lineColor);
-    }, [fontOptions?.lineColor]);
+    }, [fontOptions?.sectionLineColor, fontOptions?.lineColor]);
 
     const getHeaderClasses = () => {
         const classes = [
             'section-header flex-grow',
-            fontOptions?.sectionHeaderSize || 'text-xl',
-            fontOptions?.sectionHeaderWeight || 'font-normal',
+            fontOptions?.sectionHeaderSize || 'text-base',
+            fontOptions?.sectionHeaderWeight || 'font-semibold',
             fontOptions?.sectionHeaderLineHeight || 'leading-tight',
-            fontOptions?.sectionHeaderLetterSpacing || 'tracking-tight',
-            addDarkModeVariant(fontOptions?.sectionHeaderColor || 'text-gray-600'),
+            fontOptions?.sectionHeaderLetterSpacing || 'tracking-normal',
+            addDarkModeVariant(fontOptions?.sectionHeaderColor || 'text-gray-700'),
             fontOptions?.sectionHeaderItalic ? 'italic' : '',
             fontOptions?.sectionHeaderUnderline ? 'underline' : ''
         ];
@@ -106,13 +106,16 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
                     ))}
                 </div>
             </div>
-            <div 
-                style={{ 
-                    height: '1px', 
-                    width: '100%', 
-                    backgroundColor: 'var(--line-color)' 
-                }} 
-            />
+            {/* Section divider line - respects visibility, size, and color from fontOptions */}
+            {fontOptions?.sectionLineVisible !== false && (
+                <div 
+                    style={{ 
+                        height: fontOptions?.sectionLineSize || '1px', 
+                        width: '100%', 
+                        backgroundColor: fontOptions?.sectionLineColor || fontOptions?.lineColor || '#3b82f6'
+                    }} 
+                />
+            )}
         </div>
     );
 };

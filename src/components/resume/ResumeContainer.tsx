@@ -85,6 +85,21 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
               addSocialLink={addSocialLink}
               updateSocialLink={updateSocialLink}
               previewMode={previewMode}
+              // Additional props for Modern template sidebar components
+              skills={skills}
+              setSkills={previewMode ? undefined : setSkills}
+              certifications={certifications}
+              addCertification={previewMode ? undefined : addCertification}
+              deleteCertification={previewMode ? undefined : deleteCertification}
+              updateCertification={previewMode ? undefined : updateCertification}
+              moveSection={previewMode ? undefined : moveSection}
+              deleteSection={previewMode ? undefined : (index: number) => deleteSection(index)}
+              onSectionTitleChange={previewMode ? undefined : (sectionType: string, newTitle: string) => {
+                const sectionIndex = sections.findIndex(s => s.type === sectionType);
+                if (sectionIndex !== -1) {
+                  updateSectionTitle(sections, sectionIndex, newTitle);
+                }
+              }}
               renderSection={(section) => {
                 const index = sections.findIndex(s => s.type === section.type);
                 

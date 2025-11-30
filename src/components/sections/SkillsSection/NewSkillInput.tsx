@@ -1,5 +1,6 @@
 import { FontOptions } from "../../../types/common";
 import { Plus } from "lucide-react";
+import { getBodyFontFamily } from "../../../utils/fontUtils";
 import {
     NEW_SKILL_CONTAINER_CLASS,
     NEW_SKILL_INPUT_CLASS,
@@ -28,7 +29,7 @@ export const NewSkillInput = ({
         <span
             className={SKILL_BULLET_CLASS}
             style={{
-                fontFamily: fontOptions.bodyFont,
+                fontFamily: getBodyFontFamily(fontOptions),
                 fontSize: fontOptions.bodySize,
                 lineHeight: fontOptions.bodyLineHeight,
                 fontWeight: fontOptions.bodyWeight,
@@ -48,7 +49,7 @@ export const NewSkillInput = ({
             placeholder={ADD_NEW_SKILL_PLACEHOLDER}
             className={NEW_SKILL_INPUT_CLASS}
             style={{
-                fontFamily: fontOptions.bodyFont,
+                fontFamily: getBodyFontFamily(fontOptions),
                 fontSize: fontOptions.bodySize,
                 lineHeight: fontOptions.bodyLineHeight,
                 fontWeight: fontOptions.bodyWeight,

@@ -1,22 +1,21 @@
 import { useState, useEffect, RefObject } from 'react';
 import { FontOptions } from '../types/common';
-import { HEADER_FONTS, BODY_FONTS } from '../utils/fontUtils';
 
 const defaultFontOptions: FontOptions = {
-  // Header font settings
-  headerFont: 'Inter',
+  // Header font settings (Name) - Raleway for elegant, professional look
+  headerFont: 'Raleway',
   headerSize: 'text-2xl',
-  headerWeight: 'font-normal',
+  headerWeight: 'font-semibold',
   headerLineHeight: 'leading-tight',
-  headerLetterSpacing: 'tracking-wide',
-  headerColor: 'text-gray-700',
+  headerLetterSpacing: 'tracking-normal',
+  headerColor: 'text-gray-800',
   headerAlignment: 'center',
   headerItalic: false,
   headerUnderline: false,
 
-  // Subheader font settings
-  subheaderFont: 'Inter',
-  subheaderSize: 'text-sm',
+  // Subheader font settings (Title) - Raleway for consistency
+  subheaderFont: 'Raleway',
+  subheaderSize: 'text-base',
   subheaderWeight: 'font-normal',
   subheaderLineHeight: 'leading-snug',
   subheaderLetterSpacing: 'tracking-wide',
@@ -24,28 +23,34 @@ const defaultFontOptions: FontOptions = {
   subheaderItalic: false,
   subheaderUnderline: false,
 
-  // Section header font settings
-  sectionHeaderFont: 'Inter',
-  sectionHeaderSize: 'text-xl',
-  sectionHeaderWeight: 'font-normal',
+  // Section header font settings - Raleway for clean section headers
+  sectionHeaderFont: 'Raleway',
+  sectionHeaderSize: 'text-base',
+  sectionHeaderWeight: 'font-semibold',
   sectionHeaderLineHeight: 'leading-tight',
-  sectionHeaderLetterSpacing: 'tracking-tight',
-  sectionHeaderColor: 'text-gray-600',
+  sectionHeaderLetterSpacing: 'tracking-normal',
+  sectionHeaderColor: 'text-gray-700',
   sectionHeaderItalic: false,
   sectionHeaderUnderline: false,
 
-  // Body font settings
-  bodyFont: 'Inter',
+  // Body font settings - Open Sans for excellent readability
+  bodyFont: 'Open Sans',
   bodySize: 'text-sm',
   bodyWeight: 'font-normal',
-  bodyLineHeight: 'leading-tight',
-  bodyLetterSpacing: 'tracking-wide',
-  bodyColor: 'text-gray-500',
+  bodyLineHeight: 'leading-relaxed',
+  bodyLetterSpacing: 'tracking-normal',
+  bodyColor: 'text-gray-600',
   bodyItalic: false,
   bodyUnderline: false,
 
-  // Line settings
-  lineColor: '#4299e1'
+  // Line settings - Professional blue accent
+  lineColor: '#3b82f6',
+  sectionLineColor: '#3b82f6',
+  sectionLineSize: '1px',
+  sectionLineVisible: true,
+  headerLineColor: '#1f2937',
+  headerLineSize: '2px',
+  headerLineVisible: true
 };
 
 export const useFontOptions = (resumeRef: RefObject<HTMLDivElement>) => {

@@ -1,5 +1,6 @@
 import React from 'react';
 import { FontOptions } from '../../types/common';
+import { getSectionHeaderFontFamily } from '../../utils/fontUtils';
 
 // Add dark mode variant to color class
 const addDarkModeVariant = (colorClass: string): string => {
@@ -52,7 +53,6 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
             fontOptions?.sectionHeaderLineHeight || 'leading-tight',
             fontOptions?.sectionHeaderLetterSpacing || 'tracking-tight',
             addDarkModeVariant(fontOptions?.sectionHeaderColor || 'text-gray-600'),
-            `font-header-${fontOptions?.sectionHeaderFont?.toLowerCase() || 'inter'}`,
             fontOptions?.sectionHeaderItalic ? 'italic' : '',
             fontOptions?.sectionHeaderUnderline ? 'underline' : ''
         ];
@@ -62,13 +62,19 @@ const SectionHeaderLine: React.FC<SectionHeaderLineProps> = ({
     return (
         <div className="relative group">
             <div className="flex items-center justify-between gap-4 pb-2">
-                <h2 className={getHeaderClasses()}>
+                <h2 
+                    className={getHeaderClasses()}
+                    // eslint-disable-next-line react/forbid-component-props
+                    style={fontOptions ? { fontFamily: getSectionHeaderFontFamily(fontOptions) } : undefined}
+                >
                     {onTitleChange ? (
                         <input
                             type="text"
                             value={title}
                             onChange={(e) => onTitleChange(e.target.value)}
                             className={`bg-transparent border-none focus:outline-none focus:ring-0 w-full ${getHeaderClasses()}`}
+                            // eslint-disable-next-line react/forbid-component-props
+                            style={fontOptions ? { fontFamily: getSectionHeaderFontFamily(fontOptions) } : undefined}
                             aria-label={`Edit ${title} section title`}
                         />
                     ) : (

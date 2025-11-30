@@ -316,3 +316,44 @@ export const getHeaderLineColor = (fontOptions: FontOptions) => {
   // For light mode, use subtle gray
   return 'rgba(156, 163, 175, 0.2)'; // Gray-400 with low opacity
 };
+
+// Font family mapping
+const FONT_FAMILY_MAP: Record<string, string> = {
+  'inter': "'Inter', sans-serif",
+  'montserrat': "'Montserrat', sans-serif",
+  'playfair display': "'Playfair Display', serif",
+  'playfairdisplay': "'Playfair Display', serif",
+  'lato': "'Lato', sans-serif",
+  'open sans': "'Open Sans', sans-serif",
+  'opensans': "'Open Sans', sans-serif",
+  'poppins': "'Poppins', sans-serif",
+  'roboto': "'Roboto', sans-serif",
+  'raleway': "'Raleway', sans-serif",
+  'ubuntu': "'Ubuntu', sans-serif",
+  'source sans pro': "'Source Sans Pro', sans-serif",
+  'sourcesanspro': "'Source Sans Pro', sans-serif"
+};
+
+// Get actual font-family string for inline styles
+// Note: Inline styles are required because Tailwind JIT cannot process dynamic class names
+export const getFontFamilyString = (fontName: string): string => {
+  const normalizedName = fontName.toLowerCase().replace(/\s+/g, '');
+  return FONT_FAMILY_MAP[normalizedName] || FONT_FAMILY_MAP[fontName.toLowerCase()] || "'Inter', sans-serif";
+};
+
+// Helper functions for specific font types from FontOptions
+export const getHeaderFontFamily = (fontOptions: FontOptions): string => {
+  return getFontFamilyString(fontOptions.headerFont);
+};
+
+export const getSubheaderFontFamily = (fontOptions: FontOptions): string => {
+  return getFontFamilyString(fontOptions.subheaderFont);
+};
+
+export const getSectionHeaderFontFamily = (fontOptions: FontOptions): string => {
+  return getFontFamilyString(fontOptions.sectionHeaderFont);
+};
+
+export const getBodyFontFamily = (fontOptions: FontOptions): string => {
+  return getFontFamilyString(fontOptions.bodyFont);
+};

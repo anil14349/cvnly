@@ -4,7 +4,7 @@ import { HEADER_FONTS, BODY_FONTS } from '../utils/fontUtils';
 
 const defaultFontOptions: FontOptions = {
   // Header font settings
-  headerFont: 'inter',
+  headerFont: 'Inter',
   headerSize: 'text-2xl',
   headerWeight: 'font-normal',
   headerLineHeight: 'leading-tight',
@@ -15,7 +15,7 @@ const defaultFontOptions: FontOptions = {
   headerUnderline: false,
 
   // Subheader font settings
-  subheaderFont: 'inter',
+  subheaderFont: 'Inter',
   subheaderSize: 'text-sm',
   subheaderWeight: 'font-normal',
   subheaderLineHeight: 'leading-snug',
@@ -25,7 +25,7 @@ const defaultFontOptions: FontOptions = {
   subheaderUnderline: false,
 
   // Section header font settings
-  sectionHeaderFont: 'inter',
+  sectionHeaderFont: 'Inter',
   sectionHeaderSize: 'text-xl',
   sectionHeaderWeight: 'font-normal',
   sectionHeaderLineHeight: 'leading-tight',
@@ -35,7 +35,7 @@ const defaultFontOptions: FontOptions = {
   sectionHeaderUnderline: false,
 
   // Body font settings
-  bodyFont: 'inter',
+  bodyFont: 'Inter',
   bodySize: 'text-sm',
   bodyWeight: 'font-normal',
   bodyLineHeight: 'leading-tight',
@@ -94,30 +94,9 @@ export const useFontOptions = (resumeRef: RefObject<HTMLDivElement>) => {
       const resumeContainer = resumeRef.current;
       if (!resumeContainer) return newOptions;
 
-      // Handle font family options
-      if (option === 'headerFont') {
-        const headerFontClass = HEADER_FONTS[(value as string).toLowerCase().replace(/\s+/g, '') as keyof typeof HEADER_FONTS] || HEADER_FONTS.inter;
-        resumeContainer.classList.remove(...Object.values(HEADER_FONTS));
-        resumeContainer.classList.add(headerFontClass);
-      }
-
-      if (option === 'subheaderFont') {
-        const subheaderFontClass = HEADER_FONTS[(value as string).toLowerCase().replace(/\s+/g, '') as keyof typeof HEADER_FONTS] || HEADER_FONTS.inter;
-        resumeContainer.classList.remove(...Object.values(HEADER_FONTS));
-        resumeContainer.classList.add(subheaderFontClass);
-      }
-
-      if (option === 'sectionHeaderFont') {
-        const sectionHeaderFontClass = HEADER_FONTS[(value as string).toLowerCase().replace(/\s+/g, '') as keyof typeof HEADER_FONTS] || HEADER_FONTS.inter;
-        resumeContainer.classList.remove(...Object.values(HEADER_FONTS));
-        resumeContainer.classList.add(sectionHeaderFontClass);
-      }
-
-      if (option === 'bodyFont') {
-        const bodyFontClass = BODY_FONTS[(value as string).toLowerCase().replace(/\s+/g, '') as keyof typeof BODY_FONTS] || BODY_FONTS.inter;
-        resumeContainer.classList.remove(...Object.values(BODY_FONTS));
-        resumeContainer.classList.add(bodyFontClass);
-      }
+      // Font classes are applied directly in components via className
+      // No need to manipulate classList here as it causes conflicts
+      // Components like ResumeHeaderName.tsx already apply font-header-{font} dynamically
 
       return newOptions;
     });

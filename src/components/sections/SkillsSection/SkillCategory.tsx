@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Skill } from '../../../types/skill';
 import { FontOptions } from '../../../types/common';
 import { CategoryHeader, SkillList, NewSkillInput } from './SkillCategoryParts';
-import { getFontClassNames } from '../../../utils/fontUtils';
+import { getFontClassNames, getSubheaderFontFamily, getBodyFontFamily } from '../../../utils/fontUtils';
 import {
     CLASSIC_CATEGORY_CONTAINER_CLASS,
     CLASSIC_CATEGORY_INPUT_CLASS,
@@ -69,8 +69,8 @@ const SkillCategory: React.FC<Props> = ({
 
     if (skillLayout === 'classic') {
         // Compose the display value
-        const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${addDarkModeVariant(fontOptions.subheaderColor)} ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing} font-header-${fontOptions.subheaderFont?.toLowerCase?.()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
-        const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
+        const subheaderClasses = `${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${addDarkModeVariant(fontOptions.subheaderColor)} ${fontOptions.subheaderLineHeight} ${fontOptions.subheaderLetterSpacing} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`;
+        const bodyClasses = `${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} ${fontOptions.bodyLineHeight} ${fontOptions.bodyLetterSpacing} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''}`;
         return (
             <li className={CLASSIC_CATEGORY_CONTAINER_CLASS}>
                 <input
@@ -80,7 +80,7 @@ const SkillCategory: React.FC<Props> = ({
                         updateSkill(category.id, { category: e.target.value });
                     }}
                     className={`${CLASSIC_CATEGORY_INPUT_CLASS} ${subheaderClasses}`}
-                    style={{ minWidth: 40, width: `${category.category.length}ch`, maxWidth: '100%' }}
+                    style={{ minWidth: 40, width: `${category.category.length}ch`, maxWidth: '100%', fontFamily: getSubheaderFontFamily(fontOptions) }}
                 />
                 <span className={CLASSIC_CATEGORY_SEPARATOR_CLASS}>:</span>
                 <input
@@ -118,10 +118,10 @@ const SkillCategory: React.FC<Props> = ({
                                 type="text"
                                 value={item}
                                 onChange={(e) => handleEditSkill(idx, e.target.value)}
-                                className={`px-3 py-1 rounded-full border bg-gray-100 dark:bg-gray-700 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} font-body-${fontOptions.bodyFont?.toLowerCase?.()} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+                                className={`px-3 py-1 rounded-full border bg-gray-100 dark:bg-gray-700 ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} ${fontOptions.bodyItalic ? 'italic' : ''} ${fontOptions.bodyUnderline ? 'underline' : ''} focus:outline-none focus:ring-2 focus:ring-blue-500`}
                                     style={{
                                         borderColor: 'var(--line-color, #d1d5db)',
-                                        fontFamily: fontOptions.bodyFont,
+                                        fontFamily: getBodyFontFamily(fontOptions),
                                         lineHeight: fontOptions.bodyLineHeight,
                                         letterSpacing: fontOptions.bodyLetterSpacing,
                                         minWidth: `${Math.max(item.length * 0.6, 3)}rem`,
@@ -147,10 +147,10 @@ const SkillCategory: React.FC<Props> = ({
                                 onChange={(e) => setNewSkill(e.target.value)}
                                 onKeyPress={(e) => e.key === 'Enter' && handleAddSkill()}
                                 placeholder="Add new skill..."
-                                className={`px-3 py-1 rounded-full border border-dashed bg-transparent ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} font-body-${fontOptions.bodyFont?.toLowerCase?.()} focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500`}
+                                className={`px-3 py-1 rounded-full border border-dashed bg-transparent ${fontOptions.bodySize} ${fontOptions.bodyWeight} ${addDarkModeVariant(fontOptions.bodyColor)} focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 dark:placeholder:text-gray-500`}
                                 style={{
                                     borderColor: 'var(--line-color, #d1d5db)',
-                                    fontFamily: fontOptions.bodyFont,
+                                    fontFamily: getBodyFontFamily(fontOptions),
                                     lineHeight: fontOptions.bodyLineHeight,
                                     letterSpacing: fontOptions.bodyLetterSpacing,
                                 }}

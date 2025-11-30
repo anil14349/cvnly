@@ -1,7 +1,7 @@
 import { Skill } from "../../../types/skill";
 import { X } from "lucide-react";
 import { FontOptions } from "../../../types/common";
-import { getSubheaderFontLineStyles } from "../../../utils/fontUtils";
+import { getSubheaderFontLineStyles, getSubheaderFontFamily } from "../../../utils/fontUtils";
 import {
     CATEGORY_HEADER_CONTAINER_CLASS,
     CATEGORY_HEADER_INPUT_CLASS,
@@ -27,10 +27,10 @@ export const CategoryHeader = ({
             type="text"
             value={category.category}
             onChange={onChange}
-            className={`${CATEGORY_HEADER_INPUT_CLASS} ${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} font-header-${fontOptions.subheaderFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
+            className={`${CATEGORY_HEADER_INPUT_CLASS} ${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${fontOptions.subheaderColor} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
             style={{
                 ...getSubheaderFontLineStyles(fontOptions),
-                fontFamily: `'${fontOptions.subheaderFont}', sans-serif`
+                fontFamily: getSubheaderFontFamily(fontOptions)
             }}
             placeholder={CATEGORY_TITLE_PLACEHOLDER}
             aria-label={ARIA_LABELS.categoryTitle}

@@ -1,38 +1,58 @@
-# Documentation
+# CVNLY Documentation
 
-This directory contains technical documentation and session logs for the CVnly project.
+This directory contains all technical documentation and session logs for the CVNLY project.
 
-## 📚 Technical Documentation
+> **📑 Quick Navigation:** See **[INDEX.md](INDEX.md)** for a complete, organized list of all documentation.
+
+## 📚 Quick Start Guides
+
+- **[QUICKSTART.md](QUICKSTART.md)** - Get up and running quickly
+- **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Quick reference for common tasks
+
+## 🏗️ Architecture & Implementation
 
 - **[CODE_ARCHITECTURE.md](CODE_ARCHITECTURE.md)** - Project structure, patterns, and design decisions
 - **[ARCHITECTURE_DIAGRAM.md](ARCHITECTURE_DIAGRAM.md)** - Visual representation of system architecture
-- **[PAYMENT_INTEGRATION.md](PAYMENT_INTEGRATION.md)** - Payment system implementation with Stripe/Supabase
-- **[DATABASE_SETUP.md](DATABASE_SETUP.md)** - Supabase database configuration and schema
+- **[IMPLEMENTATION_SUMMARY.md](IMPLEMENTATION_SUMMARY.md)** - Technical implementation overview
+- **[FLOATING_UI_IMPLEMENTATION.md](FLOATING_UI_IMPLEMENTATION.md)** - Floating widget system details
 
-## 🔧 Session Logs
+## ✨ Features & Setup
 
-The `session-logs/` directory contains detailed logs of development sessions, including:
+- **[FEATURES_SHOWCASE.md](FEATURES_SHOWCASE.md)** - Complete feature walkthrough
+- **[DATABASE_SETUP.md](DATABASE_SETUP.md)** - Supabase database configuration
+- **[PAYMENT_INTEGRATION.md](PAYMENT_INTEGRATION.md)** - Stripe payment integration
 
-### Bug Fixes
-- Widget alignment and overlap fixes
-- Section line consistency fixes
-- Spacing and layout adjustments
-- Professional appearance improvements
+## 📖 Session Logs
 
-### Feature Implementations
-- Template system with 6 professional layouts
-- Complete UX transformation
-- Widget compacting and optimization
+The `session-logs/` directory contains detailed logs of development sessions documenting the evolution of the project:
+
+### Major Implementations
+- Complete UX transformation with floating widget system
+- Professional template system (6 layouts)
 - Code segregation and refactoring
 
-**Note:** Session logs are kept for historical reference and troubleshooting. They document the evolution of the project and specific technical decisions made during development.
+### Bug Fixes & Improvements
+- Widget alignment, overlap, and compacting
+- Section line consistency and rendering
+- Spacing, layout, and professional appearance
 
-## 📖 Main Documentation
+**Note:** Session logs are kept for historical reference and troubleshooting.
 
-For user-facing documentation, see the root directory:
-- [README.md](../README.md) - Main project overview
-- [QUICKSTART.md](../QUICKSTART.md) - Setup and installation guide
-- [FEATURES_SHOWCASE.md](../FEATURES_SHOWCASE.md) - Complete feature walkthrough
-- [IMPLEMENTATION_SUMMARY.md](../IMPLEMENTATION_SUMMARY.md) - Technical implementation details
-- [QUICK_REFERENCE.md](../QUICK_REFERENCE.md) - Quick reference guide
+## 🗂️ Documentation Organization
+
+All documentation is now organized within the `docs/` directory:
+
+```
+docs/
+├── INDEX.md (Complete navigation)
+├── README.md (This file)
+├── Quick Start & Reference
+├── Architecture & Code
+├── Features & Setup
+└── session-logs/ (Development history)
+```
+
+## 📌 Main Project README
+
+For the main project overview, see [README.md](../README.md) in the root directory.
 

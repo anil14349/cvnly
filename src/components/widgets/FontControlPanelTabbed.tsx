@@ -36,24 +36,30 @@ const FontControlPanelTabbed: React.FC<FontControlPanelTabbedProps> = ({
     options: readonly string[],
     label: string,
     previewText?: string
-  ) => (
-    <div className="mb-3">
-      <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
-        {label}
-      </label>
-      <select
-        value={(fontOptions?.[key] as string) || options[0]}
-        onChange={(e) => updateFontOption(key, e.target.value)}
-        className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all"
-      >
-        {options.map((option) => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </select>
-    </div>
-  );
+  ) => {
+    const currentValue = (fontOptions?.[key] as string) || options[0];
+    // Find matching option (case-insensitive) or use current value
+    const matchedValue = options.find(opt => opt.toLowerCase() === currentValue.toLowerCase()) || currentValue;
+    
+    return (
+      <div className="mb-3">
+        <label className="block text-xs font-semibold text-gray-700 dark:text-gray-300 mb-2">
+          {label}
+        </label>
+        <select
+          value={matchedValue}
+          onChange={(e) => updateFontOption(key, e.target.value)}
+          className="w-full px-3 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white transition-all"
+        >
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
 
   const renderLayoutTab = () => (
     <div className="space-y-5">

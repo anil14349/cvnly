@@ -3,7 +3,7 @@ import { X, Plus } from "lucide-react";
 import { Skill } from "../../../types/skill";
 import { FontOptions } from "../../../types/common";
 import FormattedText from "../../common/FormattedText";
-import { getSubheaderFontLineStyles } from "../../../utils/fontUtils";
+import { getSubheaderFontLineStyles, getSubheaderFontFamily, getBodyFontFamily } from "../../../utils/fontUtils";
 import {
   FORMATTED_TEXT_CLASS,
   CATEGORY_HEADER_CONTAINER_CLASS,
@@ -55,10 +55,10 @@ export const CategoryHeader = ({
       type="text"
       value={category.category}
       onChange={onChange}
-      className={`${CATEGORY_HEADER_INPUT_CLASS} ${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${addDarkModeVariant(fontOptions.subheaderColor)} font-header-${fontOptions.subheaderFont.toLowerCase()} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
+      className={`${CATEGORY_HEADER_INPUT_CLASS} ${fontOptions.subheaderSize} ${fontOptions.subheaderWeight} ${addDarkModeVariant(fontOptions.subheaderColor)} ${fontOptions.subheaderItalic ? 'italic' : ''} ${fontOptions.subheaderUnderline ? 'underline' : ''}`}
       style={{
         ...getSubheaderFontLineStyles(fontOptions),
-        fontFamily: `'${fontOptions.subheaderFont}', sans-serif`
+        fontFamily: getSubheaderFontFamily(fontOptions)
       }}
       placeholder={CATEGORY_TITLE_PLACEHOLDER}
       aria-label={ARIA_LABELS.categoryTitle}
@@ -92,7 +92,7 @@ export const SkillList = ({
         <span
           className={`${SKILL_BULLET_CLASS} skill-bullet`}
           style={{
-            fontFamily: fontOptions.bodyFont,
+            fontFamily: getBodyFontFamily(fontOptions),
             fontSize: fontOptions.bodySize,
             lineHeight: fontOptions.bodyLineHeight,
             fontWeight: fontOptions.bodyWeight,

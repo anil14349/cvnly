@@ -1,6 +1,6 @@
 import React from "react";
 import { FontOptions } from "../../types/common";
-import { getFontWeightValue } from "../../utils/fontUtils";
+import { getFontFamilyString } from "../../utils/fontUtils";
 
 // Add dark mode variant to color class
 const addDarkModeVariant = (colorClass: string): string => {
@@ -40,18 +40,19 @@ const ResumeHeaderName: React.FC<ResumeHeaderNameProps> = ({ fontOptions, name, 
         <h1
             className={`
                 ${fontOptions.headerSize} 
+                ${fontOptions.headerWeight}
                 ${addDarkModeVariant(fontOptions.headerColor)} 
                 ${fontOptions.headerLineHeight} 
                 ${fontOptions.headerLetterSpacing} 
                 ${getTextAlignment()}
                 mb-1 whitespace-pre-wrap 
-                font-header-${fontOptions.headerFont.toLowerCase()} 
                 ${fontOptions.headerItalic ? 'italic' : ''} 
                 ${fontOptions.headerUnderline ? 'underline' : ''}
             `}
+            // eslint-disable-next-line react/forbid-component-props
+            style={{ fontFamily: getFontFamilyString(fontOptions.headerFont) }} // Inline style required: Tailwind JIT can't process dynamic class names
             contentEditable
             suppressContentEditableWarning
-            style={{ fontWeight: getFontWeightValue(fontOptions.headerWeight) }}
             onBlur={onUpdate}
         >
             {name}

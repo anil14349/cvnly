@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FontOptions } from "../../types/common";
-import { getFontWeightValue } from "../../utils/fontUtils";
+import { getSubheaderFontFamily } from "../../utils/fontUtils";
 
 // Add dark mode variant to color class
 const addDarkModeVariant = (colorClass: string): string => {
@@ -60,17 +60,18 @@ const ResumeHeaderTitle: React.FC<ResumeHeaderTitleProps> = ({ fontOptions, titl
                     <h2
                         className={`
                             ${fontOptions.subheaderSize}
+                            ${fontOptions.subheaderWeight}
                             ${addDarkModeVariant(fontOptions.subheaderColor)}
                             ${fontOptions.subheaderLineHeight}
                             ${fontOptions.subheaderLetterSpacing}
                             whitespace-pre-wrap mb-1
-                            font-header-${fontOptions.subheaderFont.toLowerCase()}
                             ${fontOptions.subheaderItalic ? 'italic' : ''}
                             ${fontOptions.subheaderUnderline ? 'underline' : ''}
                         `}
+                        // eslint-disable-next-line react/forbid-component-props
+                        style={{ fontFamily: getSubheaderFontFamily(fontOptions) }}
                         contentEditable
                         suppressContentEditableWarning
-                        style={{ fontWeight: getFontWeightValue(fontOptions.subheaderWeight) }}
                         onBlur={onUpdate}
                     >
                         {title}

@@ -4,7 +4,8 @@ import SectionControls from "../../common/SectionControls";
 import SectionHeaderLine from "../../common/SectionHeaderLine";
 import { X } from "lucide-react";
 import FormattedText from "../../common/FormattedText";
-import AddSectionButton from "../../common/AddSectionButton"; 
+import AddSectionButton from "../../common/AddSectionButton";
+import { getFontFamilyString, getBodyFontFamily } from "../../../utils/fontUtils"; 
 import {
   EDUCATION_CONTAINER_CLASS,
   EDUCATION_LIST_CLASS,
@@ -97,9 +98,11 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
                     fontOptions.subheaderWeight
                   } ${
                     fontOptions.subheaderColor
-                  } font-header-${fontOptions.headerFont.toLowerCase()} ${
+                  } ${
                     fontOptions.subheaderItalic ? "italic" : ""
                   } ${fontOptions.subheaderUnderline ? "underline" : ""}`}
+                  // eslint-disable-next-line react/forbid-component-props
+                  style={{ fontFamily: getFontFamilyString(fontOptions.headerFont) }} // Inline style required: Tailwind JIT can't process dynamic class names
                 >
                   <FormattedText
                     text={edu.school}
@@ -116,9 +119,11 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
                     fontOptions.bodyWeight
                   } ${
                     fontOptions.bodyColor
-                  } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                  } ${
                     fontOptions.bodyItalic ? "italic" : ""
                   } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                  // eslint-disable-next-line react/forbid-component-props
+                  style={{ fontFamily: getBodyFontFamily(fontOptions) }}
                 >
                   <FormattedText
                     text={edu.degree}
@@ -148,9 +153,11 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
               <div
                 className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${
                   fontOptions.bodyColor
-                } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                } ${
                   fontOptions.bodyItalic ? "italic" : ""
                 } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                // eslint-disable-next-line react/forbid-component-props
+                style={{ fontFamily: getBodyFontFamily(fontOptions) }}
               >
                 <FormattedText
                   text={edu.startDate + DATE_SEPARATOR}
@@ -179,9 +186,11 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
               <div
                 className={`${fontOptions.bodySize} ${fontOptions.bodyWeight} ${
                   fontOptions.bodyColor
-                } font-body-${fontOptions.bodyFont.toLowerCase()} ${
+                } ${
                   fontOptions.bodyItalic ? "italic" : ""
                 } ${fontOptions.bodyUnderline ? "underline" : ""}`}
+                // eslint-disable-next-line react/forbid-component-props
+                style={{ fontFamily: getBodyFontFamily(fontOptions) }}
               >
                 {GPA_PREFIX}
                 <FormattedText

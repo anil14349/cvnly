@@ -49,8 +49,8 @@ const ResumeHeaderName: React.FC<ResumeHeaderNameProps> = ({ fontOptions, name, 
                 ${fontOptions.headerItalic ? 'italic' : ''} 
                 ${fontOptions.headerUnderline ? 'underline' : ''}
             `}
-            // eslint-disable-next-line react/forbid-component-props
-            style={{ fontFamily: getFontFamilyString(fontOptions.headerFont) }} // Inline style required: Tailwind JIT can't process dynamic class names
+            /* @ts-ignore - Inline style required: Tailwind JIT can't process dynamic font class names */
+            style={{ fontFamily: getFontFamilyString(fontOptions.headerFont) }}
             contentEditable
             suppressContentEditableWarning
             onBlur={onUpdate}

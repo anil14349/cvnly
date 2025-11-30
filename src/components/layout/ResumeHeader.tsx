@@ -3,7 +3,6 @@ import { IconType, FontOptions, SocialLink } from "../../types/common";
 import ResumeHeaderName from "./ResumeHeaderName";
 import ResumeHeaderTitle from "./ResumeHeaderTitle";
 import ResumeSocialLinks from "./ResumeSocialLinks";
-import ResumeHeaderLine from "./ResumeHeaderLine";
 
 interface ResumeHeaderProps {
   resumeData: {

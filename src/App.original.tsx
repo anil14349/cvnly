@@ -33,7 +33,6 @@ import ATSScoreWidget from './components/widgets/ATSScoreWidget';
 // Import utils
 import { HEADER_FONTS, BODY_FONTS } from './utils/fontUtils';
 import LineBreakTool from './components/widgets/LineBreakTool';
-import A4Ruler from './components/layout/A4Ruler';
 
 // Initialize default font options
 const defaultFontOptions: FontOptions = {
@@ -627,7 +626,6 @@ function App() {
           {/* Resume content with A4 ruler and page markers */}
           <div className="col-span-8">
             <div style={{ display: 'flex', alignItems: 'flex-start', width: '100%' }}>
-              <A4Ruler heightPx={1123} unit="cm" showLabels={true} style={{ marginRight: 0 }} contentHeightPx={resumeContentHeight} />
               <div style={{ position: 'relative', flex: 1 }}>
                 <div className={`bg-white rounded-lg shadow-lg p-8`} ref={resumeContentRef} style={{ position: 'relative' }}>
                   {/* Horizontal page break lines over resume content */}
@@ -792,13 +790,7 @@ function App() {
                 fontOptions={fontOptions}
                 onFontOptionChange={updateFontOption}
               />
-              <ResumeSectionsWidget
-                sections={sections}
-                onSectionsChange={setSections}
-                socialLinks={socialLinks}
-                addSocialLink={addSocialLink}
-                resumeHeaderTitle={resumeData.title}
-              />
+              <ResumeSectionsWidget />
             </div>
           )}
         </div>

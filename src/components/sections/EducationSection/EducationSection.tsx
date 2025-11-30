@@ -101,8 +101,6 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
                   } ${
                     fontOptions.subheaderItalic ? "italic" : ""
                   } ${fontOptions.subheaderUnderline ? "underline" : ""}`}
-                  // eslint-disable-next-line react/forbid-component-props
-                  style={{ fontFamily: getFontFamilyString(fontOptions.headerFont) }} // Inline style required: Tailwind JIT can't process dynamic class names
                 >
                   <FormattedText
                     text={edu.school}
@@ -112,6 +110,7 @@ const EducationSection: React.FC<EducationSectionProps & { previewMode?: boolean
                     }
                     isEditing={true}
                     className={INLINE_BLOCK_CLASS}
+                    style={{ fontFamily: getFontFamilyString(fontOptions.headerFont) }}
                   />
                 </h3>
                 <div

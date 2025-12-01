@@ -211,52 +211,21 @@
 
 /* Section header line styling is now handled by the SectionHeaderLine component */
 
-/* Custom styles for bullet points and dates */
+/* Clean bullet point styling */
 .list-disc li::marker {
-  color: var(--line-color);
+  color: var(--text-secondary);
 }
 
-/* Style for dates in experience and education sections */
+/* Date styling - consistent secondary text color */
 .experience-period, .education-date {
-  color: var(--line-color) !important;
+  color: var(--text-secondary) !important;
 }
 
-/* Direct targeting of education dates */
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:last-child,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:last-child *,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:last-child [contenteditable],
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:last-child .inline-block,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:last-child span,
-.education-section div[class*='EDUCATION_ITEM_CLASS'] div[class*='EDUCATION_CONTENT_CLASS'] > div:nth-child(2),
-.education-section div[class*='EDUCATION_ITEM_CLASS'] div[class*='EDUCATION_CONTENT_CLASS'] > div:nth-child(2) *,
-.education-section div[class*='EDUCATION_CONTENT_CLASS'] div:nth-child(2),
-.education-section div[class*='EDUCATION_CONTENT_CLASS'] div:nth-child(2) * {
-  color: var(--line-color) !important;
-}
-
-/* Override for education dates */
-.education-section div[contenteditable="true"],
-.education-section div[contenteditable="true"] *,
-.education-section div[contenteditable="true"] span,
-.education-section div[role="textbox"],
-.education-section div[role="textbox"] span,
-.education-section div[aria-multiline="true"],
-.education-section div[aria-label="Editable text"],
-.education-section [class*='EDUCATION_CONTENT_CLASS'] div[contenteditable="true"],
-.education-section [class*='EDUCATION_CONTENT_CLASS'] div[contenteditable="true"] span,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] div[contenteditable="true"] div,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] div[contenteditable="true"] *,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] div[contenteditable="true"] [dangerouslySetInnerHTML],
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:nth-child(2) div,
-.education-section [class*='EDUCATION_CONTENT_CLASS'] > div:nth-child(2) div span {
-  color: var(--line-color) !important;
-}
-
-/* Apply section line color to all bullet lists */
+/* Bullet lists - use secondary text color */
 ul.achievement-list li::marker,
 ul.education-details-list li::marker,
 ul.project-responsibilities-list li::marker,
 .skills-section ul li::marker,
 .skills-section .skill-bullet {
-  color: var(--line-color) !important;
+  color: var(--text-secondary) !important;
 }

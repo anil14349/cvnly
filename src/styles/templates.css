@@ -3,14 +3,27 @@
 /* Minimal Template */
 .template-minimal {
   --line-width: 100%;
+  --line-color: #2d3748;
+  --text-primary: #1a202c;
+  --text-secondary: #4a5568;
+  --bg-secondary: transparent;
 }
-
-/* Handled by component */
 
 .template-minimal .skill-category {
   background: none;
   padding: 0;
   box-shadow: none;
+}
+
+.template-minimal .section-header {
+  border-bottom: 2px solid #2d3748;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.template-minimal .section-header h2 {
+  color: #1a202c;
+  font-weight: 600;
 }
 
 /* Classic Template */

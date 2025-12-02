@@ -22,16 +22,41 @@ const usePdfGeneration = () => {
   const [isGeneratingPDF, setIsGeneratingPDF] = useState(false);
 
   const generatePdf = useCallback(async (
-    element: HTMLElement | null, 
+    element: HTMLElement | null,
     options: PdfGenerationOptions = {}
   ) => {
     if (!element) return;
-    
+
     setIsGeneratingPDF(true);
-    
+
     try {
       // Clone the element to avoid modifying the original
       const clonedElement = element.cloneNode(true) as HTMLElement;
+
+      // Convert contenteditable elements to regular text to preserve content
+      const editableElements = clonedElement.querySelectorAll('[contenteditable]');
+      editableElements.forEach(el => {
+        const element = el as HTMLElement;
+        const textContent = element.textContent || element.innerText;
+
+        if (textContent) {
+          // Create a new element to replace the contenteditable one
+          const replacement = document.createElement(el.tagName);
+          replacement.innerHTML = element.innerHTML;
+          replacement.className = element.className;
+          replacement.style.cssText = element.style.cssText;
+
+          // Copy over attributes except contenteditable
+          Array.from(element.attributes).forEach(attr => {
+            if (attr.name !== 'contenteditable') {
+              replacement.setAttribute(attr.name, attr.value);
+            }
+          });
+
+          // Replace the element
+          el.parentNode?.replaceChild(replacement, el);
+        }
+      });
       
       // Apply font options to the cloned element
       if (options.fontOptions) {

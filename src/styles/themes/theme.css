@@ -1,16 +1,16 @@
 /* Global Theme Variables */
 :root {
   /* Colors */
-  --color-primary: #4299e1;
-  --color-secondary: #718096;
+  --color-primary: #2d3748;
+  --color-secondary: #4a5568;
   --color-success: #48bb78;
   --color-danger: #f56565;
   --color-warning: #ed8936;
-  --color-info: #4299e1;
+  --color-info: #2d3748;
 
   /* Backgrounds */
   --bg-primary: #ffffff;
-  --bg-secondary: #f7fafc;
+  --bg-secondary: #f7f9fc;
   --bg-tertiary: #edf2f7;
   --bg-hover: #e2e8f0;
 
@@ -22,7 +22,7 @@
   /* Borders */
   --border-color: #e2e8f0;
   --border-hover: #cbd5e0;
-  --line-color: var(--color-primary);
+  --line-color: #4a5568;
 
   /* Shadows */
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);

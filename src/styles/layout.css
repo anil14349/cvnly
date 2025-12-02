@@ -4,9 +4,25 @@
   max-width: 8.5in;
   margin: 0 auto;
   padding: 1.5rem;
-  background-color: var(--bg-primary);
+  background-color: #ffffff;
+  color: #111827;
   box-shadow: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px 0 rgba(0,0,0,0.06);
   border-radius: 0.5rem;
+}
+
+/* Resume stays light themed always */
+.resume-container-enhanced {
+  background-color: #ffffff;
+  color: #111827;
+}
+
+.resume-container-enhanced.light {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #4b5563;
+  --border-color: #e5e7eb;
+  --line-color: #4b5563;
 }
 
 /* Section Styles */

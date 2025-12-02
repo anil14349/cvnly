@@ -68,10 +68,10 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
   return (
     <div className="col-span-8">
       <div style={{ width: '100%' }}>
-        <div 
-          className="resume-container-enhanced resume-print-ready" 
-          ref={resumeContentRef} 
-          style={{ position: 'relative' }}
+        <div
+          className="resume-container-enhanced resume-print-ready light"
+          ref={resumeContentRef}
+          style={{ position: 'relative', backgroundColor: '#ffffff', color: '#111827' }}
         >
           <TemplateWrapper
               template={selectedTemplate}

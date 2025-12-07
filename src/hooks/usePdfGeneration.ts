@@ -7,7 +7,7 @@ interface PdfGenerationOptions {
   filename?: string;
   margin?: number | number[];
   image?: { type: string; quality: number };
-  html2canvas?: { 
+  html2canvas?: {
     scale: number;
     useCORS: boolean;
     letterRendering: boolean;
@@ -30,79 +30,53 @@ const usePdfGeneration = () => {
     setIsGeneratingPDF(true);
 
     try {
-      // Clone the element to avoid modifying the original
+      // Create a temporary container for rendering
+      const container = document.createElement('div');
+      container.style.position = 'fixed';
+      container.style.left = '0';
+      container.style.top = '0';
+      container.style.width = '210mm';
+      container.style.height = 'auto';
+      container.style.backgroundColor = '#ffffff';
+      container.style.zIndex = '-9999';
+      container.style.pointerEvents = 'none';
+      container.style.visibility = 'visible';
+      container.style.opacity = '1';
+
+      // Clone the original element
       const clonedElement = element.cloneNode(true) as HTMLElement;
 
-      // Convert contenteditable elements to regular text to preserve content
+      // Remove contenteditable attribute to prevent editing in PDF
       const editableElements = clonedElement.querySelectorAll('[contenteditable]');
       editableElements.forEach(el => {
-        const element = el as HTMLElement;
-        const textContent = element.textContent || element.innerText;
-
-        if (textContent) {
-          // Create a new element to replace the contenteditable one
-          const replacement = document.createElement(el.tagName);
-          replacement.innerHTML = element.innerHTML;
-          replacement.className = element.className;
-          replacement.style.cssText = element.style.cssText;
-
-          // Copy over attributes except contenteditable
-          Array.from(element.attributes).forEach(attr => {
-            if (attr.name !== 'contenteditable') {
-              replacement.setAttribute(attr.name, attr.value);
-            }
-          });
-
-          // Replace the element
-          el.parentNode?.replaceChild(replacement, el);
-        }
+        el.removeAttribute('contenteditable');
       });
-      
-      // Apply font options to the cloned element
-      if (options.fontOptions) {
-        const { 
-          headerFont, 
-          bodyFont, 
-          fontSize, 
-          lineHeight, 
-          letterSpacing,
-          lineColor 
-        } = options.fontOptions;
-        
-        // Apply CSS variables to cloned element
-        clonedElement.style.setProperty('--header-font', headerFont || 'Inter');
-        clonedElement.style.setProperty('--body-font', bodyFont || 'Inter');
-        clonedElement.style.setProperty('--font-size-body', `${fontSize || 14}px`);
-        clonedElement.style.setProperty('--line-height-normal', `${lineHeight || 1.5}`);
-        clonedElement.style.setProperty('--letter-spacing-normal', `${letterSpacing || 0}em`);
-        clonedElement.style.setProperty('--line-color', lineColor || '#4299e1');
-        
-        // Apply inline styles to ensure they're captured
-        clonedElement.style.fontFamily = bodyFont || 'Inter';
-        clonedElement.style.fontSize = `${fontSize || 14}px`;
-        clonedElement.style.lineHeight = `${lineHeight || 1.5}`;
-        clonedElement.style.letterSpacing = `${letterSpacing || 0}em`;
-        
-        // Apply header font to all headings
-        const headings = clonedElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        headings.forEach(heading => {
-          (heading as HTMLElement).style.fontFamily = headerFont || 'Inter';
-        });
-      }
-      
-      // Add print class to the cloned element
-      clonedElement.classList.add('print-mode');
-      clonedElement.classList.add('resume-print-ready');
-      
-      // Hide all interactive elements (buttons, inputs for adding content)
+
+      // Hide interactive elements
       const hideElements = clonedElement.querySelectorAll(
         'button, .add-button, .delete-button, .edit-button, .print\\:hidden, [data-no-print]'
       );
       hideElements.forEach(el => {
         (el as HTMLElement).style.display = 'none';
       });
-      
-      // Add page break avoidance to important sections
+
+      // Apply font options
+      if (options.fontOptions) {
+        const { headerFont, bodyFont, fontSize, lineHeight, letterSpacing } = options.fontOptions;
+
+        clonedElement.style.fontFamily = bodyFont || 'Inter';
+        clonedElement.style.fontSize = `${fontSize || 14}px`;
+        clonedElement.style.lineHeight = `${lineHeight || 1.5}`;
+        clonedElement.style.letterSpacing = `${letterSpacing || 0}em`;
+
+        // Apply header font to headings
+        const headings = clonedElement.querySelectorAll('h1, h2, h3, h4, h5, h6');
+        headings.forEach(heading => {
+          (heading as HTMLElement).style.fontFamily = headerFont || 'Inter';
+        });
+      }
+
+      // Add page break avoidance
       const avoidBreakElements = clonedElement.querySelectorAll(
         '.experience-item, .education-item, .project-item, .certification-item, .skill-category, h2, h3, h4'
       );
@@ -110,63 +84,48 @@ const usePdfGeneration = () => {
         (el as HTMLElement).style.pageBreakInside = 'avoid';
         (el as HTMLElement).style.breakInside = 'avoid';
       });
-      
-      // Add orphan/widow control to paragraphs and list items
-      const textElements = clonedElement.querySelectorAll('p, li, span');
-      textElements.forEach(el => {
-        (el as HTMLElement).style.orphans = '3';
-        (el as HTMLElement).style.widows = '3';
-      });
-      
-      // Force section headers to keep with their content
-      const sectionHeaders = clonedElement.querySelectorAll('.section-header, [class*="SectionHeader"]');
-      sectionHeaders.forEach(el => {
-        (el as HTMLElement).style.pageBreakAfter = 'avoid';
-        (el as HTMLElement).style.breakAfter = 'avoid';
-      });
-      
-      // Temporarily append to body (hidden) for rendering
-      clonedElement.style.position = 'absolute';
-      clonedElement.style.left = '-9999px';
-      clonedElement.style.top = '0';
-      clonedElement.style.width = '210mm'; // A4 width
+
+      // Set background explicitly
       clonedElement.style.backgroundColor = '#ffffff';
-      document.body.appendChild(clonedElement);
-      
-      // Wait for fonts to load
+      clonedElement.style.color = '#111827';
+
+      // Append to temporary container
+      container.appendChild(clonedElement);
+      document.body.appendChild(container);
+
+      // Wait for fonts and rendering
       await document.fonts.ready;
-      
-      // Small delay to ensure all styles are applied
-      await new Promise(resolve => setTimeout(resolve, 100));
-      
-      // Set default options with improved page break handling
-      const defaultOptions = {
+      await new Promise(resolve => setTimeout(resolve, 300));
+
+      // PDF options
+      const pdfOptions = {
         filename: options.filename || 'resume.pdf',
-        margin: [10, 10, 10, 10], // [top, right, bottom, left] in mm - smaller margins
+        margin: [10, 10, 10, 10],
         image: { type: 'jpeg', quality: 0.98 },
-        html2canvas: { 
-          scale: 2, // Good balance of quality and file size
+        html2canvas: {
+          scale: 2,
           useCORS: true,
+          allowTaint: true,
           letterRendering: true,
           logging: false,
           backgroundColor: '#ffffff',
-          windowWidth: 794, // A4 width in pixels at 96dpi
-          windowHeight: 1123 // A4 height in pixels at 96dpi
+          windowWidth: 794,
+          windowHeight: 1123,
         },
-        jsPDF: { 
-          unit: 'mm', 
-          format: 'a4', 
+        jsPDF: {
+          unit: 'mm',
+          format: 'a4',
           orientation: 'portrait',
           compress: true,
-          hotfixes: ['px_scaling']
+          hotfixes: ['px_scaling'],
         },
-        pagebreak: { 
+        pagebreak: {
           mode: ['avoid-all', 'css', 'legacy'],
           before: '.page-break-before',
           after: '.page-break-after',
           avoid: [
             '.experience-item',
-            '.education-item', 
+            '.education-item',
             '.project-item',
             '.certification-item',
             '.skill-category',
@@ -175,20 +134,12 @@ const usePdfGeneration = () => {
           ]
         }
       };
-      
-      // Merge options
-      const mergedOptions = { 
-        ...defaultOptions, 
-        ...options,
-        html2canvas: { ...defaultOptions.html2canvas, ...options.html2canvas },
-        pagebreak: { ...defaultOptions.pagebreak, ...options.pagebreak }
-      };
-      
-      // Generate the PDF
-      await html2pdf().set(mergedOptions).from(clonedElement).save();
-      
-      // Remove the cloned element
-      document.body.removeChild(clonedElement);
+
+      // Generate PDF
+      await html2pdf().set(pdfOptions).from(clonedElement).save();
+
+      // Cleanup
+      document.body.removeChild(container);
     } catch (error) {
       console.error('Error generating PDF:', error);
     } finally {

@@ -66,13 +66,12 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
   }, [sections, skills, experiences, educations, projects, certifications, socialLinks, resumeData, fontOptions]);
 
   return (
-    <div className="col-span-8">
-      <div style={{ width: '100%' }}>
-        <div
-          className="resume-container-enhanced resume-print-ready light"
-          ref={resumeContentRef}
-          style={{ position: 'relative', backgroundColor: '#ffffff', color: '#111827' }}
-        >
+    <div style={{ width: '100%' }}>
+      <div
+        className="resume-container-enhanced resume-print-ready light"
+        ref={resumeContentRef}
+        style={{ position: 'relative', backgroundColor: '#ffffff', color: '#111827' }}
+      >
           <TemplateWrapper
               template={selectedTemplate}
               resumeData={resumeData}
@@ -210,7 +209,6 @@ const ResumeContainer = ({ previewMode, onResumeContentRefChange }: ResumeContai
                 }
               }}
             />
-        </div>
       </div>
     </div>
   );
